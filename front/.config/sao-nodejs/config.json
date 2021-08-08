@@ -1,0 +1,14 @@
+{
+	"generators": {
+		"08193e14": {
+			"type": "local",
+			"path": "/myapp/.npm/_npx/ea7c6e7510ea3309/node_modules/create-nuxt-app/lib",
+			"hash": "08193e14"
+		}
+	},
+	"answers": {
+		"08193e14__npm__": {
+			"gitUsername": "toyo-oh"
+		}
+	}
+}
