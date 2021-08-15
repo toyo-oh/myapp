@@ -2,15 +2,13 @@
   <!-- <v-btn small raised color="primary">New Product</v-btn>
     <v-spacer></v-spacer> -->
   <v-data-table :headers="headers" :items="products">
-    <template v-slot:item.action="{ item }">
-      <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
+    <template v-slot:item.edit="{ item }">
+      <v-icon small class="mr-2" @click="editProduct(item)">mdi-pencil</v-icon>
     </template>
-    <template v-slot:item.action="{ item }">
-      <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+    <template v-slot:item.delete="{ item }">
+      <v-icon small @click="deleteProduct(item)">mdi-delete</v-icon>
     </template>
-    <template v-slot:item.action="{ item }">
-      <v-btn>Created Button</v-btn>
-    </template>
+    <!-- <template v-slot:[`item.delete`]="{ item }"> -->
   </v-data-table>
 </template>
 
@@ -38,8 +36,23 @@ export default {
         this.products = res.data;
       });
     },
-    editProduct() {},
-    deleteProduct() {},
+    editProduct(item) {
+        // console.log(item);
+        // console.log("${item.id}");
+        this.$router.push(`products/${item.id}`)
+    //   this.$axios
+    //     .get(`api/admin/products/${item.id}`)
+    //     .then((res) => {
+    //       this.$router.push(`${res.data.id}`)
+    //     });
+    },
+    deleteProduct(item) {
+      this.$axios
+        .delete(`api/admin/products/${item.id}`)
+        .then((res) => {
+          console.log(res);
+        });
+    },
   },
 };
 </script>
