@@ -1,15 +1,17 @@
 <template>
-  <!-- <v-btn small raised color="primary">New Product</v-btn>
-    <v-spacer></v-spacer> -->
-  <v-data-table :headers="headers" :items="products">
-    <template v-slot:item.edit="{ item }">
-      <v-icon small class="mr-2" @click="editProduct(item)">mdi-pencil</v-icon>
-    </template>
-    <template v-slot:item.delete="{ item }">
-      <v-icon small @click="deleteProduct(item)">mdi-delete</v-icon>
-    </template>
-    <!-- <template v-slot:[`item.delete`]="{ item }"> -->
-  </v-data-table>
+    <div>
+        <v-btn small raised color="primary" @click="newProduct">New Product</v-btn>
+        <v-spacer></v-spacer>
+        <v-data-table :headers="headers" :items="products">
+        <template v-slot:item.edit="{ item }">
+            <v-icon small class="mr-2" @click="editProduct(item)">mdi-pencil</v-icon>
+        </template>
+        <!-- <template v-slot:[`item.delete`]="{ item }"> -->
+        <template v-slot:item.delete="{ item }">
+            <v-icon small @click="deleteProduct(item)">mdi-delete</v-icon>
+        </template>
+        </v-data-table>
+    </div>
 </template>
 
 <script>
@@ -37,14 +39,7 @@ export default {
       });
     },
     editProduct(item) {
-        // console.log(item);
-        // console.log("${item.id}");
         this.$router.push(`products/${item.id}`)
-    //   this.$axios
-    //     .get(`api/admin/products/${item.id}`)
-    //     .then((res) => {
-    //       this.$router.push(`${res.data.id}`)
-    //     });
     },
     deleteProduct(item) {
       this.$axios
@@ -53,6 +48,9 @@ export default {
           console.log(res);
         });
     },
+    newProduct(){
+        this.$router.push(`products/new`)
+    }
   },
 };
 </script>

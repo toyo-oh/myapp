@@ -32,7 +32,7 @@ export default({
                 price: this.price,
                 quantity: this.quantity
             }).then((res)=>{
-                console.log(res)
+              this.$router.push(`.`)
             })
         }
     }

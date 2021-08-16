@@ -3,7 +3,7 @@ class Admin::ProductsController < ApplicationController
     def create
         @product = Product.new(product_params)
         if @product.save
-            render json: @product, status: :created, location: @product
+            render "index", formats: :json
         else
             render json: @product.errors, status: :unprocessable_entity
         end 
@@ -15,12 +15,14 @@ class Admin::ProductsController < ApplicationController
     end
 
     def show
+        @product = Product.find(params[:id])
         render json: @product
     end
 
     def update
+        @product = Product.find(params[:id])
         if @product.update(product_params)
-            render json: @product
+            render "index", formats: :json
         else
             render json: @product.errors, status: :unprocessable_entity
         end
