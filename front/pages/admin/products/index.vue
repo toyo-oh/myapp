@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-btn small raised color="primary" @click="newProduct">New Product</v-btn>
+        <v-btn class="mr-4" color="primary" @click="newProduct">New Product</v-btn>
         <v-spacer></v-spacer>
         <v-data-table :headers="headers" :items="products">
         <template v-slot:item.edit="{ item }">
@@ -45,7 +45,7 @@ export default {
       this.$axios
         .delete(`api/admin/products/${item.id}`)
         .then((res) => {
-          console.log(res);
+            this.getProducts()
         });
     },
     newProduct(){

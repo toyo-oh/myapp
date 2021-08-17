@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_09_071847) do
+ActiveRecord::Schema.define(version: 2021_08_17_131628) do
 
   create_table "products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 2021_08_09_071847) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "password"
     t.string "email"
+    t.boolean "is_admin", default: false
   end
 
 end

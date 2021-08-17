@@ -31,7 +31,7 @@ class Admin::ProductsController < ApplicationController
   def destroy
     @product = Product.find(params[:id])
     if @product.destroy 
-        render json: {message:"The product was successfully deleted."}
+        render "index", formats: :json
     else
         render json: @product.errors, status: :unprocessable_entity
     end   
