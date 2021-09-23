@@ -1618,3 +1618,273 @@ Processing by UsersController#show as HTML
 Completed 200 OK in 27ms (Views: 1.1ms | ActiveRecord: 1.0ms | Allocations: 1275)
 
 
+Started GET "/users/login" for 172.19.0.4 at 2021-09-22 21:43:45 +0900
+  [1m[35m (20.7ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (37.1ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"login"}
+  [1m[36mUser Load (13.7ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = NULL LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:44:in `set_user'
+Completed 404 Not Found in 317ms (ActiveRecord: 49.7ms | Allocations: 2571)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find User with 'id'=login):
+  
+app/controllers/users_controller.rb:44:in `set_user'
+Started GET "/admin/products" for 172.19.0.4 at 2021-09-22 21:43:52 +0900
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mProduct Load (13.8ms)[0m  [1m[34mSELECT `products`.* FROM `products`[0m
+  ↳ app/controllers/admin/products_controller.rb:14:in `index'
+Completed 200 OK in 92ms (Views: 35.8ms | ActiveRecord: 29.9ms | Allocations: 6583)
+
+
+Started POST "/admin/products" for 172.19.0.4 at 2021-09-22 21:44:23 +0900
+Processing by Admin::ProductsController#create as HTML
+  Parameters: {"title"=>"product_a", "description"=>"new product", "price"=>"10", "quantity"=>"100", "product"=>{"title"=>"product_a", "description"=>"new product", "price"=>"10", "quantity"=>"100"}}
+  [1m[35m (2.7ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/admin/products_controller.rb:5:in `create'
+  [1m[36mProduct Create (18.3ms)[0m  [1m[32mINSERT INTO `products` (`title`, `description`, `price`, `quantity`, `created_at`, `updated_at`) VALUES ('product_a', 'new product', 10, 100, '2021-09-22 12:44:23.783380', '2021-09-22 12:44:23.783380')[0m
+  ↳ app/controllers/admin/products_controller.rb:5:in `create'
+  [1m[35m (23.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/admin/products_controller.rb:5:in `create'
+Completed 200 OK in 97ms (Views: 0.6ms | ActiveRecord: 44.2ms | Allocations: 2710)
+
+
+Started GET "/admin/products" for 172.19.0.4 at 2021-09-22 21:44:24 +0900
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mProduct Load (3.1ms)[0m  [1m[34mSELECT `products`.* FROM `products`[0m
+  ↳ app/controllers/admin/products_controller.rb:14:in `index'
+Completed 200 OK in 28ms (Views: 23.5ms | ActiveRecord: 3.1ms | Allocations: 1411)
+
+
+Started GET "/admin/products/11" for 172.19.0.4 at 2021-09-22 21:44:29 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"11"}
+  [1m[36mProduct Load (0.9ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 11 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 15ms (Views: 2.9ms | ActiveRecord: 0.9ms | Allocations: 919)
+
+
+Started PUT "/admin/products/11" for 172.19.0.4 at 2021-09-22 21:44:38 +0900
+Processing by Admin::ProductsController#update as HTML
+  Parameters: {"title"=>"book", "description"=>"new product", "price"=>10, "quantity"=>100, "id"=>"11", "product"=>{"title"=>"book", "description"=>"new product", "price"=>10, "quantity"=>100}}
+  [1m[36mProduct Load (2.3ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 11 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:23:in `update'
+  [1m[35m (2.0ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/admin/products_controller.rb:24:in `update'
+  [1m[36mProduct Update (15.0ms)[0m  [1m[33mUPDATE `products` SET `products`.`title` = 'book', `products`.`updated_at` = '2021-09-22 12:44:38.183225' WHERE `products`.`id` = 11[0m
+  ↳ app/controllers/admin/products_controller.rb:24:in `update'
+  [1m[35m (27.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/admin/products_controller.rb:24:in `update'
+Completed 200 OK in 103ms (Views: 0.2ms | ActiveRecord: 46.9ms | Allocations: 3274)
+
+
+Started GET "/admin/products" for 172.19.0.4 at 2021-09-22 21:44:38 +0900
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mProduct Load (5.4ms)[0m  [1m[34mSELECT `products`.* FROM `products`[0m
+  ↳ app/controllers/admin/products_controller.rb:14:in `index'
+Completed 200 OK in 20ms (Views: 14.7ms | ActiveRecord: 5.4ms | Allocations: 1397)
+
+
+Started GET "/users/login" for 172.19.0.4 at 2021-09-22 21:45:00 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"login"}
+  [1m[36mUser Load (1.6ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = NULL LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:44:in `set_user'
+Completed 404 Not Found in 20ms (ActiveRecord: 1.6ms | Allocations: 688)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find User with 'id'=login):
+  
+app/controllers/users_controller.rb:44:in `set_user'
+Started GET "/admin/products/2" for 172.19.0.4 at 2021-09-22 22:21:22 +0900
+  [1m[35m (7.4ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mProduct Load (3.4ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 2 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 26ms (Views: 4.4ms | ActiveRecord: 3.4ms | Allocations: 786)
+
+
+  [1m[35m (2.0ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (1.1ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (5.3ms)[0m  [1m[34mSELECT GET_LOCK('7864839756650184315', 0)[0m
+  [1m[35m (2.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (13.7ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (2.5ms)[0m  [1m[34mSELECT RELEASE_LOCK('7864839756650184315')[0m
+  [1m[35m (1.2ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Started GET "/admin/products/2" for 172.19.0.4 at 2021-09-23 10:07:55 +0900
+  [1m[35m (18.7ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (18.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mProduct Load (5.4ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 2 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 93ms (Views: 0.8ms | ActiveRecord: 20.7ms | Allocations: 7172)
+
+
+Started GET "/admin/products/2" for 172.19.0.4 at 2021-09-23 10:08:20 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mProduct Load (54.5ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 2 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 92ms (Views: 0.7ms | ActiveRecord: 54.5ms | Allocations: 802)
+
+
+  [1m[35m (2.6ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.8ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT GET_LOCK('7864839756650184315', 0)[0m
+  [1m[35m (9.9ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to AddImageToProduct (20210923011441)
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT RELEASE_LOCK('7864839756650184315')[0m
+  [1m[35m (1.7ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (1.2ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT GET_LOCK('7864839756650184315', 0)[0m
+  [1m[35m (2.0ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to AddImageToProduct (20210923011441)
+  [1m[35m (75.9ms)[0m  [1m[35mALTER TABLE `products` ADD `image` varchar(255)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mprimary::SchemaMigration Create (3.6ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20210923011441')[0m
+  [1m[35m (12.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (4.6ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT RELEASE_LOCK('7864839756650184315')[0m
+  [1m[35m (0.6ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Started GET "/admin/products/2" for 172.19.0.4 at 2021-09-23 15:07:05 +0900
+  [1m[35m (11.8ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (19.0ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mProduct Load (8.4ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 2 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 295ms (Views: 0.8ms | ActiveRecord: 20.0ms | Allocations: 11411)
+
+
+Started POST "/admin/products" for 172.19.0.4 at 2021-09-23 15:10:43 +0900
+Processing by Admin::ProductsController#create as HTML
+  Parameters: {"title"=>"table", "description"=>"product with image", "price"=>"1000", "quantity"=>"10", "image"=>{}, "product"=>{"title"=>"table", "description"=>"product with image", "price"=>"1000", "quantity"=>"10", "image"=>{}}}
+[31mUnpermitted parameter: :image[0m
+  [1m[35m (3.0ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/admin/products_controller.rb:5:in `create'
+  [1m[36mProduct Create (24.7ms)[0m  [1m[32mINSERT INTO `products` (`title`, `description`, `price`, `quantity`, `created_at`, `updated_at`) VALUES ('table', 'product with image', 1000, 10, '2021-09-23 06:10:43.759623', '2021-09-23 06:10:43.759623')[0m
+  ↳ app/controllers/admin/products_controller.rb:5:in `create'
+  [1m[35m (68.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/admin/products_controller.rb:5:in `create'
+Completed 200 OK in 219ms (Views: 2.1ms | ActiveRecord: 96.3ms | Allocations: 3064)
+
+
+Started GET "/admin/products" for 172.19.0.4 at 2021-09-23 15:10:44 +0900
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mProduct Load (3.7ms)[0m  [1m[34mSELECT `products`.* FROM `products`[0m
+  ↳ app/controllers/admin/products_controller.rb:14:in `index'
+Completed 200 OK in 38ms (Views: 28.7ms | ActiveRecord: 3.7ms | Allocations: 2042)
+
+
+Started POST "/admin/products" for 172.19.0.4 at 2021-09-23 21:57:00 +0900
+  [1m[35m (6.1ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by Admin::ProductsController#create as HTML
+  Parameters: {"title"=>"table", "description"=>"table description", "price"=>"2000", "quantity"=>"10", "image"=>#<ActionDispatch::Http::UploadedFile:0x00007fc7601a9bc0 @tempfile=#<Tempfile:/tmp/RackMultipart20210923-1-jiatum.jpeg>, @original_filename="table.jpeg", @content_type="image/jpeg", @headers="Content-Disposition: form-data; name=\"image\"; filename=\"table.jpeg\"\r\nContent-Type: image/jpeg\r\n">}
+Completed 400 Bad Request in 3ms (ActiveRecord: 0.0ms | Allocations: 121)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: product):
+  
+app/controllers/admin/products_controller.rb:44:in `product_params'
+app/controllers/admin/products_controller.rb:4:in `create'
+Started GET "/admin/products" for 172.19.0.4 at 2021-09-23 22:03:29 +0900
+  [1m[35m (2.0ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (10.6ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mProduct Load (4.4ms)[0m  [1m[34mSELECT `products`.* FROM `products`[0m
+  ↳ app/controllers/admin/products_controller.rb:14:in `index'
+Completed 200 OK in 130ms (Views: 33.1ms | ActiveRecord: 23.3ms | Allocations: 10533)
+
+
+Started POST "/admin/products" for 172.19.0.4 at 2021-09-23 22:03:55 +0900
+Processing by Admin::ProductsController#create as HTML
+  Parameters: {"title"=>"table", "description"=>"test image table", "price"=>"2000", "quantity"=>"10", "image"=>#<ActionDispatch::Http::UploadedFile:0x0000562318f2a558 @tempfile=#<Tempfile:/tmp/RackMultipart20210923-1-1jsh6pj.jpeg>, @original_filename="table.jpeg", @content_type="image/jpeg", @headers="Content-Disposition: form-data; name=\"image\"; filename=\"table.jpeg\"\r\nContent-Type: image/jpeg\r\n">}
+Completed 400 Bad Request in 1ms (ActiveRecord: 0.0ms | Allocations: 122)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: product):
+  
+app/controllers/admin/products_controller.rb:44:in `product_params'
+app/controllers/admin/products_controller.rb:4:in `create'
+Started POST "/admin/products" for 172.19.0.4 at 2021-09-23 22:06:28 +0900
+Processing by Admin::ProductsController#create as HTML
+  Parameters: {"title"=>"table", "description"=>"table with image", "price"=>"2000", "quantity"=>"10", "image"=>#<ActionDispatch::Http::UploadedFile:0x000056231908e7a0 @tempfile=#<Tempfile:/tmp/RackMultipart20210923-1-5bib4c.jpeg>, @original_filename="table.jpeg", @content_type="image/jpeg", @headers="Content-Disposition: form-data; name=\"image\"; filename=\"table.jpeg\"\r\nContent-Type: image/jpeg\r\n">}
+Completed 400 Bad Request in 1ms (ActiveRecord: 0.0ms | Allocations: 120)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: product):
+  
+app/controllers/admin/products_controller.rb:44:in `product_params'
+app/controllers/admin/products_controller.rb:4:in `create'
+Started POST "/admin/products" for 172.19.0.4 at 2021-09-23 22:52:17 +0900
+  [1m[35m (4.6ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by Admin::ProductsController#create as HTML
+  Parameters: {"title"=>"table2", "description"=>"table with images", "price"=>"300", "quantity"=>"3", "image"=>#<ActionDispatch::Http::UploadedFile:0x00007fef58cdb0c8 @tempfile=#<Tempfile:/tmp/RackMultipart20210923-1-1kvw54o.jpeg>, @original_filename="table.jpeg", @content_type="image/jpeg", @headers="Content-Disposition: form-data; name=\"image\"; filename=\"table.jpeg\"\r\nContent-Type: image/jpeg\r\n">}
+Completed 400 Bad Request in 2ms (ActiveRecord: 0.0ms | Allocations: 114)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: product):
+  
+app/controllers/admin/products_controller.rb:44:in `product_params'
+app/controllers/admin/products_controller.rb:4:in `create'
+Started POST "/admin/products" for 172.19.0.4 at 2021-09-23 23:41:02 +0900
+  [1m[35m (6.5ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (37.8ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by Admin::ProductsController#create as HTML
+  Parameters: {"title"=>"table", "description"=>"test", "price"=>"222", "quantity"=>"1", "image"=>#<ActionDispatch::Http::UploadedFile:0x000055f77b2c0240 @tempfile=#<Tempfile:/tmp/RackMultipart20210923-1-sm94rr.jpeg>, @original_filename="table.jpeg", @content_type="image/jpeg", @headers="Content-Disposition: form-data; name=\"image\"; filename=\"table.jpeg\"\r\nContent-Type: image/jpeg\r\n">}
+[31mUnpermitted parameter: :image[0m
+  [1m[35m (1.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/admin/products_controller.rb:5:in `create'
+  [1m[36mProduct Create (13.4ms)[0m  [1m[32mINSERT INTO `products` (`title`, `description`, `price`, `quantity`, `created_at`, `updated_at`) VALUES ('table', 'test', 222, 1, '2021-09-23 14:41:03.711955', '2021-09-23 14:41:03.711955')[0m
+  ↳ app/controllers/admin/products_controller.rb:5:in `create'
+  [1m[35m (19.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/admin/products_controller.rb:5:in `create'
+Completed 200 OK in 210ms (Views: 0.3ms | ActiveRecord: 48.2ms | Allocations: 11471)
+
+
+Started GET "/admin/products" for 172.19.0.4 at 2021-09-23 23:41:04 +0900
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mProduct Load (2.7ms)[0m  [1m[34mSELECT `products`.* FROM `products`[0m
+  ↳ app/controllers/admin/products_controller.rb:14:in `index'
+Completed 200 OK in 27ms (Views: 23.2ms | ActiveRecord: 2.7ms | Allocations: 2325)
+
+
+Started GET "/admin/products" for 172.19.0.4 at 2021-09-23 23:46:27 +0900
+  [1m[35m (1.6ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (10.1ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mProduct Load (5.3ms)[0m  [1m[34mSELECT `products`.* FROM `products`[0m
+  ↳ app/controllers/admin/products_controller.rb:14:in `index'
+Completed 200 OK in 140ms (Views: 43.2ms | ActiveRecord: 23.7ms | Allocations: 10792)
+
+
+Started POST "/admin/products" for 172.19.0.4 at 2021-09-23 23:46:52 +0900
+Processing by Admin::ProductsController#create as HTML
+  Parameters: {"title"=>"table3", "description"=>"table3 image", "price"=>"333", "quantity"=>"1", "image"=>#<ActionDispatch::Http::UploadedFile:0x0000564259fc2820 @tempfile=#<Tempfile:/tmp/RackMultipart20210923-1-v1h22l.jpeg>, @original_filename="table.jpeg", @content_type="image/jpeg", @headers="Content-Disposition: form-data; name=\"image\"; filename=\"table.jpeg\"\r\nContent-Type: image/jpeg\r\n">}
+  [1m[35m (1.0ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/admin/products_controller.rb:5:in `create'
+  [1m[36mProduct Create (4.3ms)[0m  [1m[32mINSERT INTO `products` (`title`, `description`, `price`, `quantity`, `created_at`, `updated_at`, `image`) VALUES ('table3', 'table3 image', 333, 1, '2021-09-23 14:46:53.685174', '2021-09-23 14:46:53.685174', 'table.jpeg')[0m
+  ↳ app/controllers/admin/products_controller.rb:5:in `create'
+  [1m[35m (9.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/admin/products_controller.rb:5:in `create'
+Completed 200 OK in 1405ms (Views: 0.6ms | ActiveRecord: 15.0ms | Allocations: 6251)
+
+
+Started GET "/admin/products" for 172.19.0.4 at 2021-09-23 23:46:54 +0900
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mProduct Load (2.6ms)[0m  [1m[34mSELECT `products`.* FROM `products`[0m
+  ↳ app/controllers/admin/products_controller.rb:14:in `index'
+Completed 200 OK in 25ms (Views: 21.5ms | ActiveRecord: 2.6ms | Allocations: 2646)
+
+

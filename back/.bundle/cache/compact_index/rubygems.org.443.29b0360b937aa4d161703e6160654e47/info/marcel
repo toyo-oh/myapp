@@ -5,3 +5,4 @@
 0.3.3 mimemagic:~> 0.3.2|checksum:5d4febf27075117b97ef25bd59eb539357e1133dc13dc5bfe174a3e75995abdb,ruby:>= 2.2
 1.0.0 |checksum:f3d650e823c50dc185945cc71edaa18119648391d41ca1c0121a6fee223517ee,ruby:>= 2.2
 1.0.1 |checksum:037769de6c9a982b21f35b0d7d38111aba8b760c785c8d1451da1e646e00e02e,ruby:>= 2.2
+1.0.2 |checksum:a013b677ef46cbcb49fd5c59b3d35803d2ee04dd75d8bfdc43533fc5a31f7e4e,ruby:>= 2.2

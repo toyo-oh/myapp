@@ -267,3 +267,7 @@
 5.3.1-java nio4r:~> 2.0|checksum:e594341095d71640d243bfb0cdb6dbde6290f85e12775b7908ea04c610e2320d,ruby:>= 2.2
 5.3.2 nio4r:~> 2.0|checksum:b2cae63b9758d4750aae0db820844b03dca206c53c20855049f514a10ac0aa52,ruby:>= 2.2
 5.3.2-java nio4r:~> 2.0|checksum:190babea943c6de84c0a2db975a30a9b3c76f09d60d99d5b3d3836dcfd220405,ruby:>= 2.2
+5.4.0 nio4r:~> 2.0|checksum:7d6ccb5cd4a23f28902489b9d9ed89fd21c0d9147a5b23961f677bd761f0e92f,ruby:>= 2.2
+5.4.0-java nio4r:~> 2.0|checksum:4cd88b28c56a1d08124ceaff69fe5c9fcf00d37c8b7acdf105fdc6e5d9cc5a60,ruby:>= 2.2
+5.5.0 nio4r:~> 2.0|checksum:b88209469d93db35a10e1b4d0f79ddb3eda2e0a5f89d01402d2815a0844a132a,ruby:>= 2.2
+5.5.0-java nio4r:~> 2.0|checksum:e3cb104bece9f62ee8b147c36f3dd28be425b628e032cb90b718b378b4a82db2,ruby:>= 2.2

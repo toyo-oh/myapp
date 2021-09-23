@@ -25,3 +25,6 @@
 0.0.7.7 |checksum:e4e9b1f0c48467fa271d53b180f4ace4c0ff88f01a69ae3da2c30038443e8471
 0.0.7.7-x64-mingw32 |checksum:95461935c8698ce0ad6d193d476949a31b10edd7266a53bddaf460c38804d0f7,ruby:< 2.8.dev&>= 2.2
 0.0.7.7-x86-mingw32 |checksum:9fbc835b1e88909d90bfed8310591cb30b3d7b2966a99ebacca015e7480e4043,ruby:< 2.8.dev&>= 2.2
+0.0.8 |checksum:cd8f69915afccd3766400bf4f5f18038a57a75a2efde4c21fabfc96b6f8dab4a,ruby:>= 2.2
+0.0.8-x64-mingw32 |checksum:992bc740dab182454feb7aebf9e9cf3b94d5448525a8aeff5207efb2b9afbd37,ruby:< 3.1.dev&>= 2.3
+0.0.8-x86-mingw32 |checksum:bddafb9a2080767eabd9ac8568c7f8af8afc3c783d50688ad89921ec3e901e1a,ruby:< 3.1.dev&>= 2.3
