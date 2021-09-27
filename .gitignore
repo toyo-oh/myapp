@@ -12,3 +12,4 @@
 # デバッグbinding.pryコマンド履歴
 /.local
 /.local/*
+/back/public/uploads

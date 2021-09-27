@@ -14,3 +14,5 @@ rails db:migrate
 exit;
 mysql -h localhost -u root -p
 exit;
+rails console
+exit

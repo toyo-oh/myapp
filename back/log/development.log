@@ -1888,3 +1888,573 @@ Processing by Admin::ProductsController#index as HTML
 Completed 200 OK in 25ms (Views: 21.5ms | ActiveRecord: 2.6ms | Allocations: 2646)
 
 
+Started GET "/admin/products" for 172.19.0.4 at 2021-09-26 17:31:54 +0900
+  [1m[35m (3.2ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (12.1ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mProduct Load (5.2ms)[0m  [1m[34mSELECT `products`.* FROM `products`[0m
+  ↳ app/controllers/admin/products_controller.rb:14:in `index'
+Completed 200 OK in 122ms (Views: 28.0ms | ActiveRecord: 18.0ms | Allocations: 11146)
+
+
+Started GET "/admin/products" for 172.19.0.4 at 2021-09-26 17:32:37 +0900
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mProduct Load (1.1ms)[0m  [1m[34mSELECT `products`.* FROM `products`[0m
+  ↳ app/controllers/admin/products_controller.rb:14:in `index'
+Completed 200 OK in 28ms (Views: 25.5ms | ActiveRecord: 1.1ms | Allocations: 2643)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-26 17:32:42 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (0.8ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 45ms (Views: 1.3ms | ActiveRecord: 0.8ms | Allocations: 4808)
+
+
+Started GET "/admin/products" for 172.19.0.4 at 2021-09-26 17:32:49 +0900
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mProduct Load (1.3ms)[0m  [1m[34mSELECT `products`.* FROM `products`[0m
+  ↳ app/controllers/admin/products_controller.rb:14:in `index'
+Completed 200 OK in 23ms (Views: 21.3ms | ActiveRecord: 1.3ms | Allocations: 2626)
+
+
+Started GET "/admin/products/13" for 172.19.0.4 at 2021-09-26 17:32:51 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"13"}
+  [1m[36mProduct Load (2.6ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 13 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 11ms (Views: 0.8ms | ActiveRecord: 2.6ms | Allocations: 902)
+
+
+Started GET "/admin/products" for 172.19.0.4 at 2021-09-26 17:32:53 +0900
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mProduct Load (1.2ms)[0m  [1m[34mSELECT `products`.* FROM `products`[0m
+  ↳ app/controllers/admin/products_controller.rb:14:in `index'
+Completed 200 OK in 19ms (Views: 16.6ms | ActiveRecord: 1.2ms | Allocations: 2626)
+
+
+Started GET "/admin/products/12" for 172.19.0.4 at 2021-09-26 17:33:00 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"12"}
+  [1m[36mProduct Load (2.7ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 17ms (Views: 0.7ms | ActiveRecord: 2.7ms | Allocations: 902)
+
+
+Started GET "/admin/products" for 172.19.0.4 at 2021-09-26 17:33:02 +0900
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mProduct Load (1.5ms)[0m  [1m[34mSELECT `products`.* FROM `products`[0m
+  ↳ app/controllers/admin/products_controller.rb:14:in `index'
+Completed 200 OK in 21ms (Views: 18.7ms | ActiveRecord: 1.5ms | Allocations: 2626)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-26 17:33:06 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (1.4ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 17ms (Views: 1.2ms | ActiveRecord: 1.4ms | Allocations: 1029)
+
+
+  [1m[35m (2.1ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[36mProduct Load (0.8ms)[0m  [1m[34mSELECT `products`.* FROM `products` ORDER BY `products`.`id` ASC LIMIT 1[0m
+  [1m[36mProduct Load (1.6ms)[0m  [1m[34mSELECT `products`.* FROM `products` ORDER BY `products`.`id` DESC LIMIT 1[0m
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-26 17:44:22 +0900
+  [1m[35m (2.3ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (2.7ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 19ms (Views: 0.8ms | ActiveRecord: 2.7ms | Allocations: 1028)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-26 17:45:29 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (1.4ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 16ms (Views: 1.9ms | ActiveRecord: 1.4ms | Allocations: 1028)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-26 17:45:50 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (2.4ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 25ms (Views: 4.6ms | ActiveRecord: 2.4ms | Allocations: 1029)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-26 17:48:20 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (4.9ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 21ms (Views: 4.2ms | ActiveRecord: 4.9ms | Allocations: 1029)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-26 18:12:08 +0900
+  [1m[35m (3.2ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (6.2ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 66ms (Views: 4.5ms | ActiveRecord: 6.2ms | Allocations: 1027)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-26 20:55:03 +0900
+  [1m[35m (11.2ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (9.8ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 81ms (Views: 20.0ms | ActiveRecord: 9.8ms | Allocations: 1027)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-26 21:06:54 +0900
+  [1m[35m (3.7ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (1.1ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 23ms (Views: 4.1ms | ActiveRecord: 1.1ms | Allocations: 1027)
+
+
+Started GET "/$%7Bres.image%7D" for 172.19.0.4 at 2021-09-26 21:06:54 +0900
+  
+ActionController::RoutingError (No route matches [GET] "/$%7Bres.image%7D"):
+  
+actionpack (6.0.3.7) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.7) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.7) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.3.7) lib/rails/engine.rb:527:in `call'
+puma (4.3.8) lib/puma/configuration.rb:228:in `call'
+puma (4.3.8) lib/puma/server.rb:718:in `handle_request'
+puma (4.3.8) lib/puma/server.rb:472:in `process_client'
+puma (4.3.8) lib/puma/server.rb:328:in `block in run'
+puma (4.3.8) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-26 21:08:31 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (8.1ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 66ms (Views: 6.0ms | ActiveRecord: 8.1ms | Allocations: 1064)
+
+
+Started GET "/[object%20Object]" for 172.19.0.4 at 2021-09-26 21:08:31 +0900
+  
+ActionController::RoutingError (No route matches [GET] "/[object%20Object]"):
+  
+actionpack (6.0.3.7) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.7) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.7) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.3.7) lib/rails/engine.rb:527:in `call'
+puma (4.3.8) lib/puma/configuration.rb:228:in `call'
+puma (4.3.8) lib/puma/server.rb:718:in `handle_request'
+puma (4.3.8) lib/puma/server.rb:472:in `process_client'
+puma (4.3.8) lib/puma/server.rb:328:in `block in run'
+puma (4.3.8) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-26 21:10:14 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (1.8ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 19ms (Views: 1.6ms | ActiveRecord: 1.8ms | Allocations: 1027)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-26 21:12:19 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (1.6ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 19ms (Views: 1.5ms | ActiveRecord: 1.6ms | Allocations: 1028)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-26 21:15:32 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (1.7ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 32ms (Views: 3.4ms | ActiveRecord: 1.7ms | Allocations: 1028)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-26 21:17:02 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (1.2ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 15ms (Views: 1.9ms | ActiveRecord: 1.2ms | Allocations: 1028)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-26 21:17:13 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (4.0ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 21ms (Views: 4.9ms | ActiveRecord: 4.0ms | Allocations: 1028)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-26 21:20:25 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (8.1ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 41ms (Views: 8.4ms | ActiveRecord: 8.1ms | Allocations: 1028)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-26 21:22:10 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (2.8ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 12ms (Views: 0.7ms | ActiveRecord: 2.8ms | Allocations: 1028)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-26 21:22:22 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (3.1ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 25ms (Views: 3.9ms | ActiveRecord: 3.1ms | Allocations: 1028)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-26 21:23:19 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (1.1ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 17ms (Views: 1.7ms | ActiveRecord: 1.1ms | Allocations: 1028)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-26 21:24:00 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (5.5ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 30ms (Views: 6.3ms | ActiveRecord: 5.5ms | Allocations: 1028)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-26 21:26:10 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (1.8ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 17ms (Views: 5.7ms | ActiveRecord: 1.8ms | Allocations: 1028)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-26 21:29:32 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (0.8ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 30ms (Views: 1.2ms | ActiveRecord: 0.8ms | Allocations: 1028)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-26 21:30:50 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (5.9ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 260ms (Views: 4.6ms | ActiveRecord: 5.9ms | Allocations: 1028)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-26 21:32:00 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (1.7ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 24ms (Views: 4.0ms | ActiveRecord: 1.7ms | Allocations: 1028)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-26 21:32:21 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (10.1ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 86ms (Views: 4.2ms | ActiveRecord: 10.1ms | Allocations: 1028)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-26 21:33:23 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (4.5ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 31ms (Views: 7.1ms | ActiveRecord: 4.5ms | Allocations: 1028)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-26 21:37:18 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (1.7ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 13ms (Views: 0.8ms | ActiveRecord: 1.7ms | Allocations: 1028)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-26 21:43:21 +0900
+  [1m[35m (5.2ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (2.7ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 73ms (Views: 12.8ms | ActiveRecord: 2.7ms | Allocations: 1027)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-27 12:17:03 +0900
+  [1m[35m (7.5ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (8.8ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 37ms (Views: 10.5ms | ActiveRecord: 8.8ms | Allocations: 1028)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-27 12:42:18 +0900
+  [1m[35m (4.9ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (8.5ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 20ms (Views: 2.8ms | ActiveRecord: 8.5ms | Allocations: 1027)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-27 12:42:33 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (6.0ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 16ms (Views: 2.1ms | ActiveRecord: 6.0ms | Allocations: 1028)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-27 12:44:33 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (2.3ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 12ms (Views: 1.0ms | ActiveRecord: 2.3ms | Allocations: 1028)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-27 12:47:08 +0900
+  [1m[35m (1.4ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (17.0ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (4.6ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 189ms (Views: 1.3ms | ActiveRecord: 24.5ms | Allocations: 10088)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-27 13:04:35 +0900
+  [1m[35m (4.4ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (1.4ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 74ms (Views: 2.0ms | ActiveRecord: 1.4ms | Allocations: 8176)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-27 13:06:43 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (15.7ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 56ms (Views: 3.3ms | ActiveRecord: 15.7ms | Allocations: 1044)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-27 13:07:57 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (5.6ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 29ms (Views: 6.5ms | ActiveRecord: 5.6ms | Allocations: 1044)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-27 13:09:20 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (4.9ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 32ms (Views: 3.8ms | ActiveRecord: 4.9ms | Allocations: 1028)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-27 13:10:51 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (2.1ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 11ms (Views: 1.6ms | ActiveRecord: 2.1ms | Allocations: 1044)
+
+
+Started PUT "/admin/products/14" for 172.19.0.4 at 2021-09-27 13:11:15 +0900
+Processing by Admin::ProductsController#update as HTML
+  Parameters: {"title"=>"table3", "description"=>"table3 image", "price"=>"333", "quantity"=>"1", "image"=>#<ActionDispatch::Http::UploadedFile:0x00007f93300d88b8 @tempfile=#<Tempfile:/tmp/RackMultipart20210927-1-vtwumv.jpeg>, @original_filename="chair.jpeg", @content_type="image/jpeg", @headers="Content-Disposition: form-data; name=\"image\"; filename=\"chair.jpeg\"\r\nContent-Type: image/jpeg\r\n">, "id"=>"14"}
+  [1m[36mProduct Load (1.2ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:23:in `update'
+[31mUnpermitted parameter: :id[0m
+  [1m[35m (1.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/admin/products_controller.rb:24:in `update'
+  [1m[36mProduct Update (24.0ms)[0m  [1m[33mUPDATE `products` SET `products`.`image` = 'chair.jpeg', `products`.`updated_at` = '2021-09-27 04:11:16.818166' WHERE `products`.`id` = 14[0m
+  ↳ app/controllers/admin/products_controller.rb:24:in `update'
+  [1m[35m (18.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/admin/products_controller.rb:24:in `update'
+Completed 200 OK in 1142ms (Views: 0.3ms | ActiveRecord: 45.3ms | Allocations: 6206)
+
+
+Started GET "/admin/products" for 172.19.0.4 at 2021-09-27 13:11:17 +0900
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mProduct Load (1.3ms)[0m  [1m[34mSELECT `products`.* FROM `products`[0m
+  ↳ app/controllers/admin/products_controller.rb:14:in `index'
+Completed 200 OK in 29ms (Views: 27.6ms | ActiveRecord: 1.3ms | Allocations: 2630)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-27 13:11:20 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (1.3ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 15ms (Views: 2.6ms | ActiveRecord: 1.3ms | Allocations: 1028)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-27 13:12:16 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (1.5ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 9ms (Views: 1.0ms | ActiveRecord: 1.5ms | Allocations: 1028)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-27 13:12:35 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (1.0ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 33ms (Views: 2.8ms | ActiveRecord: 1.0ms | Allocations: 1028)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-27 13:12:43 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (2.0ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 9ms (Views: 0.8ms | ActiveRecord: 2.0ms | Allocations: 1028)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-27 13:12:51 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (4.1ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 24ms (Views: 2.0ms | ActiveRecord: 4.1ms | Allocations: 1028)
+
+
+Started GET "/admin/products" for 172.19.0.4 at 2021-09-27 13:12:53 +0900
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mProduct Load (2.5ms)[0m  [1m[34mSELECT `products`.* FROM `products`[0m
+  ↳ app/controllers/admin/products_controller.rb:14:in `index'
+Completed 200 OK in 15ms (Views: 12.1ms | ActiveRecord: 2.5ms | Allocations: 2626)
+
+
+Started POST "/admin/products" for 172.19.0.4 at 2021-09-27 13:15:32 +0900
+Processing by Admin::ProductsController#create as HTML
+  Parameters: {"title"=>"chair", "description"=>"chair with image", "price"=>"222", "quantity"=>"1", "image"=>#<ActionDispatch::Http::UploadedFile:0x00007f9328054138 @tempfile=#<Tempfile:/tmp/RackMultipart20210927-1-1esm8wt.jpeg>, @original_filename="chair.jpeg", @content_type="image/jpeg", @headers="Content-Disposition: form-data; name=\"image\"; filename=\"chair.jpeg\"\r\nContent-Type: image/jpeg\r\n">}
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/admin/products_controller.rb:5:in `create'
+  [1m[36mProduct Create (17.2ms)[0m  [1m[32mINSERT INTO `products` (`title`, `description`, `price`, `quantity`, `created_at`, `updated_at`, `image`) VALUES ('chair', 'chair with image', 222, 1, '2021-09-27 04:15:33.410547', '2021-09-27 04:15:33.410547', 'chair.jpeg')[0m
+  ↳ app/controllers/admin/products_controller.rb:5:in `create'
+  [1m[35m (21.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/admin/products_controller.rb:5:in `create'
+Completed 200 OK in 799ms (Views: 0.8ms | ActiveRecord: 39.5ms | Allocations: 4426)
+
+
+Started GET "/admin/products" for 172.19.0.4 at 2021-09-27 13:15:33 +0900
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mProduct Load (1.7ms)[0m  [1m[34mSELECT `products`.* FROM `products`[0m
+  ↳ app/controllers/admin/products_controller.rb:14:in `index'
+Completed 200 OK in 28ms (Views: 26.2ms | ActiveRecord: 1.7ms | Allocations: 3000)
+
+
+Started GET "/admin/products/15" for 172.19.0.4 at 2021-09-27 13:15:36 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"15"}
+  [1m[36mProduct Load (1.0ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 17ms (Views: 1.7ms | ActiveRecord: 1.0ms | Allocations: 1028)
+
+
+Started GET "/admin/products" for 172.19.0.4 at 2021-09-27 13:15:38 +0900
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mProduct Load (2.7ms)[0m  [1m[34mSELECT `products`.* FROM `products`[0m
+  ↳ app/controllers/admin/products_controller.rb:14:in `index'
+Completed 200 OK in 18ms (Views: 14.6ms | ActiveRecord: 2.7ms | Allocations: 2998)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-27 13:15:40 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (1.9ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 17ms (Views: 1.5ms | ActiveRecord: 1.9ms | Allocations: 1028)
+
+
+Started PUT "/admin/products/14" for 172.19.0.4 at 2021-09-27 13:15:48 +0900
+Processing by Admin::ProductsController#update as HTML
+  Parameters: {"title"=>"table3", "description"=>"table3 image", "price"=>"333", "quantity"=>"1", "image"=>#<ActionDispatch::Http::UploadedFile:0x00007f932c0681e8 @tempfile=#<Tempfile:/tmp/RackMultipart20210927-1-1ubw4d3.jpeg>, @original_filename="table.jpeg", @content_type="image/jpeg", @headers="Content-Disposition: form-data; name=\"image\"; filename=\"table.jpeg\"\r\nContent-Type: image/jpeg\r\n">, "id"=>"14"}
+  [1m[36mProduct Load (2.5ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:23:in `update'
+[31mUnpermitted parameter: :id[0m
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/admin/products_controller.rb:24:in `update'
+  [1m[36mProduct Update (1.0ms)[0m  [1m[33mUPDATE `products` SET `products`.`image` = 'table.jpeg', `products`.`updated_at` = '2021-09-27 04:15:49.422627' WHERE `products`.`id` = 14[0m
+  ↳ app/controllers/admin/products_controller.rb:24:in `update'
+  [1m[35m (11.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/admin/products_controller.rb:24:in `update'
+Completed 200 OK in 652ms (Views: 0.7ms | ActiveRecord: 15.3ms | Allocations: 5451)
+
+
+Started GET "/admin/products" for 172.19.0.4 at 2021-09-27 13:15:49 +0900
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mProduct Load (2.0ms)[0m  [1m[34mSELECT `products`.* FROM `products`[0m
+  ↳ app/controllers/admin/products_controller.rb:14:in `index'
+Completed 200 OK in 34ms (Views: 31.7ms | ActiveRecord: 2.0ms | Allocations: 2998)
+
+
+Started GET "/admin/products/14" for 172.19.0.4 at 2021-09-27 13:15:51 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (3.2ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 14ms (Views: 1.5ms | ActiveRecord: 3.2ms | Allocations: 1028)
+
+
+Started GET "/admin/products" for 172.19.0.4 at 2021-09-27 13:15:53 +0900
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mProduct Load (1.2ms)[0m  [1m[34mSELECT `products`.* FROM `products`[0m
+  ↳ app/controllers/admin/products_controller.rb:14:in `index'
+Completed 200 OK in 47ms (Views: 45.1ms | ActiveRecord: 1.2ms | Allocations: 3058)
+
+

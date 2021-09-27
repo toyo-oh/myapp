@@ -19,6 +19,7 @@
             label="Quantity"
             type="number"
           ></v-text-field>
+           <v-img :src="photoSrc?photoSrc:image" max-height="200" max-width="200"></v-img>
           <v-file-input
             accept="image/png, image/jpeg, image/bmp"
             @change="setImage"
@@ -41,12 +42,28 @@ export default {
       price: "",
       quantity: "",
       image: "",
+      photoSrc:""
     };
   },
   methods: {
-    setImage(e) {
-      this.image = e;
-    },
+      setImage(e) {
+        var that = this;
+        // 判断浏览器是否支持 FileReader
+        if (!e || !window.FileReader) {
+            alert("您的设备不支持图片预览功能，如需该功能请升级您的设备！");
+            return;
+        }
+        let reader = new FileReader();
+        // 这里是最关键的一步，转换就在这里
+        if (e) {
+            reader.readAsDataURL(e); 
+        }
+        reader.onload = function () {
+            that.photoSrc = this.result
+        };
+        // 设置文件
+        this.image = e;
+      },
     createProduct() {
       const config = {
         headers: {
