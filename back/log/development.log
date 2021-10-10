@@ -2866,3 +2866,48 @@ Completed 200 OK in 194ms (Views: 6.9ms | ActiveRecord: 28.0ms | Allocations: 11
 Completed 200 OK in 87ms (Views: 1.2ms | ActiveRecord: 18.2ms | Allocations: 8079)
 
 
+Started GET "/products/14" for 172.19.0.4 at 2021-10-03 14:48:16 +0900
+  [1m[35m (24.2ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (27.1ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/products_controller.rb:9:in `show'
+Completed 200 OK in 149ms (Views: 11.6ms | ActiveRecord: 27.1ms | Allocations: 8064)
+
+
+Started GET "/products/14" for 172.19.0.4 at 2021-10-03 14:48:28 +0900
+Processing by ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (3.0ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/products_controller.rb:9:in `show'
+Completed 200 OK in 18ms (Views: 3.6ms | ActiveRecord: 3.0ms | Allocations: 1028)
+
+
+Started GET "/products/14" for 172.19.0.4 at 2021-10-03 22:43:16 +0900
+  [1m[35m (11.4ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (26.8ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/products_controller.rb:9:in `show'
+Completed 200 OK in 59ms (Views: 6.9ms | ActiveRecord: 26.8ms | Allocations: 1038)
+
+
+Started GET "/products/14" for 172.19.0.4 at 2021-10-03 22:53:26 +0900
+  [1m[35m (8.5ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (5.3ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/products_controller.rb:9:in `show'
+Completed 200 OK in 30ms (Views: 3.2ms | ActiveRecord: 5.3ms | Allocations: 1027)
+
+
+Started GET "/products/14" for 172.19.0.4 at 2021-10-10 16:23:55 +0900
+  [1m[35m (19.0ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (46.6ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (23.5ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/products_controller.rb:9:in `show'
+Completed 200 OK in 423ms (Views: 4.8ms | ActiveRecord: 46.9ms | Allocations: 9990)
+
+
