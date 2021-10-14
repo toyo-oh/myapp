@@ -38,6 +38,20 @@ class UsersController < ApplicationController
     @user.destroy
   end
 
+  def login
+    current_user = User.find_by(email: params[:email], password: params[:password])
+    if current_user.nil?
+      render json: {status: 401, message: 'login failed!'}
+    else
+      render json: current_user
+    end
+      # return render json: {status: 401, message: '認証に失敗しました'} unless current_user
+      # render plain: current_user.token
+    # rescue StandardError => e
+    #   Rails.logger.error(e.message)
+    #   render json: Init.message(500, e.message), status: 500
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user

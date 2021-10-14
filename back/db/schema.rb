@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_30_132319) do
+ActiveRecord::Schema.define(version: 2021_10_14_131828) do
 
   create_table "cart_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "cart_id"
@@ -42,6 +42,8 @@ ActiveRecord::Schema.define(version: 2021_09_30_132319) do
     t.string "password"
     t.string "email"
     t.boolean "is_admin", default: false
+    t.string "token"
+    t.index ["token"], name: "index_users_on_token", unique: true
   end
 
 end
