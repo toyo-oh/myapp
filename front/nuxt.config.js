@@ -41,7 +41,8 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/auth'
   ],
 
   axios: {
@@ -54,6 +55,26 @@ export default {
   proxy: {
     // '/api/': { target: 'http://localhost:3000', pathRewrite: { '^/api/': '/' } }
     '/api/': { target: 'http://back:3000', pathRewrite: { '^/api/': '/' } }
+  },
+
+  auth: {
+    redirect: {
+      login: '/login', 
+      logout: '/login',
+      callback: false, 
+      home: '/',
+      // home: false,
+    },
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: '/api/login', method: 'post', propertyName: 'token' },
+          user: { url: '/api/user/me', method: 'get', propertyName: 'data'},
+          // user: false,
+          logout: false,
+        },
+      }
+    },
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

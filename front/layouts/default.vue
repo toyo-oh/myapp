@@ -1,16 +1,6 @@
 <template>
   <v-app dark>
     <v-navigation-drawer v-model="drawer" :mini-variant="miniVariant" :clipped="clipped" fixed app>
-      <!-- <v-list>
-        <v-list-item v-for="(item, i) in items" :key="i" :to="item.to" router exact>
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
-          </v-list-item-content>
-        </v-list-item>
-      </v-list> -->
       <v-list nav dense>
         <v-list-item-group v-model="group" active-class="deep-purple--text text--accent-4">
           <v-list-item>
@@ -39,21 +29,33 @@
       <!-- <v-btn icon @click.stop="fixed = !fixed">
         <v-icon>mdi-minus</v-icon>
       </v-btn> -->
-      <v-btn text>Store</v-btn>
+      <v-btn text @click="toMain">Store</v-btn>
       <v-btn text>Product</v-btn>
       <!-- <v-toolbar-title v-text="title" /> -->
       <v-spacer />
+      <v-menu v-if="isLoggedIn" offset-y>
+        <template v-slot:activator="{ attrs, on }">
+          <v-btn text v-bind="attrs" v-on="on">
+            <v-icon>mdi-account</v-icon>
+            <div style="inline">{{email}}</div>
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item v-for="item in actmenus" :key="item" link>
+            <v-list-item-title v-text="item"></v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+      <v-btn text v-if="!isLoggedIn">
+        <div style="inline">Login</div>
+      </v-btn>
+      <v-btn text v-if="!isLoggedIn">
+        <div style="inline">Sign In</div>
+      </v-btn>
       <v-btn text>
         <v-icon>mdi-cart</v-icon>
         <div style="inline">Cart（{{counter}}）</div>
       </v-btn>
-      <!-- <v-chip color="deep-purple" large @click="alarm">
-        <v-icon left>
-          mdi-cart
-        </v-icon>
-        Cart（{{counter}}）
-      </v-chip> -->
-      <!-- <v-text-field label="search" hide-details append-icon="search" v-model="key"></v-text-field> -->
       <v-btn icon>
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
@@ -92,6 +94,7 @@ export default {
       clipped: false,
       drawer: false,
       fixed: false,
+      group: false,
       items: [
         {
           icon: 'mdi-apps',
@@ -108,7 +111,24 @@ export default {
       right: true,
       rightDrawer: false,
       title: 'Store',
-      counter: this.$store.state.counter
+      actmenus: ['Log Out']
+    }
+  },
+  computed: {
+    counter: function () {
+      return this.$store.state.counter
+    },
+    email: function () {
+      return this.$store.state.user.email;
+      // return this.$store.getters.getUserEmail;
+    },
+    isLoggedIn: function () {
+      return this.$store.state.user.isLoggedIn;
+    }
+  },
+  methods: {
+    toMain () {
+      this.$router.push(`/`)
     }
   }
 }

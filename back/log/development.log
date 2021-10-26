@@ -3114,3 +3114,1534 @@ Completed 200 OK in 13ms (Views: 0.7ms | ActiveRecord: 2.9ms | Allocations: 846)
 
 
   [1m[36mUser Load (4.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+Started POST "/users/login" for 172.19.0.4 at 2021-10-14 23:38:18 +0900
+  [1m[35m (1.3ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (8.0ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (4.4ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 41ms (Views: 0.7ms | ActiveRecord: 21.3ms | Allocations: 6553)
+
+
+Started POST "/users/login" for 172.19.0.4 at 2021-10-14 23:40:23 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 24ms (Views: 1.1ms | ActiveRecord: 1.1ms | Allocations: 857)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-14 23:40:23 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 18ms (Views: 0.5ms | ActiveRecord: 1.2ms | Allocations: 978)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-18 22:09:49 +0900
+  [1m[35m (247.3ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (185.8ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 666ms (Views: 199.1ms | ActiveRecord: 185.8ms | Allocations: 839)
+
+
+Started POST "/users/login" for 172.19.0.4 at 2021-10-18 22:11:26 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (28.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 57ms (Views: 2.4ms | ActiveRecord: 28.2ms | Allocations: 841)
+
+
+Started POST "/users/login" for 172.19.0.4 at 2021-10-18 22:14:47 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (2.4ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 24ms (Views: 3.2ms | ActiveRecord: 2.4ms | Allocations: 841)
+
+
+Started POST "/users/login" for 172.19.0.4 at 2021-10-18 22:16:40 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (2.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 20ms (Views: 6.9ms | ActiveRecord: 2.1ms | Allocations: 857)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-18 22:16:40 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (3.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 26ms (Views: 2.8ms | ActiveRecord: 3.1ms | Allocations: 829)
+
+
+Started POST "/users/login" for 172.19.0.4 at 2021-10-18 22:58:17 +0900
+  [1m[35m (3.7ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (8.7ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 35ms (Views: 7.2ms | ActiveRecord: 8.7ms | Allocations: 840)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-18 22:58:18 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (3.9ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 35ms (Views: 8.1ms | ActiveRecord: 3.9ms | Allocations: 829)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-18 22:58:33 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (1.6ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 32ms (Views: 3.8ms | ActiveRecord: 1.6ms | Allocations: 829)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-18 23:02:16 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (8.7ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 45ms (Views: 2.0ms | ActiveRecord: 8.7ms | Allocations: 829)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-18 23:23:24 +0900
+  [1m[35m (7.4ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (3.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 31ms (Views: 1.9ms | ActiveRecord: 3.0ms | Allocations: 828)
+
+
+Started POST "/users/login" for 172.19.0.4 at 2021-10-18 23:24:38 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (8.9ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 29ms (Views: 3.6ms | ActiveRecord: 8.9ms | Allocations: 841)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-18 23:24:38 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (1.8ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 21ms (Views: 3.6ms | ActiveRecord: 1.8ms | Allocations: 829)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-19 21:25:24 +0900
+  [1m[35m (7.0ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (2.4ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 30ms (Views: 3.0ms | ActiveRecord: 2.4ms | Allocations: 828)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-19 21:25:32 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (4.6ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 35ms (Views: 6.7ms | ActiveRecord: 4.6ms | Allocations: 829)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-19 21:40:17 +0900
+  [1m[35m (6.5ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (3.7ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 36ms (Views: 2.6ms | ActiveRecord: 3.7ms | Allocations: 828)
+
+
+Started POST "/users/login" for 172.19.0.4 at 2021-10-19 22:00:26 +0900
+  [1m[35m (3.8ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (8.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 34ms (Views: 3.4ms | ActiveRecord: 8.5ms | Allocations: 840)
+
+
+Started POST "/users/login" for 172.19.0.4 at 2021-10-19 22:01:08 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (3.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 29ms (Views: 2.7ms | ActiveRecord: 3.1ms | Allocations: 842)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-19 22:01:08 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 27ms (Views: 3.1ms | ActiveRecord: 1.3ms | Allocations: 832)
+
+
+Started POST "/users/login" for 172.19.0.4 at 2021-10-19 22:21:20 +0900
+  [1m[35m (9.9ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (6.3ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 31ms (Views: 5.5ms | ActiveRecord: 6.3ms | Allocations: 840)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-19 22:21:21 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (1.9ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 48ms (Views: 3.0ms | ActiveRecord: 1.9ms | Allocations: 829)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-19 22:21:30 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 37ms (Views: 3.3ms | ActiveRecord: 1.5ms | Allocations: 829)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-19 22:21:52 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (3.9ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 1507ms (Views: 1459.8ms | ActiveRecord: 3.9ms | Allocations: 836)
+
+
+Started POST "/users/login" for 172.19.0.4 at 2021-10-19 22:22:07 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (6.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 21ms (Views: 0.7ms | ActiveRecord: 6.5ms | Allocations: 841)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-19 22:22:07 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 11ms (Views: 0.9ms | ActiveRecord: 1.4ms | Allocations: 829)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-19 22:22:16 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (2.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 14ms (Views: 0.9ms | ActiveRecord: 2.0ms | Allocations: 829)
+
+
+Started POST "/users/login" for 172.19.0.4 at 2021-10-19 22:22:29 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (4.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 16ms (Views: 0.6ms | ActiveRecord: 4.5ms | Allocations: 841)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-19 22:22:29 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (2.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 23ms (Views: 2.5ms | ActiveRecord: 2.0ms | Allocations: 829)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-19 22:23:02 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (5.4ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 17ms (Views: 1.1ms | ActiveRecord: 5.4ms | Allocations: 829)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-19 22:23:06 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (2.8ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 13ms (Views: 1.0ms | ActiveRecord: 2.8ms | Allocations: 829)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-19 22:23:09 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (1.7ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 12ms (Views: 3.5ms | ActiveRecord: 1.7ms | Allocations: 829)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-19 22:23:11 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 17ms (Views: 2.2ms | ActiveRecord: 1.1ms | Allocations: 829)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-19 22:23:17 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 9ms (Views: 0.5ms | ActiveRecord: 1.1ms | Allocations: 829)
+
+
+Started POST "/users/login" for 172.19.0.4 at 2021-10-19 22:23:55 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (1.7ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 14ms (Views: 0.7ms | ActiveRecord: 1.7ms | Allocations: 841)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-19 22:23:55 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 13ms (Views: 0.5ms | ActiveRecord: 0.9ms | Allocations: 829)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-19 22:24:52 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 10ms (Views: 0.9ms | ActiveRecord: 0.9ms | Allocations: 829)
+
+
+Started POST "/users/login" for 172.19.0.4 at 2021-10-19 22:25:15 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (2.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 15ms (Views: 0.9ms | ActiveRecord: 2.1ms | Allocations: 842)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-19 22:25:15 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 18ms (Views: 2.3ms | ActiveRecord: 1.5ms | Allocations: 829)
+
+
+Started POST "/users/login" for 172.19.0.4 at 2021-10-19 22:30:42 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 15ms (Views: 2.9ms | ActiveRecord: 1.2ms | Allocations: 841)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-19 22:30:42 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 11ms (Views: 0.9ms | ActiveRecord: 1.1ms | Allocations: 829)
+
+
+Started POST "/users/login" for 172.19.0.4 at 2021-10-19 22:33:09 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (1.9ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 15ms (Views: 1.2ms | ActiveRecord: 1.9ms | Allocations: 841)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-19 22:33:09 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (3.7ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 13ms (Views: 1.0ms | ActiveRecord: 3.7ms | Allocations: 829)
+
+
+Started POST "/users/login" for 172.19.0.4 at 2021-10-19 22:34:51 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (3.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 12ms (Views: 0.7ms | ActiveRecord: 3.2ms | Allocations: 841)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-19 22:34:51 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (1.7ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 10ms (Views: 0.5ms | ActiveRecord: 1.7ms | Allocations: 829)
+
+
+Started POST "/users/login" for 172.19.0.4 at 2021-10-19 22:36:14 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 10ms (Views: 2.0ms | ActiveRecord: 0.9ms | Allocations: 841)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-19 22:36:14 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (2.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 9ms (Views: 0.7ms | ActiveRecord: 2.2ms | Allocations: 829)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-19 22:41:24 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (2.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 19ms (Views: 3.7ms | ActiveRecord: 2.2ms | Allocations: 829)
+
+
+Started POST "/users/login" for 172.19.0.4 at 2021-10-19 22:44:42 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (2.8ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 9ms (Views: 0.4ms | ActiveRecord: 2.8ms | Allocations: 841)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-19 22:44:42 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (1.6ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 10ms (Views: 1.4ms | ActiveRecord: 1.6ms | Allocations: 829)
+
+
+Started POST "/users/login" for 172.19.0.4 at 2021-10-19 22:48:12 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (4.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 30ms (Views: 0.8ms | ActiveRecord: 4.2ms | Allocations: 841)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-19 22:48:12 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (4.8ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 15ms (Views: 3.0ms | ActiveRecord: 4.8ms | Allocations: 829)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-19 22:51:59 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 17ms (Views: 2.4ms | ActiveRecord: 1.2ms | Allocations: 829)
+
+
+Started POST "/users/login" for 172.19.0.4 at 2021-10-19 22:52:51 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (2.3ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 13ms (Views: 0.6ms | ActiveRecord: 2.3ms | Allocations: 841)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-19 22:52:51 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 10ms (Views: 0.5ms | ActiveRecord: 1.3ms | Allocations: 829)
+
+
+Started POST "/users/login" for 172.19.0.4 at 2021-10-19 22:54:44 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 13ms (Views: 0.8ms | ActiveRecord: 1.4ms | Allocations: 841)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-19 22:54:44 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 16ms (Views: 2.2ms | ActiveRecord: 1.4ms | Allocations: 829)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-19 23:06:39 +0900
+  [1m[35m (9.4ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (8.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 26ms (Views: 0.8ms | ActiveRecord: 8.0ms | Allocations: 828)
+
+
+Started POST "/users/login" for 172.19.0.4 at 2021-10-19 23:08:15 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 13ms (Views: 0.4ms | ActiveRecord: 1.1ms | Allocations: 841)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-19 23:08:15 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 13ms (Views: 1.4ms | ActiveRecord: 1.0ms | Allocations: 829)
+
+
+Started POST "/users/login" for 172.19.0.4 at 2021-10-19 23:08:27 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (1.9ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'aa' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 12ms (Views: 1.6ms | ActiveRecord: 1.9ms | Allocations: 720)
+
+
+Started GET "/users/undefined" for 172.19.0.4 at 2021-10-19 23:08:27 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"undefined"}
+  [1m[36mUser Load (11.9ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = NULL LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 404 Not Found in 28ms (ActiveRecord: 11.9ms | Allocations: 675)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find User with 'id'=undefined):
+  
+app/controllers/users_controller.rb:58:in `set_user'
+Started POST "/users/login" for 172.19.0.4 at 2021-10-19 23:52:34 +0900
+  [1m[35m (5.8ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (8.3ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 22ms (Views: 2.6ms | ActiveRecord: 8.3ms | Allocations: 865)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-19 23:52:34 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 10ms (Views: 0.8ms | ActiveRecord: 1.2ms | Allocations: 831)
+
+
+Started POST "/users/login" for 172.19.0.4 at 2021-10-19 23:57:00 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 13ms (Views: 2.7ms | ActiveRecord: 1.0ms | Allocations: 841)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-19 23:57:00 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (6.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 16ms (Views: 0.8ms | ActiveRecord: 6.0ms | Allocations: 829)
+
+
+Started POST "/users/login" for 172.19.0.4 at 2021-10-20 00:05:16 +0900
+  [1m[35m (7.1ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (4.6ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 14ms (Views: 0.6ms | ActiveRecord: 4.6ms | Allocations: 840)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-20 00:05:16 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (1.9ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 29ms (Views: 1.0ms | ActiveRecord: 1.9ms | Allocations: 829)
+
+
+Started POST "/users/login" for 172.19.0.4 at 2021-10-20 00:07:07 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (1.7ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 15ms (Views: 1.0ms | ActiveRecord: 1.7ms | Allocations: 841)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-20 00:07:07 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (2.9ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 11ms (Views: 0.8ms | ActiveRecord: 2.9ms | Allocations: 829)
+
+
+Started POST "/users/login" for 172.19.0.4 at 2021-10-20 00:07:40 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (2.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 11ms (Views: 0.9ms | ActiveRecord: 2.2ms | Allocations: 841)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-20 00:07:40 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 11ms (Views: 1.6ms | ActiveRecord: 1.5ms | Allocations: 829)
+
+
+Started POST "/users/login" for 172.19.0.4 at 2021-10-20 00:08:13 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (2.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 9ms (Views: 0.6ms | ActiveRecord: 2.2ms | Allocations: 841)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-20 00:08:13 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (3.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 20ms (Views: 1.7ms | ActiveRecord: 3.2ms | Allocations: 829)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-20 00:08:36 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (3.3ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 23ms (Views: 1.6ms | ActiveRecord: 3.3ms | Allocations: 829)
+
+
+Started POST "/users/login" for 172.19.0.4 at 2021-10-20 00:09:23 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 11ms (Views: 0.8ms | ActiveRecord: 1.2ms | Allocations: 841)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-20 00:09:23 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (3.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 23ms (Views: 1.5ms | ActiveRecord: 3.1ms | Allocations: 829)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-20 15:57:22 +0900
+  [1m[35m (39.4ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (17.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 83ms (Views: 25.0ms | ActiveRecord: 17.5ms | Allocations: 829)
+
+
+Started GET "/users/7" for 172.19.0.4 at 2021-10-20 15:57:27 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (2.4ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 7 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 200 OK in 33ms (Views: 2.9ms | ActiveRecord: 2.4ms | Allocations: 829)
+
+
+Started GET "/products/undefined" for 172.19.0.4 at 2021-10-20 15:58:20 +0900
+Processing by ProductsController#show as HTML
+  Parameters: {"id"=>"undefined"}
+  [1m[36mProduct Load (81.7ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = NULL LIMIT 1[0m
+  ↳ app/controllers/products_controller.rb:9:in `show'
+Completed 404 Not Found in 1214ms (ActiveRecord: 729.1ms | Allocations: 4168)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Product with 'id'=undefined):
+  
+app/controllers/products_controller.rb:9:in `show'
+Started GET "/users/login" for 172.19.0.4 at 2021-10-25 22:21:09 +0900
+  [1m[35m (187.8ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"login"}
+  [1m[36mUser Load (143.7ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = NULL LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `set_user'
+Completed 404 Not Found in 243ms (ActiveRecord: 143.7ms | Allocations: 1761)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find User with 'id'=login):
+  
+app/controllers/users_controller.rb:58:in `set_user'
+Started POST "/login" for 172.19.0.4 at 2021-10-25 22:33:11 +0900
+  [1m[35m (13.7ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (18.5ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by UsersController#login as HTML
+  [1m[36mUser Load (13.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` IS NULL AND `users`.`password` IS NULL LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 111ms (Views: 4.6ms | ActiveRecord: 45.1ms | Allocations: 7576)
+
+
+Started GET "/me" for 172.19.0.4 at 2021-10-25 22:33:14 +0900
+  
+ActionController::RoutingError (No route matches [GET] "/me"):
+  
+actionpack (6.0.3.7) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.7) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.7) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.3.7) lib/rails/engine.rb:527:in `call'
+puma (4.3.8) lib/puma/configuration.rb:228:in `call'
+puma (4.3.8) lib/puma/server.rb:718:in `handle_request'
+puma (4.3.8) lib/puma/server.rb:472:in `process_client'
+puma (4.3.8) lib/puma/server.rb:328:in `block in run'
+puma (4.3.8) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/me" for 172.19.0.4 at 2021-10-25 22:33:25 +0900
+  
+ActionController::RoutingError (No route matches [GET] "/me"):
+  
+actionpack (6.0.3.7) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.7) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.7) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.3.7) lib/rails/engine.rb:527:in `call'
+puma (4.3.8) lib/puma/configuration.rb:228:in `call'
+puma (4.3.8) lib/puma/server.rb:718:in `handle_request'
+puma (4.3.8) lib/puma/server.rb:472:in `process_client'
+puma (4.3.8) lib/puma/server.rb:328:in `block in run'
+puma (4.3.8) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started POST "/users/login" for 172.19.0.4 at 2021-10-25 22:33:33 +0900
+  
+ActionController::RoutingError (No route matches [POST] "/users/login"):
+  
+actionpack (6.0.3.7) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.7) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.7) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.3.7) lib/rails/engine.rb:527:in `call'
+puma (4.3.8) lib/puma/configuration.rb:228:in `call'
+puma (4.3.8) lib/puma/server.rb:718:in `handle_request'
+puma (4.3.8) lib/puma/server.rb:472:in `process_client'
+puma (4.3.8) lib/puma/server.rb:328:in `block in run'
+puma (4.3.8) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started POST "/login" for 172.19.0.4 at 2021-10-25 22:52:58 +0900
+  [1m[35m (9.3ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by UsersController#login as HTML
+  [1m[36mUser Load (7.4ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` IS NULL AND `users`.`password` IS NULL LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 41ms (Views: 4.0ms | ActiveRecord: 7.4ms | Allocations: 1014)
+
+
+Started GET "/me" for 172.19.0.4 at 2021-10-25 22:52:58 +0900
+  
+ActionController::RoutingError (No route matches [GET] "/me"):
+  
+actionpack (6.0.3.7) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.7) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.7) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.3.7) lib/rails/engine.rb:527:in `call'
+puma (4.3.8) lib/puma/configuration.rb:228:in `call'
+puma (4.3.8) lib/puma/server.rb:718:in `handle_request'
+puma (4.3.8) lib/puma/server.rb:472:in `process_client'
+puma (4.3.8) lib/puma/server.rb:328:in `block in run'
+puma (4.3.8) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/user/me" for 172.19.0.4 at 2021-10-26 22:08:08 +0900
+  [1m[35m (7.7ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (12.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  
+ActionController::RoutingError (uninitialized constant UserController
+Did you mean?  UsersController):
+  
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:92:in `rescue in controller_class_for'
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:88:in `controller_class_for'
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:81:in `controller_class'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:44:in `controller'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:31:in `serve'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:49:in `block in serve'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:834:in `call'
+rack (2.2.3) lib/rack/etag.rb:27:in `call'
+rack (2.2.3) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.3) lib/rack/head.rb:12:in `call'
+activerecord (6.0.3.7) lib/active_record/migration.rb:567:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.0.3.7) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.7) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.7) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.3.7) lib/rails/engine.rb:527:in `call'
+puma (4.3.8) lib/puma/configuration.rb:228:in `call'
+puma (4.3.8) lib/puma/server.rb:718:in `handle_request'
+puma (4.3.8) lib/puma/server.rb:472:in `process_client'
+puma (4.3.8) lib/puma/server.rb:328:in `block in run'
+puma (4.3.8) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/user/me" for 172.19.0.4 at 2021-10-26 22:09:54 +0900
+  
+ActionController::RoutingError (uninitialized constant UserController
+Did you mean?  UsersController):
+  
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:92:in `rescue in controller_class_for'
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:88:in `controller_class_for'
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:81:in `controller_class'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:44:in `controller'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:31:in `serve'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:49:in `block in serve'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:834:in `call'
+rack (2.2.3) lib/rack/etag.rb:27:in `call'
+rack (2.2.3) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.3) lib/rack/head.rb:12:in `call'
+activerecord (6.0.3.7) lib/active_record/migration.rb:567:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.0.3.7) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.7) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.7) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.3.7) lib/rails/engine.rb:527:in `call'
+puma (4.3.8) lib/puma/configuration.rb:228:in `call'
+puma (4.3.8) lib/puma/server.rb:718:in `handle_request'
+puma (4.3.8) lib/puma/server.rb:472:in `process_client'
+puma (4.3.8) lib/puma/server.rb:328:in `block in run'
+puma (4.3.8) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/user/me" for 172.19.0.4 at 2021-10-26 22:10:04 +0900
+  
+ActionController::RoutingError (uninitialized constant UserController
+Did you mean?  UsersController):
+  
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:92:in `rescue in controller_class_for'
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:88:in `controller_class_for'
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:81:in `controller_class'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:44:in `controller'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:31:in `serve'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:49:in `block in serve'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:834:in `call'
+rack (2.2.3) lib/rack/etag.rb:27:in `call'
+rack (2.2.3) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.3) lib/rack/head.rb:12:in `call'
+activerecord (6.0.3.7) lib/active_record/migration.rb:567:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.0.3.7) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.7) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.7) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.3.7) lib/rails/engine.rb:527:in `call'
+puma (4.3.8) lib/puma/configuration.rb:228:in `call'
+puma (4.3.8) lib/puma/server.rb:718:in `handle_request'
+puma (4.3.8) lib/puma/server.rb:472:in `process_client'
+puma (4.3.8) lib/puma/server.rb:328:in `block in run'
+puma (4.3.8) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started POST "/login" for 172.19.0.4 at 2021-10-26 22:10:22 +0900
+Processing by UsersController#login as HTML
+  [1m[36mUser Load (8.9ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` IS NULL AND `users`.`password` IS NULL LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 89ms (Views: 0.5ms | ActiveRecord: 32.6ms | Allocations: 7504)
+
+
+Started GET "/user/me" for 172.19.0.4 at 2021-10-26 22:10:22 +0900
+  
+ActionController::RoutingError (uninitialized constant UserController
+Did you mean?  UsersController):
+  
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:92:in `rescue in controller_class_for'
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:88:in `controller_class_for'
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:81:in `controller_class'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:44:in `controller'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:31:in `serve'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:49:in `block in serve'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:834:in `call'
+rack (2.2.3) lib/rack/etag.rb:27:in `call'
+rack (2.2.3) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.3) lib/rack/head.rb:12:in `call'
+activerecord (6.0.3.7) lib/active_record/migration.rb:567:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.0.3.7) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.7) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.7) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.3.7) lib/rails/engine.rb:527:in `call'
+puma (4.3.8) lib/puma/configuration.rb:228:in `call'
+puma (4.3.8) lib/puma/server.rb:718:in `handle_request'
+puma (4.3.8) lib/puma/server.rb:472:in `process_client'
+puma (4.3.8) lib/puma/server.rb:328:in `block in run'
+puma (4.3.8) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/user/me" for 172.19.0.4 at 2021-10-26 22:13:30 +0900
+  
+ActionController::RoutingError (uninitialized constant UserController
+Did you mean?  UsersController):
+  
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:92:in `rescue in controller_class_for'
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:88:in `controller_class_for'
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:81:in `controller_class'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:44:in `controller'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:31:in `serve'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:49:in `block in serve'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:834:in `call'
+rack (2.2.3) lib/rack/etag.rb:27:in `call'
+rack (2.2.3) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.3) lib/rack/head.rb:12:in `call'
+activerecord (6.0.3.7) lib/active_record/migration.rb:567:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.0.3.7) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.7) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.7) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.3.7) lib/rails/engine.rb:527:in `call'
+puma (4.3.8) lib/puma/configuration.rb:228:in `call'
+puma (4.3.8) lib/puma/server.rb:718:in `handle_request'
+puma (4.3.8) lib/puma/server.rb:472:in `process_client'
+puma (4.3.8) lib/puma/server.rb:328:in `block in run'
+puma (4.3.8) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/user/me" for 172.19.0.4 at 2021-10-26 22:16:18 +0900
+  
+ActionController::RoutingError (uninitialized constant UserController
+Did you mean?  UsersController):
+  
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:92:in `rescue in controller_class_for'
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:88:in `controller_class_for'
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:81:in `controller_class'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:44:in `controller'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:31:in `serve'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:49:in `block in serve'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:834:in `call'
+rack (2.2.3) lib/rack/etag.rb:27:in `call'
+rack (2.2.3) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.3) lib/rack/head.rb:12:in `call'
+activerecord (6.0.3.7) lib/active_record/migration.rb:567:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.0.3.7) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.7) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.7) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.3.7) lib/rails/engine.rb:527:in `call'
+puma (4.3.8) lib/puma/configuration.rb:228:in `call'
+puma (4.3.8) lib/puma/server.rb:718:in `handle_request'
+puma (4.3.8) lib/puma/server.rb:472:in `process_client'
+puma (4.3.8) lib/puma/server.rb:328:in `block in run'
+puma (4.3.8) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/user/me" for 172.19.0.4 at 2021-10-26 22:18:02 +0900
+  
+ActionController::RoutingError (uninitialized constant UserController
+Did you mean?  UsersController):
+  
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:92:in `rescue in controller_class_for'
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:88:in `controller_class_for'
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:81:in `controller_class'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:44:in `controller'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:31:in `serve'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:49:in `block in serve'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:834:in `call'
+rack (2.2.3) lib/rack/etag.rb:27:in `call'
+rack (2.2.3) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.3) lib/rack/head.rb:12:in `call'
+activerecord (6.0.3.7) lib/active_record/migration.rb:567:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.0.3.7) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.7) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.7) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.3.7) lib/rails/engine.rb:527:in `call'
+puma (4.3.8) lib/puma/configuration.rb:228:in `call'
+puma (4.3.8) lib/puma/server.rb:718:in `handle_request'
+puma (4.3.8) lib/puma/server.rb:472:in `process_client'
+puma (4.3.8) lib/puma/server.rb:328:in `block in run'
+puma (4.3.8) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/user/me" for 172.19.0.4 at 2021-10-26 22:19:58 +0900
+  
+ActionController::RoutingError (uninitialized constant UserController
+Did you mean?  UsersController):
+  
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:92:in `rescue in controller_class_for'
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:88:in `controller_class_for'
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:81:in `controller_class'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:44:in `controller'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:31:in `serve'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:49:in `block in serve'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:834:in `call'
+rack (2.2.3) lib/rack/etag.rb:27:in `call'
+rack (2.2.3) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.3) lib/rack/head.rb:12:in `call'
+activerecord (6.0.3.7) lib/active_record/migration.rb:567:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.0.3.7) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.7) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.7) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.3.7) lib/rails/engine.rb:527:in `call'
+puma (4.3.8) lib/puma/configuration.rb:228:in `call'
+puma (4.3.8) lib/puma/server.rb:718:in `handle_request'
+puma (4.3.8) lib/puma/server.rb:472:in `process_client'
+puma (4.3.8) lib/puma/server.rb:328:in `block in run'
+puma (4.3.8) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/user/me" for 172.19.0.4 at 2021-10-26 22:20:15 +0900
+  
+ActionController::RoutingError (uninitialized constant UserController
+Did you mean?  UsersController):
+  
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:92:in `rescue in controller_class_for'
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:88:in `controller_class_for'
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:81:in `controller_class'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:44:in `controller'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:31:in `serve'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:49:in `block in serve'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:834:in `call'
+rack (2.2.3) lib/rack/etag.rb:27:in `call'
+rack (2.2.3) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.3) lib/rack/head.rb:12:in `call'
+activerecord (6.0.3.7) lib/active_record/migration.rb:567:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.0.3.7) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.7) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.7) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.3.7) lib/rails/engine.rb:527:in `call'
+puma (4.3.8) lib/puma/configuration.rb:228:in `call'
+puma (4.3.8) lib/puma/server.rb:718:in `handle_request'
+puma (4.3.8) lib/puma/server.rb:472:in `process_client'
+puma (4.3.8) lib/puma/server.rb:328:in `block in run'
+puma (4.3.8) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/user/me" for 172.19.0.4 at 2021-10-26 22:21:25 +0900
+  
+ActionController::RoutingError (uninitialized constant UserController
+Did you mean?  UsersController):
+  
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:92:in `rescue in controller_class_for'
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:88:in `controller_class_for'
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:81:in `controller_class'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:44:in `controller'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:31:in `serve'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:49:in `block in serve'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:834:in `call'
+rack (2.2.3) lib/rack/etag.rb:27:in `call'
+rack (2.2.3) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.3) lib/rack/head.rb:12:in `call'
+activerecord (6.0.3.7) lib/active_record/migration.rb:567:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.0.3.7) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.7) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.7) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.3.7) lib/rails/engine.rb:527:in `call'
+puma (4.3.8) lib/puma/configuration.rb:228:in `call'
+puma (4.3.8) lib/puma/server.rb:718:in `handle_request'
+puma (4.3.8) lib/puma/server.rb:472:in `process_client'
+puma (4.3.8) lib/puma/server.rb:328:in `block in run'
+puma (4.3.8) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/user/me" for 172.19.0.4 at 2021-10-26 22:22:09 +0900
+  
+ActionController::RoutingError (uninitialized constant UserController
+Did you mean?  UsersController):
+  
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:92:in `rescue in controller_class_for'
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:88:in `controller_class_for'
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:81:in `controller_class'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:44:in `controller'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:31:in `serve'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:49:in `block in serve'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:834:in `call'
+rack (2.2.3) lib/rack/etag.rb:27:in `call'
+rack (2.2.3) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.3) lib/rack/head.rb:12:in `call'
+activerecord (6.0.3.7) lib/active_record/migration.rb:567:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.0.3.7) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.7) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.7) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.3.7) lib/rails/engine.rb:527:in `call'
+puma (4.3.8) lib/puma/configuration.rb:228:in `call'
+puma (4.3.8) lib/puma/server.rb:718:in `handle_request'
+puma (4.3.8) lib/puma/server.rb:472:in `process_client'
+puma (4.3.8) lib/puma/server.rb:328:in `block in run'
+puma (4.3.8) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/user/me" for 172.19.0.4 at 2021-10-26 22:23:01 +0900
+  
+ActionController::RoutingError (uninitialized constant UserController
+Did you mean?  UsersController):
+  
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:92:in `rescue in controller_class_for'
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:88:in `controller_class_for'
+actionpack (6.0.3.7) lib/action_dispatch/http/request.rb:81:in `controller_class'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:44:in `controller'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:31:in `serve'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:49:in `block in serve'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.0.3.7) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.0.3.7) lib/action_dispatch/routing/route_set.rb:834:in `call'
+rack (2.2.3) lib/rack/etag.rb:27:in `call'
+rack (2.2.3) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.3) lib/rack/head.rb:12:in `call'
+activerecord (6.0.3.7) lib/active_record/migration.rb:567:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.0.3.7) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.7) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.7) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.7) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.7) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.7) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.3.7) lib/rails/engine.rb:527:in `call'
+puma (4.3.8) lib/puma/configuration.rb:228:in `call'
+puma (4.3.8) lib/puma/server.rb:718:in `handle_request'
+puma (4.3.8) lib/puma/server.rb:472:in `process_client'
+puma (4.3.8) lib/puma/server.rb:328:in `block in run'
+puma (4.3.8) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started POST "/login" for 172.19.0.4 at 2021-10-26 22:23:09 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (6.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 20ms (Views: 0.2ms | ActiveRecord: 6.0ms | Allocations: 848)
+
+
+Started POST "/login" for 172.19.0.4 at 2021-10-26 22:25:13 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 12ms (Views: 0.2ms | ActiveRecord: 0.8ms | Allocations: 714)
+
+
+Started POST "/login" for 172.19.0.4 at 2021-10-26 22:33:17 +0900
+  [1m[35m (1.0ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (7.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (3.7ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 30ms (Views: 0.1ms | ActiveRecord: 14.0ms | Allocations: 6378)
+
+
+Started POST "/login" for 172.19.0.4 at 2021-10-26 22:52:41 +0900
+  [1m[35m (10.9ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (14.1ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (3.8ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 31ms (Views: 0.1ms | ActiveRecord: 17.4ms | Allocations: 6378)
+
+
+Started POST "/login" for 172.19.0.4 at 2021-10-26 23:10:23 +0900
+  [1m[35m (0.7ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 12ms (Views: 0.2ms | ActiveRecord: 1.1ms | Allocations: 708)
+
+
+Started POST "/login" for 172.19.0.4 at 2021-10-26 23:11:17 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 12ms (Views: 0.3ms | ActiveRecord: 1.4ms | Allocations: 714)
+
+
+Started POST "/login" for 172.19.0.4 at 2021-10-26 23:11:39 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 10ms (Views: 0.2ms | ActiveRecord: 1.3ms | Allocations: 698)
+
+
+Started POST "/login" for 172.19.0.4 at 2021-10-26 23:18:46 +0900
+  [1m[35m (1.1ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (7.8ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (3.3ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 27ms (Views: 1.0ms | ActiveRecord: 12.9ms | Allocations: 6408)
+
+
+Started GET "/user/me" for 172.19.0.4 at 2021-10-26 23:18:46 +0900
+Processing by UsersController#find_user_by_token as HTML
+  [1m[36mUser Load (4.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`token` IS NULL LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:56:in `find_user_by_token'
+Completed 200 OK in 11ms (Views: 1.4ms | ActiveRecord: 4.2ms | Allocations: 1003)
+
+
+Started POST "/login" for 172.19.0.4 at 2021-10-26 23:21:13 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (4.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 12ms (Views: 0.3ms | ActiveRecord: 4.0ms | Allocations: 741)
+
+
+Started POST "/login" for 172.19.0.4 at 2021-10-26 23:39:51 +0900
+  [1m[35m (1.6ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (11.5ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (3.6ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 30ms (Views: 0.3ms | ActiveRecord: 14.1ms | Allocations: 6408)
+
+
+Started POST "/login" for 172.19.0.4 at 2021-10-26 23:40:14 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 15ms (Views: 0.3ms | ActiveRecord: 1.0ms | Allocations: 741)
+
+
+Started GET "/user/me" for 172.19.0.4 at 2021-10-26 23:40:41 +0900
+Processing by UsersController#find_user_by_token as HTML
+  [1m[36mUser Load (14.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`token` = 'Bearer 1C79d3nMmij3adgCaVTMsZuC' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:56:in `find_user_by_token'
+Completed 200 OK in 26ms (Views: 0.3ms | ActiveRecord: 14.5ms | Allocations: 848)
+
+
+Started POST "/login" for 172.19.0.4 at 2021-10-26 23:40:45 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (4.3ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 16ms (Views: 0.3ms | ActiveRecord: 4.3ms | Allocations: 741)
+
+
+Started GET "/user/me" for 172.19.0.4 at 2021-10-26 23:40:45 +0900
+Processing by UsersController#find_user_by_token as HTML
+  [1m[36mUser Load (1.9ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`token` = 'Bearer 1C79d3nMmij3adgCaVTMsZuC' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:56:in `find_user_by_token'
+Completed 200 OK in 11ms (Views: 0.2ms | ActiveRecord: 1.9ms | Allocations: 699)
+
+
+Started GET "/user/me" for 172.19.0.4 at 2021-10-26 23:48:51 +0900
+  [1m[35m (1.8ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (9.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by UsersController#find_user_by_token as HTML
+  [1m[36mUser Load (4.6ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`token` = '1C79d3nMmij3adgCaVTMsZuC' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `find_user_by_token'
+Completed 200 OK in 60ms (Views: 1.7ms | ActiveRecord: 15.0ms | Allocations: 7575)
+
+
+Started GET "/user/me" for 172.19.0.4 at 2021-10-26 23:49:47 +0900
+Processing by UsersController#find_user_by_token as HTML
+  [1m[36mUser Load (1.8ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`token` = '1C79d3nMmij3adgCaVTMsZuC' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `find_user_by_token'
+Completed 200 OK in 22ms (Views: 3.9ms | ActiveRecord: 1.8ms | Allocations: 855)
+
+
+Started POST "/login" for 172.19.0.4 at 2021-10-26 23:49:58 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (2.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 16ms (Views: 0.5ms | ActiveRecord: 2.1ms | Allocations: 897)
+
+
+Started GET "/user/me" for 172.19.0.4 at 2021-10-26 23:49:58 +0900
+Processing by UsersController#find_user_by_token as HTML
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`token` = '1C79d3nMmij3adgCaVTMsZuC' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `find_user_by_token'
+Completed 200 OK in 20ms (Views: 0.6ms | ActiveRecord: 1.2ms | Allocations: 839)
+
+
+Started GET "/user/me" for 172.19.0.4 at 2021-10-26 23:50:24 +0900
+Processing by UsersController#find_user_by_token as HTML
+  [1m[36mUser Load (3.6ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`token` = '1C79d3nMmij3adgCaVTMsZuC' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `find_user_by_token'
+Completed 200 OK in 13ms (Views: 0.8ms | ActiveRecord: 3.6ms | Allocations: 855)
+
+
+Started POST "/login" for 172.19.0.4 at 2021-10-26 23:50:38 +0900
+Processing by UsersController#login as HTML
+  Parameters: {"email"=>"token@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"token@gmail.com"}}
+  [1m[36mUser Load (2.6ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'token@gmail.com' AND `users`.`password` = 'pw' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:42:in `login'
+Completed 200 OK in 16ms (Views: 0.3ms | ActiveRecord: 2.6ms | Allocations: 725)
+
+
+Started GET "/user/me" for 172.19.0.4 at 2021-10-26 23:50:38 +0900
+Processing by UsersController#find_user_by_token as HTML
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`token` = '1C79d3nMmij3adgCaVTMsZuC' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:58:in `find_user_by_token'
+Completed 200 OK in 11ms (Views: 0.9ms | ActiveRecord: 0.9ms | Allocations: 855)
+
+

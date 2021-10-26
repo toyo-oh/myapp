@@ -43,7 +43,7 @@ class UsersController < ApplicationController
     if current_user.nil?
       render json: {status: 401, message: 'login failed!'}
     else
-      render json: current_user
+      render json: {token: current_user.token}
     end
       # return render json: {status: 401, message: '認証に失敗しました'} unless current_user
       # render plain: current_user.token
@@ -51,6 +51,18 @@ class UsersController < ApplicationController
     #   Rails.logger.error(e.message)
     #   render json: Init.message(500, e.message), status: 500
   end
+
+  def find_user_by_token
+    tokenB = request.headers["Authorization"]
+    token = tokenB[7,tokenB.length-7]
+    current_user = User.find_by(token: token)
+    if current_user.nil?
+      render json: {status: 401, message: 'user not exist!'}
+    else
+      render json: {data: current_user}
+    end
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

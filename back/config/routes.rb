@@ -11,5 +11,6 @@ Rails.application.routes.draw do
     end
   end
   resources :carts
-  post '/users/login', to: 'users#login'
+  post '/login', to: 'users#login'
+  get '/user/me', to: 'users#find_user_by_token'
 end
