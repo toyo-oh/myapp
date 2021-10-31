@@ -31,7 +31,7 @@
       </v-btn> -->
       <v-btn text @click="toMain">Store</v-btn>
       <v-btn text>Product</v-btn>
-      <!-- <v-toolbar-title v-text="title" /> -->
+      <!-- <v-toolbar-title v-text="title" /> --> 
       <v-spacer />
       <v-menu v-if="isLoggedIn" offset-y>
         <template v-slot:activator="{ attrs, on }">

@@ -4645,3 +4645,248 @@ Processing by UsersController#find_user_by_token as HTML
 Completed 200 OK in 11ms (Views: 0.9ms | ActiveRecord: 0.9ms | Allocations: 855)
 
 
+  [1m[35m (7.1ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (2.0ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (3.3ms)[0m  [1m[34mSELECT GET_LOCK('7864839756650184315', 0)[0m
+  [1m[35m (13.7ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to ChangePasswordToUsers (20211028150453)
+  [1m[35m (230.0ms)[0m  [1m[35mALTER TABLE `users` DROP COLUMN `password`[0m
+  [1m[35m (102.0ms)[0m  [1m[35mALTER TABLE `users` ADD `password_digest` varchar(255)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mprimary::SchemaMigration Create (32.5ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20211028150453')[0m
+  [1m[35m (13.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (12.9ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT RELEASE_LOCK('7864839756650184315')[0m
+  [1m[35m (2.4ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (2.6ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Started GET "/user/me" for 172.19.0.4 at 2021-10-31 15:43:20 +0900
+  [1m[35m (40.9ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (9.1ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by UsersController#current_user as HTML
+Completed 200 OK in 6ms (Views: 2.0ms | ActiveRecord: 0.0ms | Allocations: 253)
+
+
+Started POST "/users" for 172.19.0.4 at 2021-10-31 15:44:58 +0900
+Processing by UsersController#create as HTML
+  Parameters: {"name"=>"auth", "password"=>"[FILTERED]", "email"=>"auth@gmail.com", "is_admin"=>false, "user"=>{"name"=>"auth", "email"=>"auth@gmail.com", "is_admin"=>false}}
+Completed 422 Unprocessable Entity in 335ms (Views: 0.2ms | ActiveRecord: 85.7ms | Allocations: 9263)
+
+
+Started GET "/user/me" for 172.19.0.4 at 2021-10-31 16:09:58 +0900
+  [1m[35m (6.0ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by UsersController#current_user as HTML
+Completed 200 OK in 2ms (Views: 1.8ms | ActiveRecord: 0.0ms | Allocations: 145)
+
+
+Started POST "/users" for 172.19.0.4 at 2021-10-31 16:10:25 +0900
+Processing by UsersController#create as HTML
+  Parameters: {"name"=>"auth@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "email"=>"auth@gmail.com", "is_admin"=>false, "user"=>{"name"=>"auth@gmail.com", "email"=>"auth@gmail.com", "is_admin"=>false}}
+Completed 422 Unprocessable Entity in 5ms (Views: 0.3ms | ActiveRecord: 0.0ms | Allocations: 687)
+
+
+Started GET "/user/me" for 172.19.0.4 at 2021-10-31 16:12:49 +0900
+  
+SyntaxError (/myapp/app/controllers/users_controller.rb:103: syntax error, unexpected ';', expecting ')'
+...ssword, :password_confirmation; :email, :is_admin)
+...                              ^
+/myapp/app/controllers/users_controller.rb:109: syntax error, unexpected end-of-input, expecting end):
+  
+app/controllers/users_controller.rb:103: syntax error, unexpected ';', expecting ')'
+app/controllers/users_controller.rb:109: syntax error, unexpected end-of-input, expecting end
+app/controllers/users_controller.rb:103: syntax error, unexpected ';', expecting ')'
+app/controllers/users_controller.rb:109: syntax error, unexpected end-of-input, expecting end
+Started GET "/user/me" for 172.19.0.4 at 2021-10-31 16:14:36 +0900
+  
+SyntaxError (/myapp/app/controllers/users_controller.rb:103: syntax error, unexpected ';', expecting ')'
+...ssword, :password_confirmation; :email, :is_admin)
+...                              ^
+/myapp/app/controllers/users_controller.rb:109: syntax error, unexpected end-of-input, expecting end):
+  
+app/controllers/users_controller.rb:103: syntax error, unexpected ';', expecting ')'
+app/controllers/users_controller.rb:109: syntax error, unexpected end-of-input, expecting end
+app/controllers/users_controller.rb:103: syntax error, unexpected ';', expecting ')'
+app/controllers/users_controller.rb:109: syntax error, unexpected end-of-input, expecting end
+Started GET "/user/me" for 172.19.0.4 at 2021-10-31 16:35:37 +0900
+  [1m[35m (3.4ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  
+SyntaxError (/myapp/app/controllers/users_controller.rb:105: syntax error, unexpected ';', expecting ')'
+...ssword, :password_confirmation; :email, :is_admin)
+...                              ^
+/myapp/app/controllers/users_controller.rb:111: syntax error, unexpected end-of-input, expecting end):
+  
+app/controllers/users_controller.rb:105: syntax error, unexpected ';', expecting ')'
+app/controllers/users_controller.rb:111: syntax error, unexpected end-of-input, expecting end
+app/controllers/users_controller.rb:105: syntax error, unexpected ';', expecting ')'
+app/controllers/users_controller.rb:111: syntax error, unexpected end-of-input, expecting end
+Started POST "/users" for 172.19.0.4 at 2021-10-31 16:35:59 +0900
+  
+SyntaxError (/myapp/app/controllers/users_controller.rb:105: syntax error, unexpected ';', expecting ')'
+...ssword, :password_confirmation; :email, :is_admin)
+...                              ^
+/myapp/app/controllers/users_controller.rb:111: syntax error, unexpected end-of-input, expecting end):
+  
+app/controllers/users_controller.rb:105: syntax error, unexpected ';', expecting ')'
+app/controllers/users_controller.rb:111: syntax error, unexpected end-of-input, expecting end
+app/controllers/users_controller.rb:105: syntax error, unexpected ';', expecting ')'
+app/controllers/users_controller.rb:111: syntax error, unexpected end-of-input, expecting end
+Started GET "/user/me" for 172.19.0.4 at 2021-10-31 16:37:09 +0900
+Processing by UsersController#current_user as HTML
+Completed 200 OK in 3ms (Views: 0.6ms | ActiveRecord: 0.0ms | Allocations: 206)
+
+
+Started POST "/users" for 172.19.0.4 at 2021-10-31 16:37:28 +0900
+Processing by UsersController#create as HTML
+  Parameters: {"name"=>"auth", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "email"=>"auth@gmail.com", "is_admin"=>false, "user"=>{"name"=>"auth", "email"=>"auth@gmail.com", "is_admin"=>false}}
+Completed 422 Unprocessable Entity in 48ms (Views: 0.3ms | ActiveRecord: 80.9ms | Allocations: 5590)
+
+
+Started GET "/user/me" for 172.19.0.4 at 2021-10-31 16:37:42 +0900
+Processing by UsersController#current_user as HTML
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 200)
+
+
+Started POST "/users" for 172.19.0.4 at 2021-10-31 16:37:57 +0900
+Processing by UsersController#create as HTML
+  Parameters: {"name"=>"auth", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "email"=>"auth@gmail.com", "is_admin"=>false, "user"=>{"name"=>"auth", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}
+  [1m[35m (2.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:54:in `create'
+  [1m[36mUser Create (20.9ms)[0m  [1m[32mINSERT INTO `users` (`name`, `created_at`, `updated_at`, `password_digest`) VALUES ('auth', '2021-10-31 07:37:58.236344', '2021-10-31 07:37:58.236344', '$2a$12$iBoBG4CcRdcwIHrbHy28iOrJL/8FS7L0ioukBxGwJtjXGDLj1NTEO')[0m
+  ↳ app/controllers/users_controller.rb:54:in `create'
+  [1m[35m (45.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:54:in `create'
+Completed 201 Created in 646ms (Views: 13.4ms | ActiveRecord: 81.5ms | Allocations: 8663)
+
+
+Started GET "/users/8" for 172.19.0.4 at 2021-10-31 16:37:58 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"8"}
+Filter chain halted as :require_login rendered or redirected
+Completed 200 OK in 12ms (Views: 0.7ms | ActiveRecord: 0.0ms | Allocations: 157)
+
+
+Started GET "/user/current_user" for 172.19.0.4 at 2021-10-31 16:41:23 +0900
+Processing by UsersController#current_user as HTML
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.0ms | Allocations: 201)
+
+
+Started GET "/users/8" for 172.19.0.4 at 2021-10-31 16:41:25 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"8"}
+Filter chain halted as :require_login rendered or redirected
+Completed 200 OK in 11ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 154)
+
+
+Started GET "/user/current_user" for 172.19.0.4 at 2021-10-31 16:41:31 +0900
+Processing by UsersController#current_user as HTML
+Completed 200 OK in 1ms (Views: 0.3ms | ActiveRecord: 0.0ms | Allocations: 143)
+
+
+Started POST "/login" for 172.19.0.4 at 2021-10-31 16:41:40 +0900
+Processing by AuthenticationsController#create as HTML
+  Parameters: {"email"=>"auth@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]"}}
+  [1m[36mUser Load (2.9ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'auth@gmail.com' LIMIT 1[0m
+  ↳ app/controllers/authentications_controller.rb:6:in `create'
+Completed 401 Unauthorized in 92ms (Views: 0.2ms | ActiveRecord: 9.4ms | Allocations: 2123)
+
+
+Started POST "/login" for 172.19.0.4 at 2021-10-31 16:44:03 +0900
+Processing by AuthenticationsController#create as HTML
+  Parameters: {"email"=>"auth@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]"}}
+  [1m[36mUser Load (110.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'auth@gmail.com' LIMIT 1[0m
+  ↳ app/controllers/authentications_controller.rb:6:in `create'
+Completed 200 OK in 443ms (Views: 0.3ms | ActiveRecord: 118.4ms | Allocations: 5733)
+
+
+Started GET "/user/current_user" for 172.19.0.4 at 2021-10-31 16:44:03 +0900
+Processing by UsersController#current_user as HTML
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 141)
+
+
+Started POST "/login" for 172.19.0.4 at 2021-10-31 16:45:19 +0900
+Processing by AuthenticationsController#create as HTML
+  Parameters: {"email"=>"auth@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]"}}
+  [1m[36mUser Load (3.8ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'auth@gmail.com' LIMIT 1[0m
+  ↳ app/controllers/authentications_controller.rb:6:in `create'
+Completed 200 OK in 456ms (Views: 0.2ms | ActiveRecord: 3.8ms | Allocations: 849)
+
+
+Started GET "/user/current_user" for 172.19.0.4 at 2021-10-31 16:45:31 +0900
+Processing by UsersController#current_user as HTML
+Completed 200 OK in 0ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 141)
+
+
+Started GET "/user/current_user" for 172.19.0.4 at 2021-10-31 16:45:47 +0900
+Processing by UsersController#current_user as HTML
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 141)
+
+
+Started POST "/login" for 172.19.0.4 at 2021-10-31 16:46:09 +0900
+Processing by AuthenticationsController#create as HTML
+  Parameters: {"email"=>"auth@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"auth@gmail.com"}}
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'auth@gmail.com' LIMIT 1[0m
+  ↳ app/controllers/authentications_controller.rb:6:in `create'
+Completed 200 OK in 373ms (Views: 0.3ms | ActiveRecord: 27.7ms | Allocations: 6790)
+
+
+Started GET "/user/current_user" for 172.19.0.4 at 2021-10-31 16:46:10 +0900
+Processing by UsersController#current_user as HTML
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 8 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:17:in `current_user'
+Completed 200 OK in 30ms (Views: 3.3ms | ActiveRecord: 1.5ms | Allocations: 1223)
+
+
+Started GET "/user/current_user" for 172.19.0.4 at 2021-10-31 16:48:11 +0900
+Processing by UsersController#current_user as HTML
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 8 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:17:in `current_user'
+Completed 200 OK in 41ms (Views: 1.5ms | ActiveRecord: 1.2ms | Allocations: 1053)
+
+
+Started POST "/users" for 172.19.0.4 at 2021-10-31 16:48:45 +0900
+Processing by UsersController#create as HTML
+  Parameters: {"name"=>"testmail", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "email"=>"testmail@gmail.com", "is_admin"=>true, "user"=>{"name"=>"testmail", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "email"=>"testmail@gmail.com", "is_admin"=>true}}
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:55:in `create'
+  [1m[36mUser Create (3.3ms)[0m  [1m[32mINSERT INTO `users` (`name`, `created_at`, `updated_at`, `email`, `is_admin`, `password_digest`) VALUES ('testmail', '2021-10-31 07:48:46.211580', '2021-10-31 07:48:46.211580', 'testmail@gmail.com', TRUE, '$2a$12$rqGbv9xV0fpwNfAplqmRKefX4hLKKSxv2NbseQo3.Tt1zfv5whT7m')[0m
+  ↳ app/controllers/users_controller.rb:55:in `create'
+  [1m[35m (15.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:55:in `create'
+Completed 201 Created in 412ms (Views: 2.8ms | ActiveRecord: 19.4ms | Allocations: 2878)
+
+
+Started GET "/users/9" for 172.19.0.4 at 2021-10-31 16:48:46 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"9"}
+  [1m[36mUser Load (2.8ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 8 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:17:in `current_user'
+Filter chain halted as :require_login rendered or redirected
+Completed 200 OK in 30ms (Views: 6.7ms | ActiveRecord: 2.8ms | Allocations: 1068)
+
+
+Started GET "/users/9" for 172.19.0.4 at 2021-10-31 16:50:26 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"9"}
+  [1m[36mUser Load (10.6ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 8 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:17:in `current_user'
+Filter chain halted as :require_login rendered or redirected
+Completed 200 OK in 63ms (Views: 1.2ms | ActiveRecord: 10.6ms | Allocations: 1068)
+
+
+Started GET "/user/current_user" for 172.19.0.4 at 2021-10-31 16:50:29 +0900
+Processing by UsersController#current_user as HTML
+  [1m[36mUser Load (1.9ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 8 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:17:in `current_user'
+Completed 200 OK in 19ms (Views: 0.7ms | ActiveRecord: 1.9ms | Allocations: 1054)
+
+
+Started GET "/users/9" for 172.19.0.4 at 2021-10-31 16:50:30 +0900
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"9"}
+  [1m[36mUser Load (2.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 8 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:17:in `current_user'
+Filter chain halted as :require_login rendered or redirected
+Completed 200 OK in 23ms (Views: 2.1ms | ActiveRecord: 2.0ms | Allocations: 1068)
+
+

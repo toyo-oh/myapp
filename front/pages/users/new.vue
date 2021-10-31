@@ -10,6 +10,7 @@
           <!-- <v-col cols="12" md="6"> -->
           <v-text-field v-model="name" type="text" label="Name" required></v-text-field>
           <v-text-field v-model="password" type="password" label="Password" required></v-text-field>
+          <v-text-field v-model="password_confirmation" type="password" label="password_confirmation" required></v-text-field>
           <v-text-field v-model="email" type="text" label="Email" required></v-text-field>
           <v-switch v-model="is_admin" class="ma-4" label="Administrator"></v-switch>
           <!-- </v-col> -->
@@ -38,6 +39,7 @@ export default ({
     clear () {
       this.name = '',
         this.password = '',
+        this.password_confirmation = '',
         this.email = '',
         this.is_admin = false
     },
@@ -45,6 +47,7 @@ export default ({
       this.$axios.post('/api/users', {
         name: this.name,
         password: this.password,
+        password_confirmation: this.password_confirmation,
         email: this.email,
         is_admin: this.is_admin
       }).then((res) => {
