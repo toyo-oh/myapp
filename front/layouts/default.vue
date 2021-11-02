@@ -31,7 +31,7 @@
       </v-btn> -->
       <v-btn text @click="toMain">Store</v-btn>
       <v-btn text>Product</v-btn>
-      <!-- <v-toolbar-title v-text="title" /> --> 
+      <!-- <v-toolbar-title v-text="title" /> -->
       <v-spacer />
       <v-menu v-if="isLoggedIn" offset-y>
         <template v-slot:activator="{ attrs, on }">
@@ -42,7 +42,7 @@
         </template>
         <v-list>
           <v-list-item v-for="item in actmenus" :key="item" link>
-            <v-list-item-title v-text="item"></v-list-item-title>
+            <v-list-item-title v-text="item" @click="logout"></v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -114,21 +114,36 @@ export default {
       actmenus: ['Log Out']
     }
   },
+  created () {
+    this.loadCart();
+  },
   computed: {
     counter: function () {
       return this.$store.state.counter
     },
     email: function () {
-      return this.$store.state.user.email;
-      // return this.$store.getters.getUserEmail;
+      return this.$auth.user.email;
     },
     isLoggedIn: function () {
-      return this.$store.state.user.isLoggedIn;
+      return this.$auth.loggedIn;
     }
   },
   methods: {
     toMain () {
       this.$router.push(`/`)
+    },
+    logout () {
+      this.$auth.logout();
+      this.$store.commit('load_products', {});
+    },
+    async loadCart () {
+      if (this.$auth.loggedIn) {
+        const response = await this.$axios.$get(`api/cart/find_cart/${this.$auth.user.id}`);
+        this.$store.commit('load_products', response.productList);
+      } else {
+        var localCart = localStorage.getItem('Cart') || {};
+        this.$store.commit('load_products', localCart);
+      }
     }
   }
 }

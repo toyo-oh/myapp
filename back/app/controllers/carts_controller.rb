@@ -11,4 +11,15 @@ class CartsController < ApplicationController
 		session[:cart_id] = cart_id
 		return cart
 	end
+
+	def find_products
+		cart = Cart.find_by(user_id: params[:user_id])
+		if cart.blank?
+			render json: {productList: []}
+		else
+			@cart_items = cart.cart_items
+			render json: {productList: @cart_items}
+		end
+	end
+
 end

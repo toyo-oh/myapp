@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   resources :carts
   post '/login', to: 'authentications#create'
   get '/user/current_user', to: 'users#current_user'
+  get '/cart/find_cart/:user_id', to: 'carts#find_products'
 end

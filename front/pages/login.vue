@@ -20,11 +20,11 @@
 <script>
 export default ({
   // auth: false,
-  // middleware ({ store, redirect }) {
-  //   if (store.$auth.loggedIn) {
-  //     redirect('/');
-  //   }
-  // },
+  middleware ({ store, redirect }) {
+    if (store.$auth.loggedIn) {
+      redirect('/');
+    }
+  },
   data () {
     return {
       login: {
@@ -37,10 +37,10 @@ export default ({
     async userLogin () {
       try {
         const response = await this.$auth.loginWith('local', { data: this.login });
-        if (res.data != null) {
-          this.$store.commit('user/login', res.data)
-          localStorage.setItem('token', res.data.token)
-          // this.$router.push(`${res.data.id}`)
+        if (response.data != null) {
+          // update cart item
+          const response = await this.$axios.$get(`api/cart/find_cart/${this.$auth.user.id}`);
+          this.$store.commit('load_products', response.productList);
         } else {
           // TODO
         }
@@ -48,22 +48,6 @@ export default ({
 
       }
     }
-
-    // login () {
-    //   this.$axios.post('/api/users/login', {
-    //     email: this.email,
-    //     password: this.password,
-    //   }).then((res) => {
-    //     //success TODO by return code
-    //     if (res.data != null) {
-    //       this.$store.commit('user/login', res.data)
-    //       localStorage.setItem('token', res.data.token)
-    //       this.$router.push(`${res.data.id}`)
-    //     } else {
-    //       // fail
-    //     }
-    //   })
-    // }
   }
 })
 </script>

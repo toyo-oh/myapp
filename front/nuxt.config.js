@@ -70,7 +70,6 @@ export default {
         endpoints: {
           login: { url: '/api/login', method: 'post', propertyName: 'jwt' },
           user: { url: '/api/user/current_user', method: 'get', propertyName: 'data'},
-          // user: false,
           logout: false,
         },
       }

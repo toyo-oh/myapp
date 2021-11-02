@@ -2,11 +2,11 @@ class UsersController < ApplicationController
 
   SECRET_KEY_BASE = Rails.application.credentials.secret_key_base
   before_action :require_login, :set_user, only: [:show, :update, :destroy]
-  # FOR ERROR! [Password can't be blank in Rails (Using has_secure_password)]
   # https://stackoverflow.com/questions/30632639/password-cant-be-blank-in-rails-using-has-secure-password
-  # TODO wrap_parameters
+  # https://qiita.com/kazutosato/items/fbaa2fc0443611c627fc
+  # https://stackoverflow.com/questions/50641705/how-do-you-use-rails-5-2-wrap-parameters
   wrap_parameters :user, include: [:name, :password, :password_confirmation, :email, :is_admin]
-
+  
   def require_login
     response_unauthorized if current_user.blank?
   end

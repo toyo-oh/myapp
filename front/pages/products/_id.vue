@@ -36,12 +36,25 @@ export default {
   },
   methods: {
     addToCart () {
-      this.$axios.post(`/api/products/${this.id}/add_to_cart`, {
-        id: this.id
-      }).then((res) => {
-        // this.$router.push(`${res.data.id}`)
-      })
-    }
+      if (this.$auth.loggedIn) {
+        
+      } else {
+        // TODO 跳转到登陆页面
+      }
+    },
+    // *********** NOT IN USE
+    // addToCart () {
+    //   if (this.$auth.loggedIn) {
+    //     this.$axios.post(`/api/products/${this.id}/add_to_cart`, {
+    //       id: this.id,
+    //       user_id: this.$auth.user.id
+    //     }).then((res) => {
+    //       // TODO 跳转到购物车页面
+    //     })
+    //   } else {
+    //     // TODO 跳转到登陆页面
+    //   }
+    // },
   }
 };
 </script>
