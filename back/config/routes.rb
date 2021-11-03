@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   post '/login', to: 'authentications#create'
   get '/user/current_user', to: 'users#current_user'
   get '/cart/find_cart/:user_id', to: 'carts#find_products'
+  get '/product/show_cart_products', to:'products#showCartProducts'
 end

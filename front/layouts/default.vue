@@ -52,7 +52,7 @@
       <v-btn text v-if="!isLoggedIn">
         <div style="inline">Sign In</div>
       </v-btn>
-      <v-btn text>
+      <v-btn text @click="displayCart">
         <v-icon>mdi-cart</v-icon>
         <div style="inline">Cart（{{counter}}）</div>
       </v-btn>
@@ -144,6 +144,9 @@ export default {
         var localCart = localStorage.getItem('Cart') || {};
         this.$store.commit('load_products', localCart);
       }
+    },
+    displayCart () {
+      this.$router.push(`/cart`)
     }
   }
 }

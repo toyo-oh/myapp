@@ -10,9 +10,4 @@ class Cart < ApplicationRecord
         ci.quantity = 1
         ci.save
     end
-    # def update_cart_count()
-    #     ci = cart.
-    #     ci.quantity += 1
-    #     ci.update
-    # end
 end

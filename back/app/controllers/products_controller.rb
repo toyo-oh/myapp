@@ -28,11 +28,16 @@ class ProductsController < ApplicationController
                 @current_cart.add_product_to_cart(@product,params[:user_id])
             else
                 # TODO how to debug in rails???
-                logger.debug(@cart_item.quantity+1)
-                new_count = @cart_item.quantity+1
+                logger.debug(@cart_item.quantity + 1)
+                new_count = @cart_item.quantity + 1
                 @cart_item.update(quantity: new_count)
             end
         end
         render json: "backend: add to cart successed!!!"
+    end
+
+    def showCartProducts
+        @products = Product.where(id: params[:ids])
+        render json: @products
     end
 end
