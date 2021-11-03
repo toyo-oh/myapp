@@ -22,6 +22,16 @@
 </template>
 <script>
 export default {
+  data () {
+    return {
+      id: '',
+      title: '',
+      description: '',
+      price: '',
+      quantity: '',
+      image: ''
+    }
+  },
   asyncData ({ $axios, params }) {
     return $axios.$get(`/api/products/${params.id}`).then((res) => {
       return {
@@ -36,25 +46,23 @@ export default {
   },
   methods: {
     addToCart () {
+      // add to backend cart
       if (this.$auth.loggedIn) {
-        
-      } else {
-        // TODO 跳转到登陆页面
+        this.$axios.$post(`api/products/${this.id}/add_to_cart`, {
+          product_id: this.id,
+          user_id: this.$auth.user.id
+        }).then((res) => {
+          console.log(res);
+        });
       }
+      // add to store
+      var cartItem = new Object();
+      cartItem.product_id = this.id;
+      this.$store.commit('add_product_to_cart', cartItem);
     },
-    // *********** NOT IN USE
-    // addToCart () {
-    //   if (this.$auth.loggedIn) {
-    //     this.$axios.post(`/api/products/${this.id}/add_to_cart`, {
-    //       id: this.id,
-    //       user_id: this.$auth.user.id
-    //     }).then((res) => {
-    //       // TODO 跳转到购物车页面
-    //     })
-    //   } else {
-    //     // TODO 跳转到登陆页面
-    //   }
-    // },
+    // TODO 收藏功能
+    addToFavorite () {
+    }
   }
 };
 </script>
