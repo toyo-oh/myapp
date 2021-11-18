@@ -33,11 +33,35 @@ class ProductsController < ApplicationController
                 @cart_item.update(quantity: new_count)
             end
         end
-        render json: "backend: add to cart successed!!!"
+        render json: "backend: add to cart successfully!!!"
     end
 
-    def showCartProducts
+    def decrease_of_cart
+        @current_cart = Cart.find_by(user_id: params[:user_id])
+        @cart_item = @current_cart.cart_items.find_by(product_id: params[:product_id])
+        if @cart_item.blank?
+            json:'error: product is not in the cart!!!'
+        elsif @cart_item.quantity == 1
+            @cart_item.destroy
+        else
+            logger.debug(@cart_item.quantity - 1)
+            new_count = @cart_item.quantity - 1
+            @cart_item.update(quantity: new_count)
+        end
+    end
+
+    def show_cart_products
         @products = Product.where(id: params[:ids])
         render json: @products
     end
+
+    def remove_from_cart
+        @current_cart = Cart.find_by(user_id: params[:user_id])
+        @cart_item = @current_cart.cart_items.find_by(product_id: params[:product_id])
+        @cart_item.destroy
+        render json:'backend: delete product from cart successfully'
+    end
+    
+
+
 end

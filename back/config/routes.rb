@@ -8,11 +8,13 @@ Rails.application.routes.draw do
   resources :products do
     member do
       post 'add_to_cart'
+      post 'decrease_of_cart'
     end
   end
   resources :carts
   post '/login', to: 'authentications#create'
   get '/user/current_user', to: 'users#current_user'
   get '/cart/find_cart/:user_id', to: 'carts#find_products'
-  get '/product/show_cart_products', to:'products#showCartProducts'
+  get '/product/show_cart_products', to:'products#show_cart_products'
+  post 'product/remove_from_cart', to:'products#remove_from_cart'
 end

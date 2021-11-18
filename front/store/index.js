@@ -32,5 +32,31 @@ export const mutations = {
     }
     state.counter += 1;
     localStorage.setItem('Cart',JSON.stringify(productList));
+  },
+  decrease_product_of_cart(state, cartItem){
+    var productList = state.productList;
+    var existFlg = false;
+    for(var i=0; i< productList.length; i++){
+      if(productList[i].product_id == cartItem.product_id){
+        productList[i].quantity -= 1;
+        existFlg = true;
+        break;
+      }
+    }
+    if(existFlg){
+      state.counter -= 1;
+      localStorage.setItem('Cart',JSON.stringify(productList));
+    }
+  },
+  remove_product_from_cart(state,product_id){
+    var productList = state.productList;
+    for(var i=0; i< productList.length; i++){
+      if(productList[i].product_id == product_id){
+        state.counter -= productList[i].quantity;
+        productList.splice(i,1);
+        break;
+      }
+    }
+    localStorage.setItem('Cart',JSON.stringify(productList));
   }
 }
