@@ -22,7 +22,7 @@
             <td>{{ item.price }}</td>
             <!-- <td>{{ item.cnt }}</td> -->
             <td>
-              <v-text-field outlined full-width=false v-model.number="item.cnt" prepend-icon="mdi-minus-box-outline" append-outer-icon="mdi-plus-box-outline" @click:prepend="decrement(item)" @click:append-outer="increment(item)" min=0 max=10 :rules="countRules" oninput="if(Number(this.value) > Number(this.max)) this.value = this.max;
+              <v-text-field outlined v-model.number="item.cnt" prepend-icon="mdi-minus-box-outline" append-outer-icon="mdi-plus-box-outline" @click:prepend="decrement(item)" @click:append-outer="increment(item)" min=0 max=10 :rules="countRules" oninput="if(Number(this.value) > Number(this.max)) this.value = this.max;
 								if(Number(this.value) < Number(this.min)) this.value = this.min;">
               </v-text-field>
             </td>
@@ -42,12 +42,13 @@
         <v-card-text>Are you sure to delete the product?</v-card-text>
         <v-spacer></v-spacer>
         <v-card-actions>
-          <v-btn color="green darken-1" text @click="deleteItem()">OK</v-btn>
+          <v-btn color="green darken-1" text @click="removeItem()">OK</v-btn>
           <v-btn color="green darken-1" text @click="dialogDelete = false">Cancel</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
     <v-spacer></v-spacer>
+    {{$store.getters['getTotalPrice']}}
     <v-btn color="error" dark large @click="checkOut">Check Out</v-btn>
   </div>
 </template>
@@ -105,21 +106,22 @@ export default {
       this.dialogDelete = !this.dialogDelete
     },
     removeItem () {
-      console.log('deleteItem', this.itemToDelete)
       // remove from backend cart
-      if (this.$auth.loggedIn) {
-        this.$axios.$post(`api/product/remove_from_cart`, {
-          product_id: this.itemToDelete.id,
-          user_id: this.$auth.user.id
-        }).then((res) => {
-          console.log(res);
-        });
+      if (this.itemToDelete.cnt > 0) {
+        if (this.$auth.loggedIn) {
+          this.$axios.$post(`api/product/remove_from_cart`, {
+            product_id: this.itemToDelete.id,
+            user_id: this.$auth.user.id
+          }).then((res) => {
+            console.log(res);
+          });
+        }
       }
       // flag
       this.dialogDelete = false
       // remove from store
       this.$store.commit('remove_product_from_cart', this.itemToDelete.id);
-      this.getProductList()
+      this.getProductList();
     },
     increment (item) {
       if (item.cnt == 10) {
@@ -138,6 +140,7 @@ export default {
       // add to store
       var cartItem = new Object();
       cartItem.product_id = item.id;
+      cartItem.price = this.price;
       this.$store.commit('add_product_to_cart', cartItem);
       this.getProductList();
     },

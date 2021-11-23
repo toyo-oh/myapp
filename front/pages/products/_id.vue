@@ -58,6 +58,7 @@ export default {
       // add to store
       var cartItem = new Object();
       cartItem.product_id = this.id;
+      cartItem.price = this.price;
       this.$store.commit('add_product_to_cart', cartItem);
     },
     // TODO 收藏功能

@@ -54,7 +54,7 @@
       </v-btn>
       <v-btn text @click="displayCart">
         <v-icon>mdi-cart</v-icon>
-        <div style="inline">Cart（{{counter}}）</div>
+        <div style="inline">Cart（{{$store.getters['getCounter']}}）</div>
       </v-btn>
       <v-btn icon>
         <v-icon>mdi-magnify</v-icon>
@@ -87,7 +87,6 @@
 </template>
 
 <script>
-import store from "../store/index.js";
 export default {
   data () {
     return {
@@ -118,9 +117,6 @@ export default {
     this.loadCart();
   },
   computed: {
-    counter: function () {
-      return this.$store.state.counter
-    },
     email: function () {
       return this.$auth.user.email;
     },
