@@ -31,6 +31,7 @@ export default ({
     return {
       name: '',
       password: '',
+      password_confirmation: '',
       email: '',
       is_admin: false
     }

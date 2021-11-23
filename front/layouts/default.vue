@@ -20,18 +20,8 @@
     </v-navigation-drawer>
     <v-app-bar :clipped-left="clipped" fixed app color="deep-purple">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <!-- <v-btn icon @click.stop="miniVariant = !miniVariant">
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn> -->
-      <!-- <v-btn icon @click.stop="clipped = !clipped">
-        <v-icon>mdi-application</v-icon>
-      </v-btn> -->
-      <!-- <v-btn icon @click.stop="fixed = !fixed">
-        <v-icon>mdi-minus</v-icon>
-      </v-btn> -->
       <v-btn text @click="toMain">Store</v-btn>
       <v-btn text>Product</v-btn>
-      <!-- <v-toolbar-title v-text="title" /> -->
       <v-spacer />
       <v-menu v-if="isLoggedIn" offset-y>
         <template v-slot:activator="{ attrs, on }">
@@ -41,15 +31,18 @@
           </v-btn>
         </template>
         <v-list>
-          <v-list-item v-for="item in actmenus" :key="item" link>
-            <v-list-item-title v-text="item" @click="logout"></v-list-item-title>
+          <v-list-item v-for="item in actmenus" :key="item.index" link>
+            <v-list-item-icon>
+              <v-icon v-text="item.icon"></v-icon>
+            </v-list-item-icon>
+            <v-list-item-title v-text="item.text" @click="item.action"></v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
-      <v-btn text v-if="!isLoggedIn">
+      <v-btn text v-if="!isLoggedIn" @click="login">
         <div style="inline">Login</div>
       </v-btn>
-      <v-btn text v-if="!isLoggedIn">
+      <v-btn text v-if="!isLoggedIn" @click="signIn">
         <div style="inline">Sign In</div>
       </v-btn>
       <v-btn text @click="displayCart">
@@ -59,27 +52,12 @@
       <v-btn icon>
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
-      <!-- <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>mdi-menu</v-icon>
-      </v-btn> -->
     </v-app-bar>
     <v-main>
       <v-container>
         <nuxt />
       </v-container>
     </v-main>
-    <!-- <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
-      <v-list>
-        <v-list-item @click.native="right = !right">
-          <v-list-item-action>
-            <v-icon light>
-              mdi-repeat
-            </v-icon>
-          </v-list-item-action>
-          <v-list-item-title>Switch drawer (click me)</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer> -->
     <v-footer :absolute="!fixed" app>
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
@@ -110,7 +88,12 @@ export default {
       right: true,
       rightDrawer: false,
       title: 'Store',
-      actmenus: ['Log Out']
+      actmenus: [
+        { index: 1, text: 'User Info', icon: 'mdi-account', action: this.userInfo },
+        // TODO
+        { index: 2, text: 'My Order', icon: 'mdi-checkbox-multiple-marked', action: '' },
+        { index: 3, text: 'My Favourite', icon: 'mdi-heart', action: '' },
+        { index: 4, text: 'Log Out', icon: 'mdi-logout', action: this.logout }]
     }
   },
   created () {
@@ -127,6 +110,15 @@ export default {
   methods: {
     toMain () {
       this.$router.push(`/`)
+    },
+    login () {
+      this.$router.push(`/login`)
+    },
+    signIn () {
+      this.$router.push(`/users/new`)
+    },
+    userInfo () {
+      this.$router.push(`/users/${this.$auth.user.id}`)
     },
     logout () {
       this.$auth.logout();

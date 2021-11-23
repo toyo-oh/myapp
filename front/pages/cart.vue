@@ -14,10 +14,13 @@
         </thead>
         <tbody>
           <tr v-for="item in products" :key="item.id">
-            <!-- TODO 商品link -->
-            <!-- <router-link :to="{ path: '/goods/details', query: {productID:item.productID} }"> -->
-            <!-- </router-link> -->
-            <td><img :src="item.image" max-height="100" max-width="100"></td>
+            <td>
+              <!-- https://www.nuxtjs.cn/guide/routing -->
+              <!-- https://router.vuejs.org/zh/api/#router-link -->
+              <router-link :to="{name: 'products-id', params: {id: item.id}}">
+                <img :src="item.image" max-height="100" max-width="100">
+              </router-link>
+            </td>
             <td>{{ item.title }}</td>
             <td>{{ item.price }}</td>
             <!-- <td>{{ item.cnt }}</td> -->
