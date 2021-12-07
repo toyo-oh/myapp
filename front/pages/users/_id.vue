@@ -12,8 +12,6 @@
         </v-card-text>
         <v-card-actions>
           <v-btn class="mr-4" color="primary" @click="editUser">Edit Info</v-btn>
-          <v-btn class="mr-4" color="primary" @click="editPassword">Edit Password</v-btn>
-          <v-btn class="mr-4" color="primary" @click="editAddress">Edit Address</v-btn>
         </v-card-actions>
       </v-card>
     </v-container>
@@ -26,7 +24,8 @@ export default {
   data () {
     return {
       name: '',
-      email: ''
+      email: '',
+      // password: ''
     }
   },
   created () {
@@ -38,16 +37,16 @@ export default {
         const response = await this.$axios.$get(`/api/users/${this.$auth.user.id}`);
         this.name = response.data.name;
         this.email = response.data.email;
+        // this.password = response.data.password;
       }
     },
     editUser () {
-      // TODO
-    },
-    editPassword () {
-      // TODO
-    },
-    editAddress () {
-      // TODO
+      this.$axios.put(`/api/users/${this.$auth.user.id}`, {
+        name: this.name,
+        email: this.email,
+      }).then((res) => {
+        this.$router.push(`${res.data.id}`)
+      })
     }
   }
 }

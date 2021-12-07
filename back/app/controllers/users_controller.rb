@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
 
   SECRET_KEY_BASE = Rails.application.credentials.secret_key_base
-  before_action :require_login, :set_user, only: [:show, :update, :destroy]
+  # TODO before_action ??? :update to be added!!!
+  before_action :require_login, :set_user, only: [:show, :destroy]
   # https://stackoverflow.com/questions/30632639/password-cant-be-blank-in-rails-using-has-secure-password
   # https://qiita.com/kazutosato/items/fbaa2fc0443611c627fc
   # https://stackoverflow.com/questions/50641705/how-do-you-use-rails-5-2-wrap-parameters
@@ -61,10 +62,11 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
-    if @user.update(user_params)
-      render json: @user
+    @current_user = User.find_by(id: params[:id])
+    if @current_user.update(name: params[:name], email: params[:email])
+      render json: @current_user
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: @current_user.errors, status: :unprocessable_entity
     end
   end
 

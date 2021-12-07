@@ -90,10 +90,10 @@ export default {
       title: 'Store',
       actmenus: [
         { index: 1, text: 'User Info', icon: 'mdi-account', action: this.userInfo },
-        // TODO
         { index: 2, text: 'My Order', icon: 'mdi-checkbox-multiple-marked', action: '' },
-        { index: 3, text: 'My Favourite', icon: 'mdi-heart', action: '' },
-        { index: 4, text: 'Log Out', icon: 'mdi-logout', action: this.logout }]
+        { index: 3, text: 'My Address', icon: 'mdi-home-map-marker', action: this.userAddress },
+        { index: 4, text: 'My Favourite', icon: 'mdi-heart', action: '' },
+        { index: 5, text: 'Log Out', icon: 'mdi-logout', action: this.logout }]
     }
   },
   created () {
@@ -119,6 +119,9 @@ export default {
     },
     userInfo () {
       this.$router.push(`/users/${this.$auth.user.id}`)
+    },
+    userAddress () {
+      this.$router.push(`/addresses`)
     },
     logout () {
       this.$auth.logout();

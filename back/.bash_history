@@ -16,3 +16,7 @@ mysql -h localhost -u root -p
 exit;
 rails console
 exit
+rails console
+exit
+rails console
+exit
