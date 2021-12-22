@@ -61,7 +61,6 @@ class ProductsController < ApplicationController
         @cart_item.destroy
         render json:'backend: delete product from cart successfully'
     end
-    
 
 
 end

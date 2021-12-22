@@ -89,6 +89,7 @@ export default {
           }
         }).then((res) => {
           this.products = res.data;
+          // merge server cart to local cart 
           for (var m = 0; m < this.products.length; m++) {
             for (var n = 0; n < cartItems.length; n++) {
               if (this.products[m].id == cartItems[n].product_id) {
@@ -167,6 +168,11 @@ export default {
       this.getProductList();
     },
     checkOut () {
+      if (this.$auth.loggedIn) {
+        this.$router.push(`/order`)
+      } else {
+        this.$router.push(`/login`)
+      }
     }
   },
 };

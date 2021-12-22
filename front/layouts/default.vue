@@ -125,14 +125,18 @@ export default {
     },
     logout () {
       this.$auth.logout();
-      this.$store.commit('load_products', {});
+      this.$store.commit('load_products', []);
     },
     async loadCart () {
       if (this.$auth.loggedIn) {
         const response = await this.$axios.$get(`api/cart/find_cart/${this.$auth.user.id}`);
         this.$store.commit('load_products', response.productList);
       } else {
-        var localCart = localStorage.getItem('Cart') || {};
+        // array→[],object→{}(等价于new Object())
+        var localCart = [];
+        if (localStorage.getItem('Cart')) {
+          localCart = JSON.parse(localStorage.getItem('Cart'));
+        }
         this.$store.commit('load_products', localCart);
       }
     },

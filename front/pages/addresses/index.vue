@@ -9,6 +9,7 @@
       <template v-slot:item.delete="{ item }">
         <v-icon small @click="deleteAddress(item)">mdi-delete</v-icon>
       </template>
+      <!-- <v-btn elevation="2" @click="setDefault(item)">Default</v-btn> -->
     </v-data-table>
   </div>
 </template>

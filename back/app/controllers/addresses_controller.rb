@@ -13,11 +13,14 @@ class AddressesController < ApplicationController
 
 	def create
 		@address = Address.new(address_params)
+		if !Address.exists?(user_id: params[:user_id])
+			@address.is_default = 1
+		end
 		if @address.save
 				render "index", formats: :json
 		else
 				render json: @address.errors, status: :unprocessable_entity
-		end 
+		end
 	end
 
 	def show
