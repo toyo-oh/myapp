@@ -67,4 +67,19 @@ class OrdersController < ApplicationController
 		end
 	end
 
+	def pay_order
+		@order = Order.find(params[:order_id]);
+		if @order.blank?
+			render json: 'backend: error! no order!'
+		else
+			# @order.is_paid = true;
+			# @order.order_status = "paid";
+			if @order.update(is_paid: true, order_status: "paid")
+				render json: "backend: pay successfully!"
+			else
+				render json: "backend: pay failed!"
+			end
+		end
+	end
+
 end

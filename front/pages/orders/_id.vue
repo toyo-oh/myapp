@@ -1,5 +1,8 @@
 <template>
   <div>
+    <v-alert v-model="alertPay" type="success" close-text="Close Alert" dismissible>
+      I'm a success alert.
+    </v-alert>
     <v-simple-table>
       <template v-slot:default>
         <thead>
@@ -41,10 +44,17 @@ export default {
     return {
       products: [],
       totalPrice: 0,
+      order_id: '',
       address_id: '',
       address_detail: '',
-      display_pay_btn: false
+      is_paid: false,
+      alertPay: false
     };
+  },
+  computed: {
+    display_pay_btn: function () {
+      return this.is_paid ? false : true
+    }
   },
   asyncData ({ $axios, params }) {
     return $axios.get(`api/orders/${params.id}`).then((res) => {
@@ -68,12 +78,21 @@ export default {
         address_id: res.data.address.id,
         products: tmp_products,
         totalPrice: tmp_total,
-        display_pay_btn: res.data.order.is_paid ? false : true
+        is_paid: res.data.order.is_paid,
+        order_id: params.id
       };
     });
   },
   methods: {
-    payOrder () {
+    payOrder (params) {
+      if (!this.$auth.user.id) {
+        // TODO error message
+      } else {
+        this.$axios.post(`/api/orders/pay_order`, { order_id: this.order_id }).then((res) => {
+          this.is_paid = true;
+          this.alertPay = true;
+        });
+      }
     }
   },
 };
