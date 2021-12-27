@@ -44,3 +44,4 @@
 2.1.1 ffi:~> 1.12|checksum:3c9a06431e0287b9560dce379a919fa45a483a928fefcc02a535cfcd803ffd11,ruby:>= 2.0.0
 2.1.2 ffi:~> 1.12|checksum:6e1a23d3a45ef4b548c559059c29465380e5ce79e7b9c5981a1a8bb95b1ca9fd,ruby:>= 2.0.0
 2.1.3 ffi:~> 1.12|checksum:8031a1ec5fcc24f47060b7c80697e5c6f0ff52836f733ac0fef471b7cac9a963,ruby:>= 2.0.0
+2.1.4 ffi:~> 1.12|checksum:ef3c08c11c18141ff1efc09f780b96da9c357cb2f98832f1d029670348bfffa6,ruby:>= 2.0.0

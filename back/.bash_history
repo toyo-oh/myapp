@@ -20,3 +20,5 @@ rails console
 exit
 rails console
 exit
+rails console
+exit;

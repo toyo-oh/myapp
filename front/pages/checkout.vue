@@ -25,11 +25,14 @@
       </template>
     </v-simple-table>
     <v-spacer></v-spacer>
-    <h3>address</h3><br>
+    <h3>Total</h3>
+    {{$store.getters['getTotalPrice']}}
+    <v-spacer></v-spacer>
+    <h3>Address</h3>
     {{display_address}}
     <v-dialog v-model="dialog" scrollable max-width="500px">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn color="primary" dark v-bind="attrs" v-on="on" @click="changeAddress">
+        <v-btn color="primary" dark v-bind="attrs" v-on="on" @click="getAddressList">
           Change Address
         </v-btn>
       </template>
@@ -55,8 +58,7 @@
       </v-card>
     </v-dialog>
     <v-spacer></v-spacer>
-    {{$store.getters['getTotalPrice']}}
-    <v-btn color="error" dark large @click="payOrder">Pay</v-btn>
+    <v-btn color="error" dark large @click="createOrder">Create Order</v-btn>
   </div>
 </template>
 
@@ -101,7 +103,7 @@ export default {
         this.address_id = default_address.id;
       });
     },
-    changeAddress () {
+    getAddressList () {
       this.$axios.get(`api/addresses/find_by_user_id/${this.$auth.user.id}`).then((res) => {
         this.addressList = res.data;
       });
@@ -117,7 +119,20 @@ export default {
         }
       }
     },
-    payOrder () {
+    createOrder () {
+      if (!this.$auth.user.id) {
+        // TODO error message
+      } else if (!this.address_id) {
+        // TODO error message
+      } else {
+        const formData = new FormData();
+        formData.append("user_id", this.$auth.user.id);
+        formData.append("address_id", this.address_id);
+        this.$axios.post("/api/order/create_order", formData).then((res) => {
+          this.$router.push(`/orders/${res.data.order_id}`);
+          this.$store.commit('clear_cart');
+        });
+      }
     }
   },
 };

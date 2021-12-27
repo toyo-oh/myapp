@@ -169,7 +169,11 @@ export default {
     },
     checkOut () {
       if (this.$auth.loggedIn) {
-        this.$router.push(`/order`)
+        if (!this.$store.getters['getCounter']) {
+          // TODO error message (there is no product in cart)
+        } else {
+          this.$router.push(`/checkout`)
+        }
       } else {
         this.$router.push(`/login`)
       }

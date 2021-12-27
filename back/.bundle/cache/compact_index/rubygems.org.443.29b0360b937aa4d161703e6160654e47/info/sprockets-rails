@@ -35,3 +35,7 @@
 3.2.0 actionpack:>= 4.0,activesupport:>= 4.0,sprockets:>= 3.0.0|checksum:847423bbd6ac0717d1e97619863fae9447a6adb510162388659c10bbc5dc29ff,ruby:>= 1.9.3
 3.2.1 actionpack:>= 4.0,activesupport:>= 4.0,sprockets:>= 3.0.0|checksum:e1963a39cf9ffb0d46cdb1dd5cd36769489a56215865a7c7befd978bea156429,ruby:>= 1.9.3
 3.2.2 actionpack:>= 4.0,activesupport:>= 4.0,sprockets:>= 3.0.0|checksum:62862bce136e31d7497eededde5f7730d4096bc8ef33ef7037c41423ccf89557,ruby:>= 1.9.3
+3.3.0 actionpack:>= 5.2,activesupport:>= 5.2,sprockets:>= 3.0.0|checksum:5cdc003db1560c8f2fc7175fdb6a1b1c3793a4762fc6cc0ee6600bd4336131a2,ruby:>= 2.5
+3.4.0 actionpack:>= 5.2,activesupport:>= 5.2,sprockets:>= 3.0.0|checksum:b6e13b773c652e79d8b703632375fb7e7c7db2a553814aadc6bf6cd3c744866c,ruby:>= 2.5
+3.4.1 actionpack:>= 5.2,activesupport:>= 5.2,sprockets:>= 3.0.0|checksum:b855146a305917086ecf02bf64545a3d6a7869f13d6b5b944b176cb117255f5e,ruby:>= 2.5
+3.4.2 actionpack:>= 5.2,activesupport:>= 5.2,sprockets:>= 3.0.0|checksum:36d6327757ccf7460a00d1d52b2d5ef0019a4670503046a129fa1fb1300931ad,ruby:>= 2.5

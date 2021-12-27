@@ -96,3 +96,5 @@
 4.0.1-java jar-dependencies:>= 0.1.7|checksum:c0b636ae2ee8cface0a5718f93f3b220d03e9c45d235ae0316b90dcc8ff30ce1,ruby:>= 2.4.0
 4.0.2 |checksum:99e5a57d01eefbb7f9e9266ed9a9960cb9c2cfed77028fec0a3cfc08f11d64af,ruby:>= 2.4.0
 4.0.2-java jar-dependencies:>= 0.1.7|checksum:7e8ee809bcfaf896ffcf945fda931b6be8d7783439e70e87c67000be119e3947,ruby:>= 2.4.0
+4.0.3 stringio:>= 0|checksum:c75238c1a201c37249a5403c23442ce0647d5a5632306856c5d85a5db227fa99,ruby:>= 2.4.0
+4.0.3-java jar-dependencies:>= 0.1.7|checksum:4a6bf752fa70bf481419387c1bc2e6f9a735f878b1fe666df6c6b58f24fea969,ruby:>= 2.4.0

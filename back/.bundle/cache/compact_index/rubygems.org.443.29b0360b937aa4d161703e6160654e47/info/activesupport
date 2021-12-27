@@ -380,3 +380,13 @@
 6.1.4.1 concurrent-ruby:>= 1.0.2&~> 1.0,i18n:< 2&>= 1.6,minitest:>= 5.1,tzinfo:~> 2.0,zeitwerk:~> 2.3|checksum:44b781877c2189aa15ca5451e2d310dcedfd16c01df1106f68a91b82990cfda5,ruby:>= 2.5.0
 7.0.0.alpha1 concurrent-ruby:>= 1.0.2&~> 1.0,i18n:< 2&>= 1.6,minitest:>= 5.1,tzinfo:~> 2.0|checksum:39562a3e65bcc30c886c6aeca5ddea0824591c3c090a78e08a55d48f756679ee,ruby:>= 2.7.0,rubygems:> 1.3.1
 7.0.0.alpha2 concurrent-ruby:>= 1.0.2&~> 1.0,i18n:< 2&>= 1.6,minitest:>= 5.1,tzinfo:~> 2.0|checksum:e01cf8e6df0066dc3b7bda9e43dfae66157aee568a5f1d35c79ad8a38df008e1,ruby:>= 2.7.0,rubygems:> 1.3.1
+7.0.0.rc1 concurrent-ruby:>= 1.0.2&~> 1.0,i18n:< 2&>= 1.6,minitest:>= 5.1,tzinfo:~> 2.0|checksum:632be407f4a87e6bab2e931dd59bf6335f65093c44665bb4a7753032d821bca2,ruby:>= 2.7.0,rubygems:> 1.3.1
+7.0.0.rc2 concurrent-ruby:>= 1.0.2&~> 1.0,i18n:< 2&>= 1.6,minitest:>= 5.1,tzinfo:~> 2.0|checksum:4529f7c09b818842e122a9332cc0001407e8ac7a2923c7c43efbf9b69344d688,ruby:>= 2.7.0,rubygems:> 1.3.1
+6.1.4.2 concurrent-ruby:>= 1.0.2&~> 1.0,i18n:< 2&>= 1.6,minitest:>= 5.1,tzinfo:~> 2.0,zeitwerk:~> 2.3|checksum:c451658624f72b430dddacb1aacb7f1880a3ea3bce024ad78576fe551b4763a8,ruby:>= 2.5.0
+6.0.4.2 concurrent-ruby:>= 1.0.2&~> 1.0,i18n:< 2&>= 0.7,minitest:~> 5.1,tzinfo:~> 1.1,zeitwerk:>= 2.2.2&~> 2.2|checksum:11457565ef30fbe774d6831704433d1fb7dd831e646e1459b61e7958cfb12de2,ruby:>= 2.5.0
+6.0.4.3 concurrent-ruby:>= 1.0.2&~> 1.0,i18n:< 2&>= 0.7,minitest:~> 5.1,tzinfo:~> 1.1,zeitwerk:>= 2.2.2&~> 2.2|checksum:edee9712cbfe032b8acaa3303f1be79fd60f2010303693864f94740694f39e06,ruby:>= 2.5.0
+6.1.4.3 concurrent-ruby:>= 1.0.2&~> 1.0,i18n:< 2&>= 1.6,minitest:>= 5.1,tzinfo:~> 2.0,zeitwerk:~> 2.3|checksum:a2ce7d014e4b24f0af53ff24a248a7850dfd78a1e92711221360fd62dd293300,ruby:>= 2.5.0
+7.0.0.rc3 concurrent-ruby:>= 1.0.2&~> 1.0,i18n:< 2&>= 1.6,minitest:>= 5.1,tzinfo:~> 2.0|checksum:cc9eb7101c5e9279897957ec6ee53608184d34dea85591b7b8b87d76756c3c47,ruby:>= 2.7.0,rubygems:> 1.3.1
+6.0.4.4 concurrent-ruby:>= 1.0.2&~> 1.0,i18n:< 2&>= 0.7,minitest:~> 5.1,tzinfo:~> 1.1,zeitwerk:>= 2.2.2&~> 2.2|checksum:03ceaeb28007be6c8343b6624253168f97c847bb15b3879c6a91c51a5aed0c7e,ruby:>= 2.5.0
+6.1.4.4 concurrent-ruby:>= 1.0.2&~> 1.0,i18n:< 2&>= 1.6,minitest:>= 5.1,tzinfo:~> 2.0,zeitwerk:~> 2.3|checksum:28d58c0276c76d4f1daad9f069f511a092e242711a9113e59db926a769fa7667,ruby:>= 2.5.0
+7.0.0 concurrent-ruby:>= 1.0.2&~> 1.0,i18n:< 2&>= 1.6,minitest:>= 5.1,tzinfo:~> 2.0|checksum:d37f65f04ab400d1845f6ecbcc0fe9d111d267067abca76ef1687120c8c87a11,ruby:>= 2.7.0

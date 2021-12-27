@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_22_133854) do
+ActiveRecord::Schema.define(version: 2021_12_25_081400) do
 
   create_table "addresses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "user_id"
@@ -41,14 +41,16 @@ ActiveRecord::Schema.define(version: 2021_12_22_133854) do
 
   create_table "order_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "order_no"
-    t.integer "product_id"
-    t.string "product_name"
-    t.integer "number"
+    t.integer "product_id", null: false
     t.float "discount"
     t.integer "subtotal"
     t.text "remark"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "quantity"
+    t.string "product_title"
+    t.integer "order_id", null: false
+    t.integer "price"
   end
 
   create_table "orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|

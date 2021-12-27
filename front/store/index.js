@@ -81,5 +81,8 @@ export const mutations = {
     }
     state.productList = productList;
     localStorage.setItem('Cart',JSON.stringify(productList));
+  },
+  clear_cart(){
+    state.productList = [];
   }
 }
