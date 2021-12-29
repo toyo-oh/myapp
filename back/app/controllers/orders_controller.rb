@@ -16,7 +16,7 @@ class OrdersController < ApplicationController
 				# TODO how to increase order no ???
 				@new_order.user_id = user_id
 				@new_order.address_id = address_id
-				@new_order.order_status = 'order_placed'
+				@new_order.aasm_state = 'order_placed'
 				@new_order.is_paid = 0
 			  # TODO loop the cart_items
 				if @new_order.save
@@ -63,22 +63,19 @@ class OrdersController < ApplicationController
 			render json: 'backend: error! no order!'
 		else
 			# TODO when status=paid -> refund??
-			@order.destroy
+			@order.cancel_order!
 		end
 	end
 
 	def pay_order
-		@order = Order.find(params[:order_id]);
+		@order = Order.find(params[:order_id])
 		if @order.blank?
 			render json: 'backend: error! no order!'
 		else
-			# @order.is_paid = true;
-			# @order.order_status = "paid";
-			if @order.update(is_paid: true, order_status: "paid")
-				render json: "backend: pay successfully!"
-			else
-				render json: "backend: pay failed!"
-			end
+			# if @order.update(is_paid: true, order_status: "paid")
+			@order.pay!
+			@order.make_payment!
+			render json: "backend: pay successfully!"
 		end
 	end
 

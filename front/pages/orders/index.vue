@@ -41,7 +41,7 @@ export default {
         { text: "ShortDetails", value: "short_details" },
         { text: "CreateTime", value: "created_at" },
         { text: "Total", value: "amount_total" },
-        { text: "Status", value: "order_status" },
+        { text: "Status", value: "aasm_state" },
         { text: "Detail", value: "detail", sortable: false },
         { text: "Delete", value: "delete", sortable: false },
       ],
@@ -65,7 +65,7 @@ export default {
           order.id = tmp_orders[m].id;
           order.created_at = tmp_orders[m].created_at;
           order.amount_total = tmp_orders[m].amount_total;
-          order.order_status = tmp_orders[m].order_status;
+          order.aasm_state = tmp_orders[m].aasm_state;
           order.short_details = "";
           for (var n = 0; n < tmp_orders[m].order_details.length; n++) {
             order.short_details += (tmp_orders[m].order_details[n].product_title + "<br/>")
@@ -82,7 +82,7 @@ export default {
       this.dialogDelete = !this.dialogDelete
     },
     deleteOrder () {
-      if (this.itemToDelete.order_status == 'order_placed' || this.itemToDelete.order_status == 'paid') {
+      if (this.itemToDelete.aasm_state == 'order_placed' || this.itemToDelete.aasm_state == 'paid') {
         this.$axios.delete(`api/orders/${this.itemToDelete.id}`).then((res) => {
           this.getOrders();
         });

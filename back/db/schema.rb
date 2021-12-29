@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_25_081400) do
+ActiveRecord::Schema.define(version: 2021_12_29_123552) do
 
   create_table "addresses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "user_id"
@@ -55,7 +55,6 @@ ActiveRecord::Schema.define(version: 2021_12_25_081400) do
 
   create_table "orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "order_no"
-    t.string "order_status"
     t.integer "product_count"
     t.integer "amount_total"
     t.integer "logistics_fee"
@@ -65,6 +64,8 @@ ActiveRecord::Schema.define(version: 2021_12_25_081400) do
     t.boolean "is_paid"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "aasm_state", default: "order_placed"
+    t.index ["aasm_state"], name: "index_orders_on_aasm_state"
   end
 
   create_table "products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
