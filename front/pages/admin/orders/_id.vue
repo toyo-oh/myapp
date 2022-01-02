@@ -3,9 +3,10 @@
     <v-alert v-model="alertCancel" type="success" close-text="Close Alert" dismissible>
       I'm a success alert.
     </v-alert>
-    <v-alert v-model="alertPay" type="success" close-text="Close Alert" dismissible>
+    <v-alert v-model="alertShip" type="success" close-text="Close Alert" dismissible>
       I'm a success alert.
     </v-alert>
+    <h1>{{display_order_status}}</h1>
     <v-simple-table>
       <template v-slot:default>
         <thead>
@@ -38,11 +39,11 @@
     {{address_detail}}
     <v-spacer></v-spacer>
     <v-btn v-if="display_cancel_btn" color="error" dark large @click="showCancelDialog()">Cancel Order</v-btn>
-    <v-btn v-if="display_pay_btn" color="error" dark large @click="payOrder">Pay Order</v-btn>
+    <v-btn v-if="display_ship_btn" color="error" dark large @click="shipOrder">Ship</v-btn>
     <v-dialog v-model="dialogCancel" max-width="200px">
       <v-card>
-        <v-card-title>Delete</v-card-title>
-        <v-card-text>Are you sure to delete the order?</v-card-text>
+        <v-card-title>Cancel Order</v-card-title>
+        <v-card-text>Are you sure to cancel the order?</v-card-text>
         <v-spacer></v-spacer>
         <v-card-actions>
           <v-btn color="green darken-1" text @click="cancelOrder()">OK</v-btn>
@@ -62,26 +63,25 @@ export default {
       order_id: '',
       address_id: '',
       address_detail: '',
-      is_paid: false,
-      dialogCancel: false,
+      order_status: '',
       alertCancel: false,
-      alertPay: false,
-      order_status: ''
+      alertShip: false,
+      dialogCancel: false
     };
   },
   computed: {
     display_cancel_btn: function () {
       return this.order_status == 'order_placed' || this.order_status == 'paid' ? true : false
     },
-    display_pay_btn: function () {
-      return this.is_paid ? false : true
+    display_ship_btn: function () {
+      return this.order_status == 'paid' ? true : false
     },
     display_order_status: function () {
       return this.order_status;
     }
   },
   asyncData ({ $axios, params }) {
-    return $axios.get(`api/orders/${params.id}`).then((res) => {
+    return $axios.get(`api/admin/orders/${params.id}`).then((res) => {
       var order_items = res.data.order_details;
       var tmp_products = [];
       var tmp_total = 0;
@@ -102,36 +102,27 @@ export default {
         address_id: res.data.address.id,
         products: tmp_products,
         totalPrice: tmp_total,
-        is_paid: res.data.order.is_paid,
         order_id: params.id,
         order_status: res.data.order.aasm_state
       };
     });
   },
   methods: {
-    payOrder (params) {
-      if (!this.$auth.user.id) {
-        // TODO error message
-      } else {
-        this.$axios.post(`/api/orders/pay_order`, { order_id: this.order_id }).then((res) => {
-          this.is_paid = true;
-          this.alertPay = true;
-          this.order_status = res.data.aasm_state;
-        });
-      }
-    },
     showCancelDialog () {
       this.dialogCancel = !this.dialogCancel
     },
     cancelOrder () {
-      if (!this.$auth.user.id) {
-        // TODO error message
-      } else {
-        this.$axios.delete(`api/orders/${this.order_id}`).then((res) => {
-          this.order_status = res.data.aasm_state;
-          this.dialogCancel = false;
-        });
-      }
+      this.$axios.delete(`api/admin/orders/${this.order_id}`).then((res) => {
+        this.order_status = res.data.aasm_state;
+        this.dialogCancel = false;
+        this.alertCancel = true;
+      });
+    },
+    shipOrder () {
+      this.$axios.post(`api/admin/orders/ship_order`, { id: this.order_id }).then((res) => {
+        this.order_status = res.data.aasm_state;
+        this.alertShip = true;
+      });
     }
   },
 };

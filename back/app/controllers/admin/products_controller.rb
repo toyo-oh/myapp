@@ -34,7 +34,7 @@ class Admin::ProductsController < ApplicationController
         render "index", formats: :json
     else
         render json: @product.errors, status: :unprocessable_entity
-    end   
+    end
   end
 
 

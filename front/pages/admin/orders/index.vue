@@ -14,21 +14,7 @@
       <template v-slot:item.detail="{ item }">
         <v-btn small class="mr-2" @click="getOrderDetail(item)">Detail</v-btn>
       </template>
-      <template v-slot:item.delete="{ item }">
-        <v-btn small @click="showDeleteDialog(item)">Delete</v-btn>
-      </template>
     </v-data-table>
-    <!-- <v-dialog v-model="dialogDelete" max-width="200px">
-      <v-card>
-        <v-card-title>Delete</v-card-title>
-        <v-card-text>Are you sure to delete the order?</v-card-text>
-        <v-spacer></v-spacer>
-        <v-card-actions>
-          <v-btn color="green darken-1" text @click="deleteOrder()">OK</v-btn>
-          <v-btn color="green darken-1" text @click="dialogDelete = false">Cancel</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog> -->
   </div>
 </template>
 
@@ -43,7 +29,6 @@ export default {
         { text: "Total", value: "amount_total" },
         { text: "Status", value: "aasm_state" },
         { text: "Detail", value: "detail", sortable: false },
-        // { text: "Delete", value: "delete", sortable: false },
       ],
       orders: [],
       dialogDelete: false,
@@ -57,7 +42,7 @@ export default {
   },
   methods: {
     getOrders () {
-      this.$axios.get(`api/orders/get_orders_by_user_id/${this.$auth.user.id}`).then((res) => {
+      this.$axios.get(`api/admin/orders`).then((res) => {
         var tmp_orders = res.data.orders;
         this.orders = [];
         for (var m = 0; m < tmp_orders.length; m++) {
@@ -75,22 +60,8 @@ export default {
       });
     },
     getOrderDetail (item) {
-      this.$router.push(`orders/${item.id}`)
+      this.$router.push(`/admin/orders/${item.id}`)
     },
-    // showDeleteDialog (item) {
-    //   this.itemToDelete = item
-    //   this.dialogDelete = !this.dialogDelete
-    // },
-    // deleteOrder () {
-    //   if (this.itemToDelete.aasm_state == 'order_placed' || this.itemToDelete.aasm_state == 'paid') {
-    //     this.$axios.delete(`api/orders/${this.itemToDelete.id}`).then((res) => {
-    //       this.getOrders();
-    //     });
-    //   } else {
-    //     this.alertDelete = true;
-    //   }
-    //   this.dialogDelete = false;
-    // }
   },
 };
 </script>

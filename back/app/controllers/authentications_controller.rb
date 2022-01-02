@@ -3,6 +3,7 @@ class AuthenticationsController < UsersController
 	skip_before_action :require_login, only: :create
 
 	def create
+		logger.debug(params)
 		user = User.find_by(email: params[:email])
 		if user && user.authenticate(params[:password])
 			payload = { user_id: user.id, email: user.email }

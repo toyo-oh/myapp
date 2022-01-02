@@ -27,6 +27,11 @@
 
 <script>
 export default ({
+  middleware ({ store, redirect }) {
+    if (store.$auth.loggedIn) {
+      redirect('/');
+    }
+  },
   data () {
     return {
       name: '',
@@ -52,7 +57,11 @@ export default ({
         email: this.email,
         is_admin: this.is_admin
       }).then((res) => {
-        this.$router.push(`${res.data.id}`)
+        // login after signed up
+        var login = {};
+        login.email = this.email;
+        login.password = this.password;
+        this.$auth.loginWith('local', { data: login });
       })
     }
   }

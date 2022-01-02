@@ -23,7 +23,8 @@
       <v-btn text @click="toMain">Store</v-btn>
       <v-btn text>Product</v-btn>
       <v-spacer />
-      <v-menu v-if="isLoggedIn" offset-y>
+      <!-- menu for common user -->
+      <v-menu v-if="isLoggedIn&&!isAdmin" offset-y>
         <template v-slot:activator="{ attrs, on }">
           <v-btn text v-bind="attrs" v-on="on">
             <v-icon>mdi-account</v-icon>
@@ -39,13 +40,30 @@
           </v-list-item>
         </v-list>
       </v-menu>
+      <!-- menu for admin user-->
+      <v-menu v-if="isLoggedIn&&isAdmin" offset-y>
+        <template v-slot:activator="{ attrs, on }">
+          <v-btn text v-bind="attrs" v-on="on">
+            <v-icon>mdi-account</v-icon>
+            <div style="inline">{{email}}</div>
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item v-for="item in adminmenus" :key="item.index" link>
+            <v-list-item-icon>
+              <v-icon v-text="item.icon"></v-icon>
+            </v-list-item-icon>
+            <v-list-item-title v-text="item.text" @click="item.action"></v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
       <v-btn text v-if="!isLoggedIn" @click="login">
         <div style="inline">Login</div>
       </v-btn>
-      <v-btn text v-if="!isLoggedIn" @click="signIn">
-        <div style="inline">Sign In</div>
+      <v-btn text v-if="!isLoggedIn" @click="signUp">
+        <div style="inline">Sign Up</div>
       </v-btn>
-      <v-btn text @click="displayCart">
+      <v-btn text v-if="!isAdmin" @click="displayCart">
         <v-icon>mdi-cart</v-icon>
         <div style="inline">Cart（{{$store.getters['getCounter']}}）</div>
       </v-btn>
@@ -93,7 +111,11 @@ export default {
         { index: 2, text: 'My Order', icon: 'mdi-checkbox-multiple-marked', action: this.useOrder },
         { index: 3, text: 'My Address', icon: 'mdi-home-map-marker', action: this.userAddress },
         { index: 4, text: 'My Favourite', icon: 'mdi-heart', action: '' },
-        { index: 5, text: 'Log Out', icon: 'mdi-logout', action: this.logout }]
+        { index: 5, text: 'Log Out', icon: 'mdi-logout', action: this.logout }],
+      adminmenus: [
+        { index: 1, text: 'Product Management', icon: 'mdi-clipboard-outline', action: this.adminProduct },
+        { index: 2, text: 'Order Management', icon: 'mdi-pin', action: this.adminOrder },
+        { index: 3, text: 'Log Out', icon: 'mdi-logout', action: this.logout }]
     }
   },
   created () {
@@ -105,6 +127,9 @@ export default {
     },
     isLoggedIn: function () {
       return this.$auth.loggedIn;
+    },
+    isAdmin: function () {
+      return this.$auth.user.is_admin;
     }
   },
   methods: {
@@ -114,7 +139,7 @@ export default {
     login () {
       this.$router.push(`/login`)
     },
-    signIn () {
+    signUp () {
       this.$router.push(`/users/new`)
     },
     userInfo () {
@@ -145,7 +170,13 @@ export default {
     },
     displayCart () {
       this.$router.push(`/cart`)
-    }
+    },
+    adminProduct () {
+      this.$router.push(`/admin/products`)
+    },
+    adminOrder () {
+      this.$router.push('/admin/orders')
+    },
   }
 }
 </script>

@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     if decoded_token.present?
       user_id = decoded_token[0]['user_id']
       @user = User.find_by(id: user_id)
-      render json: {data: @user}
+      render json: {user: @user}
     else
       render json: {status: 401, message: 'user not exist!'}
     end
@@ -54,7 +54,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      render json: @user, status: :created, location: @user
+      # render json: @user, status: :created, location: @user
     else
       render json: @user.errors, status: :unprocessable_entity
     end

@@ -64,6 +64,7 @@ class OrdersController < ApplicationController
 		else
 			# TODO when status=paid -> refund??
 			@order.cancel_order!
+			render json: @order
 		end
 	end
 
@@ -72,10 +73,9 @@ class OrdersController < ApplicationController
 		if @order.blank?
 			render json: 'backend: error! no order!'
 		else
-			# if @order.update(is_paid: true, order_status: "paid")
 			@order.pay!
 			@order.make_payment!
-			render json: "backend: pay successfully!"
+			render json: @order
 		end
 	end
 

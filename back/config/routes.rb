@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   namespace :admin do
     resources :products
+    resources :orders
   end
   resources :products do
     member do
@@ -24,4 +25,5 @@ Rails.application.routes.draw do
   post '/order/create_order', to:'orders#create_order'
   get '/orders/get_orders_by_user_id/:user_id', to: 'orders#get_orders_by_user_id'
   post '/orders/pay_order', to: 'orders#pay_order'
+  post '/admin/orders/ship_order', to: 'admin/orders#ship_order'
 end
