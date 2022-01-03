@@ -56,6 +56,7 @@
 
 <script>
 export default {
+  middleware: ['auth', 'admin'],
   data () {
     return {
       products: [],

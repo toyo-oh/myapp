@@ -16,6 +16,7 @@
 
 <script>
 export default {
+  middleware: 'auth',
   asyncData ({ $axios, params }) {
     return $axios.$get(`/api/addresses/${params.id}`).then((res) => {
       return {

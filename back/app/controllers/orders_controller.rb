@@ -1,5 +1,7 @@
 class OrdersController < ApplicationController
 
+	before_action :require_login
+
 	def create_order
 		user_id = params[:user_id]
 		address_id = params[:address_id]
@@ -22,6 +24,7 @@ class OrdersController < ApplicationController
 				if @new_order.save
 					count = 0
 					amount = 0
+					# TODO 另一种写法：current_cart.cart_items.each do |cart_item|
 					for cart_item in @cart_items do
 						@new_order.create_detail_item(cart_item.product,cart_item.quantity,'')
 						count += cart_item.quantity

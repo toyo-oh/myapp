@@ -1,5 +1,7 @@
 class Admin::OrdersController < ApplicationController
 
+	before_action :require_login, :require_admin
+
 	def index
 		@orders = Order.all
 		render :json => {:orders => @orders.as_json(:include => :order_details)}

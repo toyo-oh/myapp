@@ -21,11 +21,11 @@
 
 <script>
 export default {
+  middleware: 'auth',
   data () {
     return {
       name: '',
       email: '',
-      // password: ''
     }
   },
   created () {
@@ -35,9 +35,8 @@ export default {
     async loadUserData () {
       if (this.$auth.loggedIn) {
         const response = await this.$axios.$get(`/api/users/${this.$auth.user.id}`);
-        this.name = response.data.name;
-        this.email = response.data.email;
-        // this.password = response.data.password;
+        this.name = response.user.name;
+        this.email = response.user.email;
       }
     },
     editUser () {

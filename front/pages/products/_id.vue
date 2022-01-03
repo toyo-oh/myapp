@@ -52,7 +52,7 @@ export default {
           product_id: this.id,
           user_id: this.$auth.user.id
         }).then((res) => {
-          console.log(res);
+          // console.log(res);
         });
       }
       // add to store

@@ -129,7 +129,10 @@ export default {
       return this.$auth.loggedIn;
     },
     isAdmin: function () {
-      return this.$auth.user.is_admin;
+      if (this.$auth.user)
+        return this.$auth.user.is_admin;
+      else
+        return false;
     }
   },
   methods: {

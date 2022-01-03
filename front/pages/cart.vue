@@ -83,7 +83,7 @@ export default {
         for (var i = 0; i < cartItems.length; i++) {
           ids.push(cartItems[i].product_id);
         }
-        this.$axios.get("api/product/show_cart_products", {
+        this.$axios.get("api/cart/show_cart_products", {
           params: {
             ids: ids
           }
@@ -113,7 +113,7 @@ export default {
       // remove from backend cart
       if (this.itemToDelete.cnt > 0) {
         if (this.$auth.loggedIn) {
-          this.$axios.$post(`api/product/remove_from_cart`, {
+          this.$axios.$post(`api/cart/remove_from_cart`, {
             product_id: this.itemToDelete.id,
             user_id: this.$auth.user.id
           }).then((res) => {
@@ -133,12 +133,11 @@ export default {
         return;
       }
       if (this.$auth.loggedIn) {
-        console.log(item)
         this.$axios.$post(`api/products/${item.id}/add_to_cart`, {
           product_id: item.id,
           user_id: this.$auth.user.id
         }).then((res) => {
-          console.log(res);
+          // console.log(res);
         });
       }
       // add to store

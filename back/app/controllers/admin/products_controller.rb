@@ -1,4 +1,6 @@
 class Admin::ProductsController < ApplicationController
+
+    before_action :require_login, :require_admin
     
     def create
         @product = Product.new(product_params)

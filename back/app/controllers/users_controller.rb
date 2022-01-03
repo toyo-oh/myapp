@@ -1,46 +1,14 @@
 class UsersController < ApplicationController
 
-  SECRET_KEY_BASE = Rails.application.credentials.secret_key_base
-  # TODO before_action ??? :update to be added!!!
   before_action :require_login, :set_user, only: [:show, :destroy]
   # https://stackoverflow.com/questions/30632639/password-cant-be-blank-in-rails-using-has-secure-password
   # https://qiita.com/kazutosato/items/fbaa2fc0443611c627fc
   # https://stackoverflow.com/questions/50641705/how-do-you-use-rails-5-2-wrap-parameters
   wrap_parameters :user, include: [:name, :password, :password_confirmation, :email, :is_admin]
   
-  def require_login
-    response_unauthorized if current_user.blank?
-  end
-
-  def current_user
-    if decoded_token.present?
-      user_id = decoded_token[0]['user_id']
-      @user = User.find_by(id: user_id)
-      render json: {user: @user}
-    else
-      render json: {status: 401, message: 'user not exist!'}
-    end
-  end
-
-  def encode_token(payload)
-    JWT.encode payload, SECRET_KEY_BASE, 'HS256'
-  end
-
-  def decoded_token
-    if auth_header
-      token = auth_header.split(' ')[1]
-      begin
-        JWT.decode token, SECRET_KEY_BASE, true, { algorithm: 'HS256' }
-      rescue JWT::DecodeError
-        []
-      end
-    end
-  end
-
   # GET /users
   def index
     @users = User.all
-
     render json: @users
   end
 
@@ -108,7 +76,7 @@ class UsersController < ApplicationController
       params.require(:user).permit(:name, :password, :password_confirmation, :email, :is_admin)
     end
 
-    def auth_header
-      request.headers['Authorization']
-    end
+    # def auth_header
+    #   request.headers['Authorization']
+    # end
 end
