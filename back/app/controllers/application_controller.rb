@@ -16,16 +16,17 @@ class ApplicationController < ActionController::API
   end
 
   def require_login
-    response_unauthorized if current_user.blank?
+    response_unauthorized if validate_user.blank?
   end
 
-  def current_user
+  def require_admin
+    response_admin_unauthorized if !validate_user.admin?
+  end
+
+  def validate_user
     if decoded_token.present?
       user_id = decoded_token[0]['user_id']
       @user = User.find_by(id: user_id)
-      render json: {user: @user}
-    else
-      render json: {status: 401, message: 'user not exist!'}
     end
   end
 
@@ -42,12 +43,6 @@ class ApplicationController < ActionController::API
       rescue JWT::DecodeError
         []
       end
-    end
-  end
-
-  def require_admin
-    if !current_user.admin?
-      response_admin_unauthorized
     end
   end
 

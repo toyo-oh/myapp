@@ -23,6 +23,7 @@
       <v-btn text @click="toMain">Store</v-btn>
       <v-btn text>Product</v-btn>
       <v-spacer />
+      <v-text-field solo label="Search" append-icon="mdi-magnify"></v-text-field>
       <!-- menu for common user -->
       <v-menu v-if="isLoggedIn&&!isAdmin" offset-y>
         <template v-slot:activator="{ attrs, on }">
@@ -67,9 +68,9 @@
         <v-icon>mdi-cart</v-icon>
         <div style="inline">Cart（{{$store.getters['getCounter']}}）</div>
       </v-btn>
-      <v-btn icon>
+      <!-- <v-btn icon>
         <v-icon>mdi-magnify</v-icon>
-      </v-btn>
+      </v-btn> -->
     </v-app-bar>
     <v-main>
       <v-container>

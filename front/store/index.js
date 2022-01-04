@@ -7,6 +7,9 @@ export const state = () => ({
 export const getters = {
   getCounter: (state) => {
     var countSum = 0;
+    if(!state.productList){
+      return 0;
+    }
     for(var i=0; i < state.productList.length; i++){
       countSum += state.productList[i].quantity;
     }
@@ -14,6 +17,9 @@ export const getters = {
   },
   getTotalPrice: (state) => {
     var priceSum = 0;
+    if(!state.productList){
+      return 0;
+    }
     for(var i=0; i < state.productList.length; i++){
       priceSum += state.productList[i].quantity * state.productList[i].price;
     }
@@ -26,6 +32,9 @@ export const getters = {
 
 export const mutations = {
   load_products(state, productList){
+    if(!productList){
+      productList = [];
+    }
     state.productList = productList;
     var countSum = 0;
     var priceSum = 0;
@@ -82,7 +91,8 @@ export const mutations = {
     state.productList = productList;
     localStorage.setItem('Cart',JSON.stringify(productList));
   },
-  clear_cart(){
+  clear_cart(state){
     state.productList = [];
+    localStorage.setItem('Cart',JSON.stringify([]));
   }
 }

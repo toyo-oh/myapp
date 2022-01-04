@@ -6,6 +6,16 @@ class UsersController < ApplicationController
   # https://stackoverflow.com/questions/50641705/how-do-you-use-rails-5-2-wrap-parameters
   wrap_parameters :user, include: [:name, :password, :password_confirmation, :email, :is_admin]
   
+  def current_user
+    if decoded_token.present?
+      user_id = decoded_token[0]['user_id']
+      @user = User.find_by(id: user_id)
+      render json: {user: @user}
+    else
+      render json: {status: 401, message: 'user not exist!'}
+    end
+  end
+
   # GET /users
   def index
     @users = User.all
