@@ -1,5 +1,8 @@
 <template>
   <div>
+    <v-alert v-model="alertNoItem" type="error" close-text="Close Alert" dismissible>
+      I'm a warning alert(NO PRODUCT ITEM).
+    </v-alert>
     <v-simple-table>
       <template v-slot:default>
         <thead>
@@ -32,7 +35,7 @@
             <td>{{ item.quantity }}</td>
             <td>
               <v-btn icon @click="showDeleteDialog(item)">
-                <v-icon>mdi-delete</v-icon>
+                <v-icon>mdi-close-circle-outline</v-icon>
               </v-btn>
             </td>
           </tr>
@@ -63,6 +66,7 @@ export default {
       products: [],
       itemToDelete: '',
       dialogDelete: false,
+      alertNoItem: false,
       countRules: [
         v => !!v || "This field is required",
         v => (v && v >= 0) || "count should be above 0",
@@ -169,7 +173,7 @@ export default {
     checkOut () {
       if (this.$auth.loggedIn) {
         if (!this.$store.getters['getCounter']) {
-          // TODO error message (there is no product in cart)
+          this.alertNoItem = true;
         } else {
           this.$router.push(`/checkout`)
         }

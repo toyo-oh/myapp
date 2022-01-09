@@ -23,7 +23,9 @@
       <v-btn text @click="toMain">Store</v-btn>
       <v-btn text>Product</v-btn>
       <v-spacer />
-      <v-text-field solo label="Search" append-icon="mdi-magnify"></v-text-field>
+      <div style="inline">
+        <v-text-field solo label="Search" append-icon="mdi-magnify"></v-text-field>
+      </div>
       <!-- menu for common user -->
       <v-menu v-if="isLoggedIn&&!isAdmin" offset-y>
         <template v-slot:activator="{ attrs, on }">
@@ -59,14 +61,17 @@
         </v-list>
       </v-menu>
       <v-btn text v-if="!isLoggedIn" @click="login">
-        <div style="inline">Login</div>
+        <div style="inline">Log In</div>
       </v-btn>
       <v-btn text v-if="!isLoggedIn" @click="signUp">
         <div style="inline">Sign Up</div>
       </v-btn>
       <v-btn text v-if="!isAdmin" @click="displayCart">
-        <v-icon>mdi-cart</v-icon>
-        <div style="inline">Cart（{{$store.getters['getCounter']}}）</div>
+        <!-- <v-icon>mdi-cart</v-icon>
+        <div style="inline">Cart（{{$store.getters['getCounter']}}）</div> -->
+        <v-badge color="red lighten-1" :content="cartCount" :value="cartCount">
+          <v-icon>mdi-cart</v-icon>
+        </v-badge>
       </v-btn>
       <!-- <v-btn icon>
         <v-icon>mdi-magnify</v-icon>
@@ -134,6 +139,9 @@ export default {
         return this.$auth.user.is_admin;
       else
         return false;
+    },
+    cartCount: function () {
+      return this.$store.getters['getCounter'];
     }
   },
   methods: {

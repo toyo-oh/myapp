@@ -1,6 +1,6 @@
 class CartsController < ApplicationController
 
-	before_action :require_login, only: [:find_cart_items, :get_checkout_info]
+	before_action :require_login, only: [:find_cart_items, :get_checkout_info, :remove_from_cart]
 
 	def current_cart
 		@current_cart ||= find_cart
@@ -19,24 +19,18 @@ class CartsController < ApplicationController
 		cart = Cart.find_by(user_id: params[:user_id])
 		if cart.blank?
 			render json: {productList:[]}
-			# render :json => []
 		else
 			@cart_items = cart.cart_items
 			render json: {productList: @cart_items}
-			# render :json => @cart_items, :include => :product
 		end
 	end
 
 	def get_checkout_info
 		cart = Cart.find_by(user_id: params[:user_id])
-		if cart.blank?
-			render json: 'backend: error! no cart existed!'
-		else
-			@cart_items = cart.cart_items
-			@address = Address.where("user_id = ? AND is_default = 1", params[:user_id])
-			# as_json	vs to_json, to_json	with escape
-			render :json => {:cart_items => @cart_items.as_json(:include => :product), :address => @address}
-		end
+		@cart_items = cart.cart_items
+		@address = Address.where("user_id = ? AND is_default = 1", params[:user_id])
+		# as_json	vs to_json, to_json	with escape
+		render :json => {:cart_items => @cart_items.as_json(:include => :product), :address => @address}
   end
 
 	def show_cart_products
@@ -47,8 +41,9 @@ class CartsController < ApplicationController
 	def remove_from_cart
 			@current_cart = Cart.find_by(user_id: params[:user_id])
 			@cart_item = @current_cart.cart_items.find_by(product_id: params[:product_id])
-			@cart_item.destroy
-			render json:'backend: delete product from cart successfully'
+			if !@cart_item.destroy
+				render response_unprocessable_entity(@cart_item.errors)
+			end
 	end
 
 end

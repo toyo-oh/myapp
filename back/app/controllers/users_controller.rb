@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
-  before_action :require_login, :set_user, only: [:show, :destroy]
+  before_action :require_login, only: [:index]
+  before_action :get_user_with_auth_check, only: [:show, :update, :destroy]
   # https://stackoverflow.com/questions/30632639/password-cant-be-blank-in-rails-using-has-secure-password
   # https://qiita.com/kazutosato/items/fbaa2fc0443611c627fc
   # https://stackoverflow.com/questions/50641705/how-do-you-use-rails-5-2-wrap-parameters
@@ -12,7 +13,7 @@ class UsersController < ApplicationController
       @user = User.find_by(id: user_id)
       render json: {user: @user}
     else
-      render json: {status: 401, message: 'user not exist!'}
+      response_unauthorized
     end
   end
 
@@ -22,56 +23,35 @@ class UsersController < ApplicationController
     render json: @users
   end
 
-  # GET /users/1
-  def show
-    render json: @user
-  end
-
   # POST /users
   def create
     @user = User.new(user_params)
-
-    if @user.save
-      # render json: @user, status: :created, location: @user
-    else
-      render json: @user.errors, status: :unprocessable_entity
+    if !@user.save
+      render response_unprocessable_entity(@user.errors)
     end
+  end
+
+  # GET /users/1
+  def show
+    @user = get_user_with_auth_check
+    render json: {user: @user}
   end
 
   # PATCH/PUT /users/1
   def update
-    @current_user = User.find_by(id: params[:id])
+    @current_user = get_user_with_auth_check
     if @current_user.update(name: params[:name], email: params[:email])
       render json: @current_user
     else
-      render json: @current_user.errors, status: :unprocessable_entity
+      render response_unprocessable_entity(@current_user.errors)
     end
   end
 
   # DELETE /users/1
   def destroy
-    @user.destroy
-  end
-
-  # ******* NOT IN USE ******* 
-  def login
-    current_user = User.find_by(email: params[:email], password: params[:password])
-    if current_user.nil?
-      render json: {status: 401, message: 'login failed!'}
-    else
-      render json: {token: current_user.token}
-    end
-  end
-
-    # ******* NOT IN USE ******* 
-  def find_user_by_token
-    tokenB = request.headers["Authorization"]
-    token = tokenB[7,tokenB.length-7]
-    current_user = User.find_by(token: token)
-    if current_user.nil?
-      render json: {status: 401, message: 'user not exist!'}
-    else
-      render json: {data: current_user}
+    @user = get_user_with_auth_check
+    if !@user.destroy
+      render response_unprocessable_entity(@user.errors)	
     end
   end
 
@@ -86,7 +66,16 @@ class UsersController < ApplicationController
       params.require(:user).permit(:name, :password, :password_confirmation, :email, :is_admin)
     end
 
-    # def auth_header
-    #   request.headers['Authorization']
-    # end
+    def get_user_with_auth_check
+			if validate_user.blank?
+					response_unauthorized
+			else
+				@user = User.find(params[:id])
+				if validate_user.id == @user.id
+					return @user
+				else
+					response_unauthorized
+				end
+			end
+		end
 end

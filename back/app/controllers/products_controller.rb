@@ -1,4 +1,3 @@
-
 class ProductsController < ApplicationController
 
     before_action :require_login, only: [:add_to_cart, :decrease_of_cart]
@@ -22,7 +21,7 @@ class ProductsController < ApplicationController
             if @new_cart.save
                 @new_cart.add_product_to_cart(@product,params[:user_id])
             else
-                render json: "backend: add to cart failed!!!"
+                render response_unprocessable_entity(@new_cart.errors)
             end
         else
             # cart is alreay exist
@@ -30,24 +29,18 @@ class ProductsController < ApplicationController
             if @cart_item.blank?
                 @current_cart.add_product_to_cart(@product,params[:user_id])
             else
-                # TODO how to debug in rails???
-                logger.debug(@cart_item.quantity + 1)
                 new_count = @cart_item.quantity + 1
                 @cart_item.update(quantity: new_count)
             end
         end
-        render json: "backend: add to cart successfully!!!"
     end
 
     def decrease_of_cart
         @current_cart = Cart.find_by(user_id: params[:user_id])
         @cart_item = @current_cart.cart_items.find_by(product_id: params[:product_id])
-        if @cart_item.blank?
-            json:'error: product is not in the cart!!!'
-        elsif @cart_item.quantity == 1
+        if @cart_item.quantity == 1
             @cart_item.destroy
         else
-            logger.debug(@cart_item.quantity - 1)
             new_count = @cart_item.quantity - 1
             @cart_item.update(quantity: new_count)
         end

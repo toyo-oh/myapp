@@ -4,11 +4,9 @@ class Admin::ProductsController < ApplicationController
     
     def create
         @product = Product.new(product_params)
-        if @product.save
-            render "index", formats: :json
-        else
-            render json: @product.errors, status: :unprocessable_entity
-        end 
+        if !@product.save
+            render response_unprocessable_entity(@product.errors)
+        end
     end
 
     def index
@@ -23,22 +21,17 @@ class Admin::ProductsController < ApplicationController
 
     def update
         @product = Product.find(params[:id])
-        if @product.update(product_params)
-            render "index", formats: :json
-        else
-            render json: @product.errors, status: :unprocessable_entity
+        if !@product.update(product_params)
+            render response_unprocessable_entity(@product.errors)
         end
     end
 
   def destroy
     @product = Product.find(params[:id])
-    if @product.destroy 
-        render "index", formats: :json
-    else
-        render json: @product.errors, status: :unprocessable_entity
+    if !@product.destroy 
+        render response_unprocessable_entity(@product.errors)
     end
   end
-
 
 
     private

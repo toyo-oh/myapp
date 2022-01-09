@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::API
   
   SECRET_KEY_BASE = Rails.application.credentials.secret_key_base
-	rescue_from Exception, with: :response_internal_server_error
+	rescue_from StandardError, with: :response_internal_server_error
+  rescue_from ActiveRecord::RecordNotFound, with: :response_page_not_found
   
   def response_admin_unauthorized
     render status: 401, json: { status: 401, message: 'Admin Unauthorized' }
@@ -13,6 +14,14 @@ class ApplicationController < ActionController::API
 
   def response_internal_server_error
     render status: 500, json: { status: 500, message: 'Internal Server Error' }
+  end
+
+  def response_page_not_found
+    render status: 404, json: { status: 404, message: 'page is not found' }
+  end
+
+  def response_unprocessable_entity(errors)
+    render status: unprocessable_entity, json: { status: unprocessable_entity, message: errors }
   end
 
   def require_login
@@ -35,7 +44,6 @@ class ApplicationController < ActionController::API
   end
 
   def decoded_token
-    logger.debug(auth_header)
     if auth_header
       token = auth_header.split(' ')[1]
       begin

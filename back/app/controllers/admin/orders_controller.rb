@@ -9,34 +9,23 @@ class Admin::OrdersController < ApplicationController
 
 	def show
 		@order = Order.find(params[:id])
-		if @order.blank?
-			render json: 'backend: error! no order!'
-		else
-			@order_details = @order.order_details
-			@address = Address.find(@order.address_id)
-			render :json => {:order => @order, :order_details => @order_details.as_json(:include => :product), :address => @address}
-		end
+		@order_details = @order.order_details
+		@address = Address.find(@order.address_id)
+		render :json => {:order => @order, :order_details => @order_details.as_json(:include => :product), :address => @address}
 	end
 
 	# cancel
 	def destroy
 		@order = Order.find(params[:id]);
-		if @order.blank?
-			render json: 'backend: error! no order!'
-		else
-			@order.cancel_order!
-			render json: @order
-		end
+		@order.cancel_order!
+		render json: @order
 	end
 
 	# ship
 	def ship_order
 		@order = Order.find(params[:id]);
-		if @order.blank?
-			render json: 'backend: error! no order!'
-		else
-			@order.ship!
-			render json: @order
-		end
+		@order.ship!
+		render json: @order
 	end
+	
 end

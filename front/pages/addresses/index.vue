@@ -7,10 +7,21 @@
         <v-icon small class="mr-2" @click="editAddress(item)">mdi-pencil</v-icon>
       </template>
       <template v-slot:item.delete="{ item }">
-        <v-icon small @click="deleteAddress(item)">mdi-delete</v-icon>
+        <v-icon small @click="showDeleteDialog(item)">mdi-close-circle-outline</v-icon>
       </template>
       <!-- <v-btn elevation="2" @click="setDefault(item)">Default</v-btn> -->
     </v-data-table>
+    <v-dialog v-model="dialogDelete" max-width="200px">
+      <v-card>
+        <v-card-title>Delete</v-card-title>
+        <v-card-text>Are you sure to delete the address?</v-card-text>
+        <v-spacer></v-spacer>
+        <v-card-actions>
+          <v-btn color="green darken-1" text @click="deleteAddress()">OK</v-btn>
+          <v-btn color="green darken-1" text @click="dialogDelete = false">Cancel</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -28,6 +39,8 @@ export default {
         { text: "Delete", value: "delete", sortable: false },
       ],
       addresses: [],
+      dialogDelete: false,
+      itemToDelete: ''
     };
   },
   // TODO 变为asyncData方法获取初始数据
@@ -43,12 +56,17 @@ export default {
     editAddress (item) {
       this.$router.push(`addresses/${item.id}`)
     },
-    deleteAddress (item) {
+    showDeleteDialog (item) {
+      this.itemToDelete = item
+      this.dialogDelete = !this.dialogDelete
+    },
+    deleteAddress () {
       this.$axios
-        .delete(`api/addresses/${item.id}`)
+        .delete(`api/addresses/${this.itemToDelete.id}`)
         .then((res) => {
-          this.getAddresses()
+          this.getAddresses();
         });
+      this.dialogDelete = false
     },
     newAddress () {
       this.$router.push(`addresses/new`)

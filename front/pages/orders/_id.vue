@@ -63,7 +63,6 @@ export default {
       order_id: '',
       address_id: '',
       address_detail: '',
-      // is_paid: false,
       dialogCancel: false,
       alertCancel: false,
       alertPay: false,
@@ -103,7 +102,6 @@ export default {
         address_id: res.data.address.id,
         products: tmp_products,
         totalPrice: tmp_total,
-        // is_paid: res.data.order.is_paid,
         order_id: params.id,
         order_status: res.data.order.aasm_state
       };
@@ -114,8 +112,7 @@ export default {
       if (!this.$auth.user.id) {
         // TODO error message
       } else {
-        this.$axios.post(`/api/orders/pay_order`, { order_id: this.order_id }).then((res) => {
-          // this.is_paid = true;
+        this.$axios.post(`/api/orders/pay_order`, { id: this.order_id }).then((res) => {
           this.alertPay = true;
           this.order_status = res.data.aasm_state;
         });

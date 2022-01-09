@@ -1,5 +1,8 @@
 <template>
   <div>
+    <v-alert v-model="alertNoAddress" type="error" close-text="Close Alert" dismissible>
+      I'm a warning alert(NO ADDRESS).
+    </v-alert>
     <v-simple-table>
       <template v-slot:default>
         <thead>
@@ -73,7 +76,8 @@ export default {
       address_detail: '',
       dialog: false,
       addressList: [],
-      selectedAddressId: ''
+      selectedAddressId: '',
+      alertNoAddress: false
     };
   },
   created () {
@@ -99,10 +103,12 @@ export default {
           // this.products[m].image = this.$axios.baseURL + this.products[m].image.thumb.url;
           this.products.push(product);
         }
-        var default_address = res.data.address[0];
-        this.address_detail = default_address.receiver + " " + default_address.phone_number
-          + " " + default_address.post_code + " " + default_address.detail_address;
-        this.address_id = default_address.id;
+        if (res.data.address.length > 0) {
+          var default_address = res.data.address[0];
+          this.address_detail = default_address.receiver + " " + default_address.phone_number
+            + " " + default_address.post_code + " " + default_address.detail_address;
+          this.address_id = default_address.id;
+        }
       });
     },
     getAddressList () {
@@ -123,9 +129,9 @@ export default {
     },
     createOrder () {
       if (!this.$auth.user.id) {
-        // TODO error message
+        this.$router.push(`/login`)
       } else if (!this.address_id) {
-        // TODO error message
+        this.alertNoAddress = true;
       } else {
         const formData = new FormData();
         formData.append("user_id", this.$auth.user.id);

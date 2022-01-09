@@ -1,16 +1,17 @@
 <template>
   <v-form>
     <v-container>
-      <v-card width="400px" class="mx-auto mt-5">
+      <v-card width="500px" class="mx-auto mt-5">
         <v-card-title>
-          <h1 class="display-1">Sign In</h1>
+          <h1 class="display-1">Log In</h1>
         </v-card-title>
+        <v-divider></v-divider>
         <v-card-text>
-          <v-text-field v-model="login.email" type="text" label="email" required></v-text-field>
-          <v-text-field v-model="login.password" type="password" label="Password" required></v-text-field>
+          <v-text-field outlined v-model="login.email" type="text" label="email" required></v-text-field>
+          <v-text-field outlined v-model="login.password" type="password" label="Password" required></v-text-field>
         </v-card-text>
         <v-card-actions>
-          <v-btn class="mr-4" color="primary" @click="userLogin">login</v-btn>
+          <v-btn block large elevation="5" class="mr-4" color="primary" @click="userLogin">login</v-btn>
         </v-card-actions>
       </v-card>
     </v-container>
