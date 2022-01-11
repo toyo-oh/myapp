@@ -8,9 +8,20 @@
       </template>
       <!-- <template v-slot:[`item.delete`]="{ item }"> -->
       <template v-slot:item.delete="{ item }">
-        <v-icon small @click="deleteProduct(item)">mdi-delete</v-icon>
+        <v-icon small @click="showDeleteDialog(item)">mdi-delete</v-icon>
       </template>
     </v-data-table>
+    <v-dialog v-model="dialogDelete" max-width="200px">
+      <v-card>
+        <v-card-title>Delete</v-card-title>
+        <v-card-text>Are you sure to delete the product?</v-card-text>
+        <v-spacer></v-spacer>
+        <v-card-actions>
+          <v-btn color="green darken-1" text @click="deleteProduct()">OK</v-btn>
+          <v-btn color="green darken-1" text @click="dialogDelete = false">Cancel</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -28,6 +39,8 @@ export default {
         { text: "Delete", value: "delete", sortable: false },
       ],
       products: [],
+      dialogDelete: false,
+      itemToDelete: ''
     };
   },
   // TODO 变为asyncData方法获取初始数据
@@ -43,12 +56,17 @@ export default {
     editProduct (item) {
       this.$router.push(`products/${item.id}`)
     },
-    deleteProduct (item) {
+    showDeleteDialog (item) {
+      this.itemToDelete = item
+      this.dialogDelete = !this.dialogDelete
+    },
+    deleteProduct () {
       this.$axios
-        .delete(`api/admin/products/${item.id}`)
+        .delete(`api/admin/products/${this.itemToDelete.id}`)
         .then((res) => {
           this.getProducts()
         });
+      this.dialogDelete = false;
     },
     newProduct () {
       this.$router.push(`products/new`)

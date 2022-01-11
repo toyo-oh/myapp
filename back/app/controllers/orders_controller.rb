@@ -7,13 +7,15 @@ class OrdersController < ApplicationController
 		user_id = params[:user_id]
 		address_id = params[:address_id]
 		@current_cart = Cart.find_by(user_id: params[:user_id])
+		raise ActiveRecord::RecordNotFound if @current_cart.blank?
 		@cart_items = @current_cart.cart_items
 		@new_order = Order.new
 		@new_order.user_id = user_id
 		@new_order.address_id = address_id
 		@new_order.aasm_state = 'order_placed'
 		@new_order.is_paid = 0
-		if @new_order.save
+		Cart.transaction do
+			@new_order.save!
 			count = 0
 			amount = 0
 			# TODO 另一种写法：current_cart.cart_items.each do |cart_item|
@@ -22,11 +24,9 @@ class OrdersController < ApplicationController
 				count += cart_item.quantity
 				amount += cart_item.quantity * cart_item.price
 			end
-			@new_order.update(product_count: count, amount_total: amount)
-			@current_cart.destroy
+			@new_order.update!(product_count: count, amount_total: amount)
+			@current_cart.destroy!
 			render json: {order_id: @new_order.id}
-		else
-			render response_unprocessable_entity(@new_order.errors)
 		end
 	end
 

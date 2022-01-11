@@ -55642,3 +55642,1072 @@ Completed 200 OK in 50ms (Views: 41.3ms | ActiveRecord: 7.9ms | Allocations: 250
 Completed 204 No Content in 323ms (ActiveRecord: 176.1ms | Allocations: 8008)
 
 
+Started POST "/login" for 172.19.0.4 at 2022-01-09 22:30:25 +0900
+  [1m[35m (4.7ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by AuthenticationsController#create as HTML
+  Parameters: {"email"=>"admin@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"admin@gmail.com"}}
+  [1m[36mUser Load (17.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'admin@gmail.com' LIMIT 1[0m
+  ↳ app/controllers/authentications_controller.rb:6:in `create'
+Completed 200 OK in 501ms (Views: 0.8ms | ActiveRecord: 17.2ms | Allocations: 7045)
+
+
+Started GET "/user/current_user" for 172.19.0.4 at 2022-01-09 22:30:26 +0900
+Processing by UsersController#current_user as HTML
+  [1m[36mUser Load (3.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:13:in `current_user'
+Completed 200 OK in 43ms (Views: 5.3ms | ActiveRecord: 3.1ms | Allocations: 1218)
+
+
+Started GET "/cart/find_cart/15" for 172.19.0.4 at 2022-01-09 22:30:26 +0900
+Processing by CartsController#find_cart_items as HTML
+  Parameters: {"user_id"=>"15"}
+  [1m[36mUser Load (2.7ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCart Load (3.8ms)[0m  [1m[34mSELECT `carts`.* FROM `carts` WHERE `carts`.`user_id` = 15 LIMIT 1[0m
+  ↳ app/controllers/carts_controller.rb:19:in `find_cart_items'
+Completed 200 OK in 86ms (Views: 0.7ms | ActiveRecord: 6.4ms | Allocations: 3230)
+
+
+Started GET "/admin/orders" for 172.19.0.4 at 2022-01-09 22:30:38 +0900
+Processing by Admin::OrdersController#index as HTML
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m  [["id", 15], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mOrder Load (9.2ms)[0m  [1m[34mSELECT `orders`.* FROM `orders`[0m
+  ↳ app/controllers/admin/orders_controller.rb:7:in `index'
+  [1m[36mOrderDetail Load (5.9ms)[0m  [1m[34mSELECT `order_details`.* FROM `order_details` WHERE `order_details`.`order_id` = 18[0m
+  ↳ app/controllers/admin/orders_controller.rb:7:in `index'
+  [1m[36mOrderDetail Load (1.5ms)[0m  [1m[34mSELECT `order_details`.* FROM `order_details` WHERE `order_details`.`order_id` = 20[0m
+  ↳ app/controllers/admin/orders_controller.rb:7:in `index'
+  [1m[36mOrderDetail Load (0.9ms)[0m  [1m[34mSELECT `order_details`.* FROM `order_details` WHERE `order_details`.`order_id` = 21[0m
+  ↳ app/controllers/admin/orders_controller.rb:7:in `index'
+  [1m[36mOrderDetail Load (1.4ms)[0m  [1m[34mSELECT `order_details`.* FROM `order_details` WHERE `order_details`.`order_id` = 22[0m
+  ↳ app/controllers/admin/orders_controller.rb:7:in `index'
+  [1m[36mOrderDetail Load (1.0ms)[0m  [1m[34mSELECT `order_details`.* FROM `order_details` WHERE `order_details`.`order_id` = 23[0m
+  ↳ app/controllers/admin/orders_controller.rb:7:in `index'
+  [1m[36mOrderDetail Load (1.9ms)[0m  [1m[34mSELECT `order_details`.* FROM `order_details` WHERE `order_details`.`order_id` = 24[0m
+  ↳ app/controllers/admin/orders_controller.rb:7:in `index'
+  [1m[36mOrderDetail Load (1.5ms)[0m  [1m[34mSELECT `order_details`.* FROM `order_details` WHERE `order_details`.`order_id` = 25[0m
+  ↳ app/controllers/admin/orders_controller.rb:7:in `index'
+Completed 200 OK in 349ms (Views: 2.0ms | ActiveRecord: 71.8ms | Allocations: 30386)
+
+
+Started GET "/admin/products" for 172.19.0.4 at 2022-01-09 22:30:40 +0900
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m  [["id", 15], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mProduct Load (7.7ms)[0m  [1m[34mSELECT `products`.* FROM `products`[0m
+  ↳ app/controllers/admin/products_controller.rb:14:in `index'
+Completed 200 OK in 100ms (Views: 32.6ms | ActiveRecord: 8.8ms | Allocations: 10884)
+
+
+Started DELETE "/admin/products/5" for 172.19.0.4 at 2022-01-09 22:30:54 +0900
+Processing by Admin::ProductsController#destroy as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mUser Load (7.9ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m  [["id", 15], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mProduct Load (9.7ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 5 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:30:in `destroy'
+  [1m[35m (4.6ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/admin/products_controller.rb:31:in `destroy'
+  [1m[36mProduct Destroy (6.0ms)[0m  [1m[31mDELETE FROM `products` WHERE `products`.`id` = 5[0m
+  ↳ app/controllers/admin/products_controller.rb:31:in `destroy'
+  [1m[35m (18.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/admin/products_controller.rb:31:in `destroy'
+Completed 204 No Content in 217ms (ActiveRecord: 46.9ms | Allocations: 4485)
+
+
+Started GET "/admin/products" for 172.19.0.4 at 2022-01-09 22:30:55 +0900
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m  [["id", 15], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mProduct Load (2.1ms)[0m  [1m[34mSELECT `products`.* FROM `products`[0m
+  ↳ app/controllers/admin/products_controller.rb:14:in `index'
+Completed 200 OK in 52ms (Views: 14.3ms | ActiveRecord: 3.6ms | Allocations: 4329)
+
+
+Started GET "/admin/orders" for 172.19.0.4 at 2022-01-09 22:31:08 +0900
+Processing by Admin::OrdersController#index as HTML
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m  [["id", 15], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mOrder Load (2.2ms)[0m  [1m[34mSELECT `orders`.* FROM `orders`[0m
+  ↳ app/controllers/admin/orders_controller.rb:7:in `index'
+  [1m[36mOrderDetail Load (2.5ms)[0m  [1m[34mSELECT `order_details`.* FROM `order_details` WHERE `order_details`.`order_id` = 18[0m
+  ↳ app/controllers/admin/orders_controller.rb:7:in `index'
+  [1m[36mOrderDetail Load (3.0ms)[0m  [1m[34mSELECT `order_details`.* FROM `order_details` WHERE `order_details`.`order_id` = 20[0m
+  ↳ app/controllers/admin/orders_controller.rb:7:in `index'
+  [1m[36mOrderDetail Load (3.9ms)[0m  [1m[34mSELECT `order_details`.* FROM `order_details` WHERE `order_details`.`order_id` = 21[0m
+  ↳ app/controllers/admin/orders_controller.rb:7:in `index'
+  [1m[36mOrderDetail Load (4.6ms)[0m  [1m[34mSELECT `order_details`.* FROM `order_details` WHERE `order_details`.`order_id` = 22[0m
+  ↳ app/controllers/admin/orders_controller.rb:7:in `index'
+  [1m[36mOrderDetail Load (1.8ms)[0m  [1m[34mSELECT `order_details`.* FROM `order_details` WHERE `order_details`.`order_id` = 23[0m
+  ↳ app/controllers/admin/orders_controller.rb:7:in `index'
+  [1m[36mOrderDetail Load (2.9ms)[0m  [1m[34mSELECT `order_details`.* FROM `order_details` WHERE `order_details`.`order_id` = 24[0m
+  ↳ app/controllers/admin/orders_controller.rb:7:in `index'
+  [1m[36mOrderDetail Load (5.1ms)[0m  [1m[34mSELECT `order_details`.* FROM `order_details` WHERE `order_details`.`order_id` = 25[0m
+  ↳ app/controllers/admin/orders_controller.rb:7:in `index'
+Completed 200 OK in 240ms (Views: 2.6ms | ActiveRecord: 27.2ms | Allocations: 11770)
+
+
+Started GET "/admin/orders/18" for 172.19.0.4 at 2022-01-09 22:31:09 +0900
+Processing by Admin::OrdersController#show as HTML
+  Parameters: {"id"=>"18"}
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m  [["id", 15], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mOrder Load (3.5ms)[0m  [1m[34mSELECT `orders`.* FROM `orders` WHERE `orders`.`id` = 18 LIMIT 1[0m
+  ↳ app/controllers/admin/orders_controller.rb:11:in `show'
+  [1m[36mAddress Load (5.9ms)[0m  [1m[34mSELECT `addresses`.* FROM `addresses` WHERE `addresses`.`id` = 13 LIMIT 1[0m
+  ↳ app/controllers/admin/orders_controller.rb:13:in `show'
+  [1m[36mOrderDetail Load (1.1ms)[0m  [1m[34mSELECT `order_details`.* FROM `order_details` WHERE `order_details`.`order_id` = 18[0m
+  ↳ app/controllers/admin/orders_controller.rb:14:in `show'
+  [1m[36mProduct Load (1.4ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/orders_controller.rb:14:in `show'
+  [1m[36mProduct Load (7.1ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/admin/orders_controller.rb:14:in `show'
+Completed 200 OK in 255ms (Views: 1.1ms | ActiveRecord: 37.4ms | Allocations: 16771)
+
+
+Started GET "/admin/orders" for 172.19.0.4 at 2022-01-09 22:31:13 +0900
+Processing by Admin::OrdersController#index as HTML
+  [1m[36mUser Load (2.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m  [["id", 15], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mOrder Load (1.7ms)[0m  [1m[34mSELECT `orders`.* FROM `orders`[0m
+  ↳ app/controllers/admin/orders_controller.rb:7:in `index'
+  [1m[36mOrderDetail Load (1.3ms)[0m  [1m[34mSELECT `order_details`.* FROM `order_details` WHERE `order_details`.`order_id` = 18[0m
+  ↳ app/controllers/admin/orders_controller.rb:7:in `index'
+  [1m[36mOrderDetail Load (1.3ms)[0m  [1m[34mSELECT `order_details`.* FROM `order_details` WHERE `order_details`.`order_id` = 20[0m
+  ↳ app/controllers/admin/orders_controller.rb:7:in `index'
+  [1m[36mOrderDetail Load (4.2ms)[0m  [1m[34mSELECT `order_details`.* FROM `order_details` WHERE `order_details`.`order_id` = 21[0m
+  ↳ app/controllers/admin/orders_controller.rb:7:in `index'
+  [1m[36mOrderDetail Load (1.8ms)[0m  [1m[34mSELECT `order_details`.* FROM `order_details` WHERE `order_details`.`order_id` = 22[0m
+  ↳ app/controllers/admin/orders_controller.rb:7:in `index'
+  [1m[36mOrderDetail Load (1.6ms)[0m  [1m[34mSELECT `order_details`.* FROM `order_details` WHERE `order_details`.`order_id` = 23[0m
+  ↳ app/controllers/admin/orders_controller.rb:7:in `index'
+  [1m[36mOrderDetail Load (3.7ms)[0m  [1m[34mSELECT `order_details`.* FROM `order_details` WHERE `order_details`.`order_id` = 24[0m
+  ↳ app/controllers/admin/orders_controller.rb:7:in `index'
+  [1m[36mOrderDetail Load (5.6ms)[0m  [1m[34mSELECT `order_details`.* FROM `order_details` WHERE `order_details`.`order_id` = 25[0m
+  ↳ app/controllers/admin/orders_controller.rb:7:in `index'
+Completed 200 OK in 235ms (Views: 1.5ms | ActiveRecord: 23.3ms | Allocations: 11770)
+
+
+Started GET "/admin/orders/21" for 172.19.0.4 at 2022-01-09 22:31:15 +0900
+Processing by Admin::OrdersController#show as HTML
+  Parameters: {"id"=>"21"}
+  [1m[36mUser Load (2.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m  [["id", 15], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mOrder Load (4.1ms)[0m  [1m[34mSELECT `orders`.* FROM `orders` WHERE `orders`.`id` = 21 LIMIT 1[0m
+  ↳ app/controllers/admin/orders_controller.rb:11:in `show'
+  [1m[36mAddress Load (4.7ms)[0m  [1m[34mSELECT `addresses`.* FROM `addresses` WHERE `addresses`.`id` = 13 LIMIT 1[0m
+  ↳ app/controllers/admin/orders_controller.rb:13:in `show'
+  [1m[36mOrderDetail Load (1.6ms)[0m  [1m[34mSELECT `order_details`.* FROM `order_details` WHERE `order_details`.`order_id` = 21[0m
+  ↳ app/controllers/admin/orders_controller.rb:14:in `show'
+  [1m[36mProduct Load (1.8ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/admin/orders_controller.rb:14:in `show'
+Completed 200 OK in 195ms (Views: 3.0ms | ActiveRecord: 14.3ms | Allocations: 5394)
+
+
+Started GET "/admin/products" for 172.19.0.4 at 2022-01-09 22:31:19 +0900
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mUser Load (2.3ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m  [["id", 15], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mProduct Load (5.1ms)[0m  [1m[34mSELECT `products`.* FROM `products`[0m
+  ↳ app/controllers/admin/products_controller.rb:14:in `index'
+Completed 200 OK in 82ms (Views: 27.3ms | ActiveRecord: 7.4ms | Allocations: 4329)
+
+
+Started POST "/login" for 172.19.0.4 at 2022-01-09 22:31:50 +0900
+Processing by AuthenticationsController#create as HTML
+  Parameters: {"email"=>"new@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"new@gmail.com"}}
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'new@gmail.com' LIMIT 1[0m
+  ↳ app/controllers/authentications_controller.rb:6:in `create'
+Completed 200 OK in 394ms (Views: 0.2ms | ActiveRecord: 1.2ms | Allocations: 848)
+
+
+Started GET "/user/current_user" for 172.19.0.4 at 2022-01-09 22:31:51 +0900
+Processing by UsersController#current_user as HTML
+  [1m[36mUser Load (1.6ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:13:in `current_user'
+Completed 200 OK in 16ms (Views: 0.6ms | ActiveRecord: 1.6ms | Allocations: 1053)
+
+
+Started GET "/cart/find_cart/12" for 172.19.0.4 at 2022-01-09 22:31:51 +0900
+Processing by CartsController#find_cart_items as HTML
+  Parameters: {"user_id"=>"12"}
+  [1m[36mUser Load (3.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCart Load (4.4ms)[0m  [1m[34mSELECT `carts`.* FROM `carts` WHERE `carts`.`user_id` = 12 LIMIT 1[0m
+  ↳ app/controllers/carts_controller.rb:19:in `find_cart_items'
+  [1m[36mCartItem Load (14.8ms)[0m  [1m[34mSELECT `cart_items`.* FROM `cart_items` WHERE `cart_items`.`cart_id` = 13[0m
+  ↳ app/controllers/carts_controller.rb:24:in `find_cart_items'
+Completed 200 OK in 303ms (Views: 99.4ms | ActiveRecord: 22.1ms | Allocations: 13512)
+
+
+Started POST "/login" for 172.19.0.4 at 2022-01-09 22:32:24 +0900
+Processing by AuthenticationsController#create as HTML
+  Parameters: {"email"=>"new@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"new@gmail.com"}}
+  [1m[36mUser Load (1.8ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'new@gmail.com' LIMIT 1[0m
+  ↳ app/controllers/authentications_controller.rb:6:in `create'
+Completed 200 OK in 360ms (Views: 0.5ms | ActiveRecord: 1.8ms | Allocations: 851)
+
+
+Started GET "/user/current_user" for 172.19.0.4 at 2022-01-09 22:32:24 +0900
+Processing by UsersController#current_user as HTML
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:13:in `current_user'
+Completed 200 OK in 21ms (Views: 1.2ms | ActiveRecord: 1.3ms | Allocations: 1053)
+
+
+Started GET "/cart/find_cart/12" for 172.19.0.4 at 2022-01-09 22:32:25 +0900
+Processing by CartsController#find_cart_items as HTML
+  Parameters: {"user_id"=>"12"}
+  [1m[36mUser Load (7.6ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCart Load (2.3ms)[0m  [1m[34mSELECT `carts`.* FROM `carts` WHERE `carts`.`user_id` = 12 LIMIT 1[0m
+  ↳ app/controllers/carts_controller.rb:19:in `find_cart_items'
+  [1m[36mCartItem Load (6.2ms)[0m  [1m[34mSELECT `cart_items`.* FROM `cart_items` WHERE `cart_items`.`cart_id` = 13[0m
+  ↳ app/controllers/carts_controller.rb:24:in `find_cart_items'
+Completed 200 OK in 64ms (Views: 10.3ms | ActiveRecord: 16.0ms | Allocations: 2586)
+
+
+Started GET "/addresses/find_by_user_id/12" for 172.19.0.4 at 2022-01-09 22:32:27 +0900
+Processing by AddressesController#find_by_user_id as HTML
+  Parameters: {"user_id"=>"12"}
+  [1m[36mUser Load (1.9ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mAddress Load (5.4ms)[0m  [1m[34mSELECT `addresses`.* FROM `addresses` WHERE `addresses`.`user_id` = 12[0m
+  ↳ app/controllers/addresses_controller.rb:18:in `find_by_user_id'
+Completed 200 OK in 40ms (Views: 12.3ms | ActiveRecord: 7.3ms | Allocations: 2132)
+
+
+Started GET "/cart/show_cart_products?ids[]=15" for 172.19.0.4 at 2022-01-09 22:42:15 +0900
+  [1m[35m (3.6ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by CartsController#show_cart_products as HTML
+  Parameters: {"ids"=>["15"]}
+  [1m[36mProduct Load (5.4ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 15[0m
+  ↳ app/controllers/carts_controller.rb:38:in `show_cart_products'
+Completed 200 OK in 130ms (Views: 69.4ms | ActiveRecord: 5.4ms | Allocations: 8237)
+
+
+Started GET "/cart/get_checkout_info/12" for 172.19.0.4 at 2022-01-09 22:42:19 +0900
+Processing by CartsController#get_checkout_info as HTML
+  Parameters: {"user_id"=>"12"}
+  [1m[36mUser Load (3.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCart Load (2.4ms)[0m  [1m[34mSELECT `carts`.* FROM `carts` WHERE `carts`.`user_id` = 12 LIMIT 1[0m
+  ↳ app/controllers/carts_controller.rb:29:in `get_checkout_info'
+  [1m[36mCartItem Load (4.6ms)[0m  [1m[34mSELECT `cart_items`.* FROM `cart_items` WHERE `cart_items`.`cart_id` = 13[0m
+  ↳ app/controllers/carts_controller.rb:33:in `get_checkout_info'
+  [1m[36mProduct Load (0.9ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/carts_controller.rb:33:in `get_checkout_info'
+  [1m[36mAddress Load (7.4ms)[0m  [1m[34mSELECT `addresses`.* FROM `addresses` WHERE (user_id = '12' AND is_default = 1)[0m
+  ↳ app/controllers/carts_controller.rb:33:in `get_checkout_info'
+Completed 200 OK in 182ms (Views: 12.7ms | ActiveRecord: 18.8ms | Allocations: 20002)
+
+
+Started GET "/cart/get_checkout_info/12" for 172.19.0.4 at 2022-01-09 22:42:53 +0900
+Processing by CartsController#get_checkout_info as HTML
+  Parameters: {"user_id"=>"12"}
+  [1m[36mUser Load (2.4ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCart Load (3.8ms)[0m  [1m[34mSELECT `carts`.* FROM `carts` WHERE `carts`.`user_id` = 12 LIMIT 1[0m
+  ↳ app/controllers/carts_controller.rb:29:in `get_checkout_info'
+  [1m[36mCartItem Load (2.0ms)[0m  [1m[34mSELECT `cart_items`.* FROM `cart_items` WHERE `cart_items`.`cart_id` = 13[0m
+  ↳ app/controllers/carts_controller.rb:33:in `get_checkout_info'
+  [1m[36mProduct Load (1.2ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/carts_controller.rb:33:in `get_checkout_info'
+  [1m[36mAddress Load (1.9ms)[0m  [1m[34mSELECT `addresses`.* FROM `addresses` WHERE (user_id = '12' AND is_default = 1)[0m
+  ↳ app/controllers/carts_controller.rb:33:in `get_checkout_info'
+Completed 200 OK in 127ms (Views: 24.0ms | ActiveRecord: 11.4ms | Allocations: 4525)
+
+
+Started GET "/addresses/find_by_user_id/12" for 172.19.0.4 at 2022-01-09 22:43:12 +0900
+Processing by AddressesController#find_by_user_id as HTML
+  Parameters: {"user_id"=>"12"}
+  [1m[36mUser Load (7.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mAddress Load (1.3ms)[0m  [1m[34mSELECT `addresses`.* FROM `addresses` WHERE `addresses`.`user_id` = 12[0m
+  ↳ app/controllers/addresses_controller.rb:18:in `find_by_user_id'
+Completed 200 OK in 68ms (Views: 45.0ms | ActiveRecord: 8.5ms | Allocations: 7433)
+
+
+Started POST "/order/create_order" for 172.19.0.4 at 2022-01-09 22:43:15 +0900
+Processing by OrdersController#create_order as HTML
+  Parameters: {"user_id"=>"12", "address_id"=>"13"}
+  [1m[36mUser Load (2.3ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCart Load (1.6ms)[0m  [1m[34mSELECT `carts`.* FROM `carts` WHERE `carts`.`user_id` = 12 LIMIT 1[0m
+  ↳ app/controllers/orders_controller.rb:9:in `create_order'
+Completed 500 Internal Server Error in 115ms (Views: 0.2ms | ActiveRecord: 3.9ms | Allocations: 10935)
+
+
+Started POST "/order/create_order" for 172.19.0.4 at 2022-01-09 22:43:45 +0900
+Processing by OrdersController#create_order as HTML
+  Parameters: {"user_id"=>"12", "address_id"=>"13"}
+  [1m[36mUser Load (1.8ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCart Load (0.9ms)[0m  [1m[34mSELECT `carts`.* FROM `carts` WHERE `carts`.`user_id` = 12 LIMIT 1[0m
+  ↳ app/controllers/orders_controller.rb:9:in `create_order'
+  [1m[36mCartItem Load (1.0ms)[0m  [1m[34mSELECT `cart_items`.* FROM `cart_items` WHERE `cart_items`.`cart_id` = 13 LIMIT 11[0m
+Completed 500 Internal Server Error in 1104ms (ActiveRecord: 83.1ms | Allocations: 63840)
+
+
+  [1m[36mCACHE CartItem Load (0.0ms)[0m  [1m[34mSELECT `cart_items`.* FROM `cart_items` WHERE `cart_items`.`cart_id` = 13 LIMIT 11[0m
+  
+NoMethodError (undefined method `transaction' for #<OrdersController:0x00007f7f885cb8e0>):
+  
+app/controllers/orders_controller.rb:16:in `create_order'
+Started GET "/user/current_user" for 172.20.0.4 at 2022-01-09 22:55:20 +0900
+  [1m[35m (2.1ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (9.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by UsersController#current_user as HTML
+  [1m[36mUser Load (8.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:13:in `current_user'
+Completed 200 OK in 141ms (Views: 0.7ms | ActiveRecord: 47.6ms | Allocations: 8418)
+
+
+Started GET "/cart/get_checkout_info/12" for 172.20.0.4 at 2022-01-09 22:55:21 +0900
+Started GET "/cart/find_cart/12" for 172.20.0.4 at 2022-01-09 22:55:21 +0900
+Processing by CartsController#get_checkout_info as HTML
+  Parameters: {"user_id"=>"12"}
+  [1m[35m (2.9ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+Processing by CartsController#find_cart_items as HTML
+  Parameters: {"user_id"=>"12"}
+  [1m[36mCart Load (28.4ms)[0m  [1m[34mSELECT `carts`.* FROM `carts` WHERE `carts`.`user_id` = 12 LIMIT 1[0m
+  ↳ app/controllers/carts_controller.rb:29:in `get_checkout_info'
+  [1m[36mUser Load (5.4ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCart Load (76.5ms)[0m  [1m[34mSELECT `carts`.* FROM `carts` WHERE `carts`.`user_id` = 12 LIMIT 1[0m
+  ↳ app/controllers/carts_controller.rb:19:in `find_cart_items'
+  [1m[36mCartItem Load (1.6ms)[0m  [1m[34mSELECT `cart_items`.* FROM `cart_items` WHERE `cart_items`.`cart_id` = 13[0m
+  ↳ app/controllers/carts_controller.rb:24:in `find_cart_items'
+  [1m[36mCartItem Load (3.3ms)[0m  [1m[34mSELECT `cart_items`.* FROM `cart_items` WHERE `cart_items`.`cart_id` = 13[0m
+  ↳ app/controllers/carts_controller.rb:33:in `get_checkout_info'
+Completed 200 OK in 844ms (Views: 110.0ms | ActiveRecord: 90.5ms | Allocations: 13848)
+
+
+  [1m[36mProduct Load (2.4ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/carts_controller.rb:33:in `get_checkout_info'
+  [1m[36mAddress Load (3.2ms)[0m  [1m[34mSELECT `addresses`.* FROM `addresses` WHERE (user_id = '12' AND is_default = 1)[0m
+  ↳ app/controllers/carts_controller.rb:33:in `get_checkout_info'
+Completed 200 OK in 1140ms (Views: 14.6ms | ActiveRecord: 219.1ms | Allocations: 30664)
+
+
+Started GET "/addresses/find_by_user_id/12" for 172.20.0.4 at 2022-01-09 22:57:08 +0900
+Processing by AddressesController#find_by_user_id as HTML
+  Parameters: {"user_id"=>"12"}
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mAddress Load (6.6ms)[0m  [1m[34mSELECT `addresses`.* FROM `addresses` WHERE `addresses`.`user_id` = 12[0m
+  ↳ app/controllers/addresses_controller.rb:18:in `find_by_user_id'
+Completed 200 OK in 56ms (Views: 35.1ms | ActiveRecord: 11.9ms | Allocations: 7653)
+
+
+Started POST "/order/create_order" for 172.20.0.4 at 2022-01-09 22:57:11 +0900
+Processing by OrdersController#create_order as HTML
+  Parameters: {"user_id"=>"12", "address_id"=>"13"}
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCart Load (1.1ms)[0m  [1m[34mSELECT `carts`.* FROM `carts` WHERE `carts`.`user_id` = 12 LIMIT 1[0m
+  ↳ app/controllers/orders_controller.rb:9:in `create_order'
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/orders_controller.rb:16:in `create_order'
+  [1m[36mOrder Create (4.8ms)[0m  [1m[32mINSERT INTO `orders` (`user_id`, `address_id`, `is_paid`, `created_at`, `updated_at`) VALUES (12, 13, FALSE, '2022-01-09 13:57:11.369798', '2022-01-09 13:57:11.369798')[0m
+  ↳ app/controllers/orders_controller.rb:16:in `create_order'
+  [1m[35m (33.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/orders_controller.rb:16:in `create_order'
+  [1m[36mCartItem Load (1.0ms)[0m  [1m[34mSELECT `cart_items`.* FROM `cart_items` WHERE `cart_items`.`cart_id` = 13 LIMIT 11[0m
+  [1m[36mCACHE CartItem Load (0.0ms)[0m  [1m[34mSELECT `cart_items`.* FROM `cart_items` WHERE `cart_items`.`cart_id` = 13 LIMIT 11[0m
+Completed 500 Internal Server Error in 464ms (ActiveRecord: 50.3ms | Allocations: 88417)
+
+
+  [1m[36mCACHE CartItem Load (0.0ms)[0m  [1m[34mSELECT `cart_items`.* FROM `cart_items` WHERE `cart_items`.`cart_id` = 13 LIMIT 11[0m
+  
+NameError (undefined local variable or method `cart_item' for #<OrdersController:0x00007f5540043868>
+Did you mean?  @cart_items):
+  
+app/controllers/orders_controller.rb:20:in `create_order'
+Started POST "/order/create_order" for 172.20.0.4 at 2022-01-09 23:03:06 +0900
+  [1m[35m (4.4ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by OrdersController#create_order as HTML
+  Parameters: {"user_id"=>"12", "address_id"=>"13"}
+  [1m[36mUser Load (7.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCart Load (2.4ms)[0m  [1m[34mSELECT `carts`.* FROM `carts` WHERE `carts`.`user_id` = 12 LIMIT 1[0m
+  ↳ app/controllers/orders_controller.rb:9:in `create_order'
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/orders_controller.rb:18:in `block (2 levels) in create_order'
+  [1m[36mOrder Create (5.5ms)[0m  [1m[32mINSERT INTO `orders` (`user_id`, `address_id`, `is_paid`, `created_at`, `updated_at`) VALUES (12, 13, FALSE, '2022-01-09 14:03:07.366097', '2022-01-09 14:03:07.366097')[0m
+  ↳ app/controllers/orders_controller.rb:18:in `block (2 levels) in create_order'
+  [1m[36mCartItem Load (1.6ms)[0m  [1m[34mSELECT `cart_items`.* FROM `cart_items` WHERE `cart_items`.`cart_id` = 13[0m
+  ↳ app/controllers/orders_controller.rb:23:in `block (3 levels) in create_order'
+  [1m[36mProduct Load (2.6ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/orders_controller.rb:24:in `block (4 levels) in create_order'
+  [1m[36mCACHE Product Load (0.0ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 15 LIMIT 1[0m  [["id", 15], ["LIMIT", 1]]
+  ↳ app/models/order.rb:13:in `create_detail_item'
+  [1m[36mOrderDetail Create (5.7ms)[0m  [1m[32mINSERT INTO `order_details` (`product_id`, `discount`, `subtotal`, `remark`, `created_at`, `updated_at`, `quantity`, `product_title`, `order_id`, `price`) VALUES (15, 1.0, 40, '', '2022-01-09 14:03:07.529777', '2022-01-09 14:03:07.529777', 2, 'chair', 27, 20)[0m
+  ↳ app/models/order.rb:13:in `create_detail_item'
+  [1m[36mOrder Update (2.9ms)[0m  [1m[33mUPDATE `orders` SET `orders`.`product_count` = 2, `orders`.`amount_total` = 40, `orders`.`updated_at` = '2022-01-09 14:03:07.546671' WHERE `orders`.`id` = 27[0m
+  ↳ app/controllers/orders_controller.rb:28:in `block (3 levels) in create_order'
+  [1m[36mCartItem Destroy (1.4ms)[0m  [1m[31mDELETE FROM `cart_items` WHERE `cart_items`.`id` = 52[0m
+  ↳ app/controllers/orders_controller.rb:29:in `block (3 levels) in create_order'
+  [1m[36mCart Destroy (2.1ms)[0m  [1m[31mDELETE FROM `carts` WHERE `carts`.`id` = 13[0m
+  ↳ app/controllers/orders_controller.rb:29:in `block (3 levels) in create_order'
+  [1m[35m (26.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/orders_controller.rb:16:in `create_order'
+Completed 200 OK in 388ms (Views: 0.4ms | ActiveRecord: 76.1ms | Allocations: 50737)
+
+
+Started GET "/orders/27" for 172.20.0.4 at 2022-01-09 23:03:07 +0900
+Processing by OrdersController#show as HTML
+  Parameters: {"id"=>"27"}
+  [1m[36mUser Load (1.8ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mOrder Load (12.1ms)[0m  [1m[34mSELECT `orders`.* FROM `orders` WHERE `orders`.`id` = 27 LIMIT 1[0m
+  ↳ app/controllers/orders_controller.rb:71:in `get_order_with_auth_check'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m  [["id", 12], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCACHE User Load (0.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m  [["id", 12], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCACHE Order Load (0.1ms)[0m  [1m[34mSELECT `orders`.* FROM `orders` WHERE `orders`.`id` = 27 LIMIT 1[0m  [["id", 27], ["LIMIT", 1]]
+  ↳ app/controllers/orders_controller.rb:71:in `get_order_with_auth_check'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m  [["id", 12], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mAddress Load (1.0ms)[0m  [1m[34mSELECT `addresses`.* FROM `addresses` WHERE `addresses`.`id` = 13 LIMIT 1[0m
+  ↳ app/controllers/orders_controller.rb:49:in `show'
+  [1m[36mOrderDetail Load (1.1ms)[0m  [1m[34mSELECT `order_details`.* FROM `order_details` WHERE `order_details`.`order_id` = 27[0m
+  ↳ app/controllers/orders_controller.rb:50:in `show'
+  [1m[36mProduct Load (2.8ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/orders_controller.rb:50:in `show'
+Completed 200 OK in 353ms (Views: 2.1ms | ActiveRecord: 19.2ms | Allocations: 13592)
+
+
+Started GET "/user/current_user" for 172.20.0.4 at 2022-01-09 23:06:46 +0900
+Processing by UsersController#current_user as HTML
+  [1m[36mUser Load (1.6ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:13:in `current_user'
+Completed 200 OK in 280ms (Views: 17.0ms | ActiveRecord: 42.5ms | Allocations: 7209)
+
+
+Started GET "/products/14" for 172.20.0.4 at 2022-01-09 23:06:47 +0900
+Processing by ProductsController#show as HTML
+  Parameters: {"id"=>"14"}
+  [1m[36mProduct Load (1.9ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/products_controller.rb:11:in `show'
+Completed 200 OK in 264ms (Views: 3.9ms | ActiveRecord: 44.8ms | Allocations: 7744)
+
+
+Started GET "/cart/find_cart/12" for 172.20.0.4 at 2022-01-09 23:06:48 +0900
+Processing by CartsController#find_cart_items as HTML
+  Parameters: {"user_id"=>"12"}
+  [1m[36mUser Load (2.7ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCart Load (1.8ms)[0m  [1m[34mSELECT `carts`.* FROM `carts` WHERE `carts`.`user_id` = 12 LIMIT 1[0m
+  ↳ app/controllers/carts_controller.rb:19:in `find_cart_items'
+Completed 200 OK in 192ms (Views: 1.0ms | ActiveRecord: 29.9ms | Allocations: 3408)
+
+
+Started POST "/products/14/add_to_cart" for 172.20.0.4 at 2022-01-09 23:06:50 +0900
+Processing by ProductsController#add_to_cart as HTML
+  Parameters: {"product_id"=>14, "user_id"=>12, "id"=>"14", "product"=>{}}
+  [1m[36mUser Load (3.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mProduct Load (1.6ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/controllers/products_controller.rb:16:in `add_to_cart'
+  [1m[36mCart Load (245.7ms)[0m  [1m[34mSELECT `carts`.* FROM `carts` WHERE `carts`.`user_id` = 12 LIMIT 1[0m
+  ↳ app/controllers/products_controller.rb:17:in `add_to_cart'
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m  [["id", 12], ["LIMIT", 1]]
+  ↳ app/controllers/products_controller.rb:22:in `block in add_to_cart'
+  [1m[35m (1.7ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/products_controller.rb:22:in `block in add_to_cart'
+  [1m[36mCart Create (3.7ms)[0m  [1m[32mINSERT INTO `carts` (`created_at`, `updated_at`, `user_id`) VALUES ('2022-01-09 14:06:50.501388', '2022-01-09 14:06:50.501388', 12)[0m
+  ↳ app/controllers/products_controller.rb:22:in `block in add_to_cart'
+  [1m[36mProduct Load (1.4ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 14 LIMIT 1[0m
+  ↳ app/models/cart.rb:12:in `add_product_to_cart'
+  [1m[36mCartItem Create (1.1ms)[0m  [1m[32mINSERT INTO `cart_items` (`cart_id`, `product_id`, `created_at`, `updated_at`, `price`) VALUES (14, 14, '2022-01-09 14:06:50.710096', '2022-01-09 14:06:50.710096', 10)[0m
+  ↳ app/models/cart.rb:12:in `add_product_to_cart'
+  [1m[35m (14.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/products_controller.rb:21:in `add_to_cart'
+Completed 204 No Content in 693ms (ActiveRecord: 397.2ms | Allocations: 15786)
+
+
+Started POST "/users" for 172.20.0.4 at 2022-01-11 21:53:45 +0900
+  [1m[35m (24.2ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by UsersController#create as HTML
+  Parameters: {"name"=>"", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "email"=>"", "is_admin"=>false, "user"=>{"name"=>"", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "email"=>"", "is_admin"=>false}}
+Completed 500 Internal Server Error in 2016ms (ActiveRecord: 0.0ms | Allocations: 81148)
+
+
+  
+NameError (undefined local variable or method `unprocessable_entity' for #<UsersController:0x00007f5554822570>):
+  
+app/controllers/application_controller.rb:24:in `response_unprocessable_entity'
+app/controllers/users_controller.rb:30:in `create'
+Started POST "/login" for 172.20.0.4 at 2022-01-11 22:03:08 +0900
+  [1m[35m (14.0ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by AuthenticationsController#create as HTML
+  Parameters: {"email"=>"new@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"new@gmail.com"}}
+  [1m[36mUser Load (78.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'new@gmail.com' LIMIT 1[0m
+  ↳ app/controllers/authentications_controller.rb:6:in `create'
+Completed 200 OK in 544ms (Views: 0.8ms | ActiveRecord: 78.2ms | Allocations: 1072)
+
+
+Started GET "/user/current_user" for 172.20.0.4 at 2022-01-11 22:03:09 +0900
+Processing by UsersController#current_user as HTML
+  [1m[36mUser Load (9.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:13:in `current_user'
+Completed 200 OK in 28ms (Views: 3.5ms | ActiveRecord: 9.1ms | Allocations: 1186)
+
+
+Started GET "/cart/find_cart/12" for 172.20.0.4 at 2022-01-11 22:03:09 +0900
+Processing by CartsController#find_cart_items as HTML
+  Parameters: {"user_id"=>"12"}
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCart Load (23.3ms)[0m  [1m[34mSELECT `carts`.* FROM `carts` WHERE `carts`.`user_id` = 12 LIMIT 1[0m
+  ↳ app/controllers/carts_controller.rb:19:in `find_cart_items'
+  [1m[36mCartItem Load (4.4ms)[0m  [1m[34mSELECT `cart_items`.* FROM `cart_items` WHERE `cart_items`.`cart_id` = 14[0m
+  ↳ app/controllers/carts_controller.rb:24:in `find_cart_items'
+Completed 200 OK in 176ms (Views: 37.6ms | ActiveRecord: 29.1ms | Allocations: 12201)
+
+
+Started POST "/login" for 172.20.0.4 at 2022-01-11 22:03:14 +0900
+Processing by AuthenticationsController#create as HTML
+  Parameters: {"email"=>"aa", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"aa"}}
+  [1m[36mUser Load (5.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'aa' LIMIT 1[0m
+  ↳ app/controllers/authentications_controller.rb:6:in `create'
+Completed 401 Unauthorized in 88ms (Views: 0.5ms | ActiveRecord: 5.5ms | Allocations: 717)
+
+
+Started POST "/login" for 172.20.0.4 at 2022-01-11 22:18:12 +0900
+  [1m[35m (9.9ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by AuthenticationsController#create as HTML
+  Parameters: {"email"=>"new@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"new@gmail.com"}}
+  [1m[36mUser Load (13.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'new@gmail.com' LIMIT 1[0m
+  ↳ app/controllers/authentications_controller.rb:6:in `create'
+Completed 200 OK in 389ms (Views: 0.2ms | ActiveRecord: 13.2ms | Allocations: 848)
+
+
+Started GET "/user/current_user" for 172.20.0.4 at 2022-01-11 22:18:12 +0900
+Processing by UsersController#current_user as HTML
+  [1m[36mUser Load (2.3ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:13:in `current_user'
+Completed 200 OK in 12ms (Views: 0.7ms | ActiveRecord: 2.3ms | Allocations: 1053)
+
+
+Started GET "/cart/find_cart/12" for 172.20.0.4 at 2022-01-11 22:18:12 +0900
+Processing by CartsController#find_cart_items as HTML
+  Parameters: {"user_id"=>"12"}
+  [1m[36mUser Load (13.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCart Load (40.9ms)[0m  [1m[34mSELECT `carts`.* FROM `carts` WHERE `carts`.`user_id` = 12 LIMIT 1[0m
+  ↳ app/controllers/carts_controller.rb:19:in `find_cart_items'
+  [1m[36mCartItem Load (4.4ms)[0m  [1m[34mSELECT `cart_items`.* FROM `cart_items` WHERE `cart_items`.`cart_id` = 14[0m
+  ↳ app/controllers/carts_controller.rb:24:in `find_cart_items'
+Completed 200 OK in 267ms (Views: 18.9ms | ActiveRecord: 58.8ms | Allocations: 2586)
+
+
+Started POST "/login" for 172.20.0.4 at 2022-01-11 22:50:19 +0900
+  [1m[35m (14.6ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by AuthenticationsController#create as HTML
+  Parameters: {"email"=>"admin@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"admin@gmail.com"}}
+  [1m[36mUser Load (9.7ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'admin@gmail.com' LIMIT 1[0m
+  ↳ app/controllers/authentications_controller.rb:6:in `create'
+Completed 200 OK in 334ms (Views: 4.3ms | ActiveRecord: 9.7ms | Allocations: 847)
+
+
+Started GET "/user/current_user" for 172.20.0.4 at 2022-01-11 22:50:20 +0900
+Processing by UsersController#current_user as HTML
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:13:in `current_user'
+Completed 200 OK in 17ms (Views: 6.8ms | ActiveRecord: 1.4ms | Allocations: 1053)
+
+
+Started GET "/cart/find_cart/15" for 172.20.0.4 at 2022-01-11 22:50:20 +0900
+Processing by CartsController#find_cart_items as HTML
+  Parameters: {"user_id"=>"15"}
+  [1m[36mUser Load (7.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCart Load (17.0ms)[0m  [1m[34mSELECT `carts`.* FROM `carts` WHERE `carts`.`user_id` = 15 LIMIT 1[0m
+  ↳ app/controllers/carts_controller.rb:19:in `find_cart_items'
+Completed 200 OK in 74ms (Views: 1.8ms | ActiveRecord: 24.2ms | Allocations: 1511)
+
+
+Started GET "/admin/products" for 172.20.0.4 at 2022-01-11 22:50:28 +0900
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mUser Load (3.8ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m  [["id", 15], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mProduct Load (15.4ms)[0m  [1m[34mSELECT `products`.* FROM `products`[0m
+  ↳ app/controllers/admin/products_controller.rb:14:in `index'
+Completed 200 OK in 222ms (Views: 136.5ms | ActiveRecord: 19.3ms | Allocations: 11077)
+
+
+Started GET "/user/current_user" for 172.20.0.4 at 2022-01-11 22:51:37 +0900
+Processing by UsersController#current_user as HTML
+  [1m[36mUser Load (3.4ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:13:in `current_user'
+Completed 200 OK in 17ms (Views: 1.2ms | ActiveRecord: 3.4ms | Allocations: 1053)
+
+
+Started GET "/cart/find_cart/15" for 172.20.0.4 at 2022-01-11 22:51:38 +0900
+Processing by CartsController#find_cart_items as HTML
+  Parameters: {"user_id"=>"15"}
+  [1m[36mUser Load (3.8ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCart Load (5.0ms)[0m  [1m[34mSELECT `carts`.* FROM `carts` WHERE `carts`.`user_id` = 15 LIMIT 1[0m
+  ↳ app/controllers/carts_controller.rb:19:in `find_cart_items'
+Completed 200 OK in 43ms (Views: 0.3ms | ActiveRecord: 8.8ms | Allocations: 1511)
+
+
+Started GET "/user/current_user" for 172.20.0.4 at 2022-01-11 22:58:31 +0900
+  [1m[35m (14.5ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by UsersController#current_user as HTML
+  [1m[36mUser Load (5.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:13:in `current_user'
+Completed 200 OK in 43ms (Views: 2.4ms | ActiveRecord: 5.5ms | Allocations: 1055)
+
+
+Started GET "/cart/find_cart/15" for 172.20.0.4 at 2022-01-11 22:58:31 +0900
+Processing by CartsController#find_cart_items as HTML
+  Parameters: {"user_id"=>"15"}
+  [1m[36mUser Load (8.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCart Load (12.0ms)[0m  [1m[34mSELECT `carts`.* FROM `carts` WHERE `carts`.`user_id` = 15 LIMIT 1[0m
+  ↳ app/controllers/carts_controller.rb:19:in `find_cart_items'
+Completed 200 OK in 87ms (Views: 0.2ms | ActiveRecord: 20.5ms | Allocations: 1511)
+
+
+Started GET "/user/current_user" for 172.20.0.4 at 2022-01-11 22:59:04 +0900
+Processing by UsersController#current_user as HTML
+  [1m[36mUser Load (4.8ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:13:in `current_user'
+Completed 200 OK in 89ms (Views: 0.9ms | ActiveRecord: 4.8ms | Allocations: 1053)
+
+
+Started GET "/cart/find_cart/15" for 172.20.0.4 at 2022-01-11 22:59:05 +0900
+Processing by CartsController#find_cart_items as HTML
+  Parameters: {"user_id"=>"15"}
+  [1m[36mUser Load (4.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCart Load (5.8ms)[0m  [1m[34mSELECT `carts`.* FROM `carts` WHERE `carts`.`user_id` = 15 LIMIT 1[0m
+  ↳ app/controllers/carts_controller.rb:19:in `find_cart_items'
+Completed 200 OK in 84ms (Views: 0.4ms | ActiveRecord: 9.9ms | Allocations: 1511)
+
+
+Started GET "/user/current_user" for 172.20.0.4 at 2022-01-11 22:59:43 +0900
+Processing by UsersController#current_user as HTML
+  [1m[36mUser Load (6.8ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:13:in `current_user'
+Completed 200 OK in 73ms (Views: 6.3ms | ActiveRecord: 6.8ms | Allocations: 1053)
+
+
+Started GET "/cart/find_cart/15" for 172.20.0.4 at 2022-01-11 22:59:44 +0900
+Processing by CartsController#find_cart_items as HTML
+  Parameters: {"user_id"=>"15"}
+  [1m[36mUser Load (4.6ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCart Load (1.7ms)[0m  [1m[34mSELECT `carts`.* FROM `carts` WHERE `carts`.`user_id` = 15 LIMIT 1[0m
+  ↳ app/controllers/carts_controller.rb:19:in `find_cart_items'
+Completed 200 OK in 48ms (Views: 0.5ms | ActiveRecord: 6.4ms | Allocations: 1511)
+
+
+Started POST "/admin/products" for 172.20.0.4 at 2022-01-11 23:02:13 +0900
+Processing by Admin::ProductsController#create as HTML
+  Parameters: {"title"=>"lamp", "description"=>"lamp description", "price"=>"100", "quantity"=>"10", "image"=>#<ActionDispatch::Http::UploadedFile:0x00007f554c023688 @tempfile=#<Tempfile:/tmp/RackMultipart20220111-1-17cowxb.jpeg>, @original_filename="3886_91213_0.jpeg", @content_type="image/jpeg", @headers="Content-Disposition: form-data; name=\"image\"; filename=\"3886_91213_0.jpeg\"\r\nContent-Type: image/jpeg\r\n">}
+  [1m[36mUser Load (9.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m  [["id", 15], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[35m (4.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/admin/products_controller.rb:7:in `create'
+  [1m[36mProduct Create (48.1ms)[0m  [1m[32mINSERT INTO `products` (`title`, `description`, `price`, `quantity`, `created_at`, `updated_at`, `image`) VALUES ('lamp', 'lamp description', 100, 10, '2022-01-11 14:02:16.204538', '2022-01-11 14:02:16.204538', '3886_91213_0.jpeg')[0m
+  ↳ app/controllers/admin/products_controller.rb:7:in `create'
+  [1m[35m (34.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/admin/products_controller.rb:7:in `create'
+Completed 204 No Content in 3157ms (ActiveRecord: 96.1ms | Allocations: 9917)
+
+
+Started GET "/admin/products" for 172.20.0.4 at 2022-01-11 23:02:16 +0900
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mUser Load (5.9ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m  [["id", 15], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mProduct Load (1.6ms)[0m  [1m[34mSELECT `products`.* FROM `products`[0m
+  ↳ app/controllers/admin/products_controller.rb:14:in `index'
+Completed 200 OK in 67ms (Views: 16.7ms | ActiveRecord: 7.6ms | Allocations: 4701)
+
+
+Started GET "/admin/products/16" for 172.20.0.4 at 2022-01-11 23:02:21 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"16"}
+  [1m[36mUser Load (2.7ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m  [["id", 15], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mProduct Load (4.3ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 16 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 61ms (Views: 1.5ms | ActiveRecord: 7.1ms | Allocations: 2714)
+
+
+Started GET "/admin/products" for 172.20.0.4 at 2022-01-11 23:02:26 +0900
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mUser Load (4.9ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m  [["id", 15], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mProduct Load (3.4ms)[0m  [1m[34mSELECT `products`.* FROM `products`[0m
+  ↳ app/controllers/admin/products_controller.rb:14:in `index'
+Completed 200 OK in 49ms (Views: 21.5ms | ActiveRecord: 8.3ms | Allocations: 4702)
+
+
+Started GET "/user/current_user" for 172.20.0.4 at 2022-01-11 23:06:25 +0900
+Processing by UsersController#current_user as HTML
+  [1m[36mUser Load (3.4ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:13:in `current_user'
+Completed 200 OK in 55ms (Views: 1.1ms | ActiveRecord: 3.4ms | Allocations: 1053)
+
+
+Started GET "/admin/products" for 172.20.0.4 at 2022-01-11 23:06:26 +0900
+Started GET "/cart/find_cart/15" for 172.20.0.4 at 2022-01-11 23:06:26 +0900
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mUser Load (1.6ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m  [["id", 15], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mProduct Load (2.3ms)[0m  [1m[34mSELECT `products`.* FROM `products`[0m
+  ↳ app/controllers/admin/products_controller.rb:14:in `index'
+Completed 200 OK in 85ms (Views: 48.0ms | ActiveRecord: 4.0ms | Allocations: 4760)
+
+
+  [1m[35m (39.1ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by CartsController#find_cart_items as HTML
+  Parameters: {"user_id"=>"15"}
+  [1m[36mUser Load (7.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCart Load (12.0ms)[0m  [1m[34mSELECT `carts`.* FROM `carts` WHERE `carts`.`user_id` = 15 LIMIT 1[0m
+  ↳ app/controllers/carts_controller.rb:19:in `find_cart_items'
+Completed 200 OK in 56ms (Views: 0.8ms | ActiveRecord: 19.5ms | Allocations: 1513)
+
+
+Started GET "/admin/products/10" for 172.20.0.4 at 2022-01-11 23:06:43 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"10"}
+  [1m[36mUser Load (17.4ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m  [["id", 15], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mProduct Load (19.0ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 10 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 108ms (Views: 3.7ms | ActiveRecord: 36.4ms | Allocations: 2452)
+
+
+Started GET "/user/current_user" for 172.20.0.4 at 2022-01-11 23:07:22 +0900
+Processing by UsersController#current_user as HTML
+  [1m[36mUser Load (5.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:13:in `current_user'
+Completed 200 OK in 26ms (Views: 1.1ms | ActiveRecord: 5.2ms | Allocations: 1053)
+
+
+Started GET "/admin/products/10" for 172.20.0.4 at 2022-01-11 23:07:22 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"10"}
+  [1m[36mUser Load (9.8ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m  [["id", 15], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mProduct Load (1.6ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 10 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 161ms (Views: 8.0ms | ActiveRecord: 11.5ms | Allocations: 2449)
+
+
+Started GET "/cart/find_cart/15" for 172.20.0.4 at 2022-01-11 23:07:23 +0900
+Processing by CartsController#find_cart_items as HTML
+  Parameters: {"user_id"=>"15"}
+  [1m[36mUser Load (3.8ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCart Load (2.8ms)[0m  [1m[34mSELECT `carts`.* FROM `carts` WHERE `carts`.`user_id` = 15 LIMIT 1[0m
+  ↳ app/controllers/carts_controller.rb:19:in `find_cart_items'
+Completed 200 OK in 32ms (Views: 0.7ms | ActiveRecord: 6.6ms | Allocations: 1511)
+
+
+Started GET "/admin/products" for 172.20.0.4 at 2022-01-11 23:07:34 +0900
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mUser Load (1.8ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m  [["id", 15], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mProduct Load (46.4ms)[0m  [1m[34mSELECT `products`.* FROM `products`[0m
+  ↳ app/controllers/admin/products_controller.rb:14:in `index'
+Completed 200 OK in 149ms (Views: 55.3ms | ActiveRecord: 48.2ms | Allocations: 4701)
+
+
+Started GET "/admin/products/2" for 172.20.0.4 at 2022-01-11 23:08:21 +0900
+Processing by Admin::ProductsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (2.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m  [["id", 15], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mProduct Load (3.9ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 2 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:18:in `show'
+Completed 200 OK in 53ms (Views: 0.9ms | ActiveRecord: 6.2ms | Allocations: 2449)
+
+
+Started PUT "/admin/products/2" for 172.20.0.4 at 2022-01-11 23:08:34 +0900
+Processing by Admin::ProductsController#update as HTML
+  Parameters: {"title"=>"product2a", "description"=>"upd2a", "price"=>"20", "quantity"=>"200", "image"=>"http://localhost:3000null", "id"=>"2"}
+  [1m[36mUser Load (1.9ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m  [["id", 15], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mProduct Load (1.9ms)[0m  [1m[34mSELECT `products`.* FROM `products` WHERE `products`.`id` = 2 LIMIT 1[0m
+  ↳ app/controllers/admin/products_controller.rb:23:in `update'
+[31mUnpermitted parameter: :id[0m
+  [1m[35m (1.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/admin/products_controller.rb:24:in `update'
+  [1m[36mProduct Update (70.3ms)[0m  [1m[33mUPDATE `products` SET `products`.`title` = 'product2a', `products`.`description` = 'upd2a', `products`.`price` = 20, `products`.`quantity` = 200, `products`.`image` = NULL, `products`.`updated_at` = '2022-01-11 14:08:34.123697' WHERE `products`.`id` = 2[0m
+  ↳ app/controllers/admin/products_controller.rb:24:in `update'
+  [1m[35m (24.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/admin/products_controller.rb:24:in `update'
+Completed 204 No Content in 240ms (ActiveRecord: 100.2ms | Allocations: 4985)
+
+
+Started GET "/admin/products" for 172.20.0.4 at 2022-01-11 23:08:34 +0900
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mUser Load (2.4ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 15 LIMIT 1[0m  [["id", 15], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mProduct Load (2.6ms)[0m  [1m[34mSELECT `products`.* FROM `products`[0m
+  ↳ app/controllers/admin/products_controller.rb:14:in `index'
+Completed 200 OK in 57ms (Views: 22.1ms | ActiveRecord: 5.0ms | Allocations: 4701)
+
+
+Started POST "/login" for 172.20.0.4 at 2022-01-11 23:09:18 +0900
+Processing by AuthenticationsController#create as HTML
+  Parameters: {"email"=>"new@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"new@gmail.com"}}
+  [1m[36mUser Load (4.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'new@gmail.com' LIMIT 1[0m
+  ↳ app/controllers/authentications_controller.rb:6:in `create'
+Completed 200 OK in 397ms (Views: 0.2ms | ActiveRecord: 4.0ms | Allocations: 848)
+
+
+Started GET "/user/current_user" for 172.20.0.4 at 2022-01-11 23:09:19 +0900
+Processing by UsersController#current_user as HTML
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:13:in `current_user'
+Completed 200 OK in 11ms (Views: 0.6ms | ActiveRecord: 0.8ms | Allocations: 1053)
+
+
+Started GET "/cart/find_cart/12" for 172.20.0.4 at 2022-01-11 23:09:19 +0900
+Processing by CartsController#find_cart_items as HTML
+  Parameters: {"user_id"=>"12"}
+  [1m[36mUser Load (2.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCart Load (4.5ms)[0m  [1m[34mSELECT `carts`.* FROM `carts` WHERE `carts`.`user_id` = 12 LIMIT 1[0m
+  ↳ app/controllers/carts_controller.rb:19:in `find_cart_items'
+  [1m[36mCartItem Load (23.9ms)[0m  [1m[34mSELECT `cart_items`.* FROM `cart_items` WHERE `cart_items`.`cart_id` = 14[0m
+  ↳ app/controllers/carts_controller.rb:24:in `find_cart_items'
+Completed 200 OK in 214ms (Views: 92.3ms | ActiveRecord: 30.6ms | Allocations: 2586)
+
+
+Started GET "/orders/get_orders_by_user_id/12" for 172.20.0.4 at 2022-01-11 23:09:22 +0900
+Processing by OrdersController#get_orders_by_user_id as HTML
+  Parameters: {"user_id"=>"12"}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mOrder Load (8.2ms)[0m  [1m[34mSELECT `orders`.* FROM `orders` WHERE `orders`.`user_id` = 12[0m
+  ↳ app/controllers/orders_controller.rb:35:in `get_orders_by_user_id'
+  [1m[36mOrderDetail Load (7.3ms)[0m  [1m[34mSELECT `order_details`.* FROM `order_details` WHERE `order_details`.`order_id` = 18[0m
+  ↳ app/controllers/orders_controller.rb:36:in `get_orders_by_user_id'
+  [1m[36mOrderDetail Load (1.0ms)[0m  [1m[34mSELECT `order_details`.* FROM `order_details` WHERE `order_details`.`order_id` = 20[0m
+  ↳ app/controllers/orders_controller.rb:36:in `get_orders_by_user_id'
+  [1m[36mOrderDetail Load (1.2ms)[0m  [1m[34mSELECT `order_details`.* FROM `order_details` WHERE `order_details`.`order_id` = 21[0m
+  ↳ app/controllers/orders_controller.rb:36:in `get_orders_by_user_id'
+  [1m[36mOrderDetail Load (3.8ms)[0m  [1m[34mSELECT `order_details`.* FROM `order_details` WHERE `order_details`.`order_id` = 22[0m
+  ↳ app/controllers/orders_controller.rb:36:in `get_orders_by_user_id'
+  [1m[36mOrderDetail Load (2.6ms)[0m  [1m[34mSELECT `order_details`.* FROM `order_details` WHERE `order_details`.`order_id` = 23[0m
+  ↳ app/controllers/orders_controller.rb:36:in `get_orders_by_user_id'
+  [1m[36mOrderDetail Load (1.1ms)[0m  [1m[34mSELECT `order_details`.* FROM `order_details` WHERE `order_details`.`order_id` = 25[0m
+  ↳ app/controllers/orders_controller.rb:36:in `get_orders_by_user_id'
+  [1m[36mOrderDetail Load (1.0ms)[0m  [1m[34mSELECT `order_details`.* FROM `order_details` WHERE `order_details`.`order_id` = 26[0m
+  ↳ app/controllers/orders_controller.rb:36:in `get_orders_by_user_id'
+  [1m[36mOrderDetail Load (1.1ms)[0m  [1m[34mSELECT `order_details`.* FROM `order_details` WHERE `order_details`.`order_id` = 27[0m
+  ↳ app/controllers/orders_controller.rb:36:in `get_orders_by_user_id'
+Completed 200 OK in 603ms (Views: 2.8ms | ActiveRecord: 271.8ms | Allocations: 31358)
+
+
+Started GET "/addresses/find_by_user_id/12" for 172.20.0.4 at 2022-01-11 23:09:28 +0900
+Processing by AddressesController#find_by_user_id as HTML
+  Parameters: {"user_id"=>"12"}
+  [1m[36mUser Load (2.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mAddress Load (4.3ms)[0m  [1m[34mSELECT `addresses`.* FROM `addresses` WHERE `addresses`.`user_id` = 12[0m
+  ↳ app/controllers/addresses_controller.rb:18:in `find_by_user_id'
+Completed 200 OK in 165ms (Views: 41.8ms | ActiveRecord: 38.3ms | Allocations: 8155)
+
+
+Started GET "/user/current_user" for 172.20.0.4 at 2022-01-11 23:14:09 +0900
+Processing by UsersController#current_user as HTML
+  [1m[36mUser Load (191.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:13:in `current_user'
+Completed 200 OK in 395ms (Views: 30.8ms | ActiveRecord: 191.0ms | Allocations: 1056)
+
+
+Started GET "/cart/find_cart/12" for 172.20.0.4 at 2022-01-11 23:14:11 +0900
+Processing by CartsController#find_cart_items as HTML
+  Parameters: {"user_id"=>"12"}
+  [1m[36mUser Load (1.6ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCart Load (3.5ms)[0m  [1m[34mSELECT `carts`.* FROM `carts` WHERE `carts`.`user_id` = 12 LIMIT 1[0m
+  ↳ app/controllers/carts_controller.rb:19:in `find_cart_items'
+  [1m[36mCartItem Load (5.1ms)[0m  [1m[34mSELECT `cart_items`.* FROM `cart_items` WHERE `cart_items`.`cart_id` = 14[0m
+  ↳ app/controllers/carts_controller.rb:24:in `find_cart_items'
+Completed 200 OK in 259ms (Views: 191.8ms | ActiveRecord: 10.2ms | Allocations: 2586)
+
+
+Started GET "/user/current_user" for 172.20.0.4 at 2022-01-11 23:19:02 +0900
+Processing by UsersController#current_user as HTML
+  [1m[36mUser Load (2.6ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:13:in `current_user'
+Completed 200 OK in 106ms (Views: 2.7ms | ActiveRecord: 2.6ms | Allocations: 1053)
+
+
+Started GET "/cart/find_cart/12" for 172.20.0.4 at 2022-01-11 23:19:03 +0900
+Processing by CartsController#find_cart_items as HTML
+  Parameters: {"user_id"=>"12"}
+  [1m[36mUser Load (6.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCart Load (1.8ms)[0m  [1m[34mSELECT `carts`.* FROM `carts` WHERE `carts`.`user_id` = 12 LIMIT 1[0m
+  ↳ app/controllers/carts_controller.rb:19:in `find_cart_items'
+  [1m[36mCartItem Load (1.6ms)[0m  [1m[34mSELECT `cart_items`.* FROM `cart_items` WHERE `cart_items`.`cart_id` = 14[0m
+  ↳ app/controllers/carts_controller.rb:24:in `find_cart_items'
+Completed 200 OK in 81ms (Views: 33.1ms | ActiveRecord: 9.6ms | Allocations: 2586)
+
+
+Started POST "/addresses" for 172.20.0.4 at 2022-01-11 23:20:14 +0900
+Processing by AddressesController#create as HTML
+  Parameters: {"receiver"=>"xiaoming", "phone_number"=>"111-1111-1111", "post_code"=>"111-1111", "detail_address"=>"tokyo kotoku minamisuna", "user_id"=>"12"}
+  [1m[36mUser Load (3.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mAddress Exists? (7.4ms)[0m  [1m[34mSELECT 1 AS one FROM `addresses` WHERE `addresses`.`user_id` = 12 LIMIT 1[0m
+  ↳ app/controllers/addresses_controller.rb:8:in `create'
+  [1m[35m (2.6ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/addresses_controller.rb:11:in `create'
+  [1m[36mAddress Create (57.0ms)[0m  [1m[32mINSERT INTO `addresses` (`user_id`, `receiver`, `phone_number`, `post_code`, `detail_address`, `created_at`, `updated_at`) VALUES (12, 'xiaoming', '111-1111-1111', '111-1111', 'tokyo kotoku minamisuna', '2022-01-11 14:20:14.321131', '2022-01-11 14:20:14.321131')[0m
+  ↳ app/controllers/addresses_controller.rb:11:in `create'
+  [1m[35m (40.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/addresses_controller.rb:11:in `create'
+Completed 204 No Content in 345ms (ActiveRecord: 110.5ms | Allocations: 4078)
+
+
+Started GET "/addresses/find_by_user_id/12" for 172.20.0.4 at 2022-01-11 23:20:14 +0900
+Processing by AddressesController#find_by_user_id as HTML
+  Parameters: {"user_id"=>"12"}
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mAddress Load (10.2ms)[0m  [1m[34mSELECT `addresses`.* FROM `addresses` WHERE `addresses`.`user_id` = 12[0m
+  ↳ app/controllers/addresses_controller.rb:18:in `find_by_user_id'
+Completed 200 OK in 69ms (Views: 38.0ms | ActiveRecord: 11.5ms | Allocations: 2248)
+
+
+Started GET "/addresses/15" for 172.20.0.4 at 2022-01-11 23:23:49 +0900
+Processing by AddressesController#show as HTML
+  Parameters: {"id"=>"15"}
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mAddress Load (2.3ms)[0m  [1m[34mSELECT `addresses`.* FROM `addresses` WHERE `addresses`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/addresses_controller.rb:50:in `get_address_with_auth_check'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m  [["id", 12], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m  [["id", 12], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCACHE Address Load (0.1ms)[0m  [1m[34mSELECT `addresses`.* FROM `addresses` WHERE `addresses`.`id` = 15 LIMIT 1[0m  [["id", 15], ["LIMIT", 1]]
+  ↳ app/controllers/addresses_controller.rb:50:in `get_address_with_auth_check'
+  [1m[36mCACHE User Load (0.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m  [["id", 12], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+Completed 200 OK in 402ms (Views: 1.7ms | ActiveRecord: 4.0ms | Allocations: 4457)
+
+
+Started GET "/addresses/find_by_user_id/12" for 172.20.0.4 at 2022-01-11 23:24:05 +0900
+Processing by AddressesController#find_by_user_id as HTML
+  Parameters: {"user_id"=>"12"}
+  [1m[36mUser Load (22.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mAddress Load (1.3ms)[0m  [1m[34mSELECT `addresses`.* FROM `addresses` WHERE `addresses`.`user_id` = 12[0m
+  ↳ app/controllers/addresses_controller.rb:18:in `find_by_user_id'
+Completed 200 OK in 678ms (Views: 606.5ms | ActiveRecord: 23.9ms | Allocations: 2251)
+
+
+Started GET "/addresses/15" for 172.20.0.4 at 2022-01-11 23:24:07 +0900
+Processing by AddressesController#show as HTML
+  Parameters: {"id"=>"15"}
+  [1m[36mUser Load (3.3ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mAddress Load (2.0ms)[0m  [1m[34mSELECT `addresses`.* FROM `addresses` WHERE `addresses`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/addresses_controller.rb:50:in `get_address_with_auth_check'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m  [["id", 12], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m  [["id", 12], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCACHE Address Load (0.0ms)[0m  [1m[34mSELECT `addresses`.* FROM `addresses` WHERE `addresses`.`id` = 15 LIMIT 1[0m  [["id", 15], ["LIMIT", 1]]
+  ↳ app/controllers/addresses_controller.rb:50:in `get_address_with_auth_check'
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m  [["id", 12], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+Completed 200 OK in 94ms (Views: 2.2ms | ActiveRecord: 5.6ms | Allocations: 4333)
+
+
+Started PUT "/addresses/15" for 172.20.0.4 at 2022-01-11 23:24:21 +0900
+Processing by AddressesController#update as HTML
+  Parameters: {"id"=>"15", "receiver"=>"xiaoming", "phone_number"=>"111-1111-1234", "post_code"=>"111-1000", "detail_address"=>"tokyo kotoku minamisuna"}
+  [1m[36mUser Load (3.9ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mAddress Load (1.6ms)[0m  [1m[34mSELECT `addresses`.* FROM `addresses` WHERE `addresses`.`id` = 15 LIMIT 1[0m
+  ↳ app/controllers/addresses_controller.rb:50:in `get_address_with_auth_check'
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m  [["id", 12], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m  [["id", 12], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCACHE Address Load (0.0ms)[0m  [1m[34mSELECT `addresses`.* FROM `addresses` WHERE `addresses`.`id` = 15 LIMIT 1[0m  [["id", 15], ["LIMIT", 1]]
+  ↳ app/controllers/addresses_controller.rb:50:in `get_address_with_auth_check'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m  [["id", 12], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[35m (4.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/addresses_controller.rb:28:in `update'
+  [1m[36mAddress Update (25.0ms)[0m  [1m[33mUPDATE `addresses` SET `addresses`.`phone_number` = '111-1111-1234', `addresses`.`post_code` = '111-1000', `addresses`.`updated_at` = '2022-01-11 14:24:22.157309' WHERE `addresses`.`id` = 15[0m
+  ↳ app/controllers/addresses_controller.rb:28:in `update'
+  [1m[35m (17.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/addresses_controller.rb:28:in `update'
+Completed 204 No Content in 284ms (ActiveRecord: 52.0ms | Allocations: 6728)
+
+
+Started GET "/addresses/find_by_user_id/12" for 172.20.0.4 at 2022-01-11 23:24:22 +0900
+Processing by AddressesController#find_by_user_id as HTML
+  Parameters: {"user_id"=>"12"}
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mAddress Load (1.7ms)[0m  [1m[34mSELECT `addresses`.* FROM `addresses` WHERE `addresses`.`user_id` = 12[0m
+  ↳ app/controllers/addresses_controller.rb:18:in `find_by_user_id'
+Completed 200 OK in 31ms (Views: 16.3ms | ActiveRecord: 3.0ms | Allocations: 2248)
+
+

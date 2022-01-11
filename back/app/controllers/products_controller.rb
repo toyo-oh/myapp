@@ -18,10 +18,9 @@ class ProductsController < ApplicationController
         # cart is not exist
         if @current_cart.blank?
             @new_cart = Cart.new(user_id: params[:user_id])
-            if @new_cart.save
+            Cart.transaction do
+                @new_cart.save!
                 @new_cart.add_product_to_cart(@product,params[:user_id])
-            else
-                render response_unprocessable_entity(@new_cart.errors)
             end
         else
             # cart is alreay exist
@@ -37,6 +36,7 @@ class ProductsController < ApplicationController
 
     def decrease_of_cart
         @current_cart = Cart.find_by(user_id: params[:user_id])
+        raise ActiveRecord::RecordNotFound if @current_cart.blank?
         @cart_item = @current_cart.cart_items.find_by(product_id: params[:product_id])
         if @cart_item.quantity == 1
             @cart_item.destroy

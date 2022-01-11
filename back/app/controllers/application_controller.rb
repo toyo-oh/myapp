@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
   
   SECRET_KEY_BASE = Rails.application.credentials.secret_key_base
-	rescue_from StandardError, with: :response_internal_server_error
+	# rescue_from StandardError, with: :response_internal_server_error
   rescue_from ActiveRecord::RecordNotFound, with: :response_page_not_found
   
   def response_admin_unauthorized

@@ -10,7 +10,7 @@ class Order < ApplicationRecord
 		di.discount = 1
 		di.subtotal = di.price * di.discount * di.quantity
 		di.remark = remark
-		di.save
+		di.save!
 	end
 
 	def pay!

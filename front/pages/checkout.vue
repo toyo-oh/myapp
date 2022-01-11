@@ -91,7 +91,6 @@ export default {
   methods: {
     getProductList () {
       this.$axios.get(`api/cart/get_checkout_info/${this.$auth.user.id}`).then((res) => {
-        console.log(res);
         var cart_items = res.data.cart_items;
         for (var m = 0; m < cart_items.length; m++) {
           var product = {};

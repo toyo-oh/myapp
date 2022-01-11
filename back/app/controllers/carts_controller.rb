@@ -26,8 +26,9 @@ class CartsController < ApplicationController
 	end
 
 	def get_checkout_info
-		cart = Cart.find_by(user_id: params[:user_id])
-		@cart_items = cart.cart_items
+		@cart = Cart.find_by(user_id: params[:user_id])
+		raise ActiveRecord::RecordNotFound if @cart.blank?
+		@cart_items = @cart.cart_items
 		@address = Address.where("user_id = ? AND is_default = 1", params[:user_id])
 		# as_json	vs to_json, to_json	with escape
 		render :json => {:cart_items => @cart_items.as_json(:include => :product), :address => @address}
@@ -40,6 +41,7 @@ class CartsController < ApplicationController
 
 	def remove_from_cart
 			@current_cart = Cart.find_by(user_id: params[:user_id])
+			raise ActiveRecord::RecordNotFound if @current_cart.blank?
 			@cart_item = @current_cart.cart_items.find_by(product_id: params[:product_id])
 			if !@cart_item.destroy
 				render response_unprocessable_entity(@cart_item.errors)
