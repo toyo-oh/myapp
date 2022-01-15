@@ -35,10 +35,12 @@ export default {
       image: "",
       photoSrc: "",
       titleRules: [
-        v => !!v || 'Title is required'
+        v => !!v || 'Title is required',
+        v => (v && v.length <= 20) || 'Title must be less than 20 characters',
       ],
       descriptionRules: [
-        v => !!v || 'Description is required'
+        v => !!v || 'Description is required',
+        v => (v && v.length <= 100) || 'Description must be less than 100 characters',
       ],
       priceRules: [
         v => !!v || 'Price is required',

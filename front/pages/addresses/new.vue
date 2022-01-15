@@ -32,7 +32,7 @@ export default {
       detail_address: "",
       receiverRules: [
         v => !!v || 'Receiver is required',
-        v => (v && v.length <= 100) || 'Confirm Password must be less than 100 characters',
+        v => (v && v.length <= 10) || 'Confirm Password must be less than 10 characters',
       ],
       phoneNumberRules: [
         v => !!v || 'Post Code is required',
@@ -44,7 +44,7 @@ export default {
       ],
       detailAddressRules: [
         v => !!v || 'Detail Address is required',
-        v => (v && v.length <= 200) || 'Confirm Password must be less than 200 characters',
+        v => (v && v.length <= 100) || 'Confirm Password must be less than 100 characters',
       ],
     };
   },

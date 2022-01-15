@@ -43,7 +43,8 @@ export default ({
       email: '',
       is_admin: false,
       nameRules: [
-        v => !!v || 'Name is required'
+        v => !!v || 'Name is required',
+        v => (v && v.length <= 10) || 'Name must be less than 10 characters',
       ],
       emailRules: [
         v => !!v || 'Email is required',
@@ -51,11 +52,11 @@ export default ({
       ],
       pwdRules: [
         v => !!v || 'Password is required',
-        v => (v && v.length >= 6) || 'Password must be more than 6 characters',
+        v => (v && v.length >= 6 && v.length <= 20) || 'Password must be more than 6 and less than 20 characters',
       ],
       pwdConfirmRules: [
         v => !!v || 'Confirm Password is required',
-        v => (v && v.length >= 6) || 'Confirm Password must be more than 6 characters',
+        v => (v && v.length >= 6 && v.length <= 20) || 'Confirm Password must be more than 6 and less than 20 characters',
         v => v === this.password || 'The password confirmation does not match.',
       ]
     }
