@@ -18,7 +18,7 @@
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar :clipped-left="clipped" fixed app color="deep-purple">
+    <v-app-bar :clipped-left="clipped" fixed app color="white">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-btn text @click="toMain">Store</v-btn>
       <v-btn text>Product</v-btn>

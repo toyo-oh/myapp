@@ -56744,3 +56744,89 @@ NameError (undefined local variable or method `unprocessable_entity' for #<Users
   
 app/controllers/application_controller.rb:24:in `response_unprocessable_entity'
 app/controllers/users_controller.rb:30:in `create'
+Started POST "/login" for 172.20.0.4 at 2022-01-16 18:17:16 +0900
+  [1m[35m (47.1ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+Processing by AuthenticationsController#create as HTML
+  Parameters: {"email"=>"new@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"new@gmail.com"}}
+Completed 500 Internal Server Error in 73ms (ActiveRecord: 0.0ms | Allocations: 268)
+
+
+  
+SyntaxError (/myapp/app/models/user.rb:4: syntax error, unexpected tSYMBEG, expecting do or '{' or '('
+	validates :email, format: { with: /.+@.+...
+	          ^):
+  
+app/models/user.rb:4: syntax error, unexpected tSYMBEG, expecting do or '{' or '('
+app/models/user.rb:4: syntax error, unexpected tSYMBEG, expecting do or '{' or '('
+app/controllers/authentications_controller.rb:6:in `create'
+Started POST "/login" for 172.20.0.4 at 2022-01-16 18:21:49 +0900
+Processing by AuthenticationsController#create as HTML
+  Parameters: {"email"=>"new@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"new@gmail.com"}}
+Completed 500 Internal Server Error in 17ms (ActiveRecord: 0.0ms | Allocations: 257)
+
+
+  
+SyntaxError (/myapp/app/models/user.rb:4: syntax error, unexpected tSYMBEG, expecting do or '{' or '('
+	validates :email, format: { with: URI::M...
+	          ^):
+  
+app/models/user.rb:4: syntax error, unexpected tSYMBEG, expecting do or '{' or '('
+app/models/user.rb:4: syntax error, unexpected tSYMBEG, expecting do or '{' or '('
+app/controllers/authentications_controller.rb:6:in `create'
+Started POST "/login" for 172.20.0.4 at 2022-01-16 18:23:03 +0900
+Processing by AuthenticationsController#create as HTML
+  Parameters: {"email"=>"new@gmail.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"new@gmail.com"}}
+  [1m[36mUser Load (8.9ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'new@gmail.com' LIMIT 1[0m
+  ↳ app/controllers/authentications_controller.rb:6:in `create'
+Completed 200 OK in 861ms (Views: 2.8ms | ActiveRecord: 341.1ms | Allocations: 8021)
+
+
+Started GET "/user/current_user" for 172.20.0.4 at 2022-01-16 18:23:04 +0900
+Processing by UsersController#current_user as HTML
+  [1m[36mUser Load (4.3ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:13:in `current_user'
+Completed 200 OK in 34ms (Views: 7.1ms | ActiveRecord: 4.3ms | Allocations: 1218)
+
+
+Started GET "/cart/find_cart/12" for 172.20.0.4 at 2022-01-16 18:23:05 +0900
+Processing by CartsController#find_cart_items as HTML
+  Parameters: {"user_id"=>"12"}
+  [1m[36mUser Load (1.8ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 12 LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:38:in `validate_user'
+  [1m[36mCart Load (144.1ms)[0m  [1m[34mSELECT `carts`.* FROM `carts` WHERE `carts`.`user_id` = 12 LIMIT 1[0m
+  ↳ app/controllers/carts_controller.rb:19:in `find_cart_items'
+  [1m[36mCartItem Load (254.1ms)[0m  [1m[34mSELECT `cart_items`.* FROM `cart_items` WHERE `cart_items`.`cart_id` = 14[0m
+  ↳ app/controllers/carts_controller.rb:24:in `find_cart_items'
+Completed 200 OK in 774ms (Views: 72.0ms | ActiveRecord: 434.3ms | Allocations: 12323)
+
+
+Started POST "/users" for 172.20.0.4 at 2022-01-16 18:24:50 +0900
+Processing by UsersController#create as HTML
+  Parameters: {"name"=>"valtest", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "email"=>"val@test.com", "is_admin"=>false, "user"=>{"name"=>"valtest", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "email"=>"val@test.com", "is_admin"=>false}}
+DEPRECATION WARNING: Uniqueness validator will no longer enforce case sensitive comparison in Rails 6.1. To continue case sensitive comparison on the :email attribute in User model, pass `case_sensitive: true` option explicitly to the uniqueness validator. (called from create at /myapp/app/controllers/users_controller.rb:29)
+  [1m[35m (3.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:29:in `create'
+  [1m[36mUser Exists? (7.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = BINARY 'val@test.com' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:29:in `create'
+  [1m[36mUser Create (86.1ms)[0m  [1m[32mINSERT INTO `users` (`name`, `created_at`, `updated_at`, `email`, `password_digest`) VALUES ('valtest', '2022-01-16 09:24:50.764948', '2022-01-16 09:24:50.764948', 'val@test.com', '$2a$12$wGAsUY7B80KywwjCDOJ6zO78pVd1sDMlaUxp7GoLjsM/9loujYumC')[0m
+  ↳ app/controllers/users_controller.rb:29:in `create'
+  [1m[35m (36.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:29:in `create'
+Completed 204 No Content in 603ms (ActiveRecord: 146.8ms | Allocations: 10709)
+
+
+Started POST "/login" for 172.20.0.4 at 2022-01-16 18:24:50 +0900
+Processing by AuthenticationsController#create as HTML
+  Parameters: {"email"=>"val@test.com", "password"=>"[FILTERED]", "user"=>{"password"=>"[FILTERED]", "email"=>"val@test.com"}}
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'val@test.com' LIMIT 1[0m
+  ↳ app/controllers/authentications_controller.rb:6:in `create'
+Completed 200 OK in 406ms (Views: 0.2ms | ActiveRecord: 1.3ms | Allocations: 1048)
+
+
+Started GET "/user/current_user" for 172.20.0.4 at 2022-01-16 18:24:51 +0900
+Processing by UsersController#current_user as HTML
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 31 LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:13:in `current_user'
+Completed 200 OK in 20ms (Views: 2.4ms | ActiveRecord: 0.8ms | Allocations: 1185)
+
+
