@@ -6,20 +6,23 @@
     <v-form ref="form" v-model="valid">
       <v-container>
         <v-card width="500px" class="mx-auto mt-5">
-          <v-card-title>
-            <h1 class="display-1">Sign Up</h1>
-          </v-card-title>
-          <v-divider></v-divider>
-          <v-card-text>
-            <v-text-field outlined　v-model="name" type="text" label="Name" :rules="nameRules" required></v-text-field>
-            <v-text-field outlined　v-model="password" type="password" label="Password" :rules="pwdRules" required></v-text-field>
-            <v-text-field outlined　v-model="password_confirmation" type="password" label="password_confirmation" :rules="pwdConfirmRules" required></v-text-field>
-            <v-text-field outlined　v-model="email" type="text" label="Email" :rules="emailRules" required></v-text-field>
-            <v-switch v-model="is_admin" class="ma-4" label="Administrator"></v-switch>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn block large elevation="5" class="mr-4" color="primary" @click="createUser">submit</v-btn>
-          </v-card-actions>
+          <div class="px-3 px-md-10 py-8 ">
+            <h2 class="text-center brown--text text--darken-3">Sign Up</h2>
+            <div class="d-flex align-center my-1">
+              <v-divider></v-divider>
+              <br />
+            </div>
+            <!-- <h5 class="grey--text text--darken-3 text-sm mb-9 text-center">Please fill all forms to continued</h5> -->
+            <v-text-field outlined　dense v-model="name" type="text" label="Name" :rules="nameRules" required></v-text-field>
+            <v-text-field outlined　dense v-model="password" type="password" label="Password" :rules="pwdRules" required></v-text-field>
+            <v-text-field outlined　dense v-model="password_confirmation" type="password" label="password_confirmation" :rules="pwdConfirmRules" required></v-text-field>
+            <v-text-field outlined　dense v-model="email" type="text" label="Email" :rules="emailRules" required></v-text-field>
+            <!-- <v-switch v-model="is_admin" class="ma-4" label="Administrator"></v-switch> -->
+            <v-checkbox color="brown lighten-1" v-model="agree" :rules="agreeRules" label="By signing up, you agree to terms and conditions?" required></v-checkbox>
+            <v-btn block large dark class="mr-4" color="brown lighten-1" @click="createUser">SUBMIT</v-btn>
+            <div class="text-body-2 text-center my-3">Already Have Account? <router-link to="/login">Log In</router-link>
+            </div>
+          </div>
         </v-card>
       </v-container>
     </v-form>
@@ -42,6 +45,7 @@ export default ({
       password_confirmation: '',
       email: '',
       is_admin: false,
+      agree: '',
       nameRules: [
         v => !!v || 'Name is required',
         v => (v && v.length <= 10) || 'Name must be less than 10 characters',
@@ -58,7 +62,8 @@ export default ({
         v => !!v || 'Confirm Password is required',
         v => (v && v.length >= 6 && v.length <= 20) || 'Confirm Password must be more than 6 and less than 20 characters',
         v => v === this.password || 'The password confirmation does not match.',
-      ]
+      ],
+      agreeRules: [v => !!v || 'You must agree to continue!']
     }
   },
   methods: {

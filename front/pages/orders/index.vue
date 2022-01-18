@@ -59,19 +59,21 @@ export default {
   methods: {
     getOrders () {
       this.$axios.get(`api/orders/get_orders_by_user_id/${this.$auth.user.id}`).then((res) => {
-        var tmp_orders = res.data.orders;
         this.orders = [];
-        for (var m = 0; m < tmp_orders.length; m++) {
-          var order = {};
-          order.id = tmp_orders[m].id;
-          order.created_at = tmp_orders[m].created_at;
-          order.amount_total = tmp_orders[m].amount_total;
-          order.aasm_state = tmp_orders[m].aasm_state;
-          order.short_details = "";
-          for (var n = 0; n < tmp_orders[m].order_details.length; n++) {
-            order.short_details += (tmp_orders[m].order_details[n].product_title + "<br/>")
+        if (res.status == '200') {
+          var tmp_orders = res.data.orders;
+          for (var m = 0; m < tmp_orders.length; m++) {
+            var order = {};
+            order.id = tmp_orders[m].id;
+            order.created_at = tmp_orders[m].created_at;
+            order.amount_total = tmp_orders[m].amount_total;
+            order.aasm_state = tmp_orders[m].aasm_state;
+            order.short_details = "";
+            for (var n = 0; n < tmp_orders[m].order_details.length; n++) {
+              order.short_details += (tmp_orders[m].order_details[n].product_title + "<br/>")
+            }
+            this.orders.push(order);
           }
-          this.orders.push(order);
         }
       });
     },

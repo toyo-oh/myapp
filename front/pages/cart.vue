@@ -55,7 +55,7 @@
     </v-dialog>
     <v-spacer></v-spacer>
     {{$store.getters['getTotalPrice']}}
-    <v-btn color="error" dark large @click="checkOut">Check Out</v-btn>
+    <v-btn x-large dark width="200" color="brown lighten-1" @click="checkOut">Check Out</v-btn>
   </div>
 </template>
 
@@ -184,3 +184,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.v-text-field {
+  width: 200px;
+}
+</style>

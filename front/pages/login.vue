@@ -6,17 +6,19 @@
     <v-form ref="form" v-model="valid">
       <v-container>
         <v-card width="500px" class="mx-auto mt-5">
-          <v-card-title>
-            <h1 class="display-1">Log In</h1>
-          </v-card-title>
-          <v-divider></v-divider>
-          <v-card-text>
-            <v-text-field outlined v-model="login.email" type="text" label="email" :rules="emailRules" required></v-text-field>
-            <v-text-field outlined v-model="login.password" type="password" label="Password" :rules="pwdRules" required></v-text-field>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn block large elevation="5" class="mr-4" color="primary" @click="userLogin">login</v-btn>
-          </v-card-actions>
+          <div class="px-3 px-md-10 py-8 ">
+            <h2 class="text-center brown--text text--darken-3">Log In</h2>
+            <div class="d-flex align-center my-1">
+              <v-divider></v-divider>
+              <br />
+            </div>
+            <!-- <h5 class="grey--text text--darken-3 text-sm mb-9 text-center">Log in with email & password</h5> -->
+            <v-text-field outlined dense v-model="login.email" type="text" label="email" :rules="emailRules" required></v-text-field>
+            <v-text-field outlined dense v-model="login.password" type="password" label="Password" :rules="pwdRules" required></v-text-field>
+            <v-btn block large dark class="mr-4" color="brown lighten-1" @click="userLogin">Log In</v-btn>
+            <div class="text-body-2 text-center my-3">Forgot Your Password? <router-link to="/login">Reset It</router-link>
+            </div>
+          </div>
         </v-card>
       </v-container>
     </v-form>

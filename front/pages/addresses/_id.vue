@@ -3,6 +3,17 @@
     <v-alert v-model="alertFormError" type="error" close-text="Close Alert" dismissible>
       FORM INPUT ERROR.
     </v-alert>
+    <div class="d-flex justify-space-between flex-wrap mb-5">
+      <div class="d-flex align-center ">
+        <v-avatar tile size="25" class="me-3">
+          <v-icon> mdi-home</v-icon>
+        </v-avatar>
+        <h2 class="mb-0">Edit My Addresses</h2>
+      </div>
+      <v-btn outlined color="brown lighten-1" class="text-capitalize" @click="rtnToList">
+        Back To Addresses
+      </v-btn>
+    </div>
     <v-form ref="form" v-model="valid">
       <v-container>
         <v-row justify="center">
@@ -11,7 +22,7 @@
             <v-text-field v-model="phone_number" label="PhoneNumber" type="text" :rules="phoneNumberRules"></v-text-field>
             <v-text-field v-model="post_code" label="PostCode" type="text" :rules="postCodeRules"></v-text-field>
             <v-textarea v-model="detail_address" label="DetailAddress" type="text" :rules="detailAddressRules"></v-textarea>
-            <v-btn class="mr-4" color="primary" @click="editAddress">edit address</v-btn>
+            <v-btn dark class="mr-4" color="brown lighten-1" @click="editAddress">Save Changes</v-btn>
           </v-col>
         </v-row>
       </v-container>
@@ -71,6 +82,9 @@ export default {
         this.alertFormError = true;
       }
     },
+    rtnToList () {
+      this.$router.push(`.`);
+    }
   },
 };
 </script>
