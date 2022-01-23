@@ -1,20 +1,42 @@
 
 <template>
   <div>
+    <div class="d-flex justify-space-between flex-wrap mb-5">
+      <div class="d-flex align-center ">
+        <v-avatar tile size="25" class="me-3">
+          <v-icon>mdi-shopping</v-icon>
+        </v-avatar>
+        <h2 class="mb-0">Order List</h2>
+      </div>
+    </div>
     <v-alert v-model="alertDelete" border="left" close-text="Close Alert" color="deep-purple accent-4" dark dismissible>
       This order can not be deleted!
     </v-alert>
-    <v-data-table :headers="headers" :items="orders">
+    <v-data-table :headers="headers" :items="orders" :page.sync="page" :items-per-page="itemsPerPage" hide-default-footer>
+      <template v-slot:item.id="{ item }">
+        <h4 class="mb-0">{{item.id}}</h4>
+      </template>
+      <template v-slot:item.aasm_state="{ item }">
+        <v-chip class="ma-2" color="grey lighten-2" small>
+          {{item.aasm_state}}
+        </v-chip>
+      </template>
       <template v-slot:item.short_details="{ item }">
         <div v-html="item.short_details" />
       </template>
       <template v-slot:item.created_at="{ item }">
         <span>{{ new Date(item.created_at).toLocaleString("ja-jp") }}</span>
       </template>
+      <template v-slot:item.amount_total="{ item }">
+        ¥{{item.amount_total}}
+      </template>
       <template v-slot:item.detail="{ item }">
-        <v-btn small class="mr-2" @click="getOrderDetail(item)">Detail</v-btn>
+        <v-btn small outlined color="brown lighten-1" class="mr-2" @click="getOrderDetail(item)">Detail</v-btn>
       </template>
     </v-data-table>
+    <div class="text-center pt-2">
+      <v-pagination color="brown lighten-1" v-model="page" :length="pageCount"></v-pagination>
+    </div>
   </div>
 </template>
 
@@ -23,13 +45,16 @@ export default {
   middleware: ['auth', 'admin'],
   data () {
     return {
+      page: 1,
+      pageCount: 0,
+      itemsPerPage: 9,
       headers: [
-        { text: "ID", align: "start", sortable: false, value: "id" },
-        { text: "ShortDetails", value: "short_details" },
-        { text: "CreateTime", value: "created_at" },
-        { text: "Total", value: "amount_total" },
-        { text: "Status", value: "aasm_state" },
-        { text: "Detail", value: "detail", sortable: false },
+        { text: "Order ID", align: "start", sortable: false, value: "id", class: "text-h6 grey--text text--darken-2 flex-1 mr-3" },
+        { text: "Status", value: "aasm_state", sortable: false, class: "text-h6 grey--text text--darken-2 flex-1 mr-3" },
+        { text: "ShortDetails", value: "short_details", sortable: false, class: "text-h6 grey--text text--darken-2 flex-1 mr-3" },
+        { text: "CreateTime", value: "created_at", sortable: false, class: "text-h6 grey--text text--darken-2 flex-1 mr-3" },
+        { text: "Total", value: "amount_total", sortable: false, class: "text-h6 grey--text text--darken-2 flex-1 mr-3" },
+        { text: "Detail", value: "detail", sortable: false, class: "text-h6 grey--text text--darken-2 flex-1 mr-3" },
       ],
       orders: [],
       dialogDelete: false,
@@ -58,6 +83,7 @@ export default {
           }
           this.orders.push(order);
         }
+        this.pageCount = Math.ceil(res.data.orders.length / this.itemsPerPage);
       });
     },
     getOrderDetail (item) {

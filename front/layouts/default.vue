@@ -114,8 +114,8 @@ export default {
       title: 'Store',
       actmenus: [
         { index: 1, text: 'User Info', icon: 'mdi-account', action: this.userInfo },
-        { index: 2, text: 'My Order', icon: 'mdi-checkbox-multiple-marked', action: this.useOrder },
-        { index: 3, text: 'My Address', icon: 'mdi-home-map-marker', action: this.userAddress },
+        { index: 2, text: 'My Order', icon: ' mdi-shopping', action: this.useOrder },
+        { index: 3, text: 'My Address', icon: ' mdi-map-marker', action: this.userAddress },
         { index: 4, text: 'My Favourite', icon: 'mdi-heart', action: '' },
         { index: 5, text: 'Log Out', icon: 'mdi-logout', action: this.logout }],
       adminmenus: [

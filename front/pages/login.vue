@@ -13,8 +13,8 @@
               <br />
             </div>
             <!-- <h5 class="grey--text text--darken-3 text-sm mb-9 text-center">Log in with email & password</h5> -->
-            <v-text-field outlined dense v-model="login.email" type="text" label="email" :rules="emailRules" required></v-text-field>
-            <v-text-field outlined dense v-model="login.password" type="password" label="Password" :rules="pwdRules" required></v-text-field>
+            <v-text-field outlined dense color="brown lighten-3" v-model="login.email" type="text" label="email" :rules="emailRules" required></v-text-field>
+            <v-text-field outlined dense color="brown lighten-3" v-model="login.password" type="password" label="Password" :rules="pwdRules" required></v-text-field>
             <v-btn block large dark class="mr-4" color="brown lighten-1" @click="userLogin">Log In</v-btn>
             <div class="text-body-2 text-center my-3">Forgot Your Password? <router-link to="/login">Reset It</router-link>
             </div>

@@ -3,17 +3,20 @@
     <div class="d-flex justify-space-between flex-wrap mb-5">
       <div class="d-flex align-center ">
         <v-avatar tile size="25" class="me-3">
-          <v-icon> mdi-home</v-icon>
+          <v-icon> mdi-map-marker</v-icon>
         </v-avatar>
-        <h2 class="mb-0">My Addresses</h2>
+        <h2 class="mb-0 brown--text text--darken-3">My Addresses</h2>
       </div>
       <v-btn outlined color="brown lighten-1" class="text-capitalize" @click="newAddress">
-        Add New Addresses
+        Add New Address
       </v-btn>
     </div>
     <!-- <v-btn class="mr-4" dark color="brown lighten-1" @click="newAddress">New Address</v-btn> -->
     <v-spacer></v-spacer>
     <v-data-table :headers="headers" :items="addresses" :page.sync="page" :items-per-page="itemsPerPage" hide-default-footer>
+      <template v-slot:item.receiver="{ item }">
+        <h4 class="mb-0">{{item.receiver}}</h4>
+      </template>
       <template v-slot:item.edit="{ item }">
         <v-icon small class="mr-2" @click="editAddress(item)">mdi-pencil</v-icon>
       </template>
@@ -48,12 +51,12 @@ export default {
       pageCount: 0,
       itemsPerPage: 10,
       headers: [
-        { text: "Receiver", align: "start", sortable: false, value: "receiver" },
-        { text: "PhoneNumber", value: "phone_number" },
-        { text: "PostCode", value: "post_code" },
-        { text: "Address", value: "detail_address" },
-        { text: "Edit", value: "edit", sortable: false },
-        { text: "Delete", value: "delete", sortable: false },
+        { text: "Receiver", value: "receiver", align: "start", sortable: false, class: "text-h6 grey--text text--darken-2 flex-1 mr-3" },
+        { text: "PhoneNumber", value: "phone_number", sortable: false, class: "text-h6 grey--text text--darken-2 flex-1 mr-3" },
+        { text: "PostCode", value: "post_code", sortable: false, class: "text-h6 grey--text text--darken-2 flex-1 mr-3" },
+        { text: "Address", value: "detail_address", sortable: false, class: "text-h6 grey--text text--darken-2 flex-1 mr-3" },
+        { text: "Edit", value: "edit", sortable: false, class: "text-h6 grey--text text--darken-2 flex-1 mr-3" },
+        { text: "Delete", value: "delete", sortable: false, class: "text-h6 grey--text text--darken-2 flex-1 mr-3" },
       ],
       addresses: [],
       dialogDelete: false,

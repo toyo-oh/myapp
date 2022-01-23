@@ -1,26 +1,41 @@
 <template>
-  <div>
-    <v-alert v-model="alertFormError" type="error" close-text="Close Alert" dismissible>
-      FORM INPUT ERROR.
-    </v-alert>
-    <v-form ref="form" v-model="valid">
-      <v-container>
-        <v-row justify="center">
-          <v-col cols="12" md="6">
+  <v-container>
+    <div>
+      <v-alert v-model="alertFormError" type="error" close-text="Close Alert" dismissible>
+        FORM INPUT ERROR.
+      </v-alert>
+      <v-row justify="center">
+        <v-col cols="3">
+          <div class="d-flex align-center">
+            <v-avatar tile size="25" class="me-3">
+              <v-icon> mdi-cube-outline</v-icon>
+            </v-avatar>
+            <h2 class="mb-0">Edit Product</h2>
+          </div>
+        </v-col>
+        <v-col cols="3">
+          <v-btn outlined color="brown lighten-1" class="text-capitalize ml-16" @click="returnToList">
+            Back To Product List
+          </v-btn>
+        </v-col>
+      </v-row>
+      <v-row justify="center">
+        <v-col cols="6">
+          <v-form ref="form" v-model="valid">
             <v-text-field v-model="id" v-if="false"></v-text-field>
-            <v-text-field v-model="title" label="Title" type="text" :rules="titleRules"></v-text-field>
-            <v-textarea v-model="description" label="Description" :rules="descriptionRules"></v-textarea>
-            <v-text-field v-model="price" label="Price" type="number" :rules="priceRules"></v-text-field>
-            <v-text-field v-model="quantity" label="Quantity" type="number" :rules="quantityRules"></v-text-field>
+            <v-text-field outlined　dense color="brown lighten-3" v-model="title" label="Title" type="text" :rules="titleRules"></v-text-field>
+            <v-textarea outlined　dense color="brown lighten-3" v-model="description" label="Description" :rules="descriptionRules"></v-textarea>
+            <v-text-field outlined　dense color="brown lighten-3" v-model="price" label="Price" type="number" :rules="priceRules"></v-text-field>
+            <v-text-field outlined　dense color="brown lighten-3" v-model="quantity" label="Quantity" type="number" :rules="quantityRules"></v-text-field>
             <v-img :src="photoSrc?photoSrc:image" max-height="200" max-width="200"></v-img>
-            <v-file-input accept="image/png, image/jpeg, image/bmp" @change="setImage"></v-file-input>
-            <v-btn class="mr-4" color="primary" @click="updateProduct">update product</v-btn>
-            <v-btn class="mr-4" color="primary" @click="returnToList">cancel</v-btn>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-form>
-  </div>
+            <v-file-input outlined　dense color="brown lighten-3" accept="image/png, image/jpeg, image/bmp" @change="setImage"></v-file-input>
+            <v-btn dark class="mr-4" color="brown lighten-1" @click="updateProduct">update product</v-btn>
+          </v-form>
+        </v-col>
+      </v-row>
+
+    </div>
+  </v-container>
 </template>
 <script>
 export default {

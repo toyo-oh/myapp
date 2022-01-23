@@ -1,33 +1,37 @@
 <template>
-  <div>
-    <v-alert v-model="alertFormError" type="error" close-text="Close Alert" dismissible>
-      FORM INPUT ERROR.
-    </v-alert>
-    <div class="d-flex justify-space-between flex-wrap mb-5">
-      <div class="d-flex align-center ">
-        <v-avatar tile size="25" class="me-3">
-          <v-icon> mdi-home</v-icon>
-        </v-avatar>
-        <h2 class="mb-0">Edit My Addresses</h2>
-      </div>
-      <v-btn outlined color="brown lighten-1" class="text-capitalize" @click="rtnToList">
-        Back To Addresses
-      </v-btn>
-    </div>
-    <v-form ref="form" v-model="valid">
-      <v-container>
-        <v-row justify="center">
-          <v-col cols="12" md="6">
-            <v-text-field v-model="receiver" label="Receiver" type="text" :rules="receiverRules"></v-text-field>
-            <v-text-field v-model="phone_number" label="PhoneNumber" type="text" :rules="phoneNumberRules"></v-text-field>
-            <v-text-field v-model="post_code" label="PostCode" type="text" :rules="postCodeRules"></v-text-field>
-            <v-textarea v-model="detail_address" label="DetailAddress" type="text" :rules="detailAddressRules"></v-textarea>
+  <v-container>
+    <div>
+      <v-alert v-model="alertFormError" type="error" close-text="Close Alert" dismissible>
+        FORM INPUT ERROR.
+      </v-alert>
+      <v-row justify="center">
+        <v-col cols="3">
+          <div class="d-flex align-center">
+            <v-avatar tile size="25" class="me-3">
+              <v-icon> mdi-map-marker</v-icon>
+            </v-avatar>
+            <h2 class="mb-0">Edit My Addresses</h2>
+          </div>
+        </v-col>
+        <v-col cols="3">
+          <v-btn outlined color="brown lighten-1" class="text-capitalize ml-16" @click="rtnToList">
+            Back To Addresses
+          </v-btn>
+        </v-col>
+      </v-row>
+      <v-row justify="center">
+        <v-col cols="12" md="6">
+          <v-form ref="form" v-model="valid">
+            <v-text-field outlined　dense color="brown lighten-3" v-model="receiver" label="Receiver" type="text" :rules="receiverRules"></v-text-field>
+            <v-text-field outlined　dense color="brown lighten-3" v-model="phone_number" label="PhoneNumber" type="text" :rules="phoneNumberRules"></v-text-field>
+            <v-text-field outlined　dense color="brown lighten-3" v-model="post_code" label="PostCode" type="text" :rules="postCodeRules"></v-text-field>
+            <v-textarea outlined　dense color="brown lighten-3" v-model="detail_address" label="DetailAddress" type="text" :rules="detailAddressRules"></v-textarea>
             <v-btn dark class="mr-4" color="brown lighten-1" @click="editAddress">Save Changes</v-btn>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-form>
-  </div>
+          </v-form>
+        </v-col>
+      </v-row>
+    </div>
+  </v-container>
 </template>
 
 <script>
