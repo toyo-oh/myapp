@@ -58,66 +58,70 @@
 
     <!-- here -->
     <v-row>
-      <v-col cols="12" md="6" lg="8" xl="8">
-        <div v-for="item in products" :key="item.id">
-          <base-card class="d-flex flex-wrap mb-6">
-            <router-link :to="{name: 'products-id', params: {id: item.id}}">
-              <img :src="item.image" max-height="100" max-width="100" alt="">
-            </router-link>
-            <div class="d-flex flex-column flex-grow-1 flex-wrap pa-4 mw-0">
-              <div class="d-flex justify-space-between w-100 mb-3">
-                <div>
-                  <div class="d-flex">
-                    <h4 class="text-truncate mb-4">{{item.title}}</h4>
+      <v-col cols="12">
+        <v-row>
+          <v-col cols="12" md="6" lg="8" xl="8">
+            <div v-for="item in products" :key="item.id">
+              <base-card class="d-flex flex-wrap mb-6">
+                <router-link :to="{name: 'products-id', params: {id: item.id}}">
+                  <img :src="item.image" max-height="100" max-width="100" alt="">
+                </router-link>
+                <div class="d-flex flex-column flex-grow-1 flex-wrap pa-4 mw-0">
+                  <div class="d-flex justify-space-between w-100 mb-3">
+                    <div>
+                      <div class="d-flex">
+                        <h4 class="text-truncate mb-4">{{item.title}}</h4>
+                      </div>
+                      <div>
+                        <p class="grey--text text--darken-1 mb-0">¥{{item.price}} x {{ item.cnt }}
+                          <span class="brown--text text--darken-4 ms-2">¥{{item.price * item.cnt}}</span>
+                        </p>
+                      </div>
+                    </div>
+                    <v-btn icon @click="showDeleteDialog(item)">
+                      <v-icon>mdi-close</v-icon>
+                    </v-btn>
                   </div>
-                  <div>
-                    <p class="grey--text text--darken-1 mb-0">¥{{item.price}} x {{ item.cnt }}
-                      <span class="brown--text text--darken-4 ms-2">¥{{item.price * item.cnt}}</span>
-                    </p>
+                  <div class="d-flex justify-end flex-grow-1 align-end">
+                    <div class="d-flex align-center">
+                      <v-btn class="rounded " outlined fab x-small tile color="brown lighten-1" @click="decrement(item)" :disabled="item.isMinusDisable">
+                        <v-icon>mdi-minus</v-icon>
+                      </v-btn>
+                      <div class="text-center mx-2">{{ item.cnt }}</div>
+                      <v-btn class="rounded" outlined fab x-small tile color="brown lighten-1" @click="increment(item)" :disabled="item.isPlusDisable">
+                        <v-icon>mdi-plus</v-icon>
+                      </v-btn>
+                    </div>
                   </div>
                 </div>
-                <v-btn icon @click="showDeleteDialog(item)">
-                  <v-icon>mdi-close</v-icon>
+              </base-card>
+            </div>
+          </v-col>
+          <v-col cols="12" md="6" lg="4" xl="4">
+            <base-card>
+              <div class="pa-5">
+                <div class="d-flex justify-space-between">
+                  <p class="mb-0 grey--text text--darken-1">Total</p>
+                  <h4 class="font-600">¥{{$store.getters['getTotalPrice']}}</h4>
+                </div>
+                <v-divider class="my-3"></v-divider>
+                <h4 class="mb-4">Shipping Estimates</h4>
+                <p class="text-14 mb-1">Country</p>
+                <v-select dense class="mb-4" label="Select Country" outlined hide-details></v-select>
+                <p class="text-14 mb-1">State</p>
+                <v-select dense class="mb-4" label="Select State" outlined hide-details></v-select>
+                <p class="text-14 mb-1">Zip Code</p>
+                <v-text-field label="3100" outlined dense hide-details="" class="mb-4"></v-text-field>
+                <v-btn color="brown lighten-1" outlined class="text-capitalize mb-4" block>
+                  Calculate Shipping
+                </v-btn>
+                <v-btn dark color="brown lighten-1" class="text-capitalize font-600 mb-4" block @click="checkOut">
+                  Checkout Now
                 </v-btn>
               </div>
-              <div class="d-flex justify-end flex-grow-1 align-end">
-                <div class="d-flex align-center">
-                  <v-btn class="rounded " outlined fab x-small tile color="brown lighten-1" @click="decrement(item)" :disabled="item.isMinusDisable">
-                    <v-icon>mdi-minus</v-icon>
-                  </v-btn>
-                  <div class="text-center mx-2">{{ item.cnt }}</div>
-                  <v-btn class="rounded" outlined fab x-small tile color="brown lighten-1" @click="increment(item)" :disabled="item.isPlusDisable">
-                    <v-icon>mdi-plus</v-icon>
-                  </v-btn>
-                </div>
-              </div>
-            </div>
-          </base-card>
-        </div>
-      </v-col>
-      <v-col cols="12" md="6" lg="4" xl="4">
-        <base-card>
-          <div class="pa-5">
-            <div class="d-flex justify-space-between">
-              <p class="mb-0 grey--text text--darken-1">Total</p>
-              <h4 class="font-600">¥{{$store.getters['getTotalPrice']}}</h4>
-            </div>
-            <v-divider class="my-3"></v-divider>
-            <h4 class="mb-4">Shipping Estimates</h4>
-            <p class="text-14 mb-1">Country</p>
-            <v-select dense class="mb-4" :items="items" label="Select Country" outlined hide-details></v-select>
-            <p class="text-14 mb-1">State</p>
-            <v-select dense class="mb-4" :items="items" label="Select State" outlined hide-details></v-select>
-            <p class="text-14 mb-1">Zip Code</p>
-            <v-text-field label="3100" outlined dense hide-details="" class="mb-4"></v-text-field>
-            <v-btn color="brown lighten-1" outlined class="text-capitalize mb-4" block>
-              Calculate Shipping
-            </v-btn>
-            <v-btn dark color="brown lighten-1" class="text-capitalize font-600 mb-4" block @click="checkOut">
-              Checkout Now
-            </v-btn>
-          </div>
-        </base-card>
+            </base-card>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
     <v-dialog v-model="dialogDelete" max-width="200px">
@@ -132,11 +136,18 @@
       </v-card>
     </v-dialog>
   </div>
-
 </template>
 
 <script>
+//local registration
+import { FormWizard, TabContent } from 'vue-form-wizard'
+import 'vue-form-wizard/dist/vue-form-wizard.min.css'
 export default {
+  //component code
+  components: {
+    FormWizard,
+    TabContent
+  },
   data () {
     return {
       cardHoverShadow: true,
@@ -264,6 +275,7 @@ export default {
         if (!this.$store.getters['getCounter']) {
           this.alertNoItem = true;
         } else {
+          // this.$refs.wizard.nextTab();
           this.$router.push(`/checkout`)
         }
       } else {
