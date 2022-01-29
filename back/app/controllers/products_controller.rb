@@ -45,4 +45,9 @@ class ProductsController < ApplicationController
             @cart_item.update(quantity: new_count)
         end
     end
+
+    def search
+        @products = Product.where("title LIKE :search OR description LIKE :search", search: "%#{params[:value]}%")
+        render json: @products
+    end
 end

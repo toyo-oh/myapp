@@ -6,12 +6,14 @@ class OrdersController < ApplicationController
 	def create_order
 		user_id = params[:user_id]
 		address_id = params[:address_id]
+		payment_id = params[:payment_id]
 		@current_cart = Cart.find_by(user_id: params[:user_id])
 		raise ActiveRecord::RecordNotFound if @current_cart.blank?
 		@cart_items = @current_cart.cart_items
 		@new_order = Order.new
 		@new_order.user_id = user_id
 		@new_order.address_id = address_id
+		@new_order.payment_id = payment_id
 		@new_order.aasm_state = 'order_placed'
 		@new_order.is_paid = 0
 		Cart.transaction do
@@ -41,7 +43,8 @@ class OrdersController < ApplicationController
 		@order = get_order_with_auth_check
 		@order_details = @order.order_details
 		@address = Address.find(@order.address_id)
-		render :json => {:order => @order, :order_details => @order_details.as_json(:include => :product), :address => @address}
+		@payment = Payment.find(@order.payment_id)
+		render :json => {:order => @order, :order_details => @order_details.as_json(:include => :product), :address => @address, :payment => @payment}
 	end
 
 	def destroy

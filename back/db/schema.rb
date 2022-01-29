@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_11_144406) do
+ActiveRecord::Schema.define(version: 2022_01_29_070713) do
 
   create_table "addresses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "user_id"
@@ -60,12 +60,23 @@ ActiveRecord::Schema.define(version: 2022_01_11_144406) do
     t.integer "logistics_fee"
     t.integer "user_id"
     t.integer "address_id"
-    t.string "pay_channel"
     t.boolean "is_paid"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "aasm_state", default: "order_placed"
+    t.integer "payment_id"
     t.index ["aasm_state"], name: "index_orders_on_aasm_state"
+  end
+
+  create_table "payments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "holder_name"
+    t.string "card_number"
+    t.string "expiration_date"
+    t.string "security_code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_default", default: false
+    t.integer "user_id"
   end
 
   create_table "products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|

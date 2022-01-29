@@ -3,6 +3,9 @@
     <v-alert v-model="alertNoAddress" type="error" close-text="Close Alert" dismissible>
       I'm a warning alert(NO ADDRESS).
     </v-alert>
+    <v-alert v-model="alertNoPayment" type="error" close-text="Close Alert" dismissible>
+      I'm a warning alert(NO PAYMENT).
+    </v-alert>
     <v-row>
       <v-col cols="12" md="6" lg="8" xl="8">
         <base-card class="mb-4">
@@ -13,43 +16,46 @@
                   <v-avatar size="30" color="brown lighten-1" class="me-3">
                     <p class="white--text mb-0">1</p>
                   </v-avatar>
-                  <h3 class="font-weight-light">Delivery Details</h3>
+                  <h3 class="font-weight-light">Delivery Address</h3>
                 </div>
               </v-col>
               <v-col cols="12" class="py-0">
-                <div>
-                  <p class="text-14 mb-0 mr-5">Delivery Address</p>
-                  <v-dialog v-model="dialog" scrollable max-width="500px">
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-btn color="brown lighten-1" dark outlined v-bind="attrs" v-on="on" @click="getAddressList">
-                        Change Address
-                      </v-btn>
-                    </template>
-                    <v-card>
-                      <v-card-title>Select Address</v-card-title>
-                      <v-divider></v-divider>
-                      <v-card-text style="height: 300px;">
-                        <v-radio-group v-model="selectedAddressId" column>
-                          <v-radio v-for="(item, index) in addressList" color="brown lighten-1" :key="index" :label='item.receiver + " " + item.phone_number
-          + " " + item.post_code + " " + item.detail_address' :value="item.id"></v-radio>
-                        </v-radio-group>
-                      </v-card-text>
-                      <v-divider></v-divider>
-                      <v-card-actions>
-                        <v-btn color="brown lighten-1" text @click="dialog = false">CLOSE</v-btn>
-                        <v-btn color="brown lighten-1" text @click="chooseAddress">OK</v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-dialog>
-                </div>
               </v-col>
               <v-col cols="12">
-                <base-card>
-                  <div class="pa-4 lighten-2 br-8">
-                    <h4 class="mb-2">Home</h4>
+                <!-- <base-card> -->
+                <div class="pa-4 grey lighten-3 align-center d-flex justify-space-between">
+                  <div class="flex-1 mr-3 pl-2">
+                    <v-avatar tile size="32">
+                      <v-icon>mdi-home</v-icon>
+                    </v-avatar>
                     <p>{{display_address}}</p>
                   </div>
-                </base-card>
+                  <div class="flex-1 mr-3">
+                    <v-dialog v-model="addressDialog" scrollable max-width="500px">
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-btn icon color="brown" class="" v-bind="attrs" v-on="on" @click="getAddressList">
+                          <v-icon>mdi-arrow-right</v-icon>
+                        </v-btn>
+                      </template>
+                      <v-card>
+                        <v-card-title>Select Address</v-card-title>
+                        <v-divider></v-divider>
+                        <v-card-text style="height: 300px;">
+                          <v-radio-group v-model="selectedAddressId" column>
+                            <v-radio v-for="(item, index) in addressList" color="brown lighten-1" :key="index" :label='item.receiver + " " + item.phone_number
+          + " " + item.post_code + " " + item.detail_address' :value="item.id"></v-radio>
+                          </v-radio-group>
+                        </v-card-text>
+                        <v-divider></v-divider>
+                        <v-card-actions>
+                          <v-btn color="brown lighten-1" text @click="addressDialog = false">CLOSE</v-btn>
+                          <v-btn color="brown lighten-1" text @click="chooseAddress">OK</v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
+                  </div>
+                </div>
+                <!-- </base-card> -->
               </v-col>
             </v-row>
           </div>
@@ -62,20 +68,43 @@
                   <v-avatar size="30" color="brown lighten-1" class="me-3">
                     <p class="white--text mb-0">2</p>
                   </v-avatar>
-                  <h3 class="font-weight-light">Payment Details</h3>
+                  <h3 class="font-weight-light">Payment Methods</h3>
                 </div>
-              </v-col>
-              <v-col cols="12" class="pb-0">
-                <p class="text-14 mb-0">Saved Payment Methods</p>
               </v-col>
               <v-col cols="12" xl="4" lg="4">
-                <div class="pa-4 grey lighten-2 br-8">
-                  <v-avatar tile size="36">
-                    <img src="" alt="">
-                  </v-avatar>
-                  <p class="mb-0">**** **** **** 4765</p>
-                  <p class="mb-0">Jaslynn Land</p>
+                <div class="pa-4 grey lighten-3 br-8 d-flex justify-space-between">
+                  <div class="flex-1 mr-3">
+                    <v-avatar tile size="32">
+                      <v-icon>mdi-credit-card</v-icon>
+                    </v-avatar>
+                    <p class="mb-0">**** **** **** {{payment_card_number}}</p>
+                    <p class="mb-0">{{payment_holder_name}}</p>
+                  </div>
+                  <div class="flex-1 mt-5 mr-0">
+                    <v-dialog v-model="paymentDialog" scrollable max-width="500px">
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-btn icon color="brown" class="" v-bind="attrs" v-on="on" @click="getPaymentList">
+                          <v-icon>mdi-arrow-right</v-icon>
+                        </v-btn>
+                      </template>
+                      <v-card>
+                        <v-card-title>Select Payment</v-card-title>
+                        <v-divider></v-divider>
+                        <v-card-text style="height: 300px;">
+                          <v-radio-group v-model="selectedPaymentId" column>
+                            <v-radio v-for="(item, index) in paymentList" color="brown lighten-1" :key="index" :label='item.holder_name + " **** **** **** " + item.card_number.substring(12,16)+ " " + item.expiration_date' :value="item.id"></v-radio>
+                          </v-radio-group>
+                        </v-card-text>
+                        <v-divider></v-divider>
+                        <v-card-actions>
+                          <v-btn color="brown lighten-1" text @click="paymentDialog = false">CLOSE</v-btn>
+                          <v-btn color="brown lighten-1" text @click="choosePayment">OK</v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
+                  </div>
                 </div>
+
               </v-col>
               <v-col cols="12" class="py-0">
                 <v-btn dark color="brown lighten-1" class="text-capitalize mb-4" block @click="createOrder">
@@ -116,41 +145,6 @@
         </div>
       </v-col>
     </v-row>
-
-    <!-- here -->
-
-    <!-- <v-simple-table>
-      <template v-slot:default>
-        <thead>
-          <tr>
-            <th></th>
-            <th>Title</th>
-            <th>Price</th>
-            <th>Count</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in products" :key="item.id">
-            <td>
-              <router-link :to="{name: 'products-id', params: {id: item.id}}">
-                <img :src="item.image" max-height="100" max-width="100">
-              </router-link>
-            </td>
-            <td>{{ item.title }}</td>
-            <td>{{ item.price }}</td>
-            <td>{{ item.cnt }}</td>
-          </tr>
-        </tbody>
-      </template>
-    </v-simple-table>
-    <v-spacer></v-spacer>
-    <h3>Total</h3>
-    {{$store.getters['getTotalPrice']}}
-    <v-spacer></v-spacer>
-    <h3>Address</h3>
-    {{display_address}}
-    <v-spacer></v-spacer>
-    <v-btn color="error" dark large @click="createOrder">Create Order</v-btn> -->
   </div>
 </template>
 
@@ -163,10 +157,17 @@ export default {
       totalPrice: '',
       address_id: '',
       address_detail: '',
-      dialog: false,
+      addressDialog: false,
       addressList: [],
       selectedAddressId: '',
-      alertNoAddress: false
+      alertNoAddress: false,
+      payment_id: '',
+      payment_holder_name: '',
+      payment_card_number: '',
+      paymentDialog: false,
+      paymentList: [],
+      selectedPayment_Id: '',
+      alertNoPayment: false
     };
   },
   created () {
@@ -197,6 +198,11 @@ export default {
             + " " + default_address.post_code + " " + default_address.detail_address;
           this.address_id = default_address.id;
         }
+        if (res.data.payment.length > 0) {
+          this.payment_id = res.data.payment[0].id;
+          this.payment_holder_name = res.data.payment[0].holder_name;
+          this.payment_card_number = res.data.payment[0].card_number.substring(12, 16);
+        }
       });
     },
     getAddressList () {
@@ -205,12 +211,28 @@ export default {
       });
     },
     chooseAddress () {
-      this.dialog = false;
+      this.addressDialog = false;
       for (var m = 0; m < this.addressList.length; m++) {
         if (this.addressList[m].id == this.selectedAddressId) {
           this.address_detail = this.addressList[m].receiver + " " + this.addressList[m].phone_number
             + " " + this.addressList[m].post_code + " " + this.addressList[m].detail_address;
           this.address_id = this.selectedAddressId;
+          break;
+        }
+      }
+    },
+    getPaymentList () {
+      this.$axios.get(`api/payments/find_by_user_id/${this.$auth.user.id}`).then((res) => {
+        this.paymentList = res.data;
+      });
+    },
+    choosePayment () {
+      this.paymentDialog = false;
+      for (var m = 0; m < this.paymentList.length; m++) {
+        if (this.paymentList[m].id == this.selectedPaymentId) {
+          this.payment_holder_name = this.paymentList[m].holder_name;
+          this.payment_card_number = this.paymentList[m].card_number.substring(12, 16);
+          this.payment_id = this.selectedPaymentId;
           break;
         }
       }
@@ -224,6 +246,7 @@ export default {
         const formData = new FormData();
         formData.append("user_id", this.$auth.user.id);
         formData.append("address_id", this.address_id);
+        formData.append("payment_id", this.payment_id);
         this.$axios.post("/api/order/create_order", formData).then((res) => {
           this.$router.push(`/orders/${res.data.order_id}`);
           this.$store.commit('clear_cart');

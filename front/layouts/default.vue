@@ -24,7 +24,7 @@
       <v-btn text>Product</v-btn>
       <v-spacer />
       <div style="inline">
-        <v-text-field solo label="Search" append-icon="mdi-magnify"></v-text-field>
+        <v-text-field v-model="searchText" color="brown lighten-1" class="" placeholder="Searching For" filled rounded hide-details dense prepend-inner-icon="mdi-magnify" @keydown.enter="search"></v-text-field>
       </div>
       <!-- menu for common user -->
       <v-menu v-if="isLoggedIn&&!isAdmin" offset-y>
@@ -73,9 +73,10 @@
           <v-icon>mdi-cart</v-icon>
         </v-badge>
       </v-btn>
-      <!-- <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn> -->
+      <v-btn text>
+        <v-icon>mdi-help-circle-outline</v-icon>
+        Help
+      </v-btn>
     </v-app-bar>
     <v-main>
       <v-container>
@@ -113,15 +114,17 @@ export default {
       rightDrawer: false,
       title: 'Store',
       actmenus: [
-        { index: 1, text: 'User Info', icon: 'mdi-account', action: this.userInfo },
-        { index: 2, text: 'My Order', icon: ' mdi-shopping', action: this.useOrder },
-        { index: 3, text: 'My Address', icon: ' mdi-map-marker', action: this.userAddress },
-        { index: 4, text: 'My Favourite', icon: 'mdi-heart', action: '' },
-        { index: 5, text: 'Log Out', icon: 'mdi-logout', action: this.logout }],
+        { index: 1, text: 'My Profile', icon: 'mdi-account', action: this.userInfo },
+        { index: 2, text: 'My Orders', icon: ' mdi-shopping', action: this.useOrder },
+        { index: 3, text: 'My Addresses', icon: ' mdi-map-marker', action: this.userAddress },
+        { index: 4, text: 'My Payments', icon: ' mdi-credit-card', action: this.userPayment },
+        { index: 5, text: 'My Favourites', icon: 'mdi-heart', action: '' },
+        { index: 6, text: 'Log Out', icon: 'mdi-logout', action: this.logout }],
       adminmenus: [
         { index: 1, text: 'Product Management', icon: 'mdi-clipboard-outline', action: this.adminProduct },
         { index: 2, text: 'Order Management', icon: 'mdi-pin', action: this.adminOrder },
-        { index: 3, text: 'Log Out', icon: 'mdi-logout', action: this.logout }]
+        { index: 3, text: 'Log Out', icon: 'mdi-logout', action: this.logout }],
+      searchText: ''
     }
   },
   created () {
@@ -157,11 +160,14 @@ export default {
     userInfo () {
       this.$router.push(`/users/${this.$auth.user.id}`)
     },
+    useOrder () {
+      this.$router.push('/orders')
+    },
     userAddress () {
       this.$router.push(`/addresses`)
     },
-    useOrder () {
-      this.$router.push('/orders')
+    userPayment () {
+      this.$router.push(`/payments`)
     },
     logout () {
       this.$auth.logout();
@@ -189,6 +195,12 @@ export default {
     adminOrder () {
       this.$router.push('/admin/orders')
     },
+    search (event) {
+      event.preventDefault();
+      if (this.searchText) {
+        this.$router.push({ path: '/search', query: { value: this.searchText } });
+      }
+    }
   }
 }
 </script>

@@ -11,20 +11,55 @@
         Add New Address
       </v-btn>
     </div>
-    <!-- <v-btn class="mr-4" dark color="brown lighten-1" @click="newAddress">New Address</v-btn> -->
-    <v-spacer></v-spacer>
-    <v-data-table :headers="headers" :items="addresses" :page.sync="page" :items-per-page="itemsPerPage" hide-default-footer>
-      <template v-slot:item.receiver="{ item }">
-        <h4 class="mb-0">{{item.receiver}}</h4>
-      </template>
-      <template v-slot:item.edit="{ item }">
-        <v-icon small class="mr-2" @click="editAddress(item)">mdi-pencil</v-icon>
-      </template>
-      <template v-slot:item.delete="{ item }">
-        <v-icon small @click="showDeleteDialog(item)">mdi-delete</v-icon>
-      </template>
-      <!-- <v-btn elevation="2" @click="setDefault(item)">Default</v-btn> -->
-    </v-data-table>
+    <v-container>
+      <v-row>
+        <v-col cols="12">
+          <v-data-iterator :items="addresses" :items-per-page.sync="itemsPerPage" :page.sync="page" hide-default-footer>
+            <template v-slot:default="props">
+              <v-row>
+                <v-col v-for="item in props.items" :key="item.name" cols="12" sm="6" md="4" lg="4" xl="3">
+                  <base-card class="vendor-card ">
+                    <div class="ma-4">
+                      <div class="d-flex justify-space-between">
+                        <h3 class="ma-4">{{ item.receiver}}</h3>
+                        <v-chip v-if="item.is_default" dark small class="ma-4 font-weight-medium" color="brown lighten-1">
+                          DEFAULT
+                        </v-chip>
+                      </div>
+                      <div class="d-flex mb-2 ml-3">
+                        <span class="">{{"〒 "+item.post_code}}</span>
+                      </div>
+                      <div class="d-flex mb-2 ml-3">
+                        <v-icon small class="mr-2" color="grey darken-2">mdi-map-marker</v-icon>
+                        <span class="">{{item.detail_address}}</span>
+                      </div>
+                      <div class="d-flex mb-2 ml-3">
+                        <v-icon small class="mr-2" color="grey darken-2">mdi-phone</v-icon>
+                        <span class="">{{item.phone_number}}</span>
+                      </div>
+                    </div>
+                    <v-card-actions class="d-flex justify-end align-center">
+                      <div class="mr-3">
+                        <v-btn v-if="!item.is_default" text color="brown" @click="setDefault(item)">
+                          <div>Default</div>
+                        </v-btn>
+                        <v-btn icon color="brown" @click="showDeleteDialog(item)">
+                          <v-icon>mdi-close</v-icon>
+                        </v-btn>
+                        <v-btn icon color="brown" @click="editAddress(item)">
+                          <v-icon>mdi-arrow-right</v-icon>
+                        </v-btn>
+                      </div>
+                    </v-card-actions>
+                  </base-card>
+                </v-col>
+              </v-row>
+            </template>
+          </v-data-iterator>
+        </v-col>
+      </v-row>
+    </v-container>
+
     <div class="text-center pt-2">
       <v-pagination color="brown lighten-1" v-model="page" :length="pageCount"></v-pagination>
     </div>
@@ -50,17 +85,10 @@ export default {
       page: 1,
       pageCount: 0,
       itemsPerPage: 10,
-      headers: [
-        { text: "Receiver", value: "receiver", align: "start", sortable: false, class: "text-h6 grey--text text--darken-2 flex-1 mr-3" },
-        { text: "PhoneNumber", value: "phone_number", sortable: false, class: "text-h6 grey--text text--darken-2 flex-1 mr-3" },
-        { text: "PostCode", value: "post_code", sortable: false, class: "text-h6 grey--text text--darken-2 flex-1 mr-3" },
-        { text: "Address", value: "detail_address", sortable: false, class: "text-h6 grey--text text--darken-2 flex-1 mr-3" },
-        { text: "Edit", value: "edit", sortable: false, class: "text-h6 grey--text text--darken-2 flex-1 mr-3" },
-        { text: "Delete", value: "delete", sortable: false, class: "text-h6 grey--text text--darken-2 flex-1 mr-3" },
-      ],
       addresses: [],
       dialogDelete: false,
-      itemToDelete: ''
+      itemToDelete: '',
+      default_id: ''
     };
   },
   // TODO 变为asyncData方法获取初始数据
@@ -72,6 +100,12 @@ export default {
       this.$axios.get(`api/addresses/find_by_user_id/${this.$auth.user.id}`).then((res) => {
         this.addresses = res.data;
         this.pageCount = Math.ceil(res.data.length / this.itemsPerPage);
+        for (var n = 0; n < this.addresses.length; n++) {
+          if (this.addresses[n].is_default == 1) {
+            this.default_id = this.addresses[n].id;
+            break;
+          }
+        }
       });
     },
     editAddress (item) {
@@ -88,6 +122,14 @@ export default {
           this.getAddresses();
         });
       this.dialogDelete = false
+    },
+    setDefault (item) {
+      this.$axios
+        .post(`api/addresses/set_default`,
+          { user_id: this.$auth.user.id, old_id: this.default_id, id: item.id })
+        .then((res) => {
+          this.getAddresses();
+        });
     },
     newAddress () {
       this.$router.push(`addresses/new`)

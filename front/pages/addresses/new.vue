@@ -47,19 +47,19 @@ export default {
       detail_address: "",
       receiverRules: [
         v => !!v || 'Receiver is required',
-        v => (v && v.length <= 10) || 'Confirm Password must be less than 10 characters',
+        v => (v && v.length <= 20) || 'Receiver must be less than 20 characters',
       ],
       phoneNumberRules: [
-        v => !!v || 'Post Code is required',
+        v => !!v || 'Post Number is required',
         v => /^\d{2,4}-\d{2,4}-\d{4}$/.test(v) || 'Phone Number must be valid',
       ],
       postCodeRules: [
-        v => !!v || 'Phone number is required',
+        v => !!v || 'Phone Code is required',
         v => /^[0-9]{3}-[0-9]{4}$/.test(v) || 'Post Code must be valid',
       ],
       detailAddressRules: [
         v => !!v || 'Detail Address is required',
-        v => (v && v.length <= 100) || 'Confirm Password must be less than 100 characters',
+        v => (v && v.length <= 100) || 'Detail Address must be less than 100 characters',
       ],
     };
   },

@@ -3,60 +3,6 @@
     <v-alert v-model="alertNoItem" type="error" close-text="Close Alert" dismissible>
       I'm a warning alert(NO PRODUCT ITEM).
     </v-alert>
-    <!-- <v-simple-table>
-      <template v-slot:default>
-        <thead>
-          <tr>
-            <th></th>
-            <th>Title</th>
-            <th>Price</th>
-            <th>Count</th>
-            <th>Quantity</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in products" :key="item.id">
-            <td>
-              https://www.nuxtjs.cn/guide/routing 
-              https://router.vuejs.org/zh/api/#router-link 
-              <router-link :to="{name: 'products-id', params: {id: item.id}}">
-                <img :src="item.image" max-height="100" max-width="100">
-              </router-link>
-            </td>
-            <td>{{ item.title }}</td>
-            <td>{{ item.price }}</td>
-            <td>
-              <v-text-field outlined v-model.number="item.cnt" prepend-icon="mdi-minus-box-outline" append-outer-icon="mdi-plus-box-outline" @click:prepend="decrement(item)" @click:append-outer="increment(item)" min=0 max=10 :rules="countRules" oninput="if(Number(this.value) > Number(this.max)) this.value = this.max;
-								if(Number(this.value) < Number(this.min)) this.value = this.min;">
-              </v-text-field>
-            </td>
-            <td>{{ item.quantity }}</td>
-            <td>
-              <v-btn icon @click="showDeleteDialog(item)">
-                <v-icon>mdi-close-circle-outline</v-icon>
-              </v-btn>
-            </td>
-          </tr>
-        </tbody>
-      </template>
-    </v-simple-table> -->
-    <!-- <v-dialog v-model="dialogDelete" max-width="200px">
-      <v-card>
-        <v-card-title>Delete</v-card-title>
-        <v-card-text>Are you sure to delete the product?</v-card-text>
-        <v-spacer></v-spacer>
-        <v-card-actions>
-          <v-btn color="green darken-1" text @click="removeItem()">OK</v-btn>
-          <v-btn color="green darken-1" text @click="dialogDelete = false">Cancel</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-    <v-spacer></v-spacer>
-    {{$store.getters['getTotalPrice']}}
-    <v-btn x-large dark width="200" color="brown lighten-1" @click="checkOut">Check Out</v-btn> -->
-
-    <!-- here -->
     <v-row>
       <v-col cols="12">
         <v-row>
@@ -139,15 +85,7 @@
 </template>
 
 <script>
-//local registration
-import { FormWizard, TabContent } from 'vue-form-wizard'
-import 'vue-form-wizard/dist/vue-form-wizard.min.css'
 export default {
-  //component code
-  components: {
-    FormWizard,
-    TabContent
-  },
   data () {
     return {
       cardHoverShadow: true,

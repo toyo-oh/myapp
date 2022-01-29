@@ -30,8 +30,9 @@ class CartsController < ApplicationController
 		raise ActiveRecord::RecordNotFound if @cart.blank?
 		@cart_items = @cart.cart_items
 		@address = Address.where("user_id = ? AND is_default = 1", params[:user_id])
+		@payment = Payment.where("user_id = ? AND is_default = 1", params[:user_id])
 		# as_json	vs to_json, to_json	with escape
-		render :json => {:cart_items => @cart_items.as_json(:include => :product), :address => @address}
+		render :json => {:cart_items => @cart_items.as_json(:include => :product), :address => @address, :payment => @payment}
   end
 
 	def show_cart_products

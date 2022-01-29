@@ -246,41 +246,6 @@
         </div>
       </v-col>
     </v-row>
-
-    <!--here-->
-    <!-- <v-simple-table>
-      <template v-slot:default>
-        <thead>
-          <tr>
-            <th></th>
-            <th>Title</th>
-            <th>Price</th>
-            <th>Count</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in products" :key="item.id">
-            <td>
-              <router-link :to="{name: 'products-id', params: {id: item.id}}">
-                <img :src="item.image" max-height="100" max-width="100">
-              </router-link>
-            </td>
-            <td>{{ item.title }}</td>
-            <td>{{ item.price }}</td>
-            <td>{{ item.cnt }}</td>
-          </tr>
-        </tbody>
-      </template>
-    </v-simple-table>
-    <v-spacer></v-spacer>
-    <h3>Total</h3>
-    {{totalPrice}}
-    <v-spacer></v-spacer>
-    <h3>Address</h3>
-    {{address_detail}}
-    <v-spacer></v-spacer>
-    <v-btn v-if="display_cancel_btn" color="error" dark large @click="showCancelDialog()">Cancel Order</v-btn>
-    <v-btn v-if="display_pay_btn" color="error" dark large @click="payOrder">Pay Order</v-btn>-->
   </div>
 </template>
 

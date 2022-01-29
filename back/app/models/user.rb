@@ -7,6 +7,8 @@ class User < ApplicationRecord
 	# has_secure_token
 	has_secure_password
 	has_one :cart
+	has_many :addresses
+	has_many :payments
 
 	def admin?
 		is_admin

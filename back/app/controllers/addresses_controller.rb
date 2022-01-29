@@ -1,6 +1,6 @@
 class AddressesController < ApplicationController
 
-	before_action :require_login, only: [:create, :find_by_user_id]
+	before_action :require_login, only: [:create, :find_by_user_id, :set_default]
 	before_action :get_address_with_auth_check, only: [:show, :update, :destroy]
 
 	def create
@@ -37,6 +37,14 @@ class AddressesController < ApplicationController
 		end
 	end
 
+	def set_default
+		@new_address = get_address_with_auth_check
+		@old_address = Address.find(params[:old_id])
+		Address.transaction do
+			@old_address.update!(is_default: 0)
+			@new_address.update!(is_default: 1)
+		end
+	end
 
 	private
 	def address_params
