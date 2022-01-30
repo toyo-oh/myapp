@@ -31,7 +31,7 @@
                       </div>
                       <div class="d-flex mb-2 ml-3">
                         <!-- <v-icon small class="mr-2" color="grey darken-2">mdi-map-marker</v-icon> -->
-                        <span class="">{{item.expiration_date}}</span>
+                        <span class="">{{item.expiration_date.substring(0,4)+"/"+item.expiration_date.substring(4,6)}}</span>
                       </div>
                     </div>
                     <v-card-actions class="d-flex justify-end align-center">

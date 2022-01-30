@@ -11,7 +11,8 @@ class Admin::OrdersController < ApplicationController
 		@order = Order.find(params[:id])
 		@order_details = @order.order_details
 		@address = Address.find(@order.address_id)
-		render :json => {:order => @order, :order_details => @order_details.as_json(:include => :product), :address => @address}
+		@payment = Payment.find(@order.payment_id)
+		render :json => {:order => @order, :order_details => @order_details.as_json(:include => :product), :address => @address, :payment => @payment}
 	end
 
 	# cancel
@@ -24,6 +25,7 @@ class Admin::OrdersController < ApplicationController
 	# ship
 	def ship_order
 		@order = Order.find(params[:id]);
+		@order.set_deliver_at!
 		@order.ship!
 		render json: @order
 	end

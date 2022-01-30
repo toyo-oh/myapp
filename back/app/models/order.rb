@@ -17,6 +17,10 @@ class Order < ApplicationRecord
 		self.update_columns(is_paid: true)
 	end
 
+  def set_deliver_at!
+    self.update_columns(deliver_at: DateTime.now)   
+  end
+
 	include AASM
   aasm do
     state :order_placed, initial: true
@@ -33,7 +37,7 @@ class Order < ApplicationRecord
 		# 	transitions from: :order_placed, to: :paid
 		# end
 
-    event :ship do
+    event :ship, after_commit: :set_deliver_at! do
       transitions from: :paid,         to: :shipping
     end
 

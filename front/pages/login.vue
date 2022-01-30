@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-alert v-model="alertLoginError" type="error" close-text="Close Alert" dismissible>
-      LOGIN INPUT ERROR.
+      {{error_message}}
     </v-alert>
     <v-form ref="form" v-model="valid">
       <v-container>
@@ -36,6 +36,7 @@ export default ({
   data () {
     return {
       alertLoginError: false,
+      error_message: '',
       valid: true,
       login: {
         email: '',
@@ -48,18 +49,23 @@ export default ({
   methods: {
     userLogin () {
       if (this.$refs.form.validate()) {
-        this.$auth.loginWith('local', { data: this.login }).then((res) => {
-          if (res.data != null) {
-            // update cart item
+        try {
+          this.$auth.loginWith('local', { data: this.login }).then((res) => {
             this.$axios.$get(`api/cart/find_cart/${this.$auth.user.id}`).then((res) => {
               this.$store.commit('load_products', res.productList);
             });
-          } else {
-            // TODO
+          });
+        } catch (error) {
+          this.$nuxt.error(error.message);
+          if (error.response.status == "401") {
+            console.log("here");
+            this.alertLoginError = true;
+            this.error_message = 'Account or password incorrect';
           }
-        });
+        }
       } else {
         this.alertLoginError = true;
+        this.error_message = 'Invalid item in the form';
       }
     }
   }

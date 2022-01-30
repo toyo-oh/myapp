@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   post '/order/create_order', to:'orders#create_order'
   get '/orders/get_orders_by_user_id/:user_id', to: 'orders#get_orders_by_user_id'
   post '/orders/pay_order', to: 'orders#pay_order'
+  post '/orders/receive_good', to: 'orders#receive_good'
   post '/admin/orders/ship_order', to: 'admin/orders#ship_order'
   post '/products/search', to:'products#search'
   get '/payments/find_by_user_id/:user_id', to: 'payments#find_by_user_id'

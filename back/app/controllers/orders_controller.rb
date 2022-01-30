@@ -60,6 +60,12 @@ class OrdersController < ApplicationController
 		render json: @order
 	end
 
+	def receive_good
+		@order = get_order_with_auth_check
+		@order.deliver!
+		render json: @order
+	end
+
 	private
 		def get_order_with_auth_check
 			if validate_user.blank?

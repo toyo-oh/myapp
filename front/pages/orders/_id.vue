@@ -6,6 +6,9 @@
     <v-alert v-model="alertPay" type="success" close-text="Close Alert" dismissible>
       I'm a success alert.
     </v-alert>
+    <v-alert v-model="alertReceive" type="success" close-text="Close Alert" dismissible>
+      I'm a success alert.
+    </v-alert>
     <v-row>
       <v-col cols="12">
         <div class="box-wrapper">
@@ -19,18 +22,23 @@
                   <h2 class="mb-0">Order Details</h2>
                 </div>
                 <div>
-                  <v-btn v-if="display_pay_btn" outlined color="brown lighten-1" class="text-capitalize" @click="payOrder">
-                    Pay Order
-                  </v-btn>
-                  <v-btn v-if="display_cancel_btn" outlined color="brown lighten-1" class="text-capitalize" @click="showCancelDialog()">
-                    Cancel Order
+                  <v-btn outlined color="brown lighten-1" class="text-capitalize" @click="rtnToList">
+                    Back To Order List
                   </v-btn>
                 </div>
               </div>
               <v-row>
                 <v-col cols="12">
                   <base-card>
-                    <div class="px-6 py-14">
+                    <div class="px-6 pt-8 pb-8">
+                      <div class="d-flex justify-start mb-10">
+                        <div class="py-2 px-5 brown lighten-4 brown--text text-center text-wrap rounded-pill">
+                          <p class="mb-0">
+                            Order Status:
+                            <span class="font-weight-bold">{{order_status}}</span>
+                          </p>
+                        </div>
+                      </div>
                       <div class="d-flex align-center" v-if="order_status=='order_cancelled'">
                         <div class="p-relative">
                           <v-avatar size="72" color="brown lighten-2">
@@ -99,7 +107,7 @@
                           <template v-if="(order_status=='shipped')">
                             <v-avatar size="72" color="brown lighten-2">
                               <v-badge color="green lighten-1" icon="mdi-check">
-                                <v-icon>mdi-check-circle-outline</v-icon>
+                                <v-icon color="grey lighten-4">mdi-check-circle-outline</v-icon>
                               </v-badge>
                             </v-avatar>
                           </template>
@@ -111,11 +119,16 @@
                         </div>
                       </div>
                       <div class="d-flex justify-end mt-10">
-                        <div class="py-2 px-5 brown lighten-4 brown--text text-center text-wrap rounded-pill">
-                          <p class="mb-0">
-                            Order Status:
-                            <span class="font-weight-bold">{{order_status}}</span>
-                          </p>
+                        <div>
+                          <v-btn v-if="display_pay_btn" dark color="brown lighten-1" class="text-capitalize" @click="payOrder">
+                            Pay Order
+                          </v-btn>
+                          <v-btn v-if="display_cancel_btn" dark color="brown lighten-1" class="text-capitalize" @click="showCancelDialog()">
+                            Cancel Order
+                          </v-btn>
+                          <v-btn v-if="display_receive_btn" dark color="brown lighten-1" class="text-capitalize" @click="receiveGoods">
+                            Receive goods
+                          </v-btn>
                         </div>
                       </div>
                     </div>
@@ -145,7 +158,7 @@
                           Delivered on:
                         </p>
                         <p class="mb-0 grey--text text--darken-4">
-                          10 Jun, 2021
+                          {{ deliver_on ? new Date(deliver_on).toLocaleString("ja-jp") :'ー' }}
                         </p>
                       </div>
                     </div>
@@ -182,6 +195,16 @@
                       </h4>
                       <p class="text-14 mb-0">
                         {{address_detail}}
+                      </p>
+                    </div>
+                  </base-card>
+                  <base-card>
+                    <div class="pa-5 mt-5">
+                      <h4 class="mb-3 grey--text text--darken-4">
+                        Payment Details
+                      </h4>
+                      <p class="text-14 mb-0">
+                        {{payment_detail}}
                       </p>
                     </div>
                   </base-card>
@@ -225,7 +248,6 @@
                           ¥{{totalPrice}}
                         </p>
                       </div>
-                      <p>Paid by Credit/Debit Card</p>
                     </div>
                   </base-card>
                 </v-col>
@@ -258,14 +280,16 @@ export default {
       totalPrice: 0,
       logistics_fee: 0,
       order_id: '',
-      address_id: '',
       address_detail: '',
+      payment_detail: '',
       dialogCancel: false,
       alertCancel: false,
       alertPay: false,
+      alertReceive: false,
       order_status: '',
       is_paid: false,
-      placed_on: ''
+      placed_on: '',
+      deliver_on: ''
     };
   },
   computed: {
@@ -277,6 +301,9 @@ export default {
     },
     display_order_status: function () {
       return this.order_status;
+    },
+    display_receive_btn: function () {
+      return this.order_status == 'shipping' ? true : false
     }
   },
   asyncData ({ $axios, params }) {
@@ -286,6 +313,7 @@ export default {
       var tmp_total = 0;
       for (var m = 0; m < order_items.length; m++) {
         var product = {};
+        product.id = order_items[m].product_id;
         product.title = order_items[m].product_title;
         product.price = order_items[m].price;
         product.cnt = order_items[m].quantity;
@@ -298,14 +326,16 @@ export default {
       return {
         address_detail: res.data.address.receiver + " " + res.data.address.phone_number
           + " " + res.data.address.post_code + " " + res.data.address.detail_address,
-        address_id: res.data.address.id,
+        // address_id: res.data.address.id,
+        payment_detail: res.data.payment.holder_name + " **** **** **** " + res.data.payment.card_number.substring(12, 16),
         products: tmp_products,
         totalPrice: tmp_total,
         order_id: params.id,
         order_status: res.data.order.aasm_state,
         logistics_fee: res.data.order.logistics_fee == null ? 0 : res.data.order.logistics_fee,
         is_paid: res.data.order.is_paid == '1' ? true : false,
-        placed_on: res.data.order.created_at
+        placed_on: res.data.order.created_at,
+        deliver_on: res.data.order.deliver_at ? res.data.order.deliver_at : ''
       };
     });
   },
@@ -332,6 +362,19 @@ export default {
           this.dialogCancel = false;
         });
       }
+    },
+    receiveGoods () {
+      if (!this.$auth.user.id) {
+        // TODO error message
+      } else {
+        this.$axios.post(`api/orders/receive_good`, { id: this.order_id }).then((res) => {
+          this.alertReceive = true;
+          this.order_status = res.data.aasm_state;
+        });
+      }
+    },
+    rtnToList () {
+      this.$router.push(`.`);
     }
   },
 };

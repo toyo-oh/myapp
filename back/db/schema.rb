@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_29_070713) do
+ActiveRecord::Schema.define(version: 2022_01_30_083108) do
 
   create_table "addresses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "user_id"
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 2022_01_29_070713) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "aasm_state", default: "order_placed"
     t.integer "payment_id"
+    t.datetime "deliver_at"
     t.index ["aasm_state"], name: "index_orders_on_aasm_state"
   end
 
