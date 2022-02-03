@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   get '/cart/get_checkout_info/:user_id', to:'carts#get_checkout_info'
   get '/cart/show_cart_products', to:'carts#show_cart_products'
   post '/cart/remove_from_cart', to:'carts#remove_from_cart'
+  get '/cart/cal_shipping_fee/:prefecture_id', to: 'carts#cal_shipping_fee'
   get '/addresses/find_by_user_id/:user_id', to: 'addresses#find_by_user_id'
   post '/addresses/set_default', to: 'addresses#set_default'
   post '/order/create_order', to:'orders#create_order'

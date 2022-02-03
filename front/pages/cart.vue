@@ -58,13 +58,11 @@
                 </div>
                 <v-divider class="my-3"></v-divider>
                 <h4 class="mb-4">Shipping Estimates</h4>
-                <p class="text-14 mb-1">Country</p>
-                <v-select dense class="mb-4" label="Select Country" outlined hide-details></v-select>
-                <p class="text-14 mb-1">State</p>
-                <v-select dense class="mb-4" label="Select State" outlined hide-details></v-select>
+                <p class="text-14 mb-1">City</p>
+                <v-select dense color="brown lighten-1" class="mb-4" :items="prefectures" item-text="prefecture" item-value="id" label="Select Prefecture" outlined hide-details></v-select>
                 <p class="text-14 mb-1">Zip Code</p>
-                <v-text-field label="3100" outlined dense hide-details="" class="mb-4"></v-text-field>
-                <v-btn color="brown lighten-1" outlined class="text-capitalize mb-4" block>
+                <v-text-field outlined dense hide-details="" color="brown lighten-1" class="mb-4"></v-text-field>
+                <v-btn color="brown lighten-1" outlined class="text-capitalize mb-4" block @click="calShipping">
                   Calculate Shipping
                 </v-btn>
                 <v-btn dark color="brown lighten-1" class="text-capitalize font-600 mb-4" block @click="checkOut">
@@ -104,6 +102,7 @@ export default {
         v => (v && v >= 0) || "count should be above 0",
         v => (v && v <= 10) || "Max should not be above 10",
       ],
+      prefectures: []
     };
   },
   created () {

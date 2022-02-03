@@ -49,4 +49,10 @@ class CartsController < ApplicationController
 			end
 	end
 
+	def cal_shipping_fee
+		@shipping_fee = ShippingFee.find(id: params[:prefecture_id])
+		raise ActiveRecord::RecordNotFound if @shipping_fee.blank?	
+		render json: @shipping_fee
+	end
+
 end
