@@ -1,12 +1,18 @@
 <template>
   <div>
     <v-alert v-model="alertNoItem" type="error" close-text="Close Alert" dismissible>
-      I'm a warning alert(NO PRODUCT ITEM).
+      There are no items in the shopping cart.
     </v-alert>
     <v-row>
       <v-col cols="12">
         <v-row>
           <v-col cols="12" md="6" lg="8" xl="8">
+            <div v-if="products.length==0" class="d-flex flex-wrap mt-6 justify-end">
+              <h2 class="brown--text text--darken-4">
+                Your shopping cart is empty. Start shopping
+                <router-link to="home">Home</router-link>
+              </h2>
+            </div>
             <div v-for="item in products" :key="item.id">
               <base-card class="d-flex flex-wrap mb-6">
                 <router-link :to="{name: 'products-id', params: {id: item.id}}">
@@ -44,7 +50,7 @@
             </div>
           </v-col>
           <v-col cols="12" md="6" lg="4" xl="4">
-            <base-card>
+            <base-card v-if="products.length>0">
               <div class="pa-5">
                 <div class="d-flex justify-space-between">
                   <p class="mb-0 grey--text text--darken-1">Total</p>

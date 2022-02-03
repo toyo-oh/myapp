@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-alert v-model="alertSignUpError" type="error" close-text="Close Alert" dismissible>
-      FORM INPUT ERROR.
+      There are Input Errors in the form.
     </v-alert>
     <v-form ref="form" v-model="valid">
       <v-container>

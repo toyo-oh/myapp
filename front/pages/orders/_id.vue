@@ -1,13 +1,13 @@
 <template>
   <div>
     <v-alert v-model="alertCancel" type="success" close-text="Close Alert" dismissible>
-      I'm a success alert.
+      Order cancelled successfully！
     </v-alert>
     <v-alert v-model="alertPay" type="success" close-text="Close Alert" dismissible>
-      I'm a success alert.
+      Order paid successfully！
     </v-alert>
     <v-alert v-model="alertReceive" type="success" close-text="Close Alert" dismissible>
-      I'm a success alert.
+      Order completed！
     </v-alert>
     <v-row>
       <v-col cols="12">

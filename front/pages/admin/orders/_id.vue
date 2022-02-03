@@ -1,10 +1,10 @@
 <template>
   <div>
     <v-alert v-model="alertCancel" type="success" close-text="Close Alert" dismissible>
-      I'm a success alert.
+      Order cancelled successfully！
     </v-alert>
     <v-alert v-model="alertShip" type="success" close-text="Close Alert" dismissible>
-      I'm a success alert.
+      Order shipped successfully！
     </v-alert>
     <div>
       <v-row>

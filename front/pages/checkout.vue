@@ -1,10 +1,10 @@
 <template>
   <div>
     <v-alert v-model="alertNoAddress" type="error" close-text="Close Alert" dismissible>
-      I'm a warning alert(NO ADDRESS).
+      Please input Delivery Address.
     </v-alert>
     <v-alert v-model="alertNoPayment" type="error" close-text="Close Alert" dismissible>
-      I'm a warning alert(NO PAYMENT).
+      Please input Payment Method.
     </v-alert>
     <v-row>
       <v-col cols="12" md="6" lg="8" xl="8">

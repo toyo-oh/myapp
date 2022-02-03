@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   before_action :require_login, only: [:index]
-  before_action :get_user_with_auth_check, only: [:show, :update, :destroy]
+  before_action :get_user_with_auth_check, only: [:show, :update, :destroy, :update_email, :update_profile, :update_password]
   # https://stackoverflow.com/questions/30632639/password-cant-be-blank-in-rails-using-has-secure-password
   # https://qiita.com/kazutosato/items/fbaa2fc0443611c627fc
   # https://stackoverflow.com/questions/50641705/how-do-you-use-rails-5-2-wrap-parameters
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
   # POST /users
   def create
     @user = User.new(user_params)
-    if !@user.save
+    if !@user.save!
       render response_unprocessable_entity(@user.errors)
     end
   end
@@ -40,7 +40,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   def update
     @current_user = get_user_with_auth_check
-    if @current_user.update(name: params[:name], email: params[:email])
+    if @current_user.update!(name: params[:name], email: params[:email])
       render json: @current_user
     else
       render response_unprocessable_entity(@current_user.errors)
@@ -50,9 +50,47 @@ class UsersController < ApplicationController
   # DELETE /users/1
   def destroy
     @user = get_user_with_auth_check
-    if !@user.destroy
-      render response_unprocessable_entity(@user.errors)	
+    if !@user.destroy!
+      render response_unprocessable_entity(@user.errors)
     end
+  end
+
+  # POST /users/1/email
+  def update_email
+    @user = get_user_with_auth_check
+		if @user.email == params[:current_email] && @user.authenticate(params[:password])
+      if @user.update!(email: params[:new_email])
+        render json: @user
+      else
+        render response_unprocessable_entity(@user.errors)
+      end
+		else
+			response_unauthorized
+		end
+  end
+
+  # POST /users/1/profile
+  def update_profile
+    @user = get_user_with_auth_check
+      if @user.update!(name: params[:name], phone_number: params[:phone_number])
+        render json: @user
+      else
+        render response_unprocessable_entity(@user.errors)
+      end
+  end
+
+  # POST /users/1/psw
+  def update_password
+    @user = get_user_with_auth_check
+		if @user.email == params[:email] && @user.authenticate(params[:current_password])
+      if @user.update!(password: params[:new_password], password_confirmation: params[:confirm_password])
+        render json: @user
+      else
+        render response_unprocessable_entity(@user.errors)
+      end
+		else
+			response_unauthorized
+		end
   end
 
   private

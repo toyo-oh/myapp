@@ -1,8 +1,8 @@
 class User < ApplicationRecord
-	validates :email, {presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP, message: "Email must be valid" }}
-	validates :name, {presence: true, length: { maximum: 10}}
-	validates :password, {presence: true, length: { in: 6..20 }, confirmation: true}
-	validates :password_confirmation, {presence: true, length: { in: 6..20 }}
+	validates :email, {presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP, message: "Email must be valid" }, on:[:create, :update_email]}
+	validates :name, {presence: true, length: { maximum: 10}, on:[:create, :update_profile]}
+	validates :password, {presence: true, length: { in: 6..20 }, confirmation: true, on:[:create, :update_password]}
+	validates :password_confirmation, {presence: true, length: { in: 6..20 }, on:[:create, :update_password]}
 
 	# has_secure_token
 	has_secure_password

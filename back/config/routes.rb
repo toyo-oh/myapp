@@ -16,6 +16,13 @@ Rails.application.routes.draw do
       post 'decrease_of_cart'
     end
   end
+  resources :users do
+    member do
+      post 'profile', to:'users#update_profile'
+      post 'email', to:'users#update_email'
+      post 'psw', to:'users#update_password'
+    end
+  end
   post '/login', to: 'authentications#create'
   get '/user/current_user', to: 'users#current_user'
   get '/cart/find_cart/:user_id', to: 'carts#find_cart_items'

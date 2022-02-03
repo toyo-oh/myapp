@@ -9,9 +9,6 @@
         <h2 class="mb-0">Order List</h2>
       </div>
     </div>
-    <v-alert v-model="alertDelete" border="left" close-text="Close Alert" color="deep-purple accent-4" dark dismissible>
-      This order can not be deleted!
-    </v-alert>
     <v-data-table :headers="headers" :items="orders" :page.sync="page" :items-per-page="itemsPerPage" hide-default-footer>
       <template v-slot:item.id="{ item }">
         <h4 class="mb-0">{{item.id}}</h4>
@@ -59,7 +56,6 @@ export default {
       orders: [],
       dialogDelete: false,
       itemToDelete: '',
-      alertDelete: false
     };
   },
   // TODO 变为asyncData方法获取初始数据

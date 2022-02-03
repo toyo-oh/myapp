@@ -2,7 +2,7 @@
   <v-container>
     <div>
       <v-alert v-model="alertFormError" type="error" close-text="Close Alert" dismissible>
-        FORM INPUT ERROR.
+        There are Input Errors in the form.
       </v-alert>
       <v-row justify="center">
         <v-col cols="3">
