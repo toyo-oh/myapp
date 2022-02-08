@@ -25,7 +25,9 @@
             <v-text-field outlined　dense color="brown lighten-3" v-model="receiver" label="Receiver" type="text" :rules="receiverRules"></v-text-field>
             <v-text-field outlined　dense color="brown lighten-3" v-model="phone_number" label="PhoneNumber" type="text" :rules="phoneNumberRules"></v-text-field>
             <v-text-field outlined　dense color="brown lighten-3" v-model="post_code" label="PostCode" type="text" :rules="postCodeRules"></v-text-field>
-            <v-textarea outlined　dense color="brown lighten-3" v-model="detail_address" label="DetailAddress" type="text" :rules="detailAddressRules"></v-textarea>
+            <v-select outlined dense :items="prefectures" item-text="prefecture" item-value="id" v-model="prefecture_id" label="Prefecture" :rules="prefectureRules"></v-select>
+            <v-text-field outlined　dense color="brown lighten-3" v-model="city" label="City" type="text" :rules="cityRules"></v-text-field>
+            <v-textarea outlined　dense color="brown lighten-3" v-model="detail" label="Detail" type="text" :rules="detailRules"></v-textarea>
             <v-btn dark class="mr-4" color="brown lighten-1" @click="editAddress">Save Changes</v-btn>
           </v-form>
         </v-col>
@@ -53,11 +55,21 @@ export default {
         v => !!v || 'Post Code is required',
         v => /^[0-9]{3}-[0-9]{4}$/.test(v) || 'Post Code must be valid',
       ],
-      detailAddressRules: [
-        v => !!v || 'Detail Address is required',
+      prefectureRules: [
+        v => !!v || 'Prefectures is required'
+      ],
+      cityRules: [
+        v => !!v || 'City is required'
+      ],
+      detailRules: [
+        v => !!v || 'Detail is required',
         v => (v && v.length <= 100) || 'Detail Address must be less than 100 characters',
       ],
+      prefectures: []
     };
+  },
+  created () {
+    this.loadPrefectures();
   },
   asyncData ({ $axios, params }) {
     return $axios.$get(`/api/addresses/${params.id}`).then((res) => {
@@ -66,11 +78,20 @@ export default {
         receiver: res.receiver,
         phone_number: res.phone_number,
         post_code: res.post_code,
-        detail_address: res.detail_address
+        prefecture_id: res.prefecture_id,
+        city: res.city,
+        detail: res.detail,
       };
     });
   },
   methods: {
+    loadPrefectures () {
+      if (this.$auth.loggedIn) {
+        this.$axios.get(`/api/prefectures`).then((res) => {
+          this.prefectures = res.data;
+        });
+      }
+    },
     editAddress () {
       if (this.$refs.form.validate()) {
         const formData = new FormData();
@@ -78,7 +99,9 @@ export default {
         formData.append("receiver", this.receiver);
         formData.append("phone_number", this.phone_number);
         formData.append("post_code", this.post_code);
-        formData.append("detail_address", this.detail_address);
+        formData.append("city", this.city);
+        formData.append("prefecture_id", this.prefecture_id);
+        formData.append("detail", this.detail);
         this.$axios.put(`/api/addresses/${this.id}`, formData).then((res) => {
           this.$router.push(`.`);
         });

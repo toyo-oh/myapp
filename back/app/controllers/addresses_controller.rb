@@ -5,10 +5,12 @@ class AddressesController < ApplicationController
 
 	def create
 		@address = Address.new(address_params)
+		@prefecture_item = ShippingFee.find(params[:prefecture_id])
+		@address.detail_address = @prefecture_item.prefecture + params[:city] + params[:detail]
 		if !Address.exists?(user_id: params[:user_id])
 			@address.is_default = 1
 		end
-		if !@address.save
+		if !@address.save!
 			render response_unprocessable_entity(@address.errors)
 		end
 	end
@@ -25,7 +27,9 @@ class AddressesController < ApplicationController
 
 	def update
 		@address = get_address_with_auth_check
-		if !@address.update(address_params)
+		@prefecture_item = ShippingFee.find(params[:prefecture_id])
+		@address.detail_address = @prefecture_item.prefecture + params[:city] + params[:detail]
+		if !@address.update!(address_params)
 			render response_unprocessable_entity(@address.errors)
 		end
 	end
@@ -46,10 +50,15 @@ class AddressesController < ApplicationController
 		end
 	end
 
+	def get_prefectures
+		 @prefectures = ShippingFee.find_by_sql("SELECT id, prefecture FROM shipping_fees")
+		 render json: @prefectures
+	end
+
 	private
 	def address_params
-		params.permit(:id, :user_id, :receiver, :phone_number, :post_code, :detail_address)
-	end 
+		params.permit(:id, :user_id, :receiver, :phone_number, :post_code, :prefecture_id, :city, :detail)
+	end
 
 	def get_address_with_auth_check
 		if validate_user.blank?

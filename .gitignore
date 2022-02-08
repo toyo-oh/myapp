@@ -6,10 +6,15 @@
 
 # 一番下に追加
 # シェルコマンド履歴
-/.ash_history
+# /.ash_history
 # Rubyコマンド履歴
-/.irb_history
+# /.irb_history
 # デバッグbinding.pryコマンド履歴
-/.local
-/.local/*
-/back/public/uploads
+# /.local
+# /.local/*
+# /back/public/uploads
+
+
+
+
+

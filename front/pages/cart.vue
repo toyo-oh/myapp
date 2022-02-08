@@ -6,13 +6,18 @@
     <v-row>
       <v-col cols="12">
         <v-row>
+          <div v-if="products.length==0" class="ml-12 mt-6 d-flex align-center">
+            <img src="@/assets/images/cart/empty_cart.jpg" width="400" height="300">
+            <h2 class="brown--text text--darken-4">
+              Your shopping cart is empty. Start shopping
+              <router-link to="home">Here</router-link>
+            </h2>
+          </div>
+        </v-row>
+      </v-col>
+      <v-col cols="12">
+        <v-row>
           <v-col cols="12" md="6" lg="8" xl="8">
-            <div v-if="products.length==0" class="d-flex flex-wrap mt-6 justify-end">
-              <h2 class="brown--text text--darken-4">
-                Your shopping cart is empty. Start shopping
-                <router-link to="home">Home</router-link>
-              </h2>
-            </div>
             <div v-for="item in products" :key="item.id">
               <base-card class="d-flex flex-wrap mb-6">
                 <router-link :to="{name: 'products-id', params: {id: item.id}}">
@@ -54,7 +59,7 @@
               <div class="pa-5">
                 <div class="d-flex justify-space-between">
                   <p class="mb-0 grey--text text--darken-1">Total</p>
-                  <h4 class="font-600">¥{{$store.getters['getTotalPrice']}}</h4>
+                  <h4>¥{{$store.getters['getTotalPrice']}}</h4>
                 </div>
                 <v-divider class="my-3"></v-divider>
                 <h4 class="mb-4">Shipping Estimates</h4>
@@ -65,7 +70,7 @@
                 <v-btn color="brown lighten-1" outlined class="text-capitalize mb-4" block @click="calShipping">
                   Calculate Shipping
                 </v-btn>
-                <v-btn dark color="brown lighten-1" class="text-capitalize font-600 mb-4" block @click="checkOut">
+                <v-btn dark color="brown lighten-1" class="text-capitalize mb-4" block @click="checkOut">
                   Checkout Now
                 </v-btn>
               </div>
