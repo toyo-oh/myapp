@@ -228,7 +228,7 @@
                           Shipping fee:
                         </p>
                         <p class="tex-14 mb-0 font-weight-bold">
-                          ¥{{logistics_fee}}
+                          ¥{{shipping_fee}}
                         </p>
                       </div>
                       <div class="d-flex justify-space-between mb-2">
@@ -245,7 +245,7 @@
                           Total:
                         </p>
                         <p class="tex-14 mb-0 font-weight-bold">
-                          ¥{{totalPrice}}
+                          ¥{{totalPrice+shipping_fee}}
                         </p>
                       </div>
                     </div>
@@ -278,7 +278,7 @@ export default {
     return {
       products: [],
       totalPrice: 0,
-      logistics_fee: 0,
+      shipping_fee: 0,
       order_id: '',
       address_detail: '',
       payment_detail: '',
@@ -332,7 +332,7 @@ export default {
         totalPrice: tmp_total,
         order_id: params.id,
         order_status: res.data.order.aasm_state,
-        logistics_fee: res.data.order.logistics_fee == null ? 0 : res.data.order.logistics_fee,
+        shipping_fee: res.data.order.shipping_fee == null ? 0 : res.data.order.shipping_fee,
         is_paid: res.data.order.is_paid == '1' ? true : false,
         placed_on: res.data.order.created_at,
         deliver_on: res.data.order.deliver_at ? res.data.order.deliver_at : ''

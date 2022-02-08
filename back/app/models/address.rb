@@ -1,11 +1,11 @@
 class Address < ApplicationRecord
-	validates :user_id, {presence: true}
-	validates :receiver, {presence: true, length: { maximum: 20  }}
-	validates :phone_number, {presence: true, format: { with: /\A\d{2,4}-\d{2,4}-\d{4}\z/, message: "Phone Number must be valid" }}
-	validates :post_code, {presence: true, format: { with: /\A\d{3}\-?\d{4}\z/, message: "Post Code must be valid" }}
-	validates :prefecture_id, {presence: true}
-	validates :city, {presence: true}
-	validates :detail, {presence: true, length: { maximum: 100  }}
+	validates :user_id, {presence: true, on:[:create, :update]}
+	validates :receiver, {presence: true, length: { maximum: 20  }, on:[:create, :update]}
+	validates :phone_number, {presence: true, format: { with: /\A\d{2,4}-\d{2,4}-\d{4}\z/, message: "Phone Number must be valid" }, on:[:create, :update]}
+	validates :post_code, {presence: true, format: { with: /\A\d{3}\-?\d{4}\z/, message: "Post Code must be valid" }, on:[:create, :update]}
+	validates :prefecture_id, {presence: true, on:[:create, :update]}
+	validates :city, {presence: true, on:[:create, :update]}
+	validates :detail, {presence: true, length: { maximum: 100  }, on:[:create, :update]}
 
 	belongs_to :user
 end

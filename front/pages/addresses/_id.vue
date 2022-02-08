@@ -86,11 +86,9 @@ export default {
   },
   methods: {
     loadPrefectures () {
-      if (this.$auth.loggedIn) {
-        this.$axios.get(`/api/prefectures`).then((res) => {
-          this.prefectures = res.data;
-        });
-      }
+      this.$axios.get(`/api/prefectures`).then((res) => {
+        this.prefectures = res.data;
+      });
     },
     editAddress () {
       if (this.$refs.form.validate()) {

@@ -55,6 +55,12 @@ class AddressesController < ApplicationController
 		 render json: @prefectures
 	end
 
+	def get_shipping_fee
+		@address = Address.find(params[:address_id])
+		@shipping_fee = ShippingFee.find(@address.prefecture_id)
+		render json: @shipping_fee
+	end
+
 	private
 	def address_params
 		params.permit(:id, :user_id, :receiver, :phone_number, :post_code, :prefecture_id, :city, :detail)

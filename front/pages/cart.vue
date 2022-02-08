@@ -3,6 +3,9 @@
     <v-alert v-model="alertNoItem" type="error" close-text="Close Alert" dismissible>
       There are no items in the shopping cart.
     </v-alert>
+    <v-alert v-model="alertNoPrefecture" type="error" close-text="Close Alert" dismissible>
+      Please select Prefecture.
+    </v-alert>
     <v-row>
       <v-col cols="12">
         <v-row>
@@ -59,17 +62,19 @@
               <div class="pa-5">
                 <div class="d-flex justify-space-between">
                   <p class="mb-0 grey--text text--darken-1">Total</p>
-                  <h4>¥{{$store.getters['getTotalPrice']}}</h4>
+                  <h4>¥{{$store.getters['getTotalPrice'] + this.shipping_fee}}</h4>
                 </div>
                 <v-divider class="my-3"></v-divider>
                 <h4 class="mb-4">Shipping Estimates</h4>
-                <p class="text-14 mb-1">City</p>
-                <v-select dense color="brown lighten-1" class="mb-4" :items="prefectures" item-text="prefecture" item-value="id" label="Select Prefecture" outlined hide-details></v-select>
-                <p class="text-14 mb-1">Zip Code</p>
-                <v-text-field outlined dense hide-details="" color="brown lighten-1" class="mb-4"></v-text-field>
+                <p class="text-14 mb-1">Prefecture</p>
+                <v-select dense outlined hide-details color="brown lighten-1" class="mb-4" :items="prefectures" item-text="prefecture" item-value="id" v-model="prefecture_id" label="Select Prefecture"></v-select>
                 <v-btn color="brown lighten-1" outlined class="text-capitalize mb-4" block @click="calShipping">
                   Calculate Shipping
                 </v-btn>
+                <div class="d-flex justify-space-between">
+                  <p class="mb-4">Shipping Fee</p>
+                  <h4>{{"¥"+shipping_fee}}</h4>
+                </div>
                 <v-btn dark color="brown lighten-1" class="text-capitalize mb-4" block @click="checkOut">
                   Checkout Now
                 </v-btn>
@@ -107,11 +112,15 @@ export default {
         v => (v && v >= 0) || "count should be above 0",
         v => (v && v <= 10) || "Max should not be above 10",
       ],
-      prefectures: []
+      prefectures: [],
+      prefecture_id: '',
+      shipping_fee: 0,
+      alertNoPrefecture: false
     };
   },
   created () {
     this.getProductList();
+    this.loadPrefectures();
   },
   computed: {
   },
@@ -149,6 +158,11 @@ export default {
           console.log(this.products);
         });
       }
+    },
+    loadPrefectures () {
+      this.$axios.get(`/api/prefectures`).then((res) => {
+        this.prefectures = res.data;
+      });
     },
     isMinusDisable (item) {
       return item.cnt < 2 ? true : false
@@ -229,24 +243,16 @@ export default {
       } else {
         this.$router.push(`/login`)
       }
+    },
+    calShipping () {
+      if (this.prefecture_id) {
+        this.$axios.get(`/api/shipping_fees/${this.prefecture_id}`).then((res) => {
+          this.shipping_fee = res.data.fee;
+        });
+      } else {
+        this.alertNoPrefecture = true;
+      }
     }
   },
 };
 </script>
-
-<style scoped>
-.v-text-field {
-  width: 200px;
-}
-</style>
-
-<style lang="scss" scoped>
-.card-hover-shadow {
-  cursor: pointer;
-  transition: all 250ms ease-in-out 0s;
-  &:hover {
-    box-shadow: rgb(3 0 71 / 9%) 0px 8px 45px !important;
-    transition: all 250ms ease-in-out 0s;
-  }
-}
-</style>

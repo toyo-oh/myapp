@@ -128,7 +128,7 @@
         </div>
         <div class="d-flex justify-space-between mb-2">
           <p class="mb-0 grey--text text--darken-2">Shipping:</p>
-          <p class="mb-0 font-weight-bold"> - </p>
+          <p class="mb-0 font-weight-bold">¥{{shipping_fee}}</p>
         </div>
         <div class="d-flex justify-space-between mb-2">
           <p class="mb-0 grey--text text--darken-2">Tax:</p>
@@ -141,7 +141,7 @@
         <v-divider class="my-4"></v-divider>
         <div class="d-flex justify-space-between mb-2">
           <p class="mb-0 font-weight-bold">Total:</p>
-          <p class="mb-0 font-weight-bold"> ¥{{$store.getters['getTotalPrice']}}</p>
+          <p class="mb-0 font-weight-bold"> ¥{{$store.getters['getTotalPrice']+ this.shipping_fee}}</p>
         </div>
       </v-col>
     </v-row>
@@ -166,12 +166,13 @@ export default {
       payment_card_number: '',
       paymentDialog: false,
       paymentList: [],
-      selectedPayment_Id: '',
-      alertNoPayment: false
+      selectedPaymentId: '',
+      alertNoPayment: false,
+      shipping_fee: 0
     };
   },
   created () {
-    this.getProductList();
+    this.loadData();
   },
   computed: {
     display_address: function () {
@@ -179,7 +180,7 @@ export default {
     }
   },
   methods: {
-    getProductList () {
+    loadData () {
       this.$axios.get(`api/cart/get_checkout_info/${this.$auth.user.id}`).then((res) => {
         var cart_items = res.data.cart_items;
         for (var m = 0; m < cart_items.length; m++) {
@@ -203,7 +204,15 @@ export default {
           this.payment_holder_name = res.data.payment[0].holder_name;
           this.payment_card_number = res.data.payment[0].card_number.substring(12, 16);
         }
+        this.getShipping();
       });
+    },
+    getShipping () {
+      if (this.address_id) {
+        this.$axios.get(`api/addresses/get_shipping_fee/${this.address_id}`).then((res) => {
+          this.shipping_fee = res.data.fee
+        });
+      }
     },
     getAddressList () {
       this.$axios.get(`api/addresses/find_by_user_id/${this.$auth.user.id}`).then((res) => {
@@ -220,6 +229,7 @@ export default {
           break;
         }
       }
+      this.getShipping();
     },
     getPaymentList () {
       this.$axios.get(`api/payments/find_by_user_id/${this.$auth.user.id}`).then((res) => {
@@ -247,6 +257,7 @@ export default {
         formData.append("user_id", this.$auth.user.id);
         formData.append("address_id", this.address_id);
         formData.append("payment_id", this.payment_id);
+        formData.append("shipping_fee", this.shipping_fee);
         this.$axios.post("/api/order/create_order", formData).then((res) => {
           this.$router.push(`/orders/${res.data.order_id}`);
           this.$store.commit('clear_cart');

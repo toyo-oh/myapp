@@ -16,6 +16,7 @@ class OrdersController < ApplicationController
 		@new_order.payment_id = payment_id
 		@new_order.aasm_state = 'order_placed'
 		@new_order.is_paid = 0
+		@new_order.shipping_fee = params[:shipping_fee]
 		Cart.transaction do
 			@new_order.save!
 			count = 0

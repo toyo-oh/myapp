@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :payments
   resources :orders
   resources :carts
+  resources :shipping_fees
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   namespace :admin do
     resources :products
@@ -32,6 +33,7 @@ Rails.application.routes.draw do
   get '/cart/cal_shipping_fee/:prefecture_id', to: 'carts#cal_shipping_fee'
   get '/addresses/find_by_user_id/:user_id', to: 'addresses#find_by_user_id'
   post '/addresses/set_default', to: 'addresses#set_default'
+  get '/addresses/get_shipping_fee/:address_id', to: 'addresses#get_shipping_fee'
   get  '/prefectures', to: 'addresses#get_prefectures'
   post '/order/create_order', to:'orders#create_order'
   get '/orders/get_orders_by_user_id/:user_id', to: 'orders#get_orders_by_user_id'
