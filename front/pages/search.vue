@@ -102,7 +102,7 @@ export default {
       this.$axios.$post(`/api/products/search`, { value: this.$route.query.value }).then((res) => {
         var products = res;
         for (var m = 0; m < products.length; m++) {
-          products[m].image = "http://localhost:3000" + products[m].image.medium.url;
+          products[m].image = "http://localhost:3000" + products[m].images[0].medium.url;
           products[m].qty = 1;
         }
         this.items = products;

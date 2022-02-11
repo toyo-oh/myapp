@@ -26,8 +26,16 @@
             <v-textarea outlined　dense color="brown lighten-3" v-model="description" label="Description" :rules="descriptionRules"></v-textarea>
             <v-text-field outlined　dense color="brown lighten-3" v-model="price" label="Price" type="number" :rules="priceRules"></v-text-field>
             <v-text-field outlined　dense color="brown lighten-3" v-model="quantity" label="Quantity" type="number" :rules="quantityRules"></v-text-field>
-            <v-img :src="photoSrc?photoSrc:image" max-height="200" max-width="200"></v-img>
-            <v-file-input outlined　dense color="brown lighten-3" accept="image/png, image/jpeg, image/bmp" @change="setImage"></v-file-input>
+            <div class="d-flex justify-start mb-2">
+              <v-img v-for="photo in photoSrcs" :key="photo" :src="photo" height="120" width="120" max-height="120" max-width="120"></v-img>
+            </div>
+            <v-file-input outlined　dense counter multiple v-model="images" color="brown lighten-3" accept="image/png, image/jpeg, image/bmp" label="Upload image" placeholder="Select your image" :rules="imagesRules" @change="setImage" @click:clear="removeAll">
+              <template v-slot:selection="{index,text}">
+                <v-chip small label close @click:close="removeImage(index)" color="brown lighten-3">
+                  {{text}}
+                </v-chip>
+              </template>
+            </v-file-input>
             <v-btn dark class="mr-4" color="brown lighten-1" @click="createProduct">create product</v-btn>
           </v-form>
         </v-col>
@@ -48,7 +56,8 @@ export default {
       price: "",
       quantity: "",
       image: "",
-      photoSrc: "",
+      photoSrcs: [],
+      images: [],
       titleRules: [
         v => !!v || 'Title is required',
         v => (v && v.length <= 20) || 'Title must be less than 20 characters',
@@ -66,27 +75,38 @@ export default {
         v => !!v || 'Quantity is required',
         v => (v && v > 0) || "Quantity should be above 0",
         v => (v && v <= 99999999) || "Max should not be above 99999999",
+      ],
+      imagesRules: [
+        v => !!v || 'Image is required',
+        v => (v && v.length > 0) || "At least 1 images required",
+        v => (v && v.length <= 3) || "Should not be above 3 images",
       ]
     };
   },
   methods: {
     setImage (e) {
       var that = this;
-      // 判断浏览器是否支持 FileReader
       if (!e || !window.FileReader) {
-        alert("您的设备不支持图片预览功能，如需该功能请升级您的设备！");
         return;
       }
-      let reader = new FileReader();
-      // 这里是最关键的一步，转换就在这里
-      if (e) {
-        reader.readAsDataURL(e);
+      //clear
+      that.photoSrcs.splice(0, this.photoSrcs.length);
+      for (var i = 0; i < e.length; i++) {
+        let reader = new FileReader();
+        reader.onload = function () {
+          that.photoSrcs.push(reader.result)
+        };
+        reader.readAsDataURL(e[i]);
       }
-      reader.onload = function () {
-        that.photoSrc = this.result
-      };
-      // 设置文件
-      this.image = e;
+      this.images = e;
+    },
+    removeImage (index) {
+      this.photoSrcs.splice(index, 1);
+      this.images.splice(index, 1);
+    },
+    removeAll () {
+      this.photoSrcs.splice(0, this.photoSrcs.length);
+      this.images.splice(0, this.images.length);
     },
     createProduct () {
       if (this.$refs.form.validate()) {
@@ -100,7 +120,9 @@ export default {
         formData.append("description", this.description);
         formData.append("price", this.price);
         formData.append("quantity", this.quantity);
-        formData.append("image", this.image);
+        for (var i = 0; i < this.images.length; i++) {
+          formData.append("image" + (i + 1), this.images[i]);
+        }
         this.$axios.post("/api/admin/products", formData, config).then((res) => {
           this.$router.push(`.`);
         });

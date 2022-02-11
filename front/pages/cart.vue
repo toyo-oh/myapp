@@ -75,7 +75,7 @@
                   <p class="mb-4">Shipping Fee</p>
                   <h4>{{"¥"+shipping_fee}}</h4>
                 </div>
-                <v-btn dark color="brown lighten-1" class="text-capitalize mb-4" block @click="checkOut">
+                <v-btn v-if="!$auth.user.is_admin" dark color="brown lighten-1" class="text-capitalize mb-4" block @click="checkOut">
                   Checkout Now
                 </v-btn>
               </div>
@@ -152,7 +152,7 @@ export default {
               }
             }
             // TODO baseURL
-            this.products[m].image = "http://localhost:3000" + this.products[m].image.thumb.url;
+            this.products[m].image = "http://localhost:3000" + this.products[m].images[0].thumb.url;
             // this.products[m].image = this.$axios.baseURL + this.products[m].image.thumb.url;
           }
           console.log(this.products);

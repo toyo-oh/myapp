@@ -318,7 +318,7 @@ export default {
         product.price = order_items[m].price;
         product.cnt = order_items[m].quantity;
         // TODO baseURL
-        product.image = "http://localhost:3000" + order_items[m].product.image.thumb.url;
+        product.image = "http://localhost:3000" + order_items[m].product.images[0].thumb.url;
         // this.products[m].image = this.$axios.baseURL + this.products[m].image.thumb.url;
         tmp_products.push(product);
         tmp_total += order_items[m].subtotal;

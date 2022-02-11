@@ -131,10 +131,6 @@
           <p class="mb-0 font-weight-bold">¥{{shipping_fee}}</p>
         </div>
         <div class="d-flex justify-space-between mb-2">
-          <p class="mb-0 grey--text text--darken-2">Tax:</p>
-          <p class="mb-0 font-weight-bold"> - </p>
-        </div>
-        <div class="d-flex justify-space-between mb-2">
           <p class="mb-0 grey--text text--darken-2">Discount:</p>
           <p class="mb-0 font-weight-bold"> - </p>
         </div>
@@ -189,7 +185,7 @@ export default {
           product.price = cart_items[m].price;
           product.cnt = cart_items[m].quantity;
           // TODO baseURL
-          product.image = "http://localhost:3000" + cart_items[m].product.image.thumb.url;
+          product.image = "http://localhost:3000" + cart_items[m].product.images[0].thumb.url;
           // this.products[m].image = this.$axios.baseURL + this.products[m].image.thumb.url;
           this.products.push(product);
         }

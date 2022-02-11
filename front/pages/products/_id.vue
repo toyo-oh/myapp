@@ -2,7 +2,17 @@
   <div>
     <v-row justify="center" align="center">
       <v-col cols="5">
-        <v-img :src="image" max-height="350" max-width="350"></v-img>
+        <v-sheet max-width="400" max-height="400" class="mx-auto">
+          <v-carousel height="400" light hide-delimiter-background>
+            <v-carousel-item v-for="(item,i) in images" :key="i">
+              <v-row class="fill-height" align="center" justify="center">
+                <v-avatar tile size="300">
+                  <img :src="item">
+                </v-avatar>
+              </v-row>
+            </v-carousel-item>
+          </v-carousel>
+        </v-sheet>
       </v-col>
       <v-col cols="5" lg="5">
         <div class="d-flex mb-10"></div>
@@ -29,7 +39,7 @@
           <p class="">Stock Available</p>
         </div>
         <div class="mb-6">
-          <v-btn x-large dark width="250" @click="addToCart" color="brown lighten-1" class="text-capitalize mb-3" :class="btn_class">
+          <v-btn v-if="!$auth.user.is_admin" x-large dark width="250" @click="addToCart" color="brown lighten-1" class="text-capitalize mb-3" :class="btn_class">
             Add to Cart
           </v-btn>
         </div>
@@ -46,7 +56,7 @@ export default {
       description: '',
       price: '',
       quantity: '',
-      image: ''
+      images: []
     }
   },
   computed: {
@@ -58,13 +68,19 @@ export default {
   },
   asyncData ({ $axios, params }) {
     return $axios.$get(`/api/products/${params.id}`).then((res) => {
+      var tmp_images = [];
+      if (res.images) {
+        for (var i = 0; i < res.images.length; i++) {
+          tmp_images.push(res.images[i] ? "http://localhost:3000" + res.images[i].medium.url : "");
+        }
+      }
       return {
         id: res.id,
         title: res.title,
         description: res.description,
         price: res.price,
         quantity: res.quantity,
-        image: "http://localhost:3000" + res.image.medium.url
+        images: tmp_images
       };
     });
   },
