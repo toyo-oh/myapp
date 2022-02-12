@@ -23,9 +23,13 @@
         <v-col cols="6" md="6">
           <v-form ref="form" v-model="valid">
             <v-text-field outlined　dense color="brown lighten-3" v-model="title" label="Title" type="text" :rules="titleRules"></v-text-field>
+            <v-text-field outlined　dense color="brown lighten-3" v-model="sub_title" label="Sub Title" :rules="subTitleRules"></v-text-field>
+            <v-select outlined dense color="brown lighten-3" :items="categories" item-text="category" item-value="id" v-model="category_id" label="Category" :rules="categoryRules"></v-select>
+            <!-- placeholder="Wrap the text with <br>"  -->
             <v-textarea outlined　dense color="brown lighten-3" v-model="description" label="Description" :rules="descriptionRules"></v-textarea>
             <v-text-field outlined　dense color="brown lighten-3" v-model="price" label="Price" type="number" :rules="priceRules"></v-text-field>
             <v-text-field outlined　dense color="brown lighten-3" v-model="quantity" label="Quantity" type="number" :rules="quantityRules"></v-text-field>
+            <v-text-field outlined　dense color="brown lighten-3" v-model="tags" label="Tags"></v-text-field>
             <div class="d-flex justify-start mb-2">
               <v-img v-for="photo in photoSrcs" :key="photo" :src="photo" height="120" width="120" max-height="120" max-width="120"></v-img>
             </div>
@@ -36,6 +40,7 @@
                 </v-chip>
               </template>
             </v-file-input>
+            <v-switch v-model="is_available" color="brown lighten-1" label="Available"></v-switch>
             <v-btn dark class="mr-4" color="brown lighten-1" @click="createProduct">create product</v-btn>
           </v-form>
         </v-col>
@@ -51,20 +56,31 @@ export default {
     return {
       alertFormError: false,
       valid: true,
+      is_available: true,
       title: "",
+      sub_title: "",
       description: "",
       price: "",
       quantity: "",
-      image: "",
+      category_id: "",
+      tags: "",
       photoSrcs: [],
       images: [],
+      categories: [],
       titleRules: [
         v => !!v || 'Title is required',
         v => (v && v.length <= 20) || 'Title must be less than 20 characters',
       ],
+      subTitleRules: [
+        v => !!v || 'Sub Title is required',
+        v => (v && v.length <= 50) || 'Sub Title must be less than 50 characters',
+      ],
+      categoryRules: [
+        v => !!v || 'Category is required'
+      ],
       descriptionRules: [
         v => !!v || 'Description is required',
-        v => (v && v.length <= 100) || 'Description must be less than 100 characters',
+        v => (v && v.length <= 300) || 'Description must be less than 300 characters',
       ],
       priceRules: [
         v => !!v || 'Price is required',
@@ -83,7 +99,15 @@ export default {
       ]
     };
   },
+  created () {
+    this.loadCategories();
+  },
   methods: {
+    loadCategories () {
+      this.$axios.get(`/api/categories`).then((res) => {
+        this.categories = res.data;
+      });
+    },
     setImage (e) {
       var that = this;
       if (!e || !window.FileReader) {
@@ -117,12 +141,16 @@ export default {
         };
         const formData = new FormData();
         formData.append("title", this.title);
+        formData.append("sub_title", this.sub_title);
         formData.append("description", this.description);
         formData.append("price", this.price);
         formData.append("quantity", this.quantity);
+        formData.append("is_available", this.is_available);
         for (var i = 0; i < this.images.length; i++) {
           formData.append("image" + (i + 1), this.images[i]);
         }
+        formData.append("category_id", this.category_id);
+        formData.append("tags", this.tags);
         this.$axios.post("/api/admin/products", formData, config).then((res) => {
           this.$router.push(`.`);
         });

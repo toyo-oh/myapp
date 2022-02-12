@@ -9,8 +9,13 @@ class ProductsController < ApplicationController
 
     def show
         @product = Product.find(params[:id])
-        render json: @product
-    end 
+        @reviews = @product.reviews
+        avg_rate = Review.where(product_id: params[:id]).average("rate")
+        tags = @product.tags.split(",")
+        # TODO except itself or tags(like) 
+        @related_products = Product.where(category_id: @product.category_id)
+        render :json => {:product => @product.as_json(:include => {:reviews => {:include=>{user: {only: :name }}}}),:avg_rate => avg_rate , :related_products =>@related_products}
+    end
 
     def add_to_cart
         @product = Product.find(params[:product_id])
@@ -47,7 +52,10 @@ class ProductsController < ApplicationController
     end
 
     def search
-        @products = Product.where("title LIKE :search OR description LIKE :search", search: "%#{params[:value]}%")
+        @products = Product.where("is_available = 1 and quantity > 0 and (title LIKE :search OR description LIKE :search)", search: "%#{params[:value]}%")
         render json: @products
+    end
+
+    def review
     end
 end

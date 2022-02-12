@@ -26,6 +26,13 @@ class OrdersController < ApplicationController
 				@new_order.create_detail_item(cart_item.product,cart_item.quantity,'')
 				count += cart_item.quantity
 				amount += cart_item.quantity * cart_item.price
+				@product = Product.find(cart_item.product_id)
+				if @product.quantity < cart_item.quantity
+					# TODO error handling
+					raise "Order failed. ErrCode: xxx / ErrMessage: quantity not enough"
+				else
+					@product.update!(quantity: @product.quantity-cart_item.quantity)
+				end
 			end
 			@new_order.update!(product_count: count, amount_total: amount)
 			@current_cart.destroy!
@@ -50,7 +57,14 @@ class OrdersController < ApplicationController
 
 	def destroy
 		@order = get_order_with_auth_check
-		@order.cancel_order!
+		@order_details = @order.order_details
+		Order.transaction do
+			for detail in @order_details do
+				@product = Product.find(detail.product_id)
+				@product.update!(quantity: @product.quantity+detail.quantity)
+			end
+			@order.cancel_order!
+		end
 		render json: @order
 	end
 

@@ -34,8 +34,7 @@
                       <v-row>
                         <v-col v-for="(item, index) in props.items" :key="index" cols="12" sm="6" md="6" lg="3" xl="3">
                           <!-- TODO product discount -->
-                          <!-- TODO product rating -->
-                          <item-card :contentId="item.id" :content-img="item.image" :content-text="item.title" :originalPrice="item.price" :contentRating="item.rating" :discount="Number(0.98)" @cartRemove="removeCart(item)" @cartAdd="addCart(item)">
+                          <item-card :contentId="item.id" :content-img="item.image" :content-text="item.title" :originalPrice="item.price" :subTitle="item.sub_title" :discount="Number(0.98)" @cartRemove="removeCart(item)" @cartAdd="addCart(item)">
                           </item-card>
                         </v-col>
                       </v-row>
@@ -109,7 +108,6 @@ export default {
         this.value = this.$route.query.value;
       })
     },
-
     sort (price) {
       if (this.sortSelected == 'Low to High') {
         this.items = this.items.sort((a, b) => a[price] < b[price] ? -1 : 1)
