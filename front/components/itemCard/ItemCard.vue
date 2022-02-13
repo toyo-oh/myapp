@@ -4,7 +4,10 @@
       {{parseFloat(1-discount).toFixed(10)*100}}%off
     </v-chip>
     <router-link :to="{name: 'products-id', params: {id: contentId}}">
-      <v-img height="250" class="br-t-8" :src="contentImg"></v-img>
+      <!-- <v-img height="250" class="br-t-8" :src="contentImg"></v-img> -->
+      <v-avatar tile :size="imageSize">
+        <img :src="contentImg" class="br-t-8">
+      </v-avatar>
     </router-link>
     <v-card-text class=" d-flex justify-content-between align-end">
       <div class="flex-grow-1 my-3">
@@ -53,6 +56,10 @@ export default {
       default: 0
     },
     contentImg: String,
+    imageSize: {
+      type: Number,
+      default: 250
+    },
     contentText: String,
     subTitle: String,
     originalPrice: {

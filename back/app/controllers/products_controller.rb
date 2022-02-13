@@ -11,9 +11,12 @@ class ProductsController < ApplicationController
         @product = Product.find(params[:id])
         @reviews = @product.reviews
         avg_rate = Review.where(product_id: params[:id]).average("rate")
-        tags = @product.tags.split(",")
-        # TODO except itself or tags(like) 
-        @related_products = Product.where(category_id: @product.category_id)
+        if !@product.tags.blank?
+            segments,tags = set_tags_like @product.tags.split(",")
+            @related_products = Product.where("(" + segments.join(' OR ') +" OR category_id = ?) AND id <> ?", *tags, @product.category_id, @product.id)
+        else
+            @related_products = Product.where("category_id = ? AND id <> ?", @product.category_id, @product.id)
+        end
         render :json => {:product => @product.as_json(:include => {:reviews => {:include=>{user: {only: :name }}}}),:avg_rate => avg_rate , :related_products =>@related_products}
     end
 
@@ -56,6 +59,13 @@ class ProductsController < ApplicationController
         render json: @products
     end
 
-    def review
+    private
+    def set_tags_like(tags)
+        segments = []
+        tags = tags.map{ |tag|
+            segments.push('tags LIKE ?')
+            "%#{tag}%"
+        }
+        return segments, tags
     end
 end

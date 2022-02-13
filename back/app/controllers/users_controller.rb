@@ -2,9 +2,6 @@ class UsersController < ApplicationController
 
   before_action :require_login, only: [:index]
   before_action :get_user_with_auth_check, only: [:show, :update, :destroy, :update_email, :update_profile, :update_password]
-  # https://stackoverflow.com/questions/30632639/password-cant-be-blank-in-rails-using-has-secure-password
-  # https://qiita.com/kazutosato/items/fbaa2fc0443611c627fc
-  # https://stackoverflow.com/questions/50641705/how-do-you-use-rails-5-2-wrap-parameters
   wrap_parameters :user, include: [:name, :password, :password_confirmation, :email, :is_admin]
   
   def current_user

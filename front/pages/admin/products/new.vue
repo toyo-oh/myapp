@@ -150,7 +150,7 @@ export default {
           formData.append("image" + (i + 1), this.images[i]);
         }
         formData.append("category_id", this.category_id);
-        formData.append("tags", this.tags);
+        formData.append("tags", this.tags ? this.tags : "");
         this.$axios.post("/api/admin/products", formData, config).then((res) => {
           this.$router.push(`.`);
         });

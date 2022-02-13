@@ -25,7 +25,7 @@
           <div class="d-flex align-center justify-center align-center mb-1">
             <v-rating :value="avg_rate" color="amber" background-color="grey lighten-2" dense half-increments readonly size="16"></v-rating>
             <div class="grey--text text--darken-4 ml-1">
-              {{avg_rate}}
+              {{parseFloat(avg_rate).toFixed(1)}}
             </div>
           </div>
         </div>
@@ -98,8 +98,8 @@
 
         <h3 class="mb-6">Related Products</h3>
         <v-row>
-          <v-col v-for="(item, index) in related_products" :key="index" cols="12" sm="6" md="4" lg="3" xl="2">
-            <item-card :contentId="item.id" :content-img="item.images[0]" :content-text="item.title" :originalPrice="item.price" :subTitle="item.sub_title" :discount="Number(0.98)" @cartRemove="removeCart(item)" @cartAdd="addToCart(item)">
+          <v-col v-for="(item, index) in related_products" :key="index" cols="12" sm="4" md="2" lg="2" xl="2">
+            <item-card :contentId="item.id" :content-img="item.images[0]" :imageSize="Number(160)" :content-text=" item.title" :originalPrice="item.price" :discount="Number(0.98)" @cartAdd="addToCart(item)">
             </item-card>
           </v-col>
         </v-row>

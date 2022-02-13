@@ -9,6 +9,9 @@
     <v-alert v-model="alertReceive" type="success" close-text="Close Alert" dismissible>
       Order completed！
     </v-alert>
+    <v-alert v-model="alertReview" type="success" close-text="Close Alert" dismissible>
+      Review Product successfully！
+    </v-alert>
     <v-row>
       <v-col cols="12">
         <div class="box-wrapper">
@@ -180,9 +183,30 @@
                           </div>
                         </div>
                         <p class="mb-0 grey--text text--darken-2">
-                          Product properties: Black, L
+                          Product properties: TODO
                         </p>
-                        <v-btn text color="brown lighten-1" class="text-capitalize font-weight-bold">Write a Review</v-btn>
+                        <v-dialog v-model="reviewDialog" max-width="500px">
+                          <template v-slot:activator="{ on, attrs }">
+                            <v-btn text color="brown lighten-1" class="text-capitalize font-weight-bold" v-bind="attrs" v-on="on">Write a Review</v-btn>
+                          </template>
+                          <v-card>
+                            <v-card-title>Write a Review for this product</v-card-title>
+                            <v-divider></v-divider>
+                            <v-card-text style="height: 300px;">
+                              <br>
+                              <h5 class="mb-3">Your Rating <sup class="brown--text">*</sup></h5>
+                              <v-rating v-model="rate" color="amber" background-color="grey lighten-2" class="mb-3" dense half-increments size="20"></v-rating>
+                              <h5 class="mb-3">Your Review <sup class="brown--text">*</sup></h5>
+                              <v-textarea v-model="comment" color="brown lighten-1" class="mb-3" outlined background-color="white">
+                              </v-textarea>
+                            </v-card-text>
+                            <v-divider></v-divider>
+                            <v-card-actions>
+                              <v-btn color="brown lighten-1" text @click="reviewProduct(item)">Submit</v-btn>
+                              <v-btn color="brown lighten-1" text @click="reviewDialog = false">Cancel</v-btn>
+                            </v-card-actions>
+                          </v-card>
+                        </v-dialog>
                       </div>
                     </div>
                   </base-card>
@@ -282,6 +306,8 @@ export default {
       order_id: '',
       address_detail: '',
       payment_detail: '',
+      reviewDialog: false,
+      alertReview: false,
       dialogCancel: false,
       alertCancel: false,
       alertPay: false,
@@ -289,7 +315,9 @@ export default {
       order_status: '',
       is_paid: false,
       placed_on: '',
-      deliver_on: ''
+      deliver_on: '',
+      comment: '',
+      rate: 0
     };
   },
   computed: {
@@ -375,6 +403,24 @@ export default {
     },
     rtnToList () {
       this.$router.push(`.`);
+    },
+    reviewProduct (item) {
+      this.reviewDialog = false;
+      if (this.$auth.loggedIn) {
+        this.$axios.$post('api/reviews', {
+          product_id: item.id,
+          user_id: this.$auth.user.id,
+          comment: this.comment,
+          rate: this.rate
+        }).then((res) => {
+          // TODO success message
+          this.alertReview = true;
+          this.rate = 0;
+          this.comment = "";
+        });
+      } else {
+        // TODO redirect to login page
+      }
     }
   },
 };

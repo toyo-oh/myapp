@@ -49,11 +49,13 @@ export default {
       headers: [
         { text: "ID", align: "start", sortable: false, value: "id", class: "text-h6 grey--text text--darken-2 flex-1 mr-3" },
         { text: "Title", align: "start", sortable: false, value: "title", class: "text-h6 grey--text text--darken-2 flex-1 mr-3" },
-        { text: "Description", value: "description", sortable: false, class: "text-h6 grey--text text--darken-2 flex-1 mr-3" },
+        { text: "SubTitle", value: "sub_title", sortable: false, class: "text-h6 grey--text text--darken-2 flex-1 mr-3" },
+        { text: "Category", value: "category_id", sortable: false, class: "text-h6 grey--text text--darken-2 flex-1 mr-3" },
         { text: "Price", value: "price", sortable: false, class: "text-h6 grey--text text--darken-2 flex-1 mr-3" },
         { text: "Quantity", value: "quantity", sortable: false, class: "text-h6 grey--text text--darken-2 flex-1 mr-3" },
         { text: "Edit", value: "edit", sortable: false, class: "text-h6 grey--text text--darken-2 flex-1 mr-3" },
-        { text: "Delete", value: "delete", sortable: false, class: "text-h6 grey--text text--darken-2 flex-1 mr-3" }
+        // Can not be deleted
+        // { text: "Delete", value: "delete", sortable: false, class: "text-h6 grey--text text--darken-2 flex-1 mr-3" }
       ],
       products: [],
       dialogDelete: false,

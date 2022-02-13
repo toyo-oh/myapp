@@ -21,8 +21,7 @@ class OrdersController < ApplicationController
 			@new_order.save!
 			count = 0
 			amount = 0
-			# TODO 另一种写法：current_cart.cart_items.each do |cart_item|
-			for cart_item in @cart_items do
+			@cart_items.each do |cart_item|
 				@new_order.create_detail_item(cart_item.product,cart_item.quantity,'')
 				count += cart_item.quantity
 				amount += cart_item.quantity * cart_item.price

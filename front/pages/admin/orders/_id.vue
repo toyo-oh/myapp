@@ -175,9 +175,9 @@
                             </div>
                           </div>
                           <p class="mb-0 grey--text text--darken-2">
-                            Product properties: Black, L
+                            Product properties: TODO
                           </p>
-                          <v-btn text color="brown lighten-1" class="text-capitalize font-weight-bold">Write a Review</v-btn>
+                          <v-btn disabled text color="brown lighten-1" class="text-capitalize font-weight-bold">Write a Review</v-btn>
                         </div>
                       </div>
                     </base-card>

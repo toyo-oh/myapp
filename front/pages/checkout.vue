@@ -22,7 +22,6 @@
               <v-col cols="12" class="py-0">
               </v-col>
               <v-col cols="12">
-                <!-- <base-card> -->
                 <div class="pa-4 grey lighten-3 align-center d-flex justify-space-between">
                   <div class="flex-1 mr-3 pl-2">
                     <v-avatar tile size="32">
