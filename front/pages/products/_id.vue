@@ -65,6 +65,9 @@
           <v-tab-item>
             <div class="mb-8" v-for="(item,i) in reviewList" :key="i">
               <div class="d-flex flex-wrap mb-4">
+                <v-avatar class="me-3" size="48" color="brown lighten-3">
+                  <v-icon dark>mdi-account-circle</v-icon>
+                </v-avatar>
                 <div>
                   <h5>{{item.user.name}}</h5>
                   <div class="d-flex align-center justify-center mb-1">

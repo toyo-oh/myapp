@@ -13,9 +13,9 @@ class ProductsController < ApplicationController
         avg_rate = Review.where(product_id: params[:id]).average("rate")
         if !@product.tags.blank?
             segments,tags = set_tags_like @product.tags.split(",")
-            @related_products = Product.where("(" + segments.join(' OR ') +" OR category_id = ?) AND id <> ?", *tags, @product.category_id, @product.id)
+            @related_products = Product.where("(" + segments.join(' OR ') +" OR category_id = ?) AND is_available = 1 AND quantity > 0 AND id <> ?", *tags, @product.category_id, @product.id)
         else
-            @related_products = Product.where("category_id = ? AND id <> ?", @product.category_id, @product.id)
+            @related_products = Product.where("is_available = 1 AND quantity > 0 AND category_id = ? AND id <> ?", @product.category_id, @product.id)
         end
         render :json => {:product => @product.as_json(:include => {:reviews => {:include=>{user: {only: :name }}}}),:avg_rate => avg_rate , :related_products =>@related_products}
     end
@@ -55,8 +55,12 @@ class ProductsController < ApplicationController
     end
 
     def search
-        @products = Product.where("is_available = 1 and quantity > 0 and (title LIKE :search OR description LIKE :search)", search: "%#{params[:value]}%")
+        @products = Product.where("is_available = 1 AND quantity > 0 AND (title LIKE :search OR description LIKE :search)", search: "%#{params[:value]}%")
         render json: @products
+    end
+
+    def show_home
+
     end
 
     private

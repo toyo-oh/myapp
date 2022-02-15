@@ -6,8 +6,23 @@ class Admin::ProductsController < ApplicationController
         @product = Product.new(product_params)
         @product.images = set_images
         @product.tags = set_tags
-        if !@product.save!
-            render response_unprocessable_entity(@product.errors)
+        Product.transaction do
+            if !@product.save!
+                render response_unprocessable_entity(@product.errors)
+            end
+            promotions = JSON.parse(params[:promotions])
+            promotions.each do |p_item|
+                @promotion = Promotion.new(
+                    product_id: @product.id,
+                    start_at: p_item["start_at"],
+                    end_at: p_item["end_at"],
+                    is_active: p_item["is_active"],
+                    discount: p_item["discount"],
+                    title: p_item["title"])
+                if !@promotion.save!
+                    render response_unprocessable_entity(@promotion.errors)
+                end
+            end
         end
     end
 
@@ -18,15 +33,45 @@ class Admin::ProductsController < ApplicationController
 
     def show
         @product = Product.find(params[:id])
-        render json: @product
+        render :json => {:product => @product.as_json(:include => :promotions)}
     end
 
     def update
         @product = Product.find(params[:id])
         @product.images = set_images
         @product.tags = set_tags
-        if !@product.update!(product_params)
-            render response_unprocessable_entity(@product.errors)
+        Product.transaction do
+            if !@product.update!(product_params)
+                render response_unprocessable_entity(@product.errors)
+            end
+            promotions = JSON.parse(params[:promotions])
+            promotions.each do |p_item|
+                if p_item["start_at"] > Time.new.strftime("%Y-%m-%d")
+                    if p_item["id"].blank?
+                        @promotion = Promotion.new(
+                            product_id: p_item["product_id"],
+                            start_at: p_item["start_at"],
+                            end_at: p_item["end_at"],
+                            is_active: p_item["is_active"],
+                            discount: p_item["discount"],
+                            title: p_item["title"])
+                        if !@promotion.save!
+                            render response_unprocessable_entity(@promotion.errors)
+                        end
+                    else
+                        @promotion = Promotion.find(p_item["id"])
+                        if !@promotion.update!(
+                            product_id: p_item["product_id"],
+                            start_at: p_item["start_at"],
+                            end_at: p_item["end_at"],
+                            is_active: p_item["is_active"],
+                            discount: p_item["discount"],
+                            title: p_item["title"])
+                            render response_unprocessable_entity(@promotion.errors)
+                        end
+                    end
+                end
+            end
         end
     end
 
@@ -44,7 +89,7 @@ class Admin::ProductsController < ApplicationController
 
     private
     def product_params
-        params.permit(:title, :sub_title, :category_id, :description, :price, :quantity,:tags, {images:[]}, :is_available)
+        params.permit(:title, :sub_title, :category_id, :description, :price, :quantity,:tags, {images:[]}, :is_available, {promotions:[]})
     end
 
     def set_images

@@ -23,6 +23,7 @@
         <v-col cols="6">
           <v-form ref="form" v-model="valid">
             <v-text-field v-model="id" v-if="false"></v-text-field>
+            <v-switch v-model="is_available" color="brown lighten-1" label="Available"></v-switch>
             <v-text-field outlined　dense color="brown lighten-3" v-model="title" label="Title" type="text" :rules="titleRules"></v-text-field>
             <v-text-field outlined　dense color="brown lighten-3" v-model="sub_title" label="Sub Title" :rules="subTitleRules"></v-text-field>
             <v-select outlined dense color="brown lighten-3" :items="categories" item-text="category" item-value="id" v-model="category_id" label="Category" :rules="categoryRules"></v-select>
@@ -40,11 +41,79 @@
                 </v-chip>
               </template>
             </v-file-input>
-            <v-switch v-model="is_available" color="brown lighten-1" label="Available"></v-switch>
-            <v-btn dark class="mr-4" color="brown lighten-1" @click="updateProduct">update product</v-btn>
+
+            <v-divider></v-divider>
+            <v-list flat subheader three-line>
+              <div class="d-flex justify-start mt-4">
+                <v-subheader class="text-subtitle-1 font-weight-regular">Promotions</v-subheader>
+                <v-btn class="mx-2" fab dark small color="brown lighten-1" @click="openDialog" @click.stop="promotionDialog = true">
+                  <v-icon dark>mdi-plus</v-icon>
+                </v-btn>
+              </div>
+              <v-list-item-group>
+                <v-list-item v-for="item in promotions" :key="item.id">
+                  <v-list-item-action>
+                    <v-checkbox v-model="item.is_active" :input-value="item.is_active" :disabled="item.start_at <= today" color="brown lighten-1"></v-checkbox>
+                  </v-list-item-action>
+                  <v-list-item-content>
+                    <v-list-item-title v-text="item.title+': '+(1-item.discount).toFixed(2)*100+'%OFF'"></v-list-item-title>
+                    <v-list-item-subtitle v-text="item.start_at+'~'+item.end_at"></v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list-item-group>
+            </v-list>
+            <v-btn dark class=" mr-4" color="brown lighten-1" @click="updateProduct">update product</v-btn>
           </v-form>
         </v-col>
       </v-row>
+      <!--add new promotion dialog-->
+      <v-form ref="promotionForm" v-model="promotionValid" lazy-validation>
+        <v-dialog v-model="promotionDialog" max-width="500px">
+          <v-card>
+            <v-card-title>Add New Promotion</v-card-title>
+            <v-divider></v-divider>
+            <v-card-text style="height: 300px;">
+              <v-switch v-model="proActive" color="brown lighten-1" label="Promotion Active"></v-switch>
+              <h5>Promotion Title <sup class="brown--text">*</sup></h5>
+              <v-text-field dense color="brown lighten-3" v-model="proTitle" type="text" :rules="proTitleRules"></v-text-field>
+              <h5>Promotion Discount <sup class="brown--text">*</sup></h5>
+              <v-text-field dense color="brown lighten-3" v-model="proDiscount" type="number" :rules="proDiscountRules"></v-text-field>
+              <h5>Promotion Period <sup class="brown--text">*</sup></h5>
+              <v-row>
+                <v-col cols="12" sm="6" md="4">
+                  <v-menu ref="startMenu" v-model="startMenu" :close-on-content-click="false" :return-value.sync="proStartAt" transition="scale-transition" offset-y min-width="auto">
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field color="brown lighten-3" v-model="proStartAt" label="Start Day" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" :rules="proStartAtRules"></v-text-field>
+                    </template>
+                    <v-date-picker color="brown lighten-1" v-model="proStartAt" no-title scrollable>
+                      <v-spacer></v-spacer>
+                      <v-btn text color="brown lighten-1" @click="startMenu = false">Cancel</v-btn>
+                      <v-btn text color="brown lighten-1" @click="$refs.startMenu.save(proStartAt)">OK</v-btn>
+                    </v-date-picker>
+                  </v-menu>
+                </v-col>
+                <v-col cols="12" sm="6" md="4">
+                  <v-menu ref="endMenu" v-model="endMenu" :close-on-content-click="false" :return-value.sync="proEndAt" transition="scale-transition" offset-y min-width="auto">
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field color="brown lighten-3" v-model="proEndAt" label="End Day" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" :rules="proEndAtRules"></v-text-field>
+                    </template>
+                    <v-date-picker color="brown lighten-1" v-model="proEndAt" no-title scrollable>
+                      <v-spacer></v-spacer>
+                      <v-btn text color="brown lighten-1" @click="endMenu = false">Cancel</v-btn>
+                      <v-btn text color="brown lighten-1" @click="$refs.endMenu.save(proEndAt)">OK</v-btn>
+                    </v-date-picker>
+                  </v-menu>
+                </v-col>
+              </v-row>
+            </v-card-text>
+            <v-divider></v-divider>
+            <v-card-actions>
+              <v-btn color="brown lighten-1" text @click="addPromotion">Add</v-btn>
+              <v-btn color="brown lighten-1" text @click="closeDialog">Cancel</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-form>
     </div>
   </v-container>
 </template>
@@ -58,6 +127,17 @@ export default {
       photoSrcs: [],
       images: [],
       categories: [],
+      promotions: [],
+      promotionDialog: false,
+      promotionValid: true,
+      proActive: false,
+      proTitle: '',
+      proDiscount: '',
+      proStartAt: '',
+      proEndAt: '',
+      startMenu: false,
+      endMenu: false,
+      today: new Date().toISOString().slice(0, 10),
       titleRules: [
         v => !!v || 'Title is required',
         v => (v && v.length <= 20) || 'Title must be less than 20 characters',
@@ -87,31 +167,49 @@ export default {
         v => !!v || 'Image is required',
         v => (v && v.length > 0) || "At least 1 images required",
         v => (v && v.length <= 3) || "Should not be above 3 images",
+      ],
+      proTitleRules: [
+        v => !!v || 'Promotion Title is required',
+        v => (v && v.length <= 20) || 'Promotion Title must be less than 20 characters',
+      ],
+      proDiscountRules: [
+        v => !!v || 'Promotion Discount is required',
+        v => (v && v > 0) || "Promotion Discount should be above 0",
+        v => (v && v < 1) || "Max should not be above 1",
+      ],
+      proStartAtRules: [
+        v => !!v || 'Promotion Start Day is required',
+        v => (v && v > this.today) || "Promotion Start Day should be after today",
+      ],
+      proEndAtRules: [
+        v => !!v || 'Promotion End Day is required',
+        v => (v && v >= this.proStartAt) || "Promotion End Day should not before start day",
       ]
     };
   },
   asyncData ({ $axios, params }) {
     return $axios.$get(`/api/admin/products/${params.id}`).then((res) => {
       var tmp_images = [];
-      if (res.images) {
-        for (var i = 0; i < res.images.length; i++) {
-          tmp_images.push(res.images[i] ? "http://localhost:3000" + res.images[i].thumb.url : "");
+      if (res.product.images) {
+        for (var i = 0; i < res.product.images.length; i++) {
+          tmp_images.push(res.product.images[i] ? "http://localhost:3000" + res.product.images[i].thumb.url : "");
         }
       }
       return {
-        id: res.id,
-        title: res.title,
-        sub_title: res.sub_title,
-        category_id: res.category_id,
-        description: res.description,
-        price: res.price,
-        quantity: res.quantity,
-        tags: res.tags,
+        id: res.product.id,
+        title: res.product.title,
+        sub_title: res.product.sub_title,
+        category_id: res.product.category_id,
+        description: res.product.description,
+        price: res.product.price,
+        quantity: res.product.quantity,
+        tags: res.product.tags,
         // image: `${$axios.defaults.baseURL}`+res.image.thumb.url
         // "`${$axios.defaults.baseURL}upload/1.png`"
         images: tmp_images,
         photoSrcs: tmp_images,
-        is_available: res.is_available
+        is_available: res.product.is_available,
+        promotions: res.product.promotions
       };
     });
   },
@@ -167,6 +265,7 @@ export default {
         }
         formData.append("category_id", this.category_id);
         formData.append("tags", this.tags ? this.tags : "");
+        formData.append("promotions", JSON.stringify(this.promotions));
         this.$axios.put(`api/admin/products/${this.id}`, formData, config).then((res) => {
           this.$router.push(`.`)
         })
@@ -176,6 +275,28 @@ export default {
     },
     returnToList () {
       this.$router.push(`.`)
+    },
+    addPromotion () {
+      if (this.$refs.promotionForm.validate()) {
+        // add to promotion list
+        var newPro = {};
+        newPro.product_id = this.id;
+        newPro.title = this.proTitle;
+        newPro.discount = this.proDiscount;
+        newPro.start_at = this.proStartAt;
+        newPro.end_at = this.proEndAt;
+        newPro.is_active = this.proActive;
+        this.promotions.push(newPro);
+        this.$refs.promotionForm.reset();
+        this.promotionDialog = false;
+      }
+    },
+    openDialog () {
+      this.promotionDialog = true;
+    },
+    closeDialog () {
+      this.$refs.promotionForm.reset();
+      this.promotionDialog = false;
     }
   }
 };
