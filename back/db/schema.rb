@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_14_082218) do
+ActiveRecord::Schema.define(version: 2022_02_16_141849) do
 
   create_table "addresses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "user_id"
@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(version: 2022_02_14_082218) do
     t.json "images"
     t.json "tags"
     t.string "sub_title"
+    t.float "discount"
   end
 
   create_table "promotions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|

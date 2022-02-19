@@ -15,12 +15,8 @@
           <h3 class="mb-0 brown--text text--darken-4">{{contentText}} </h3>
         </router-link>
         <div class="d-flex mb-1">
-          <!-- <v-rating :value="contentRating" color="amber" background-color="amber" dense half-increments readonly size="14"></v-rating>
           <div class="grey--text ml-1">
-            {{contentRating}}
-          </div> -->
-          <div class="grey--text ml-1">
-            {{subTitle}}
+            {{subTitle ? subTitle.substring(0, 25) : ""}}
           </div>
         </div>
         <div class="d-flex">
@@ -96,5 +92,13 @@ export default {
   .card-hover-icon {
     display: none;
   }
+}
+.router-link-active {
+  text-decoration: none;
+  color: brown;
+}
+a {
+  text-decoration: none;
+  color: white;
 }
 </style>

@@ -34,7 +34,8 @@
           <p class="mb-0">{{quantity}}</p>
         </div>
         <div class="mb-6">
-          <h2 class="brown--text text--darken-3">¥{{price}}</h2>
+          <h4 class="gray--text lighten-4 text-decoration-line-through mb-0">¥{{original_price}}</h4>
+          <h2 class="brown--text text--darken-3">¥{{price}}({{parseFloat(1-discount).toFixed(2)*100}}%OFF)</h2>
           <p v-if="is_available && quantity > 0" class="text-overline">In Stock</p>
           <p v-else class="text-overline">Out Of Stock</p>
         </div>
@@ -119,6 +120,7 @@ export default {
       sub_title: '',
       avg_rate: 0,
       description: '',
+      original_price: '',
       price: '',
       quantity: '',
       images: [],
@@ -157,12 +159,14 @@ export default {
           title: res.product.title,
           sub_title: res.product.sub_title,
           description: res.product.description,
-          price: res.product.price,
+          price: parseFloat(Number(res.product.price) * Number(res.product.discount)).toFixed(0),
+          original_price: res.product.price,
           quantity: res.product.quantity,
           images: tmp_images,
           is_available: res.product.is_available,
           reviewList: res.product.reviews,
           avg_rate: Number(res.avg_rate),
+          discount: Number(res.product.discount),
           related_products: res.related_products
         };
     });

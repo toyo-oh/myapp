@@ -37,6 +37,9 @@ class CartsController < ApplicationController
 
 	def show_cart_products
 		@products = Product.where(id: params[:ids])
+		@products.each do|item| 
+			item.discount = ProductsController.get_discount(item)
+	end
 		render json: @products
 	end
 

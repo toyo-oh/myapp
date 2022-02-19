@@ -145,6 +145,7 @@ export default {
             for (var n = 0; n < cartItems.length; n++) {
               if (this.products[m].id == cartItems[n].product_id) {
                 this.products[m].cnt = cartItems[n].quantity;
+                this.products[m].price = parseFloat(this.products[m].price * this.products[m].discount).toFixed(0)
                 // set button 
                 this.products[m].isMinusDisable = this.isMinusDisable(this.products[m]);
                 this.products[m].isPlusDisable = this.isPlusDisable(this.products[m]);

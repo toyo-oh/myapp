@@ -1,6 +1,6 @@
 <template>
   <v-app dark>
-    <v-navigation-drawer v-model="drawer" :mini-variant="miniVariant" :clipped="clipped" fixed app>
+    <!-- <v-navigation-drawer v-model="drawer" :mini-variant="miniVariant" :clipped="clipped" fixed app>
       <v-list nav dense>
         <v-list-item-group v-model="group" active-class="deep-purple--text text--accent-4">
           <v-list-item>
@@ -17,7 +17,7 @@
           </v-list-item>
         </v-list-item-group>
       </v-list>
-    </v-navigation-drawer>
+    </v-navigation-drawer> -->
     <v-app-bar :clipped-left="clipped" fixed app color="brown lighten-5">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-btn text @click="toMain">Store</v-btn>
@@ -149,7 +149,7 @@ export default {
   },
   methods: {
     toMain () {
-      this.$router.push(`/`)
+      this.$router.push(`/home`)
     },
     login () {
       this.$router.push(`/login`)

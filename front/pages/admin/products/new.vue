@@ -41,10 +41,6 @@
                 </v-chip>
               </template>
             </v-file-input>
-            <!-- <v-btn dark class="mr-4" color="brown lighten-1" @click="createProduct">create product</v-btn>
-          </v-form>
-        </v-col>
-      </v-row> -->
 
             <v-divider></v-divider>
             <v-list flat subheader three-line>
@@ -154,11 +150,11 @@ export default {
       today: new Date().toISOString().slice(0, 10),
       titleRules: [
         v => !!v || 'Title is required',
-        v => (v && v.length <= 20) || 'Title must be less than 20 characters',
+        v => (v && v.length <= 10) || 'Title must be less than 10 characters',
       ],
       subTitleRules: [
         v => !!v || 'Sub Title is required',
-        v => (v && v.length <= 50) || 'Sub Title must be less than 50 characters',
+        v => (v && v.length <= 25) || 'Sub Title must be less than 25 characters',
       ],
       categoryRules: [
         v => !!v || 'Category is required'
