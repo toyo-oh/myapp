@@ -67,7 +67,7 @@
                 </router-link>
                 <div class="d-flex">
                   <h5 class="brown--text me-2">¥{{parseFloat(item.price*item.discount).toFixed(0)}}</h5>
-                  <h5 class="grey--text text--darken-1 text-decoration-line-through">¥{{item.price}}</h5>
+                  <h5 v-if="item.discount!=1" class="grey--text text--darken-1 text-decoration-line-through">¥{{item.price}}</h5>
                 </div>
               </v-card-text>
             </base-card>
@@ -104,7 +104,7 @@
                 </router-link>
                 <div class="d-flex">
                   <h5 class="brown--text me-2">¥{{parseFloat(item.price*item.discount).toFixed(0)}}</h5>
-                  <h5 class="grey--text text--darken-1 text-decoration-line-through">¥{{item.price}}</h5>
+                  <h5 v-if="item.discount!=1" class="grey--text text--darken-1 text-decoration-line-through">¥{{item.price}}</h5>
                 </div>
               </v-card-text>
             </base-card>
@@ -140,7 +140,7 @@
               </router-link>
               <div class="d-flex">
                 <h5 class="brown--text me-2">¥{{parseFloat(item.price*item.discount).toFixed(0)}}</h5>
-                <h5 class="grey--text text--darken-1 text-decoration-line-through">¥{{item.price}}</h5>
+                <h5 v-if="item.discount!=1" class="grey--text text--darken-1 text-decoration-line-through">¥{{item.price}}</h5>
               </div>
             </v-card-text>
           </base-card>
@@ -176,7 +176,7 @@
                 </router-link>
                 <div class="d-flex">
                   <h5 class="brown--text me-2">¥{{parseFloat(item.price*item.discount).toFixed(0)}}</h5>
-                  <h5 class="grey--text text--darken-1 text-decoration-line-through">¥{{item.price}}</h5>
+                  <h5 v-if="item.discount!=1" class="grey--text text--darken-1 text-decoration-line-through">¥{{item.price}}</h5>
                 </div>
               </v-card-text>
             </base-card>

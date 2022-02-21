@@ -21,7 +21,7 @@
         </div>
         <div class="d-flex">
           <h4 class="brown--text lighten-1 mr-2 mb-0">¥{{parseFloat(discount*originalPrice).toFixed(0)}} </h4>
-          <h4 class="gray--text lighten-4 text-decoration-line-through mb-0">¥{{originalPrice}}</h4>
+          <h4 v-if="discount!=1" class="gray--text lighten-4 text-decoration-line-through mb-0">¥{{originalPrice}}</h4>
         </div>
       </div>
       <div class="d-flex flex-column">
