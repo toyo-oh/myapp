@@ -2,7 +2,7 @@
   <v-container class="mt-6">
     <v-row>
       <v-col cols="12">
-        <base-card>
+        <v-card>
           <v-card-text class="ps-6 d-flex justify-space-between align-center flex-wrap">
             <div class="my-2">
               <h4 class="">Searching for "{{value}}"</h4>
@@ -13,7 +13,7 @@
               <v-select color="brown lighten-1" class="border me-5" :items="sortItems" label="Price" dense v-model="sortSelected" @change="sort('price')" outlined hide-details flat></v-select>
             </div>
           </v-card-text>
-        </base-card>
+        </v-card>
       </v-col>
       <v-col cols="12">
         <div class="box-wrapper">
@@ -34,7 +34,7 @@
                       <v-row>
                         <v-col v-for="(item, index) in props.items" :key="index" cols="12" sm="6" md="6" lg="3" xl="3">
                           <!-- TODO product discount -->
-                          <item-card :contentId="item.id" :content-img="item.image" :content-text="item.title" :originalPrice="item.price" :subTitle="item.sub_title" :discount="Number(item.discount)" @cartAdd="addCart(item)">
+                          <item-card :pId="item.id" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" :subTitle="item.sub_title" :pDiscount="Number(item.discount)" @cartAdd="addCart(item)">
                           </item-card>
                         </v-col>
                       </v-row>
@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import ItemCard from "@/components/itemCard/ItemCard";
+import ItemCard from "@/components/productCard/ItemCard";
 export default {
   components: {
     ItemCard

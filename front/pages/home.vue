@@ -4,11 +4,6 @@
     <div class="white mb-60">
       <v-container>
         <v-row>
-          <!-- TODO -->
-          <!-- <v-col cols="12" xl="2" lg="3" class="pt-0 d-none d-lg-block">
-            <Navbar />
-          </v-col> -->
-          <!-- <v-col cols="12" xl="10" lg="9"> -->
           <v-col cols="12" xl="12" lg="12">
             <v-carousel cycle height="100%" light hide-delimiter-background show-arrows-on-hover :show-arrows="false">
               <v-carousel-item v-for="(item, index) in sliders" :key="index">
@@ -52,27 +47,14 @@
               <v-icon class="m-0 p-0">mdi-menu-right</v-icon>
             </a>
           </div>
+          <div>
+            <v-row>
+              <v-col cols="12" xs="6" sm="4" md="3" lg="2" xl="2" v-for="(item, index) in bestSellers" :key="index">
+                <small-card :pId="item.id" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" @cartAdd="addCart(item)"></small-card>
+              </v-col>
+            </v-row>
+          </div>
         </v-col>
-        <v-row>
-          <v-col cols="12" sm="2" md="2" lg="2" v-for="(item, index) in bestSellers" :key="index">
-            <base-card>
-              <v-card-text>
-                <router-link :to="{name: 'products-id', params: {id: item.id}}">
-                  <v-avatar tile :size="140">
-                    <v-img class="card-overlay-item mb-2 br-8" :src="item.image"></v-img>
-                  </v-avatar>
-                </router-link>
-                <router-link :to="{name: 'products-id', params: {id: item.id}}">
-                  <h5 class="grey--text text--darken-4">{{ item.title }}</h5>
-                </router-link>
-                <div class="d-flex">
-                  <h5 class="brown--text me-2">¥{{parseFloat(item.price*item.discount).toFixed(0)}}</h5>
-                  <h5 v-if="item.discount!=1" class="grey--text text--darken-1 text-decoration-line-through">¥{{item.price}}</h5>
-                </div>
-              </v-card-text>
-            </base-card>
-          </v-col>
-        </v-row>
       </v-row>
     </v-container>
 
@@ -89,27 +71,14 @@
               <v-icon class="m-0 p-0">mdi-menu-right</v-icon>
             </a>
           </div>
+          <div>
+            <v-row>
+              <v-col cols="12" xs="6" sm="4" md="3" lg="2" xl="2" v-for="(item, index) in newArrivals" :key="index">
+                <small-card :pId="item.id" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" @cartAdd="addCart(item)"></small-card>
+              </v-col>
+            </v-row>
+          </div>
         </v-col>
-        <v-row>
-          <v-col cols="12" sm="2" md="2" lg="2" v-for="(item, index) in newArrivals" :key="index">
-            <base-card>
-              <v-card-text>
-                <router-link :to="{name: 'products-id', params: {id: item.id}}">
-                  <v-avatar tile :size="140">
-                    <v-img class="card-overlay-item mb-2 br-8" :src="item.image"></v-img>
-                  </v-avatar>
-                </router-link>
-                <router-link :to="{name: 'products-id', params: {id: item.id}}">
-                  <h5 class="grey--text text--darken-4">{{ item.title }}</h5>
-                </router-link>
-                <div class="d-flex">
-                  <h5 class="brown--text me-2">¥{{parseFloat(item.price*item.discount).toFixed(0)}}</h5>
-                  <h5 v-if="item.discount!=1" class="grey--text text--darken-1 text-decoration-line-through">¥{{item.price}}</h5>
-                </div>
-              </v-card-text>
-            </base-card>
-          </v-col>
-        </v-row>
       </v-row>
     </v-container>
 
@@ -126,24 +95,13 @@
               <v-icon class="m-0 p-0">mdi-menu-right</v-icon>
             </a>
           </div>
-        </v-col>
-        <v-col cols="12" sm="2" md="2" lg="2" v-for="(item, index) in bigDiscounts" :key="index">
-          <base-card>
-            <v-card-text>
-              <router-link :to="{name: 'products-id', params: {id: item.id}}">
-                <v-avatar tile :size="140">
-                  <v-img class="card-overlay-item mb-2 br-8" :src="item.image"></v-img>
-                </v-avatar>
-              </router-link>
-              <router-link :to="{name: 'products-id', params: {id: item.id}}">
-                <h5 class="grey--text text--darken-4">{{ item.title }}</h5>
-              </router-link>
-              <div class="d-flex">
-                <h5 class="brown--text me-2">¥{{parseFloat(item.price*item.discount).toFixed(0)}}</h5>
-                <h5 v-if="item.discount!=1" class="grey--text text--darken-1 text-decoration-line-through">¥{{item.price}}</h5>
-              </div>
-            </v-card-text>
-          </base-card>
+          <div>
+            <v-row>
+              <v-col cols="12" xs="6" sm="4" md="3" lg="2" xl="2" v-for="(item, index) in bigDiscounts" :key="index">
+                <small-card :pId="item.id" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" @cartAdd="addCart(item)"></small-card>
+              </v-col>
+            </v-row>
+          </div>
         </v-col>
       </v-row>
     </v-container>
@@ -161,27 +119,14 @@
               <v-icon class="m-0 p-0">mdi-menu-right</v-icon>
             </a>
           </div>
+          <div>
+            <v-row>
+              <v-col cols="12" xs="6" sm="4" md="3" lg="2" xl="2" v-for="(item, index) in topRatings" :key="index">
+                <small-card :pId="item.id" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" @cartAdd="addCart(item)"></small-card>
+              </v-col>
+            </v-row>
+          </div>
         </v-col>
-        <v-row>
-          <v-col cols="12" sm="2" md="2" lg="2" v-for="(item, index) in topRatings" :key="index">
-            <base-card>
-              <v-card-text>
-                <router-link :to="{name: 'products-id', params: {id: item.id}}">
-                  <v-avatar tile :size="140">
-                    <v-img class="card-overlay-item mb-2 br-8" :src="item.image"></v-img>
-                  </v-avatar>
-                </router-link>
-                <router-link :to="{name: 'products-id', params: {id: item.id}}">
-                  <h5 class="grey--text text--darken-4">{{ item.title }}</h5>
-                </router-link>
-                <div class="d-flex">
-                  <h5 class="brown--text me-2">¥{{parseFloat(item.price*item.discount).toFixed(0)}}</h5>
-                  <h5 v-if="item.discount!=1" class="grey--text text--darken-1 text-decoration-line-through">¥{{item.price}}</h5>
-                </div>
-              </v-card-text>
-            </base-card>
-          </v-col>
-        </v-row>
       </v-row>
     </v-container>
 
@@ -196,11 +141,13 @@
               <v-icon class="m-0 p-0">mdi-menu-right</v-icon>
             </a>
           </div>
-          <v-row>
-            <v-col cols="12" sm="6" md="6" lg="3" xl="3" v-for="(item, index) in category1" :key="index">
-              <item-card :contentId="item.id" :content-img="item.image" :content-text="item.title" :originalPrice="item.price" :subTitle="item.sub_title" :discount="Number(item.discount)" @cartAdd="addCart(item)"></item-card>
-            </v-col>
-          </v-row>
+          <div>
+            <v-row>
+              <v-col cols="12" xs="6" sm="4" md="4" lg="3" xl="3" v-for="(item, index) in category1" :key="index">
+                <item-card :pId="item.id" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" :subTitle="item.sub_title" :pDiscount="Number(item.discount)" @cartAdd="addCart(item)"></item-card>
+              </v-col>
+            </v-row>
+          </div>
         </v-col>
       </v-row>
     </v-container>
@@ -217,8 +164,8 @@
             </a>
           </div>
           <v-row>
-            <v-col cols="12" sm="6" md="6" lg="3" xl="3" v-for="(item, index) in category2" :key="index">
-              <item-card :contentId="item.id" :content-img="item.image" :content-text="item.title" :originalPrice="item.price" :subTitle="item.sub_title" :discount="Number(item.discount)" @cartAdd="addCart(item)"></item-card>
+            <v-col cols="12" xs="6" sm="4" md="4" lg="3" xl="3" v-for="(item, index) in category2" :key="index">
+              <item-card :pId="item.id" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" :subTitle="item.sub_title" :pDiscount="Number(item.discount)" @cartAdd="addCart(item)"></item-card>
             </v-col>
           </v-row>
         </v-col>
@@ -237,8 +184,8 @@
             </a>
           </div>
           <v-row>
-            <v-col cols="12" sm="6" md="6" lg="3" xl="3" v-for="(item, index) in category3" :key="index">
-              <item-card :contentId="item.id" :content-img="item.image" :content-text="item.title" :originalPrice="item.price" :subTitle="item.sub_title" :discount="Number(item.discount)" @cartAdd="addCart(item)"></item-card>
+            <v-col cols="12" xs="6" sm="4" md="4" lg="3" xl="3" v-for="(item, index) in category3" :key="index">
+              <item-card :pId="item.id" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" :subTitle="item.sub_title" :pDiscount="Number(item.discount)" @cartAdd="addCart(item)"></item-card>
             </v-col>
           </v-row>
         </v-col>
@@ -257,8 +204,8 @@
             </a>
           </div>
           <v-row>
-            <v-col cols="12" sm="6" md="6" lg="3" xl="3" v-for="(item, index) in category4" :key="index">
-              <item-card :contentId="item.id" :content-img="item.image" :content-text="item.title" :originalPrice="item.price" :subTitle="item.sub_title" :discount="Number(item.discount)" @cartAdd="addCart(item)"></item-card>
+            <v-col cols="12" xs="6" sm="4" md="4" lg="3" xl="3" v-for="(item, index) in category4" :key="index">
+              <item-card :pId="item.id" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" :subTitle="item.sub_title" :pDiscount="Number(item.discount)" @cartAdd="addCart(item)"></item-card>
             </v-col>
           </v-row>
         </v-col>
@@ -268,9 +215,11 @@
 </template>
 
 <script>
-import ItemCard from "@/components/itemCard/ItemCard";
+import SmallCard from "@/components/productCard/SmallCard";
+import ItemCard from "@/components/productCard/ItemCard";
 export default {
   components: {
+    SmallCard,
     ItemCard
   },
   head: {
@@ -314,10 +263,10 @@ export default {
     loadDatas () {
       this.$axios.get("api/products", {
       }).then((res) => {
-        this.bestSellers = this.setImagePath(res.data.best_sellers, "thumb");
-        this.topRatings = this.setImagePath(res.data.top_rankings, "thumb");
-        this.newArrivals = this.setImagePath(res.data.new_arrivals, "thumb");
-        this.bigDiscounts = this.setImagePath(res.data.big_discounts, "thumb");
+        this.bestSellers = this.setImagePath(res.data.best_sellers, "medium");
+        this.topRatings = this.setImagePath(res.data.top_rankings, "medium");
+        this.newArrivals = this.setImagePath(res.data.new_arrivals, "medium");
+        this.bigDiscounts = this.setImagePath(res.data.big_discounts, "medium");
         this.category1 = this.setImagePath(res.data.category_1, "medium");
         this.category2 = this.setImagePath(res.data.category_2, "medium");
         this.category3 = this.setImagePath(res.data.category_3, "medium");
@@ -343,6 +292,22 @@ export default {
     },
     viewAll (keyword) {
       this.$router.push({ path: '/search', query: { value: keyword } });
+    },
+    addCart (item) {
+      // add to backend cart
+      if (this.$auth.loggedIn) {
+        this.$axios.$post(`api/products/${item.id}/add_to_cart`, {
+          product_id: item.id,
+          user_id: this.$auth.user.id
+        }).then((res) => {
+          // console.log(res);
+        });
+      }
+      // add to store
+      var cartItem = new Object();
+      cartItem.product_id = item.id;
+      cartItem.price = item.price;
+      this.$store.commit('add_product_to_cart', cartItem);
     }
   }
 };

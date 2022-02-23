@@ -7,7 +7,7 @@
             <v-carousel-item v-for="(item,i) in images" :key="i">
               <v-row class="fill-height" align="center" justify="center">
                 <v-avatar tile size="300">
-                  <img :src="item">
+                  <v-img :src="item"></v-img>
                 </v-avatar>
               </v-row>
             </v-carousel-item>

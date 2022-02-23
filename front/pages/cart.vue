@@ -22,7 +22,7 @@
         <v-row>
           <v-col cols="12" md="6" lg="8" xl="8">
             <div v-for="item in products" :key="item.id">
-              <base-card class="d-flex flex-wrap mb-6">
+              <v-card class="d-flex flex-wrap mb-6">
                 <router-link :to="{name: 'products-id', params: {id: item.id}}">
                   <img :src="item.image" max-height="100" max-width="100" alt="">
                 </router-link>
@@ -54,11 +54,11 @@
                     </div>
                   </div>
                 </div>
-              </base-card>
+              </v-card>
             </div>
           </v-col>
           <v-col cols="12" md="6" lg="4" xl="4">
-            <base-card v-if="products.length>0">
+            <v-card v-if="products.length>0">
               <div class="pa-5">
                 <div class="d-flex justify-space-between">
                   <p class="mb-0 grey--text text--darken-1">Total</p>
@@ -79,7 +79,7 @@
                   Checkout Now
                 </v-btn>
               </div>
-            </base-card>
+            </v-card>
           </v-col>
         </v-row>
       </v-col>

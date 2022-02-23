@@ -8,7 +8,7 @@
     </v-alert>
     <v-row>
       <v-col cols="12" md="6" lg="8" xl="8">
-        <base-card class="mb-4">
+        <v-card class="mb-4">
           <div class="pa-4">
             <v-row>
               <v-col cols="12">
@@ -54,12 +54,11 @@
                     </v-dialog>
                   </div>
                 </div>
-                <!-- </base-card> -->
               </v-col>
             </v-row>
           </div>
-        </base-card>
-        <base-card class="mb-4">
+        </v-card>
+        <v-card class="mb-4">
           <div class="pa-4">
             <v-row>
               <v-col cols="12">
@@ -112,7 +111,7 @@
               </v-col>
             </v-row>
           </div>
-        </base-card>
+        </v-card>
       </v-col>
       <v-col cols="12" md="6" lg="4" xl="4">
         <p class="font-weight-bold mb-6">You Order</p>

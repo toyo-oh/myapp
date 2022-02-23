@@ -32,7 +32,7 @@
               </div>
               <v-row>
                 <v-col cols="12">
-                  <base-card>
+                  <v-card>
                     <div class="px-6 pt-8 pb-8">
                       <div class="d-flex justify-start mb-10">
                         <div class="py-2 px-5 brown lighten-4 brown--text text-center text-wrap rounded-pill">
@@ -135,10 +135,10 @@
                         </div>
                       </div>
                     </div>
-                  </base-card>
+                  </v-card>
                 </v-col>
                 <v-col cols="12">
-                  <base-card>
+                  <v-card>
                     <div class="grey lighten-2 d-flex justify-space-around flex-wrap">
                       <div class="d-flex my-3 mx-3">
                         <p class="text-14 grey--text text--darken-2 mb-0 mr-2">
@@ -209,10 +209,10 @@
                         </v-dialog>
                       </div>
                     </div>
-                  </base-card>
+                  </v-card>
                 </v-col>
                 <v-col cols="12" lg="6">
-                  <base-card>
+                  <v-card>
                     <div class="pa-5">
                       <h4 class="mb-3 grey--text text--darken-4">
                         Shipping Address
@@ -221,8 +221,8 @@
                         {{address_detail}}
                       </p>
                     </div>
-                  </base-card>
-                  <base-card>
+                  </v-card>
+                  <v-card>
                     <div class="pa-5 mt-5">
                       <h4 class="mb-3 grey--text text--darken-4">
                         Payment Details
@@ -231,10 +231,10 @@
                         {{payment_detail}}
                       </p>
                     </div>
-                  </base-card>
+                  </v-card>
                 </v-col>
                 <v-col cols="12" lg="6">
-                  <base-card>
+                  <v-card>
                     <div class="pa-5">
                       <h4 class="mb-3 grey--text text--darken-4">
                         Total Summary
@@ -273,7 +273,7 @@
                         </p>
                       </div>
                     </div>
-                  </base-card>
+                  </v-card>
                 </v-col>
               </v-row>
             </div>

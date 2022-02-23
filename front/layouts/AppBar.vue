@@ -1,6 +1,6 @@
    <template>
   <v-app-bar :clipped-left="clipped" fixed app color="brown lighten-5">
-    <router-link to="./home">
+    <router-link to="/home">
       <v-avatar size="50" tile class="ml-10 mb-0">
         <img src="@/assets/images/logo.png" alt="" />
       </v-avatar>
@@ -69,24 +69,6 @@ export default {
   data () {
     return {
       clipped: false,
-      // drawer: false,
-      // fixed: false,
-      // group: false,
-      // items: [
-      //   {
-      //     icon: 'mdi-apps',
-      //     title: 'Welcome',
-      //     to: '/'
-      //   },
-      //   {
-      //     icon: 'mdi-chart-bubble',
-      //     title: 'Inspire',
-      //     to: '/inspire'
-      //   }
-      // ],
-      // miniVariant: false,
-      // right: true,
-      // rightDrawer: false,
       title: 'Store',
       actmenus: [
         { index: 1, text: 'My Profile', icon: 'mdi-account', action: this.userInfo },

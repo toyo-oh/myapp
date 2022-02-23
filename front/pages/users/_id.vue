@@ -15,7 +15,7 @@
       </v-row>
       <v-row justify="center">
         <v-col cols="12" md="6">
-          <base-card class="mb-4">
+          <v-card class="mb-4">
             <div class="pa-4 d-flex align-center justify-space-between">
               <div class="flex-1 mr-3">
                 <h4 class="mb-0 brown--text ltext--ighten-1">Profile</h4>
@@ -25,8 +25,8 @@
               </div>
               <v-btn small outlined color="brown lighten-1" class="mr-2" @click="editProfile()">Change</v-btn>
             </div>
-          </base-card>
-          <base-card class="mb-4">
+          </v-card>
+          <v-card class="mb-4">
             <div class="pa-4 d-flex align-center justify-space-between">
               <div class="flex-1 mr-3">
                 <h4 class="mb-0 brown--text ltext--ighten-1">Email</h4>
@@ -36,8 +36,8 @@
               </div>
               <v-btn small outlined color="brown lighten-1" class="mr-2" @click="editEmail()">Change</v-btn>
             </div>
-          </base-card>
-          <base-card class="mb-4">
+          </v-card>
+          <v-card class="mb-4">
             <div class="pa-4 d-flex align-center justify-space-between">
               <div class="flex-1 mr-3">
                 <h4 class="mb-0 brown--text ltext--ighten-1">Password</h4>
@@ -47,7 +47,7 @@
               </div>
               <v-btn small outlined color="brown lighten-1" class="mr-2" @click="editPassword()">Change</v-btn>
             </div>
-          </base-card>
+          </v-card>
         </v-col>
       </v-row>
     </div>
