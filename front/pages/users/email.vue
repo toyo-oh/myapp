@@ -22,10 +22,10 @@
       <v-row justify="center">
         <v-col cols="12" md="6">
           <v-form ref="form" v-model="valid">
-            <v-text-field outlined　dense color="brown lighten-3" v-model="current_email" label="Current Email" :rules="currentEmailRules" type="text"></v-text-field>
+            <v-text-field outlined　dense color="brown lighten-3" v-model="currentEmail" label="Current Email" :rules="currentEmailRules" type="text"></v-text-field>
             <v-text-field outlined　dense color="brown lighten-3" v-model="password" label="Password" type="password" :rules="passwordRules"></v-text-field>
-            <v-text-field outlined　dense color="brown lighten-3" v-model="new_email" label="New Email" type="text" :rules="newEmailRules"></v-text-field>
-            <v-text-field outlined　dense color="brown lighten-3" v-model="confirm_email" label="Confirm Email" type="text" :rules="emailConfirmRules"></v-text-field>
+            <v-text-field outlined　dense color="brown lighten-3" v-model="newEmail" label="New Email" type="text" :rules="newEmailRules"></v-text-field>
+            <v-text-field outlined　dense color="brown lighten-3" v-model="confirmEmail" label="Confirm Email" type="text" :rules="emailConfirmRules"></v-text-field>
             <v-btn dark class="mr-4" color="brown lighten-1" @click="updateEmail">Save Changes</v-btn>
           </v-form>
         </v-col>
@@ -41,10 +41,10 @@ export default {
     return {
       valid: true,
       alertFormError: false,
-      current_email: '',
+      currentEmail: '',
       password: '',
-      new_email: '',
-      confirm_email: '',
+      newEmail: '',
+      confirmEmail: '',
       currentEmailRules: [
         v => !!v || 'Current Email is required',
       ],
@@ -58,7 +58,7 @@ export default {
       emailConfirmRules: [
         v => !!v || 'Confirm Email is required',
         v => /.+@.+\..+/.test(v) || 'Confirm Email must be valid',
-        v => v === this.new_email || 'The email confirmation does not match.',
+        v => v === this.newEmail || 'The email confirmation does not match.',
       ],
     }
   },
@@ -67,10 +67,10 @@ export default {
       if (this.$auth.loggedIn) {
         if (this.$refs.form.validate()) {
           this.$axios.post(`/api/users/${this.$auth.user.id}/email`, {
-            current_email: this.current_email,
+            current_email: this.currentEmail,
             password: this.password,
-            new_email: this.new_email,
-            confirm_email: this.confirm_email,
+            newEmail: this.newEmail,
+            confirmEmail: this.confirmEmail,
             id: this.$auth.user.id
           }).then((res) => {
             this.$auth.loginWith('local', { data: { email: res.data.email, password: this.password } })

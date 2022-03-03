@@ -62,18 +62,18 @@
               <div class="pa-5">
                 <div class="d-flex justify-space-between">
                   <p class="mb-0 grey--text text--darken-1">Total</p>
-                  <h4>¥{{$store.getters['getTotalPrice'] + this.shipping_fee}}</h4>
+                  <h4>¥{{$store.getters['getTotalPrice'] + this.shippingFee}}</h4>
                 </div>
                 <v-divider class="my-3"></v-divider>
                 <h4 class="mb-4">Shipping Estimates</h4>
                 <p class="text-14 mb-1">Prefecture</p>
-                <v-select dense outlined hide-details color="brown lighten-1" class="mb-4" :items="prefectures" item-text="prefecture" item-value="id" v-model="prefecture_id" label="Select Prefecture"></v-select>
+                <v-select dense outlined hide-details color="brown lighten-1" class="mb-4" :items="prefectures" item-text="prefecture" item-value="id" v-model="prefectureId" label="Select Prefecture"></v-select>
                 <v-btn color="brown lighten-1" outlined class="text-capitalize mb-4" block @click="calShipping">
                   Calculate Shipping
                 </v-btn>
                 <div class="d-flex justify-space-between">
                   <p class="mb-4">Shipping Fee</p>
-                  <h4>{{"¥"+shipping_fee}}</h4>
+                  <h4>¥{{shippingFee}}</h4>
                 </div>
                 <v-btn v-if="!$auth.user.is_admin" dark color="brown lighten-1" class="text-capitalize mb-4" block @click="checkOut">
                   Checkout Now
@@ -113,8 +113,8 @@ export default {
         v => (v && v <= 10) || "Max should not be above 10",
       ],
       prefectures: [],
-      prefecture_id: '',
-      shipping_fee: 0,
+      prefectureId: '',
+      shippingFee: 0,
       alertNoPrefecture: false
     };
   },
@@ -145,7 +145,7 @@ export default {
             for (var n = 0; n < cartItems.length; n++) {
               if (this.products[m].id == cartItems[n].product_id) {
                 this.products[m].cnt = cartItems[n].quantity;
-                this.products[m].price = parseFloat(this.products[m].price * this.products[m].discount).toFixed(0)
+                this.products[m].price = parseFloat(this.products[m].price * (1 - this.products[m].discount)).toFixed(0)
                 // set button 
                 this.products[m].isMinusDisable = this.isMinusDisable(this.products[m]);
                 this.products[m].isPlusDisable = this.isPlusDisable(this.products[m]);
@@ -246,9 +246,9 @@ export default {
       }
     },
     calShipping () {
-      if (this.prefecture_id) {
-        this.$axios.get(`/api/shipping_fees/${this.prefecture_id}`).then((res) => {
-          this.shipping_fee = res.data.fee;
+      if (this.prefectureId) {
+        this.$axios.get(`/api/shipping_fees/${this.prefectureId}`).then((res) => {
+          this.shippingFee = res.data.fee;
         });
       } else {
         this.alertNoPrefecture = true;

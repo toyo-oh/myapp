@@ -62,7 +62,6 @@ export default {
       itemToDelete: ''
     };
   },
-  // TODO 变为asyncData方法获取初始数据
   created () {
     this.getProducts();
   },

@@ -23,7 +23,7 @@
         <v-col cols="12" md="6">
           <v-form ref="form" v-model="valid">
             <v-text-field outlined　dense color="brown lighten-3" v-model="name" label="Name" :rules="nameRules" type="text"></v-text-field>
-            <v-text-field outlined　dense color="brown lighten-3" v-model="phone_number" label="Phone Number" type="text" :rules="phonenumberRules"></v-text-field>
+            <v-text-field outlined　dense color="brown lighten-3" v-model="phoneNumber" label="Phone Number" type="text" :rules="phonenumberRules"></v-text-field>
             <v-text-field outlined　dense color="brown lighten-3" v-model="email" label="Email" type="text" disabled></v-text-field>
             <v-btn dark class="mr-4" color="brown lighten-1" @click="updateProfile">Save Changes</v-btn>
           </v-form>
@@ -41,7 +41,7 @@ export default {
       valid: true,
       alertFormError: false,
       name: '',
-      phone_number: '',
+      phoneNumber: '',
       email: '',
       nameRules: [
         v => !!v || 'Name is required',
@@ -62,7 +62,7 @@ export default {
         const response = await this.$axios.$get(`/api/users/${this.$auth.user.id}`);
         this.name = response.user.name;
         this.email = response.user.email;
-        this.phone_number = response.user.phone_number;
+        this.phoneNumber = response.user.phone_number;
       }
     },
     updateProfile () {
@@ -70,7 +70,7 @@ export default {
         if (this.$refs.form.validate()) {
           this.$axios.post(`/api/users/${this.$auth.user.id}/profile`, {
             name: this.name,
-            phone_number: this.phone_number,
+            phone_number: this.phoneNumber,
             id: this.$auth.user.id
           }).then((res) => {
             this.$router.push(`/users/${this.$auth.user.id}`)

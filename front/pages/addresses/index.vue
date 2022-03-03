@@ -88,10 +88,9 @@ export default {
       addresses: [],
       dialogDelete: false,
       itemToDelete: '',
-      default_id: ''
+      defaultId: ''
     };
   },
-  // TODO 变为asyncData方法获取初始数据
   created () {
     this.getAddresses();
   },
@@ -102,7 +101,7 @@ export default {
         this.pageCount = Math.ceil(res.data.length / this.itemsPerPage);
         for (var n = 0; n < this.addresses.length; n++) {
           if (this.addresses[n].is_default == 1) {
-            this.default_id = this.addresses[n].id;
+            this.defaultId = this.addresses[n].id;
             break;
           }
         }
@@ -126,7 +125,7 @@ export default {
     setDefault (item) {
       this.$axios
         .post(`api/addresses/set_default`,
-          { user_id: this.$auth.user.id, old_id: this.default_id, id: item.id })
+          { user_id: this.$auth.user.id, old_id: this.defaultId, id: item.id })
         .then((res) => {
           this.getAddresses();
         });

@@ -47,31 +47,11 @@ export default {
 
   axios: {
     baseURL: 'http://back:3000',
-    // baseURL: 'http://localhost:3000',
     // browserBaseURL: 'http://back:3000',
     proxy: true
   },
 
-  auth: {
-    redirect: {
-        login: '/users/login',
-        logout: '/',
-        callback: false,
-        home: '/users/profile',
-    },
-    strategies: {
-      local: {
-        endpoints: {
-          login: { url: '/api/v1/auth/login', method: 'post', propertyName: 'token' },
-          logout: { url: '/api/v1/auth/logout', method: 'post' },
-          user: false,
-        },
-      }
-    }
-  },
-
   proxy: {
-    // '/api/': { target: 'http://localhost:3000', pathRewrite: { '^/api/': '/' } }
     '/api/': { target: 'http://back:3000', pathRewrite: { '^/api/': '/' } }
   },
 
@@ -80,8 +60,7 @@ export default {
       login: '/login', 
       logout: '/login',
       callback: false, 
-      home: '/',
-      // home: false,
+      home: '/home',
     },
     strategies: {
       local: {

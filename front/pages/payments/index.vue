@@ -83,10 +83,9 @@ export default {
       payments: [],
       dialogDelete: false,
       itemToDelete: '',
-      default_id: ''
+      defaultId: ''
     };
   },
-  // TODO 变为asyncData方法获取初始数据
   created () {
     this.getPayments();
   },
@@ -97,7 +96,7 @@ export default {
         this.pageCount = Math.ceil(res.data.length / this.itemsPerPage);
         for (var n = 0; n < this.payments.length; n++) {
           if (this.payments[n].is_default == 1) {
-            this.default_id = this.payments[n].id;
+            this.defaultId = this.payments[n].id;
             break;
           }
         }
@@ -121,7 +120,7 @@ export default {
     setDefault (item) {
       this.$axios
         .post(`api/payments/set_default`,
-          { user_id: this.$auth.user.id, old_id: this.default_id, id: item.id })
+          { user_id: this.$auth.user.id, old_id: this.defaultId, id: item.id })
         .then((res) => {
           this.getPayments();
         });

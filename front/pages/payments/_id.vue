@@ -22,10 +22,10 @@
       <v-row justify="center">
         <v-col cols="12" md="6">
           <v-form ref="form" v-model="valid">
-            <v-text-field outlined　dense color="brown lighten-3" v-model="holder_name" label="HolderName" type="text" :rules="holderNameRules"></v-text-field>
-            <v-text-field outlined　dense color="brown lighten-3" v-model="card_number" label="CardNumber" type="text" :rules="cardNumberRules"></v-text-field>
-            <v-text-field outlined　dense color="brown lighten-3" v-model="expiration_date" label="ExpiratonDate" type="text" :rules="expiratonDateRules"></v-text-field>
-            <v-text-field outlined　dense color="brown lighten-3" v-model="security_code" label="SecurityCode" type="text" :rules="securityCodeRules"></v-text-field>
+            <v-text-field outlined　dense color="brown lighten-3" v-model="holderName" label="HolderName" type="text" :rules="holderNameRules"></v-text-field>
+            <v-text-field outlined　dense color="brown lighten-3" v-model="cardNumber" label="CardNumber" type="text" :rules="cardNumberRules"></v-text-field>
+            <v-text-field outlined　dense color="brown lighten-3" v-model="expirationDate" label="ExpiratonDate" type="text" :rules="expiratonDateRules"></v-text-field>
+            <v-text-field outlined　dense color="brown lighten-3" v-model="securityCode" label="SecurityCode" type="text" :rules="securityCodeRules"></v-text-field>
             <v-btn dark class="mr-4" color="brown lighten-1" @click="editPayment">Save Changes</v-btn>
           </v-form>
         </v-col>
@@ -63,10 +63,10 @@ export default {
     return $axios.$get(`/api/payments/${params.id}`).then((res) => {
       return {
         id: res.id,
-        holder_name: res.holder_name,
-        card_number: res.card_number,
-        expiration_date: res.expiration_date,
-        security_code: res.security_code
+        holderName: res.holder_name,
+        cardNumber: res.card_number,
+        expirationDate: res.expiration_date,
+        securityCode: res.security_code
       };
     });
   },
@@ -75,10 +75,10 @@ export default {
       if (this.$refs.form.validate()) {
         const formData = new FormData();
         formData.append("id", this.id);
-        formData.append("holder_name", this.holder_name);
-        formData.append("card_number", this.card_number);
-        formData.append("expiration_date", this.expiration_date);
-        formData.append("security_code", this.security_code);
+        formData.append("holder_name", this.holderName);
+        formData.append("card_number", this.cardNumber);
+        formData.append("expiration_date", this.expirationDate);
+        formData.append("security_code", this.securityCode);
         this.$axios.put(`/api/payments/${this.id}`, formData).then((res) => {
           this.$router.push(`.`);
         });

@@ -1,7 +1,5 @@
 export const state = () => ({
-  counter: 0,
 	productList:[],
-  totalPrice: 0
 })
 
 export const getters = {
@@ -36,14 +34,6 @@ export const mutations = {
       productList = [];
     }
     state.productList = productList;
-    var countSum = 0;
-    var priceSum = 0;
-    for(var i=0; i<productList.length; i++){
-      countSum += productList[i].quantity;
-      priceSum += productList[i].quantity * productList[i].price;
-    }
-    state.counter = countSum;
-    state.totalPrice = priceSum;
     localStorage.setItem('Cart',JSON.stringify(productList));
   },
   add_product_to_cart(state, cartItem){
@@ -82,8 +72,6 @@ export const mutations = {
     var productList = state.productList;
     for(var i=0; i< productList.length; i++){
       if(productList[i].product_id == product_id){
-        state.counter -= productList[i].quantity;
-        state.priceSum -= productList[i].quantity * productList[i].price;
         productList.splice(i,1);
         break;
       }
@@ -95,4 +83,21 @@ export const mutations = {
     state.productList = [];
     localStorage.setItem('Cart',JSON.stringify([]));
   }
+}
+
+export const actions = {
+  addToCart ({commit}, product) {
+    // add to backend cart
+    if (this.$auth.loggedIn) {
+      this.$axios.$post(`api/products/${product.id}/add_to_cart`, {
+        product_id: product.id,
+        user_id: this.$auth.user.id
+      }).then((res) => {});
+    }
+    // add to store
+    var cartItem = new Object();
+    cartItem.product_id = product.id;
+    cartItem.price = product.price;
+    commit('add_product_to_cart', cartItem);
+  },
 }

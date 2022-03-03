@@ -22,10 +22,10 @@
       <v-row justify="center">
         <v-col cols="6" md="6">
           <v-form ref="form" v-model="valid">
-            <v-switch v-model="is_available" color="brown lighten-1" label="Available"></v-switch>
+            <v-switch v-model="isAvailable" color="brown lighten-1" label="Available"></v-switch>
             <v-text-field outlined　dense color="brown lighten-3" v-model="title" label="Title" type="text" :rules="titleRules"></v-text-field>
-            <v-text-field outlined　dense color="brown lighten-3" v-model="sub_title" label="Sub Title" :rules="subTitleRules"></v-text-field>
-            <v-select outlined dense color="brown lighten-3" :items="categories" item-text="category" item-value="id" v-model="category_id" label="Category" :rules="categoryRules"></v-select>
+            <v-text-field outlined　dense color="brown lighten-3" v-model="subTitle" label="Sub Title" :rules="subTitleRules"></v-text-field>
+            <v-select outlined dense color="brown lighten-3" :items="categories" item-text="category" item-value="id" v-model="categoryId" label="Category" :rules="categoryRules"></v-select>
             <!-- placeholder="Wrap the text with <br>"  -->
             <v-textarea outlined　dense color="brown lighten-3" v-model="description" label="Description" :rules="descriptionRules"></v-textarea>
             <v-text-field outlined　dense color="brown lighten-3" v-model="price" label="Price" type="number" :rules="priceRules"></v-text-field>
@@ -126,13 +126,13 @@ export default {
     return {
       alertFormError: false,
       valid: true,
-      is_available: true,
+      isAvailable: true,
       title: "",
-      sub_title: "",
+      subTitle: "",
       description: "",
       price: "",
       quantity: "",
-      category_id: "",
+      categoryId: "",
       tags: "",
       photoSrcs: [],
       images: [],
@@ -239,15 +239,15 @@ export default {
         };
         const formData = new FormData();
         formData.append("title", this.title);
-        formData.append("sub_title", this.sub_title);
+        formData.append("sub_title", this.subTitle);
         formData.append("description", this.description);
         formData.append("price", this.price);
         formData.append("quantity", this.quantity);
-        formData.append("is_available", this.is_available);
+        formData.append("is_available", this.isAvailable);
         for (var i = 0; i < this.images.length; i++) {
           formData.append("image" + (i + 1), this.images[i]);
         }
-        formData.append("category_id", this.category_id);
+        formData.append("category_id", this.categoryId);
         formData.append("tags", this.tags ? this.tags : "");
         formData.append("promotions", JSON.stringify(this.promotions));
         this.$axios.post("/api/admin/products", formData, config).then((res) => {

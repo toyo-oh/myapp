@@ -1,7 +1,7 @@
 <template>
   <v-card max-width="100%">
-    <v-chip v-if="pDiscount<1" class="ma-2 p-absolute" color="error" small>
-      {{parseFloat(1-pDiscount).toFixed(10)*100}}%off
+    <v-chip v-if="pDiscount>0" class="ma-2 p-absolute" color="error" small>
+      {{parseFloat(pDiscount).toFixed(10)*100}}%off
     </v-chip>
     <v-card-text>
       <router-link :to="{name: 'products-id', params: {id: pId}}">
@@ -15,8 +15,8 @@
       </div>
       <div class="d-flex justify-space-between">
         <div class="d-flex">
-          <h4 class="brown--text lighten-1 mr-2 mb-0">¥{{parseFloat(pDiscount*originalPrice).toFixed(0)}} </h4>
-          <h4 v-if="pDiscount!=1" class="gray--text lighten-4 text-decoration-line-through mb-0">¥{{originalPrice}}</h4>
+          <h4 class="brown--text lighten-1 mr-2 mb-0">¥{{parseFloat((1-pDiscount)*originalPrice).toFixed(0)}} </h4>
+          <h4 v-if="pDiscount>0" class="gray--text lighten-4 text-decoration-line-through mb-0">¥{{originalPrice}}</h4>
         </div>
         <div class="d-flex">
           <v-btn class="rounded" outlined fab x-small tile color="brown lighten-1" @click="$emit('cartAdd')">
@@ -48,7 +48,7 @@ export default {
     },
     pDiscount: {
       type: Number,
-      default: 1
+      default: 0
     }
   },
   data () {

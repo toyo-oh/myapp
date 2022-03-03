@@ -15,7 +15,7 @@
             <!-- <h5 class="grey--text text--darken-3 text-sm mb-9 text-center">Please fill all forms to continued</h5> -->
             <v-text-field outlined　dense color="brown lighten-3" v-model="name" type="text" label="Name" :rules="nameRules" required></v-text-field>
             <v-text-field outlined　dense color="brown lighten-3" v-model="password" type="password" label="Password" :rules="pwdRules" required></v-text-field>
-            <v-text-field outlined　dense color="brown lighten-3" v-model="password_confirmation" type="password" label="password_confirmation" :rules="pwdConfirmRules" required></v-text-field>
+            <v-text-field outlined　dense color="brown lighten-3" v-model="passwordConfirmation" type="password" label="Password Confirmation" :rules="pwdConfirmRules" required></v-text-field>
             <v-text-field outlined　dense color="brown lighten-3" v-model="email" type="text" label="Email" :rules="emailRules" required></v-text-field>
             <!-- <v-switch v-model="is_admin" class="ma-4" label="Administrator"></v-switch> -->
             <v-checkbox color="brown lighten-1" v-model="agree" :rules="agreeRules" label="By signing up, you agree to terms and conditions?" required></v-checkbox>
@@ -42,7 +42,7 @@ export default ({
       alertSignUpError: false,
       name: '',
       password: '',
-      password_confirmation: '',
+      passwordConfirmation: '',
       email: '',
       is_admin: false,
       agree: '',
@@ -72,7 +72,7 @@ export default ({
         this.$axios.post('/api/users', {
           name: this.name,
           password: this.password,
-          password_confirmation: this.password_confirmation,
+          password_confirmation: this.passwordConfirmation,
           email: this.email,
           is_admin: this.is_admin
         }).then((res) => {

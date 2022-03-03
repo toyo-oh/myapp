@@ -75,8 +75,8 @@
                     <v-avatar tile size="32">
                       <v-icon>mdi-credit-card</v-icon>
                     </v-avatar>
-                    <p class="mb-0">**** **** **** {{payment_card_number}}</p>
-                    <p class="mb-0">{{payment_holder_name}}</p>
+                    <p class="mb-0">**** **** **** {{paymentCardNumber}}</p>
+                    <p class="mb-0">{{paymentHolderName}}</p>
                   </div>
                   <div class="flex-1 mt-5 mr-0">
                     <v-dialog v-model="paymentDialog" scrollable max-width="500px">
@@ -126,7 +126,7 @@
         </div>
         <div class="d-flex justify-space-between mb-2">
           <p class="mb-0 grey--text text--darken-2">Shipping:</p>
-          <p class="mb-0 font-weight-bold">¥{{shipping_fee}}</p>
+          <p class="mb-0 font-weight-bold">¥{{shippingFee}}</p>
         </div>
         <div class="d-flex justify-space-between mb-2">
           <p class="mb-0 grey--text text--darken-2">Discount:</p>
@@ -135,7 +135,7 @@
         <v-divider class="my-4"></v-divider>
         <div class="d-flex justify-space-between mb-2">
           <p class="mb-0 font-weight-bold">Total:</p>
-          <p class="mb-0 font-weight-bold"> ¥{{$store.getters['getTotalPrice']+ this.shipping_fee}}</p>
+          <p class="mb-0 font-weight-bold"> ¥{{$store.getters['getTotalPrice']+ this.shippingFee}}</p>
         </div>
       </v-col>
     </v-row>
@@ -149,20 +149,20 @@ export default {
     return {
       products: [],
       totalPrice: '',
-      address_id: '',
-      address_detail: '',
+      addressId: '',
+      addressDetail: '',
       addressDialog: false,
       addressList: [],
       selectedAddressId: '',
       alertNoAddress: false,
-      payment_id: '',
-      payment_holder_name: '',
-      payment_card_number: '',
+      paymentId: '',
+      paymentHolderName: '',
+      paymentCardNumber: '',
       paymentDialog: false,
       paymentList: [],
       selectedPaymentId: '',
       alertNoPayment: false,
-      shipping_fee: 0
+      shippingFee: 0
     };
   },
   created () {
@@ -170,41 +170,41 @@ export default {
   },
   computed: {
     display_address: function () {
-      return this.address_detail;
+      return this.addressDetail;
     }
   },
   methods: {
     loadData () {
       this.$axios.get(`api/cart/get_checkout_info/${this.$auth.user.id}`).then((res) => {
-        var cart_items = res.data.cart_items;
-        for (var m = 0; m < cart_items.length; m++) {
+        var cartItems = res.data.cartItems;
+        for (var m = 0; m < cartItems.length; m++) {
           var product = {};
-          product.title = cart_items[m].product.title;
-          product.price = cart_items[m].price;
-          product.cnt = cart_items[m].quantity;
+          product.title = cartItems[m].product.title;
+          product.price = cartItems[m].price;
+          product.cnt = cartItems[m].quantity;
           // TODO baseURL
-          product.image = "http://localhost:3000" + cart_items[m].product.images[0].thumb.url;
+          product.image = "http://localhost:3000" + cartItems[m].product.images[0].thumb.url;
           // this.products[m].image = this.$axios.baseURL + this.products[m].image.thumb.url;
           this.products.push(product);
         }
         if (res.data.address.length > 0) {
           var default_address = res.data.address[0];
-          this.address_detail = default_address.receiver + " " + default_address.phone_number
+          this.addressDetail = default_address.receiver + " " + default_address.phone_number
             + " " + default_address.post_code + " " + default_address.detail_address;
-          this.address_id = default_address.id;
+          this.addressId = default_address.id;
         }
         if (res.data.payment.length > 0) {
-          this.payment_id = res.data.payment[0].id;
-          this.payment_holder_name = res.data.payment[0].holder_name;
-          this.payment_card_number = res.data.payment[0].card_number.substring(12, 16);
+          this.paymentId = res.data.payment[0].id;
+          this.paymentHolderName = res.data.payment[0].holder_name;
+          this.paymentCardNumber = res.data.payment[0].card_number.substring(12, 16);
         }
         this.getShipping();
       });
     },
     getShipping () {
-      if (this.address_id) {
-        this.$axios.get(`api/addresses/get_shipping_fee/${this.address_id}`).then((res) => {
-          this.shipping_fee = res.data.fee
+      if (this.addressId) {
+        this.$axios.get(`api/addresses/get_shipping_fee/${this.addressId}`).then((res) => {
+          this.shippingFee = res.data.fee
         });
       }
     },
@@ -217,9 +217,9 @@ export default {
       this.addressDialog = false;
       for (var m = 0; m < this.addressList.length; m++) {
         if (this.addressList[m].id == this.selectedAddressId) {
-          this.address_detail = this.addressList[m].receiver + " " + this.addressList[m].phone_number
+          this.addressDetail = this.addressList[m].receiver + " " + this.addressList[m].phone_number
             + " " + this.addressList[m].post_code + " " + this.addressList[m].detail_address;
-          this.address_id = this.selectedAddressId;
+          this.addressId = this.selectedAddressId;
           break;
         }
       }
@@ -234,9 +234,9 @@ export default {
       this.paymentDialog = false;
       for (var m = 0; m < this.paymentList.length; m++) {
         if (this.paymentList[m].id == this.selectedPaymentId) {
-          this.payment_holder_name = this.paymentList[m].holder_name;
-          this.payment_card_number = this.paymentList[m].card_number.substring(12, 16);
-          this.payment_id = this.selectedPaymentId;
+          this.paymentHolderName = this.paymentList[m].holder_name;
+          this.paymentCardNumber = this.paymentList[m].card_number.substring(12, 16);
+          this.paymentId = this.selectedPaymentId;
           break;
         }
       }
@@ -244,14 +244,14 @@ export default {
     createOrder () {
       if (!this.$auth.user.id) {
         this.$router.push(`/login`)
-      } else if (!this.address_id) {
+      } else if (!this.addressId) {
         this.alertNoAddress = true;
       } else {
         const formData = new FormData();
         formData.append("user_id", this.$auth.user.id);
-        formData.append("address_id", this.address_id);
-        formData.append("payment_id", this.payment_id);
-        formData.append("shipping_fee", this.shipping_fee);
+        formData.append("address_id", this.addressId);
+        formData.append("payment_id", this.paymentId);
+        formData.append("shipping_fee", this.shippingFee);
         this.$axios.post("/api/order/create_order", formData).then((res) => {
           this.$router.push(`/orders/${res.data.order_id}`);
           this.$store.commit('clear_cart');

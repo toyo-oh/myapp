@@ -18,14 +18,14 @@
         <div class="d-flex mb-10"></div>
         <h1 class="mb-4">{{title}}</h1>
         <div class="d-flex mb-4">
-          <p class="mb-0">{{sub_title}}</p>
+          <p class="mb-0">{{subTitle}}</p>
         </div>
         <div class="d-flex mb-4">
           <p class="grey--text text--grey-lighten-1 me-3 mb-0">Rated:</p>
           <div class="d-flex align-center justify-center align-center mb-1">
-            <v-rating :value="avg_rate" color="amber" background-color="grey lighten-2" dense half-increments readonly size="16"></v-rating>
+            <v-rating :value="avgRate" color="amber" background-color="grey lighten-2" dense half-increments readonly size="16"></v-rating>
             <div class="grey--text text--darken-4 ml-1">
-              {{parseFloat(avg_rate).toFixed(1)}}
+              {{parseFloat(avgRate).toFixed(1)}}
             </div>
           </div>
         </div>
@@ -34,13 +34,14 @@
           <p class="mb-0">{{quantity}}</p>
         </div>
         <div class="mb-6">
-          <h4 class="gray--text lighten-4 text-decoration-line-through mb-0">¥{{original_price}}</h4>
-          <h2 class="brown--text text--darken-3">¥{{price}}({{parseFloat(1-discount).toFixed(2)*100}}%OFF)</h2>
-          <p v-if="is_available && quantity > 0" class="text-overline">In Stock</p>
+          <h4 v-if="discount>0" class="gray--text lighten-4 text-decoration-line-through mb-0">¥{{originalPrice}}</h4>
+          <h2 v-if="discount>0" class="brown--text text--darken-3">¥{{price}}({{parseFloat(discount).toFixed(2)*100}}%OFF)</h2>
+          <h2 v-else class="brown--text text--darken-3">¥{{price}}</h2>
+          <p v-if="isAvailable && quantity > 0" class="text-overline">In Stock</p>
           <p v-else class="text-overline">Out Of Stock</p>
         </div>
         <div class="mb-6">
-          <v-btn v-if="!$auth.user.is_admin &&is_available && quantity > 0" dark x-large width="250" @click="addToCart" color="brown lighten-1" class="text-capitalize mb-3">
+          <v-btn v-if="!is_admin &&isAvailable && quantity > 0" dark x-large width="250" @click="addToCart({'id':id, 'price':price})" color="brown lighten-1" class="text-capitalize mb-3">
             Add to Cart
           </v-btn>
           <v-btn v-else x-large width="250" color="brown lighten-1" class="text-capitalize mb-3" disabled>
@@ -100,10 +101,17 @@
           </v-tab-item>
         </v-tabs-items>
 
+        <v-snackbar v-model="reviewAlert" timeout="3000">
+          Please login in before review the product
+          <template v-slot:action="{ attrs }">
+            <v-btn color="brown" text v-bind="attrs" @click="reviewAlert = false">Close</v-btn>
+          </template>
+        </v-snackbar>
+
         <h3 class="mb-6">Related Products</h3>
         <v-row>
-          <v-col v-for="(item, index) in related_products" :key="index" cols="12" sm="4" md="2" lg="2" xl="2">
-            <item-card :contentId="item.id" :content-img="item.images[0]" :imageSize="Number(160)" :content-text=" item.title" :originalPrice="item.price" :discount="Number(0.98)" @cartAdd="addToCart(item)">
+          <v-col v-for="(item, index) in related_products" :key="index" cols="12" xs="4" sm="4" md="2" lg="2" xl="2">
+            <item-card :pId="item.id" :pImg="item.images[0]" :pTitle="item.title" :originalPrice="item.price" :pDiscount="Number(item.discount)" @cartAdd="addToCart({'id':item.id, 'price':parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(0)})">
             </item-card>
           </v-col>
         </v-row>
@@ -112,24 +120,31 @@
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex'
+import ItemCard from "@/components/productCard/ItemCard";
 export default {
+  components: {
+    ItemCard
+  },
   data () {
     return {
       id: '',
       title: '',
-      sub_title: '',
-      avg_rate: 0,
+      subTitle: '',
+      avgRate: 0,
       description: '',
-      original_price: '',
+      originalPrice: '',
       price: '',
       quantity: '',
       images: [],
-      is_available: true,
+      isAvailable: true,
       tab: null,
       rate: 0,
       comment: '',
       reviewList: [],
-      related_products: []
+      related_products: [],
+      reviewAlert: false,
+      discount: 0
     }
   },
   computed: {
@@ -137,14 +152,18 @@ export default {
       return {
         btn_display: this.$auth.user.is_admin ? 'd-none' : 'd-block'
       }
+    },
+    is_admin () {
+      return this.$auth && this.$auth.user && this.$auth.user.is_admin ? true : false
     }
   },
-  asyncData ({ $axios, params }) {
+  asyncData ({ $axios, params, error }) {
     return $axios.$get(`/api/products/${params.id}`).then((res) => {
       var tmp_images = [];
       if (res && res.product.images) {
         for (var i = 0; i < res.product.images.length; i++) {
           tmp_images.push(res.product.images[i] ? "http://localhost:3000" + res.product.images[i].medium.url : "");
+          // tmp_images.push(res.product.images[i] ? this.$axios.browserBaseURL + '/api' + res.roduct.images[i].medium.url : "");
         }
       }
       if (res && res.related_products) {
@@ -154,40 +173,32 @@ export default {
       }
       if (res)
         return {
-          // TODO 这里的属性是否就默认为data中的属性？
           id: res.product.id,
           title: res.product.title,
-          sub_title: res.product.sub_title,
+          subTitle: res.product.sub_title,
           description: res.product.description,
-          price: parseFloat(Number(res.product.price) * Number(res.product.discount)).toFixed(0),
-          original_price: res.product.price,
+          price: parseFloat(Number(res.product.price) * (1 - Number(res.product.discount))).toFixed(0),
+          originalPrice: res.product.price,
           quantity: res.product.quantity,
           images: tmp_images,
-          is_available: res.product.is_available,
+          isAvailable: res.product.is_available,
           reviewList: res.product.reviews,
-          avg_rate: Number(res.avg_rate),
+          avgRate: Number(res.avg_rate),
           discount: Number(res.product.discount),
           related_products: res.related_products
         };
+    }).catch(e => {
+      const code = parseInt(e.response && e.response.status)
+      if (code === 404) {
+        // return $nuxt.$router.push("/error/404");
+        // return $nuxt.$router.push("/error");
+        error({ statusCode: 404, message: 'Post not found' });
+      }
+
     });
   },
   methods: {
-    addToCart () {
-      // add to backend cart
-      if (this.$auth.loggedIn) {
-        this.$axios.$post(`api/products/${this.id}/add_to_cart`, {
-          product_id: this.id,
-          user_id: this.$auth.user.id
-        }).then((res) => {
-          // console.log(res);
-        });
-      }
-      // add to store
-      var cartItem = new Object();
-      cartItem.product_id = this.id;
-      cartItem.price = this.price;
-      this.$store.commit('add_product_to_cart', cartItem);
-    },
+    ...mapActions(['addToCart']),
     reviewProduct () {
       if (this.$auth.loggedIn) {
         this.$axios.$post('api/reviews', {
@@ -204,12 +215,12 @@ export default {
           });
         });
       } else {
-        // TODO redirect to login page
+        this.reviewAlert = true;
       }
     },
     // TODO 收藏功能
     addToFavorite () {
-    }
+    },
   }
 };
 </script>

@@ -23,10 +23,10 @@
         <v-col cols="6">
           <v-form ref="form" v-model="valid">
             <v-text-field v-model="id" v-if="false"></v-text-field>
-            <v-switch v-model="is_available" color="brown lighten-1" label="Available"></v-switch>
+            <v-switch v-model="isAvailable" color="brown lighten-1" label="Available"></v-switch>
             <v-text-field outlined　dense color="brown lighten-3" v-model="title" label="Title" type="text" :rules="titleRules"></v-text-field>
             <v-text-field outlined　dense color="brown lighten-3" v-model="sub_title" label="Sub Title" :rules="subTitleRules"></v-text-field>
-            <v-select outlined dense color="brown lighten-3" :items="categories" item-text="category" item-value="id" v-model="category_id" label="Category" :rules="categoryRules"></v-select>
+            <v-select outlined dense color="brown lighten-3" :items="categories" item-text="category" item-value="id" v-model="categoryId" label="Category" :rules="categoryRules"></v-select>
             <v-textarea outlined　dense color="brown lighten-3" v-model="description" label="Description" :rules="descriptionRules"></v-textarea>
             <v-text-field outlined　dense color="brown lighten-3" v-model="price" label="Price" type="number" :rules="priceRules"></v-text-field>
             <v-text-field outlined　dense color="brown lighten-3" v-model="quantity" label="Quantity" type="number" :rules="quantityRules"></v-text-field>
@@ -189,26 +189,24 @@ export default {
   },
   asyncData ({ $axios, params }) {
     return $axios.$get(`/api/admin/products/${params.id}`).then((res) => {
-      var tmp_images = [];
+      var tmpImages = [];
       if (res.product.images) {
         for (var i = 0; i < res.product.images.length; i++) {
-          tmp_images.push(res.product.images[i] ? "http://localhost:3000" + res.product.images[i].thumb.url : "");
+          tmpImages.push(res.product.images[i] ? "http://localhost:3000" + res.product.images[i].thumb.url : "");
         }
       }
       return {
         id: res.product.id,
         title: res.product.title,
         sub_title: res.product.sub_title,
-        category_id: res.product.category_id,
+        categoryId: res.product.category_id,
         description: res.product.description,
         price: res.product.price,
         quantity: res.product.quantity,
         tags: res.product.tags,
-        // image: `${$axios.defaults.baseURL}`+res.image.thumb.url
-        // "`${$axios.defaults.baseURL}upload/1.png`"
-        images: tmp_images,
-        photoSrcs: tmp_images,
-        is_available: res.product.is_available,
+        images: tmpImages,
+        photoSrcs: tmpImages,
+        isAvailable: res.product.is_available,
         promotions: res.product.promotions
       };
     });
@@ -259,11 +257,11 @@ export default {
         formData.append("description", this.description);
         formData.append("price", this.price);
         formData.append("quantity", this.quantity);
-        formData.append("is_available", this.is_available);
+        formData.append("is_available", this.isAvailable);
         for (var i = 0; i < this.images.length; i++) {
           formData.append("image" + (i + 1), this.images[i]);
         }
-        formData.append("category_id", this.category_id);
+        formData.append("category_id", this.categoryId);
         formData.append("tags", this.tags ? this.tags : "");
         formData.append("promotions", JSON.stringify(this.promotions));
         this.$axios.put(`api/admin/products/${this.id}`, formData, config).then((res) => {

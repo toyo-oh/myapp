@@ -9,8 +9,8 @@
       </router-link>
       <div class="d-flex justify-space-between">
         <div class="d-flex">
-          <h5 class="brown--text me-2">¥{{parseFloat(pDiscount*originalPrice).toFixed(0)}}</h5>
-          <h5 v-if="pDiscount!=1" class="grey--text text--darken-1 text-decoration-line-through">¥{{originalPrice}}</h5>
+          <h5 class="brown--text me-2">¥{{parseFloat((1-pDiscount)*originalPrice).toFixed(0)}}</h5>
+          <h5 v-if="pDiscount>0" class="grey--text text--darken-1 text-decoration-line-through">¥{{originalPrice}}</h5>
         </div>
         <div class="d-flex">
           <v-btn class="rounded" outlined fab x-small tile color="brown lighten-1" @click="$emit('cartAdd')">
@@ -42,7 +42,7 @@ export default {
     },
     pDiscount: {
       type: Number,
-      default: 1
+      default: 0
     }
   },
   data () {

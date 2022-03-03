@@ -23,9 +23,9 @@
         <v-col cols="6">
           <v-form ref="form" v-model="valid">
             <v-text-field outlined　dense color="brown lighten-3" v-model="receiver" label="Receiver" type="text" :rules="receiverRules"></v-text-field>
-            <v-text-field outlined　dense color="brown lighten-3" v-model="phone_number" label="PhoneNumber" type="text" :rules="phoneNumberRules"></v-text-field>
-            <v-text-field outlined　dense color="brown lighten-3" v-model="post_code" label="PostCode" type="text" :rules="postCodeRules"></v-text-field>
-            <v-select outlined dense :items="prefectures" item-text="prefecture" item-value="id" v-model="prefecture_id" label="Prefecture" :rules="prefectureRules"></v-select>
+            <v-text-field outlined　dense color="brown lighten-3" v-model="phoneNumber" label="PhoneNumber" type="text" :rules="phoneNumberRules"></v-text-field>
+            <v-text-field outlined　dense color="brown lighten-3" v-model="postCode" label="PostCode" type="text" :rules="postCodeRules"></v-text-field>
+            <v-select outlined dense :items="prefectures" item-text="prefecture" item-value="id" v-model="prefectureId" label="Prefecture" :rules="prefectureRules"></v-select>
             <v-text-field outlined　dense color="brown lighten-3" v-model="city" label="City" type="text" :rules="cityRules"></v-text-field>
             <v-textarea outlined　dense color="brown lighten-3" v-model="detail" label="Detail" type="text" :rules="detailRules"></v-textarea>
             <v-btn dark class="mr-4" color="brown lighten-1" @click="createAddress">create address</v-btn>
@@ -44,10 +44,10 @@ export default {
       valid: true,
       alertFormError: false,
       receiver: "",
-      phone_number: "",
-      post_code: "",
-      detail_address: "",
-      prefecture_id: "",
+      phoneNumber: "",
+      postCode: "",
+      detailAddress: "",
+      prefectureId: "",
       city: "",
       detail: "",
       receiverRules: [
@@ -88,10 +88,10 @@ export default {
       if (this.$refs.form.validate()) {
         const formData = new FormData();
         formData.append("receiver", this.receiver);
-        formData.append("phone_number", this.phone_number);
-        formData.append("post_code", this.post_code);
+        formData.append("phone_number", this.phoneNumber);
+        formData.append("post_code", this.postCode);
         formData.append("city", this.city);
-        formData.append("prefecture_id", this.prefecture_id);
+        formData.append("prefecture_id", this.prefectureId);
         formData.append("detail", this.detail);
         formData.append("user_id", this.$auth.user.id);
         this.$axios.post("/api/addresses", formData).then((res) => {

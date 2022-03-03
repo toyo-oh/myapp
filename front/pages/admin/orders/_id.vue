@@ -33,11 +33,11 @@
                           <div class="py-2 px-5 brown lighten-4 brown--text text-center text-wrap rounded-pill">
                             <p class="mb-0">
                               Order Status:
-                              <span class="font-weight-bold">{{order_status}}</span>
+                              <span class="font-weight-bold">{{orderStatus}}</span>
                             </p>
                           </div>
                         </div>
-                        <div class="d-flex align-center" v-if="order_status=='order_cancelled'">
+                        <div class="d-flex align-center" v-if="orderStatus=='order_cancelled'">
                           <div class="p-relative">
                             <v-avatar size="72" color="brown lighten-2">
                               <v-badge color="green lighten-1" icon="mdi-check">
@@ -45,8 +45,8 @@
                               </v-badge>
                             </v-avatar>
                           </div>
-                          <v-sheet color="brown lighten-1" elevation="0" height="4" class="flex-grow-1" v-if="is_paid"></v-sheet>
-                          <div v-if="is_paid">
+                          <v-sheet color="brown lighten-1" elevation="0" height="4" class="flex-grow-1" v-if="isPaid"></v-sheet>
+                          <div v-if="isPaid">
                             <v-avatar size="72" color="brown lighten-2">
                               <v-badge color="green lighten-1" icon="mdi-check">
                                 <v-icon color="grey lighten-4">mdi-briefcase-variant-outline</v-icon>
@@ -70,9 +70,9 @@
                               </v-badge>
                             </v-avatar>
                           </div>
-                          <v-sheet :color="(order_status=='paid' || order_status=='shipping' || order_status=='shipped') ? 'brown lighten-1' : 'grey lighten-2'" elevation="0" height="4" class="flex-grow-1"></v-sheet>
+                          <v-sheet :color="(orderStatus=='paid' || orderStatus=='shipping' || orderStatus=='shipped') ? 'brown lighten-1' : 'grey lighten-2'" elevation="0" height="4" class="flex-grow-1"></v-sheet>
                           <div>
-                            <template v-if="(order_status=='paid' || order_status=='shipping' || order_status=='shipped')">
+                            <template v-if="(orderStatus=='paid' || orderStatus=='shipping' || orderStatus=='shipped')">
                               <v-avatar size="72" color="brown lighten-2">
                                 <v-badge color="green lighten-1" icon="mdi-check">
                                   <v-icon color="grey lighten-4">mdi-briefcase-variant-outline</v-icon>
@@ -85,9 +85,9 @@
                               </v-avatar>
                             </template>
                           </div>
-                          <v-sheet :color="(order_status=='shipping' || order_status=='shipped') ? 'brown lighten-1' : 'grey lighten-2'" elevation="0" height="4" class="flex-grow-1"></v-sheet>
+                          <v-sheet :color="(orderStatus=='shipping' || orderStatus=='shipped') ? 'brown lighten-1' : 'grey lighten-2'" elevation="0" height="4" class="flex-grow-1"></v-sheet>
                           <div>
-                            <template v-if="(order_status=='shipping' || order_status=='shipped') ">
+                            <template v-if="(orderStatus=='shipping' || orderStatus=='shipped') ">
                               <v-avatar size="72" color="brown lighten-2">
                                 <v-badge color="green lighten-1" icon="mdi-check">
                                   <v-icon color="grey lighten-4">mdi-car-pickup</v-icon>
@@ -100,9 +100,9 @@
                               </v-avatar>
                             </template>
                           </div>
-                          <v-sheet :color="order_status=='shipped' ? 'brown lighten-1' : 'grey lighten-2'" elevation="0" height="4" class="flex-grow-1"></v-sheet>
+                          <v-sheet :color="orderStatus=='shipped' ? 'brown lighten-1' : 'grey lighten-2'" elevation="0" height="4" class="flex-grow-1"></v-sheet>
                           <div>
-                            <template v-if="(order_status=='shipped')">
+                            <template v-if="(orderStatus=='shipped')">
                               <v-avatar size="72" color="brown lighten-2">
                                 <v-badge color="green lighten-1" icon="mdi-check">
                                   <v-icon color="grey lighten-4">mdi-check-circle-outline</v-icon>
@@ -137,7 +137,7 @@
                             Order ID:
                           </p>
                           <p class="mb-0 grey--text text--darken-4">
-                            {{order_id}}
+                            {{orderId}}
                           </p>
                         </div>
                         <div class="d-flex my-3 mx-3">
@@ -145,7 +145,7 @@
                             Placed on:
                           </p>
                           <p class="mb-0 grey--text text--darken-4">
-                            {{ new Date(placed_on).toLocaleString("ja-jp") }}
+                            {{ new Date(placedOn).toLocaleString("ja-jp") }}
                           </p>
                         </div>
                         <div class="d-flex my-3 mx-3">
@@ -153,7 +153,7 @@
                             Delivered on:
                           </p>
                           <p class="mb-0 grey--text text--darken-4">
-                            {{ deliver_on ? new Date(deliver_on).toLocaleString("ja-jp") :'ー' }}
+                            {{ deliverOn ? new Date(deliverOn).toLocaleString("ja-jp") :'ー' }}
                           </p>
                         </div>
                       </div>
@@ -189,7 +189,7 @@
                           Shipping Address
                         </h4>
                         <p class="text-14 mb-0">
-                          {{address_detail}}
+                          {{addressDetail}}
                         </p>
                       </div>
                     </v-card>
@@ -199,7 +199,7 @@
                           Payment Details
                         </h4>
                         <p class="text-14 mb-0">
-                          {{payment_detail}}
+                          {{paymentDetail}}
                         </p>
                       </div>
                     </v-card>
@@ -223,7 +223,7 @@
                             Shipping fee:
                           </p>
                           <p class="tex-14 mb-0 font-weight-bold">
-                            ¥{{logistics_fee}}
+                            ¥{{logisticsFee}}
                           </p>
                         </div>
                         <div class="d-flex justify-space-between mb-2">
@@ -274,60 +274,60 @@ export default {
     return {
       products: [],
       totalPrice: 0,
-      logistics_fee: 0,
-      order_id: '',
-      address_detail: '',
-      payment_detail: '',
-      order_status: '',
+      logisticsFee: 0,
+      orderId: '',
+      addressDetail: '',
+      paymentDetail: '',
+      orderStatus: '',
       alertCancel: false,
       alertShip: false,
       dialogCancel: false,
-      is_paid: false,
-      placed_on: '',
-      deliver_on: ''
+      isPaid: false,
+      placedOn: '',
+      deliverOn: ''
     };
   },
   computed: {
     display_cancel_btn: function () {
-      return this.order_status == 'order_placed' || this.order_status == 'paid' ? true : false
+      return this.orderStatus == 'order_placed' || this.orderStatus == 'paid' ? true : false
     },
     display_ship_btn: function () {
-      return this.order_status == 'paid' ? true : false
+      return this.orderStatus == 'paid' ? true : false
     },
     display_order_status: function () {
-      return this.order_status;
+      return this.orderStatus;
     }
   },
   asyncData ({ $axios, params }) {
     return $axios.get(`api/admin/orders/${params.id}`).then((res) => {
-      var order_items = res.data.order_details;
-      var tmp_products = [];
-      var tmp_total = 0;
-      for (var m = 0; m < order_items.length; m++) {
+      var orderItems = res.data.order_details;
+      var tmpProducts = [];
+      var tmpTotal = 0;
+      for (var m = 0; m < orderItems.length; m++) {
         var product = {};
-        product.id = order_items[m].product_id;
-        product.title = order_items[m].product_title;
-        product.price = order_items[m].price;
-        product.cnt = order_items[m].quantity;
+        product.id = orderItems[m].product_id;
+        product.title = orderItems[m].product_title;
+        product.price = orderItems[m].price;
+        product.cnt = orderItems[m].quantity;
         // TODO baseURL
-        product.image = "http://localhost:3000" + order_items[m].product.images[0].thumb.url;
+        product.image = "http://localhost:3000" + orderItems[m].product.images[0].thumb.url;
         // this.products[m].image = this.$axios.baseURL + this.products[m].image.thumb.url;
-        tmp_products.push(product);
-        tmp_total += order_items[m].subtotal;
+        tmpProducts.push(product);
+        tmpTotal += orderItems[m].subtotal;
       }
       return {
-        address_detail: res.data.address.receiver + " " + res.data.address.phone_number
+        addressDetail: res.data.address.receiver + " " + res.data.address.phone_number
           + " " + res.data.address.post_code + " " + res.data.address.detail_address,
-        payment_detail: res.data.payment.holder_name + " **** **** **** " + res.data.payment.card_number.substring(12, 16),
-        address_id: res.data.address.id,
-        products: tmp_products,
-        totalPrice: tmp_total,
-        order_id: params.id,
-        order_status: res.data.order.aasm_state,
-        logistics_fee: res.data.order.logistics_fee == null ? 0 : res.data.order.logistics_fee,
-        is_paid: res.data.order.is_paid == '1' ? true : false,
-        placed_on: res.data.order.created_at,
-        deliver_on: res.data.order.deliver_at ? res.data.order.deliver_at : ''
+        paymentDetail: res.data.payment.holder_name + " **** **** **** " + res.data.payment.card_number.substring(12, 16),
+        addressId: res.data.address.id,
+        products: tmpProducts,
+        totalPrice: tmpTotal,
+        orderId: params.id,
+        orderStatus: res.data.order.aasm_state,
+        logisticsFee: res.data.order.logistics_fee == null ? 0 : res.data.order.logistics_fee,
+        isPaid: res.data.order.is_paid == '1' ? true : false,
+        placedOn: res.data.order.created_at,
+        deliverOn: res.data.order.deliver_at ? res.data.order.deliver_at : ''
       };
     });
   },
@@ -336,15 +336,15 @@ export default {
       this.dialogCancel = !this.dialogCancel
     },
     cancelOrder () {
-      this.$axios.delete(`api/admin/orders/${this.order_id}`).then((res) => {
-        this.order_status = res.data.aasm_state;
+      this.$axios.delete(`api/admin/orders/${this.orderId}`).then((res) => {
+        this.orderStatus = res.data.aasm_state;
         this.dialogCancel = false;
         this.alertCancel = true;
       });
     },
     shipOrder () {
-      this.$axios.post(`api/admin/orders/ship_order`, { id: this.order_id }).then((res) => {
-        this.order_status = res.data.aasm_state;
+      this.$axios.post(`api/admin/orders/ship_order`, { id: this.orderId }).then((res) => {
+        this.orderStatus = res.data.aasm_state;
         this.alertShip = true;
       });
     },

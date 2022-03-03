@@ -1,14 +1,22 @@
-export default ({ $axios }) => {
-    // リクエストログ
+export default ({ $axios, redirect, error}) => {
+    // request
     $axios.onRequest((config) => {
       console.log(config)
     })
-    // レスポンスログ
+    // response
     $axios.onResponse((config) => {
       console.log(config)
-    })
-    // エラーログ
+    })  
+    // error
     $axios.onError((e) => {
-      console.log(e.response)
+      // const code = parseInt(error.response && error.response.status)
+      // if (code === 401) {
+      //   return redirect("/login");
+      // }else if(code === 404){
+      //   // return redirect("/error/404");
+      //   error({ statusCode: 404, message: 'Post not found' });
+      // }else{
+      //   return redirect("/error/500");
+      // }
     })
   }

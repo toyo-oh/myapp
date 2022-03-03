@@ -18,13 +18,13 @@ class ProductsController < ApplicationController
         else
             @related_products = Product.where("is_available = 1 AND quantity > 0 AND category_id = ? AND id <> ?", @product.category_id, @product.id)
         end
-        render :json => {:product => @product.as_json(:include => {:reviews => {:include=>{user: {only: :name }}}}),:avg_rate => avg_rate, :related_products =>@related_products}
+        render :json => {:product => @product.as_json(:include => {:reviews => {:include=>{user: {only: :name }}}}),:avg_rate => avg_rate, :related_products =>set_discount_to_list(@related_products)}
     end
 
     def add_to_cart
         @product = Product.find(params[:product_id])
         discount = ProductsController.get_discount(@product)
-        @product.price = (@product.price * discount).round(0)
+        @product.price = (@product.price * (1-discount)).round(0)
         @current_cart = Cart.find_by(user_id: params[:user_id])
         # cart is not exist
         if @current_cart.blank?
@@ -111,7 +111,7 @@ class ProductsController < ApplicationController
     end
 
     def self.get_discount(product)
-        discount = 1;
+        discount = 0;
         if !product.promotions.blank?
             today = Time.new.strftime("%Y-%m-%d")
             promotions = Promotion.where('product_id = ? AND start_at <= ? AND end_at >= ? AND is_active = 1', product.id, today, today)
@@ -120,7 +120,7 @@ class ProductsController < ApplicationController
                 promotions.each do |p_item|
                     tmp_discount += 1 - p_item.discount;
                 end
-                discount = tmp_discount > 0.5 ? 0.5 : 1 - tmp_discount;
+                discount = tmp_discount > 0.5 ? 0.5 : tmp_discount;
             end
         end
         return discount

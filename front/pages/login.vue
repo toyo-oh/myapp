@@ -49,20 +49,18 @@ export default ({
   methods: {
     userLogin () {
       if (this.$refs.form.validate()) {
-        try {
-          this.$auth.loginWith('local', { data: this.login }).then((res) => {
+        this.$auth.loginWith('local', { data: this.login }).then((res) => {
+          if (res && res.status === 200) {
             this.$axios.$get(`api/cart/find_cart/${this.$auth.user.id}`).then((res) => {
               this.$store.commit('load_products', res.productList);
             });
-          });
-        } catch (error) {
-          this.$nuxt.error(error.message);
-          if (error.response.status == "401") {
-            console.log("here");
-            this.alertLoginError = true;
-            this.error_message = 'Account or password incorrect';
           }
-        }
+        }).catch((err) => {
+          if (err.response && err.response.status === 401) {
+            this.alertLoginError = true;
+            this.error_message = 'Account or password is incorrect';
+          }
+        });
       } else {
         this.alertLoginError = true;
         this.error_message = 'Invalid item in the form';

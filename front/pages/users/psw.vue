@@ -23,9 +23,9 @@
         <v-col cols="12" md="6">
           <v-form ref="form" v-model="valid">
             <v-text-field outlined　dense color="brown lighten-3" v-model="email" label="Email" :rules="emailRules" type="text"></v-text-field>
-            <v-text-field outlined　dense color="brown lighten-3" v-model="current_password" label="Current Password" type="password" :rules="currentPasswordRules"></v-text-field>
-            <v-text-field outlined　dense color="brown lighten-3" v-model="new_password" label="New Password" type="password" :rules="newPasswordRules"></v-text-field>
-            <v-text-field outlined　dense color="brown lighten-3" v-model="confirm_password" label="Confirm Password" type="password" :rules="confirmPasswordRules"></v-text-field>
+            <v-text-field outlined　dense color="brown lighten-3" v-model="currentPassword" label="Current Password" type="password" :rules="currentPasswordRules"></v-text-field>
+            <v-text-field outlined　dense color="brown lighten-3" v-model="newPassword" label="New Password" type="password" :rules="newPasswordRules"></v-text-field>
+            <v-text-field outlined　dense color="brown lighten-3" v-model="confirmPassword" label="Confirm Password" type="password" :rules="confirmPasswordRules"></v-text-field>
             <v-btn dark class="mr-4" color="brown lighten-1" @click="updatePassword">Save Changes</v-btn>
           </v-form>
         </v-col>
@@ -42,9 +42,9 @@ export default {
       valid: true,
       alertFormError: false,
       email: '',
-      current_password: '',
-      new_password: '',
-      confirm_password: '',
+      currentPassword: '',
+      newPassword: '',
+      confirmPassword: '',
       emailRules: [
         v => !!v || 'Current Email is required',
       ],
@@ -58,7 +58,7 @@ export default {
       confirmPasswordRules: [
         v => !!v || 'Confirm Password is required',
         v => (v && v.length >= 6 && v.length <= 20) || 'Confirm Password must be more than 6 and less than 20 characters',
-        v => v === this.new_password || 'The password confirmation does not match.',
+        v => v === this.newPassword || 'The password confirmation does not match.',
       ],
     }
   },
@@ -68,12 +68,12 @@ export default {
         if (this.$refs.form.validate()) {
           this.$axios.post(`/api/users/${this.$auth.user.id}/psw`, {
             email: this.email,
-            current_password: this.current_password,
-            new_password: this.new_password,
-            confirm_password: this.confirm_password,
+            current_password: this.currentPassword,
+            new_password: this.newPassword,
+            confirm_password: this.confirmPassword,
             id: this.$auth.user.id
           }).then((res) => {
-            this.$auth.loginWith('local', { data: { email: res.data.email, password: this.new_password } })
+            this.$auth.loginWith('local', { data: { email: res.data.email, password: this.newPassword } })
               .then((res) => {
                 this.$router.push(`/users/${this.$auth.user.id}`)
               });

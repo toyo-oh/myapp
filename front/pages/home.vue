@@ -50,7 +50,7 @@
           <div>
             <v-row>
               <v-col cols="12" xs="6" sm="4" md="3" lg="2" xl="2" v-for="(item, index) in bestSellers" :key="index">
-                <small-card :pId="item.id" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" @cartAdd="addCart(item)"></small-card>
+                <small-card :pId="item.id" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" :pDiscount="Number(item.discount)" @cartAdd="addToCart({'id':item.id, 'price':parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(0)})"></small-card>
               </v-col>
             </v-row>
           </div>
@@ -74,7 +74,7 @@
           <div>
             <v-row>
               <v-col cols="12" xs="6" sm="4" md="3" lg="2" xl="2" v-for="(item, index) in newArrivals" :key="index">
-                <small-card :pId="item.id" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" @cartAdd="addCart(item)"></small-card>
+                <small-card :pId="item.id" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" :pDiscount="Number(item.discount)" @cartAdd="addToCart({'id':item.id, 'price':parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(0)})"></small-card>
               </v-col>
             </v-row>
           </div>
@@ -98,7 +98,7 @@
           <div>
             <v-row>
               <v-col cols="12" xs="6" sm="4" md="3" lg="2" xl="2" v-for="(item, index) in bigDiscounts" :key="index">
-                <small-card :pId="item.id" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" @cartAdd="addCart(item)"></small-card>
+                <small-card :pId="item.id" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" :pDiscount="Number(item.discount)" @cartAdd="addToCart({'id':item.id, 'price':parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(0)})"></small-card>
               </v-col>
             </v-row>
           </div>
@@ -122,7 +122,7 @@
           <div>
             <v-row>
               <v-col cols="12" xs="6" sm="4" md="3" lg="2" xl="2" v-for="(item, index) in topRatings" :key="index">
-                <small-card :pId="item.id" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" @cartAdd="addCart(item)"></small-card>
+                <small-card :pId="item.id" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" :pDiscount="Number(item.discount)" @cartAdd="addToCart({'id':item.id, 'price':parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(0)})"></small-card>
               </v-col>
             </v-row>
           </div>
@@ -144,7 +144,7 @@
           <div>
             <v-row>
               <v-col cols="12" xs="6" sm="4" md="4" lg="3" xl="3" v-for="(item, index) in category1" :key="index">
-                <item-card :pId="item.id" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" :subTitle="item.sub_title" :pDiscount="Number(item.discount)" @cartAdd="addCart(item)"></item-card>
+                <item-card :pId="item.id" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" :subTitle="item.sub_title" :pDiscount="Number(item.discount)" @cartAdd="addToCart({'id':item.id, 'price':parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(0)})"></item-card>
               </v-col>
             </v-row>
           </div>
@@ -165,7 +165,7 @@
           </div>
           <v-row>
             <v-col cols="12" xs="6" sm="4" md="4" lg="3" xl="3" v-for="(item, index) in category2" :key="index">
-              <item-card :pId="item.id" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" :subTitle="item.sub_title" :pDiscount="Number(item.discount)" @cartAdd="addCart(item)"></item-card>
+              <item-card :pId="item.id" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" :subTitle="item.sub_title" :pDiscount="Number(item.discount)" @cartAdd="addToCart({'id':item.id, 'price':parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(0)})"></item-card>
             </v-col>
           </v-row>
         </v-col>
@@ -185,7 +185,7 @@
           </div>
           <v-row>
             <v-col cols="12" xs="6" sm="4" md="4" lg="3" xl="3" v-for="(item, index) in category3" :key="index">
-              <item-card :pId="item.id" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" :subTitle="item.sub_title" :pDiscount="Number(item.discount)" @cartAdd="addCart(item)"></item-card>
+              <item-card :pId="item.id" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" :subTitle="item.sub_title" :pDiscount="Number(item.discount)" @cartAdd="addToCart({'id':item.id, 'price':parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(0)})"></item-card>
             </v-col>
           </v-row>
         </v-col>
@@ -205,7 +205,7 @@
           </div>
           <v-row>
             <v-col cols="12" xs="6" sm="4" md="4" lg="3" xl="3" v-for="(item, index) in category4" :key="index">
-              <item-card :pId="item.id" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" :subTitle="item.sub_title" :pDiscount="Number(item.discount)" @cartAdd="addCart(item)"></item-card>
+              <item-card :pId="item.id" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" :subTitle="item.sub_title" :pDiscount="Number(item.discount)" @cartAdd="addToCart({'id':item.id, 'price':parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(0)})"></item-card>
             </v-col>
           </v-row>
         </v-col>
@@ -217,6 +217,7 @@
 <script>
 import SmallCard from "@/components/productCard/SmallCard";
 import ItemCard from "@/components/productCard/ItemCard";
+import { mapActions } from 'vuex'
 export default {
   components: {
     SmallCard,
@@ -238,6 +239,7 @@ export default {
       category2: [],
       category3: [],
       category4: [],
+      // TODO (top products)
       sliders: [
         {
           'id': 2,
@@ -260,6 +262,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(['addToCart']),
     loadDatas () {
       this.$axios.get("api/products", {
       }).then((res) => {
@@ -293,22 +296,6 @@ export default {
     viewAll (keyword) {
       this.$router.push({ path: '/search', query: { value: keyword } });
     },
-    addCart (item) {
-      // add to backend cart
-      if (this.$auth.loggedIn) {
-        this.$axios.$post(`api/products/${item.id}/add_to_cart`, {
-          product_id: item.id,
-          user_id: this.$auth.user.id
-        }).then((res) => {
-          // console.log(res);
-        });
-      }
-      // add to store
-      var cartItem = new Object();
-      cartItem.product_id = item.id;
-      cartItem.price = item.price;
-      this.$store.commit('add_product_to_cart', cartItem);
-    }
   }
 };
 </script>

@@ -33,8 +33,7 @@
                     <template v-slot:default="props">
                       <v-row>
                         <v-col v-for="(item, index) in props.items" :key="index" cols="12" sm="6" md="6" lg="3" xl="3">
-                          <!-- TODO product discount -->
-                          <item-card :pId="item.id" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" :subTitle="item.sub_title" :pDiscount="Number(item.discount)" @cartAdd="addCart(item)">
+                          <item-card :pId="item.id" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" :subTitle="item.sub_title" :pDiscount="Number(item.discount)" @cartAdd="addToCart({'id':item.id, 'price':parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(0)})">
                           </item-card>
                         </v-col>
                       </v-row>
@@ -66,6 +65,7 @@
 
 <script>
 import ItemCard from "@/components/productCard/ItemCard";
+import { mapActions } from 'vuex'
 export default {
   components: {
     ItemCard
@@ -97,6 +97,7 @@ export default {
     this.searchProducts();
   },
   methods: {
+    ...mapActions(['addToCart']),
     searchProducts () {
       this.$axios.$post(`/api/products/search`, { value: this.$route.query.value }).then((res) => {
         var products = res;
@@ -121,22 +122,22 @@ export default {
     formerPage () {
       if (this.page - 1 >= 1) this.page -= 1
     },
-    addCart (item) {
-      // add to backend cart
-      if (this.$auth.loggedIn) {
-        this.$axios.$post(`api/products/${item.id}/add_to_cart`, {
-          product_id: item.id,
-          user_id: this.$auth.user.id
-        }).then((res) => {
-          // console.log(res);
-        });
-      }
-      // add to store
-      var cartItem = new Object();
-      cartItem.product_id = item.id;
-      cartItem.price = item.price;
-      this.$store.commit('add_product_to_cart', cartItem);
-    }
+    // addToCart (item) {
+    //   // add to backend cart
+    //   if (this.$auth.loggedIn) {
+    //     this.$axios.$post(`api/products/${item.id}/add_to_cart`, {
+    //       product_id: item.id,
+    //       user_id: this.$auth.user.id
+    //     }).then((res) => {
+    //       // console.log(res);
+    //     });
+    //   }
+    //   // add to store
+    //   var cartItem = new Object();
+    //   cartItem.product_id = item.id;
+    //   cartItem.price = item.price;
+    //   this.$store.commit('add_product_to_cart', cartItem);
+    // }
   }
 };
 </script>

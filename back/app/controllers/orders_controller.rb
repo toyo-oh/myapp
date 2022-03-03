@@ -22,7 +22,7 @@ class OrdersController < ApplicationController
 			count = 0
 			amount = 0
 			@cart_items.each do |cart_item|
-				@new_order.create_detail_item(cart_item.product,cart_item.quantity,cart_item.price,'')
+				@new_order.create_detail_item(cart_item.product, cart_item.quantity, cart_item.price, '')
 				count += cart_item.quantity
 				amount += cart_item.quantity * cart_item.price
 				@product = Product.find(cart_item.product_id)
