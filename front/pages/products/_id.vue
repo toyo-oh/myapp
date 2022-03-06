@@ -110,7 +110,7 @@
 
         <h3 class="mb-6">Related Products</h3>
         <v-row>
-          <v-col v-for="(item, index) in related_products" :key="index" cols="12" xs="4" sm="4" md="2" lg="2" xl="2">
+          <v-col v-for="(item, index) in relatedProducts" :key="index" cols="12" xs="4" sm="4" md="2" lg="2" xl="2">
             <item-card :pId="item.id" :pImg="item.images[0]" :pTitle="item.title" :originalPrice="item.price" :pDiscount="Number(item.discount)" @cartAdd="addToCart({'id':item.id, 'price':parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(0)})">
             </item-card>
           </v-col>
@@ -142,17 +142,12 @@ export default {
       rate: 0,
       comment: '',
       reviewList: [],
-      related_products: [],
+      relatedProducts: [],
       reviewAlert: false,
       discount: 0
     }
   },
   computed: {
-    btn_display () {
-      return {
-        btn_display: this.$auth.user.is_admin ? 'd-none' : 'd-block'
-      }
-    },
     is_admin () {
       return this.$auth && this.$auth.user && this.$auth.user.is_admin ? true : false
     }
@@ -185,16 +180,8 @@ export default {
           reviewList: res.product.reviews,
           avgRate: Number(res.avg_rate),
           discount: Number(res.product.discount),
-          related_products: res.related_products
+          relatedProducts: res.related_products
         };
-    }).catch(e => {
-      const code = parseInt(e.response && e.response.status)
-      if (code === 404) {
-        // return $nuxt.$router.push("/error/404");
-        // return $nuxt.$router.push("/error");
-        error({ statusCode: 404, message: 'Post not found' });
-      }
-
     });
   },
   methods: {
@@ -206,7 +193,7 @@ export default {
           user_id: this.$auth.user.id,
           comment: this.comment,
           rate: this.rate
-        }).then((res) => {
+        }).then(() => {
           // reset comment input form
           this.comment = '';
           this.rate = 0;

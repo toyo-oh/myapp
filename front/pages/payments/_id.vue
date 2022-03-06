@@ -41,6 +41,11 @@ export default {
     return {
       valid: true,
       alertFormError: false,
+      id: '',
+      holderName: '',
+      cardNumber: '',
+      expirationDate: '',
+      securityCode: '',
       holderNameRules: [
         v => !!v || 'Holder Name is required',
         v => (v && v.length <= 20) || 'Holder Name must be less than 20 characters',
@@ -59,18 +64,24 @@ export default {
       ],
     };
   },
-  asyncData ({ $axios, params }) {
-    return $axios.$get(`/api/payments/${params.id}`).then((res) => {
-      return {
-        id: res.id,
-        holderName: res.holder_name,
-        cardNumber: res.card_number,
-        expirationDate: res.expiration_date,
-        securityCode: res.security_code
-      };
-    });
+  created () {
+    this.loadPayment();
   },
   methods: {
+    loadPayment () {
+      this.$axios.$get(`/api/payments/${this.$route.params.id}`).then((res) => {
+        this.id = res.id;
+        this.holderName = res.holder_name;
+        this.cardNumber = res.card_number;
+        this.expirationDate = res.expiration_date;
+        this.securityCode = res.security_code;
+      }).catch((err) => {
+        if (err.response && err.response.status === 401) {
+          this.$router.push('/payments');
+          this.$toast.error('Unauthorized!');
+        }
+      });
+    },
     editPayment () {
       if (this.$refs.form.validate()) {
         const formData = new FormData();
@@ -79,8 +90,9 @@ export default {
         formData.append("card_number", this.cardNumber);
         formData.append("expiration_date", this.expirationDate);
         formData.append("security_code", this.securityCode);
-        this.$axios.put(`/api/payments/${this.id}`, formData).then((res) => {
+        this.$axios.put(`/api/payments/${this.id}`, formData).then(() => {
           this.$router.push(`.`);
+          this.$toast.show('Update payment successfully!');
         });
       } else {
         this.alertFormError = true;

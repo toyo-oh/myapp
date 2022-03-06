@@ -117,8 +117,9 @@ export default {
     deleteAddress () {
       this.$axios
         .delete(`api/addresses/${this.itemToDelete.id}`)
-        .then((res) => {
+        .then(() => {
           this.getAddresses();
+          this.$toast.show('Delete address Successfully!');
         });
       this.dialogDelete = false
     },
@@ -126,8 +127,9 @@ export default {
       this.$axios
         .post(`api/addresses/set_default`,
           { user_id: this.$auth.user.id, old_id: this.defaultId, id: item.id })
-        .then((res) => {
+        .then(() => {
           this.getAddresses();
+          this.$toast.show('Set default address Successfully!');
         });
     },
     newAddress () {

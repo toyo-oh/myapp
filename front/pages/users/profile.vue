@@ -48,7 +48,6 @@ export default {
         v => (v && v.length <= 20) || 'Name must be less than 20 characters',
       ],
       phonenumberRules: [
-        // TODO
         v => (/^\d{2,4}-\d{2,4}-\d{4}$/.test(v)) || 'Phone Number must be valid',
       ]
     }
@@ -57,13 +56,16 @@ export default {
     this.loadUserData();
   },
   methods: {
-    async loadUserData () {
-      if (this.$auth.loggedIn) {
-        const response = await this.$axios.$get(`/api/users/${this.$auth.user.id}`);
-        this.name = response.user.name;
-        this.email = response.user.email;
-        this.phoneNumber = response.user.phone_number;
-      }
+    loadUserData () {
+      this.$axios.$get(`/api/users/${this.$auth.user.id}`).then((res) => {
+        this.name = res.user.name;
+        this.email = res.user.email;
+        this.phoneNumber = res.user.phone_number;
+      }).catch((err) => {
+        if (err.response && err.response.status === 401) {
+          this.$toast.error('Unauthorized!');
+        }
+      })
     },
     updateProfile () {
       if (this.$auth.loggedIn) {
@@ -72,12 +74,19 @@ export default {
             name: this.name,
             phone_number: this.phoneNumber,
             id: this.$auth.user.id
-          }).then((res) => {
-            this.$router.push(`/users/${this.$auth.user.id}`)
+          }).then(() => {
+            this.$router.push(`/users/${this.$auth.user.id}`);
+            this.$toast.show('Update Profile successfully!');
+          }).catch((err) => {
+            if (err.response && err.response.status === 401) {
+              this.$toast.error('Unauthorized!');
+            }
           })
         } else {
           this.alertFormError = true;
         }
+      } else {
+        this.$router.push('/login');
       }
     },
     rtnToProfile () {

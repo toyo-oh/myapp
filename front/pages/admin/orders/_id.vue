@@ -1,11 +1,5 @@
 <template>
   <div>
-    <v-alert v-model="alertCancel" type="success" close-text="Close Alert" dismissible>
-      Order cancelled successfully！
-    </v-alert>
-    <v-alert v-model="alertShip" type="success" close-text="Close Alert" dismissible>
-      Order shipped successfully！
-    </v-alert>
     <div>
       <v-row>
         <v-col cols="12">
@@ -279,8 +273,6 @@ export default {
       addressDetail: '',
       paymentDetail: '',
       orderStatus: '',
-      alertCancel: false,
-      alertShip: false,
       dialogCancel: false,
       isPaid: false,
       placedOn: '',
@@ -298,40 +290,41 @@ export default {
       return this.orderStatus;
     }
   },
-  asyncData ({ $axios, params }) {
-    return $axios.get(`api/admin/orders/${params.id}`).then((res) => {
-      var orderItems = res.data.order_details;
-      var tmpProducts = [];
-      var tmpTotal = 0;
-      for (var m = 0; m < orderItems.length; m++) {
-        var product = {};
-        product.id = orderItems[m].product_id;
-        product.title = orderItems[m].product_title;
-        product.price = orderItems[m].price;
-        product.cnt = orderItems[m].quantity;
-        // TODO baseURL
-        product.image = "http://localhost:3000" + orderItems[m].product.images[0].thumb.url;
-        // this.products[m].image = this.$axios.baseURL + this.products[m].image.thumb.url;
-        tmpProducts.push(product);
-        tmpTotal += orderItems[m].subtotal;
-      }
-      return {
-        addressDetail: res.data.address.receiver + " " + res.data.address.phone_number
-          + " " + res.data.address.post_code + " " + res.data.address.detail_address,
-        paymentDetail: res.data.payment.holder_name + " **** **** **** " + res.data.payment.card_number.substring(12, 16),
-        addressId: res.data.address.id,
-        products: tmpProducts,
-        totalPrice: tmpTotal,
-        orderId: params.id,
-        orderStatus: res.data.order.aasm_state,
-        logisticsFee: res.data.order.logistics_fee == null ? 0 : res.data.order.logistics_fee,
-        isPaid: res.data.order.is_paid == '1' ? true : false,
-        placedOn: res.data.order.created_at,
-        deliverOn: res.data.order.deliver_at ? res.data.order.deliver_at : ''
-      };
-    });
+  created () {
+    this.loadOrder();
   },
   methods: {
+    loadOrder () {
+      this.$axios.get(`api/admin/orders/${this.$route.params.id}`).then((res) => {
+        var orderItems = res.data.order_details;
+        var tmpProducts = [];
+        var tmpTotal = 0;
+        for (var m = 0; m < orderItems.length; m++) {
+          var product = {};
+          product.id = orderItems[m].product_id;
+          product.title = orderItems[m].product_title;
+          product.price = orderItems[m].price;
+          product.cnt = orderItems[m].quantity;
+          // TODO baseURL
+          product.image = "http://localhost:3000" + orderItems[m].product.images[0].thumb.url;
+          // this.products[m].image = this.$axios.baseURL + this.products[m].image.thumb.url;
+          tmpProducts.push(product);
+          tmpTotal += orderItems[m].subtotal;
+        }
+        this.addressDetail = res.data.address.receiver + " " + res.data.address.phone_number
+          + " " + res.data.address.post_code + " " + res.data.address.detail_address;
+        this.paymentDetail = res.data.payment.holder_name + " **** **** **** " + res.data.payment.card_number.substring(12, 16);
+        this.addressId = res.data.address.id;
+        this.products = tmpProducts;
+        this.totalPrice = tmpTotal;
+        this.orderId = res.data.order.id;
+        this.orderStatus = res.data.order.aasm_state;
+        this.logisticsFee = res.data.order.logistics_fee == null ? 0 : res.data.order.logistics_fee;
+        this.isPaid = res.data.order.is_paid == '1' ? true : false;
+        this.placedOn = res.data.order.created_at;
+        this.deliverOn = res.data.order.deliver_at ? res.data.order.deliver_at : '';
+      });
+    },
     showCancelDialog () {
       this.dialogCancel = !this.dialogCancel
     },
@@ -339,13 +332,13 @@ export default {
       this.$axios.delete(`api/admin/orders/${this.orderId}`).then((res) => {
         this.orderStatus = res.data.aasm_state;
         this.dialogCancel = false;
-        this.alertCancel = true;
+        this.$toast.show('Cancel order successfully!');
       });
     },
     shipOrder () {
       this.$axios.post(`api/admin/orders/ship_order`, { id: this.orderId }).then((res) => {
         this.orderStatus = res.data.aasm_state;
-        this.alertShip = true;
+        this.$toast.show('Order shipped successfully!');
       });
     },
     returnToList () {

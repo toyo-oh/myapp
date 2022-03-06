@@ -1,11 +1,5 @@
 <template>
   <div>
-    <v-alert v-model="alertNoAddress" type="error" close-text="Close Alert" dismissible>
-      Please input Delivery Address.
-    </v-alert>
-    <v-alert v-model="alertNoPayment" type="error" close-text="Close Alert" dismissible>
-      Please input Payment Method.
-    </v-alert>
     <v-row>
       <v-col cols="12" md="6" lg="8" xl="8">
         <v-card class="mb-4">
@@ -154,14 +148,12 @@ export default {
       addressDialog: false,
       addressList: [],
       selectedAddressId: '',
-      alertNoAddress: false,
       paymentId: '',
       paymentHolderName: '',
       paymentCardNumber: '',
       paymentDialog: false,
       paymentList: [],
       selectedPaymentId: '',
-      alertNoPayment: false,
       shippingFee: 0
     };
   },
@@ -176,7 +168,7 @@ export default {
   methods: {
     loadData () {
       this.$axios.get(`api/cart/get_checkout_info/${this.$auth.user.id}`).then((res) => {
-        var cartItems = res.data.cartItems;
+        var cartItems = res.data.cart_items;
         for (var m = 0; m < cartItems.length; m++) {
           var product = {};
           product.title = cartItems[m].product.title;
@@ -245,7 +237,9 @@ export default {
       if (!this.$auth.user.id) {
         this.$router.push(`/login`)
       } else if (!this.addressId) {
-        this.alertNoAddress = true;
+        this.$toast.error('Please select Delivery Address!');
+      } else if (!this.paymentId) {
+        this.$toast.error('Please select Payment Method!');
       } else {
         const formData = new FormData();
         formData.append("user_id", this.$auth.user.id);
@@ -255,6 +249,7 @@ export default {
         this.$axios.post("/api/order/create_order", formData).then((res) => {
           this.$router.push(`/orders/${res.data.order_id}`);
           this.$store.commit('clear_cart');
+          this.$toast.show('Create order successfully!');
         });
       }
     }

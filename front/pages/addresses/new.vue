@@ -22,12 +22,12 @@
       <v-row justify="center">
         <v-col cols="6">
           <v-form ref="form" v-model="valid">
-            <v-text-field outlined　dense color="brown lighten-3" v-model="receiver" label="Receiver" type="text" :rules="receiverRules"></v-text-field>
-            <v-text-field outlined　dense color="brown lighten-3" v-model="phoneNumber" label="PhoneNumber" type="text" :rules="phoneNumberRules"></v-text-field>
-            <v-text-field outlined　dense color="brown lighten-3" v-model="postCode" label="PostCode" type="text" :rules="postCodeRules"></v-text-field>
-            <v-select outlined dense :items="prefectures" item-text="prefecture" item-value="id" v-model="prefectureId" label="Prefecture" :rules="prefectureRules"></v-select>
-            <v-text-field outlined　dense color="brown lighten-3" v-model="city" label="City" type="text" :rules="cityRules"></v-text-field>
-            <v-textarea outlined　dense color="brown lighten-3" v-model="detail" label="Detail" type="text" :rules="detailRules"></v-textarea>
+            <v-text-field outlined dense color="brown lighten-3" v-model="receiver" label="Receiver" type="text" :rules="receiverRules"></v-text-field>
+            <v-text-field outlined dense color="brown lighten-3" v-model="phoneNumber" label="PhoneNumber" type="text" :rules="phoneNumberRules"></v-text-field>
+            <v-text-field outlined dense color="brown lighten-3" v-model="postCode" label="PostCode" type="text" :rules="postCodeRules"></v-text-field>
+            <v-select outlined dense color="brown lighten-3" item-color="brown lighten-1" :items="prefectures" item-text="prefecture" item-value="id" v-model="prefectureId" label="Prefecture" :rules="prefectureRules"></v-select>
+            <v-text-field outlined dense color="brown lighten-3" v-model="city" label="City" type="text" :rules="cityRules"></v-text-field>
+            <v-textarea outlined dense color="brown lighten-3" v-model="detail" label="Detail" type="text" :rules="detailRules"></v-textarea>
             <v-btn dark class="mr-4" color="brown lighten-1" @click="createAddress">create address</v-btn>
           </v-form>
         </v-col>
@@ -96,6 +96,7 @@ export default {
         formData.append("user_id", this.$auth.user.id);
         this.$axios.post("/api/addresses", formData).then((res) => {
           this.$router.push(`.`);
+          this.$toast.show('Create address Successfully!');
         });
       } else {
         this.alertFormError = true;

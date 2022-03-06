@@ -22,12 +22,12 @@
       <v-row justify="center">
         <v-col cols="12" md="6">
           <v-form ref="form" v-model="valid">
-            <v-text-field outlined　dense color="brown lighten-3" v-model="receiver" label="Receiver" type="text" :rules="receiverRules"></v-text-field>
-            <v-text-field outlined　dense color="brown lighten-3" v-model="phoneNumber" label="PhoneNumber" type="text" :rules="phoneNumberRules"></v-text-field>
-            <v-text-field outlined　dense color="brown lighten-3" v-model="postCode" label="PostCode" type="text" :rules="postCodeRules"></v-text-field>
-            <v-select outlined dense :items="prefectures" item-text="prefecture" item-value="id" v-model="prefectureId" label="Prefecture" :rules="prefectureRules"></v-select>
-            <v-text-field outlined　dense color="brown lighten-3" v-model="city" label="City" type="text" :rules="cityRules"></v-text-field>
-            <v-textarea outlined　dense color="brown lighten-3" v-model="detail" label="Detail" type="text" :rules="detailRules"></v-textarea>
+            <v-text-field outlined dense color="brown lighten-3" v-model="receiver" label="Receiver" type="text" :rules="receiverRules"></v-text-field>
+            <v-text-field outlined dense color="brown lighten-3" v-model="phoneNumber" label="PhoneNumber" type="text" :rules="phoneNumberRules"></v-text-field>
+            <v-text-field outlined dense color="brown lighten-3" v-model="postCode" label="PostCode" type="text" :rules="postCodeRules"></v-text-field>
+            <v-select outlined dense color="brown lighten-3" item-color="brown lighten-1" :items="prefectures" item-text="prefecture" item-value="id" v-model="prefectureId" label="Prefecture" :rules="prefectureRules"></v-select>
+            <v-text-field outlined dense color="brown lighten-3" v-model="city" label="City" type="text" :rules="cityRules"></v-text-field>
+            <v-textarea outlined dense color="brown lighten-3" v-model="detail" label="Detail" type="text" :rules="detailRules"></v-textarea>
             <v-btn dark class="mr-4" color="brown lighten-1" @click="editAddress">Save Changes</v-btn>
           </v-form>
         </v-col>
@@ -44,6 +44,13 @@ export default {
       valid: true,
       alertFormError: false,
       prefectures: [],
+      id: '',
+      receiver: '',
+      phoneNumber: '',
+      postCode: '',
+      prefectureId: '',
+      city: '',
+      detail: '',
       receiverRules: [
         v => !!v || 'Receiver is required',
         v => (v && v.length <= 20) || 'Receiver must be less than 20 characters',
@@ -70,22 +77,26 @@ export default {
     };
   },
   created () {
+    this.loadAddress();
     this.loadPrefectures();
   },
-  asyncData ({ $axios, params }) {
-    return $axios.$get(`/api/addresses/${params.id}`).then((res) => {
-      return {
-        id: res.id,
-        receiver: res.receiver,
-        phoneNumber: res.phone_number,
-        postCode: res.post_code,
-        prefectureId: res.prefecture_id,
-        city: res.city,
-        detail: res.detail,
-      };
-    });
-  },
   methods: {
+    loadAddress () {
+      this.$axios.$get(`/api/addresses/${this.$route.params.id}`).then((res) => {
+        this.id = res.id;
+        this.receiver = res.receiver;
+        this.phoneNumber = res.phone_number;
+        this.postCode = res.post_code;
+        this.prefectureId = res.prefecture_id;
+        this.city = res.city;
+        this.detail = res.detail;
+      }).catch((err) => {
+        if (err.response && err.response.status === 401) {
+          this.$router.push('/addresses');
+          this.$toast.error('Unauthorized!');
+        }
+      });
+    },
     loadPrefectures () {
       this.$axios.get(`/api/prefectures`).then((res) => {
         this.prefectures = res.data;
@@ -101,8 +112,9 @@ export default {
         formData.append("city", this.city);
         formData.append("prefecture_id", this.prefectureId);
         formData.append("detail", this.detail);
-        this.$axios.put(`/api/addresses/${this.id}`, formData).then((res) => {
+        this.$axios.put(`/api/addresses/${this.id}`, formData).then(() => {
           this.$router.push(`.`);
+          this.$toast.show('Update address Successfully!');
         });
       } else {
         this.alertFormError = true;

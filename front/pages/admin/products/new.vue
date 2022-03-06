@@ -252,6 +252,7 @@ export default {
         formData.append("promotions", JSON.stringify(this.promotions));
         this.$axios.post("/api/admin/products", formData, config).then((res) => {
           this.$router.push(`.`);
+          this.$toast.show('Create product successfully!');
         });
       } else {
         this.alertFormError = true;

@@ -1,17 +1,5 @@
 <template>
   <div>
-    <v-alert v-model="alertCancel" type="success" close-text="Close Alert" dismissible>
-      Order cancelled successfully！
-    </v-alert>
-    <v-alert v-model="alertPay" type="success" close-text="Close Alert" dismissible>
-      Order paid successfully！
-    </v-alert>
-    <v-alert v-model="alertReceive" type="success" close-text="Close Alert" dismissible>
-      Order completed！
-    </v-alert>
-    <v-alert v-model="alertReview" type="success" close-text="Close Alert" dismissible>
-      Review Product successfully！
-    </v-alert>
     <v-row>
       <v-col cols="12">
         <div class="box-wrapper">
@@ -38,11 +26,11 @@
                         <div class="py-2 px-5 brown lighten-4 brown--text text-center text-wrap rounded-pill">
                           <p class="mb-0">
                             Order Status:
-                            <span class="font-weight-bold">{{order_status}}</span>
+                            <span class="font-weight-bold">{{orderStatus}}</span>
                           </p>
                         </div>
                       </div>
-                      <div class="d-flex align-center" v-if="order_status=='order_cancelled'">
+                      <div class="d-flex align-center" v-if="orderStatus=='order_cancelled'">
                         <div class="p-relative">
                           <v-avatar size="72" color="brown lighten-2">
                             <v-badge color="green lighten-1" icon="mdi-check">
@@ -50,8 +38,8 @@
                             </v-badge>
                           </v-avatar>
                         </div>
-                        <v-sheet color="brown lighten-1" elevation="0" height="4" class="flex-grow-1" v-if="is_paid"></v-sheet>
-                        <div v-if="is_paid">
+                        <v-sheet color="brown lighten-1" elevation="0" height="4" class="flex-grow-1" v-if="isPaid"></v-sheet>
+                        <div v-if="isPaid">
                           <v-avatar size="72" color="brown lighten-2">
                             <v-badge color="green lighten-1" icon="mdi-check">
                               <v-icon color="grey lighten-4">mdi-briefcase-variant-outline</v-icon>
@@ -75,9 +63,9 @@
                             </v-badge>
                           </v-avatar>
                         </div>
-                        <v-sheet :color="(order_status=='paid' || order_status=='shipping' || order_status=='shipped') ? 'brown lighten-1' : 'grey lighten-2'" elevation="0" height="4" class="flex-grow-1"></v-sheet>
+                        <v-sheet :color="(orderStatus=='paid' || orderStatus=='shipping' || orderStatus=='shipped') ? 'brown lighten-1' : 'grey lighten-2'" elevation="0" height="4" class="flex-grow-1"></v-sheet>
                         <div>
-                          <template v-if="(order_status=='paid' || order_status=='shipping' || order_status=='shipped')">
+                          <template v-if="(orderStatus=='paid' || orderStatus=='shipping' || orderStatus=='shipped')">
                             <v-avatar size="72" color="brown lighten-2">
                               <v-badge color="green lighten-1" icon="mdi-check">
                                 <v-icon color="grey lighten-4">mdi-briefcase-variant-outline</v-icon>
@@ -90,9 +78,9 @@
                             </v-avatar>
                           </template>
                         </div>
-                        <v-sheet :color="(order_status=='shipping' || order_status=='shipped') ? 'brown lighten-1' : 'grey lighten-2'" elevation="0" height="4" class="flex-grow-1"></v-sheet>
+                        <v-sheet :color="(orderStatus=='shipping' || orderStatus=='shipped') ? 'brown lighten-1' : 'grey lighten-2'" elevation="0" height="4" class="flex-grow-1"></v-sheet>
                         <div>
-                          <template v-if="(order_status=='shipping' || order_status=='shipped') ">
+                          <template v-if="(orderStatus=='shipping' || orderStatus=='shipped') ">
                             <v-avatar size="72" color="brown lighten-2">
                               <v-badge color="green lighten-1" icon="mdi-check">
                                 <v-icon color="grey lighten-4">mdi-car-pickup</v-icon>
@@ -105,9 +93,9 @@
                             </v-avatar>
                           </template>
                         </div>
-                        <v-sheet :color="order_status=='shipped' ? 'brown lighten-1' : 'grey lighten-2'" elevation="0" height="4" class="flex-grow-1"></v-sheet>
+                        <v-sheet :color="orderStatus=='shipped' ? 'brown lighten-1' : 'grey lighten-2'" elevation="0" height="4" class="flex-grow-1"></v-sheet>
                         <div>
-                          <template v-if="(order_status=='shipped')">
+                          <template v-if="(orderStatus=='shipped')">
                             <v-avatar size="72" color="brown lighten-2">
                               <v-badge color="green lighten-1" icon="mdi-check">
                                 <v-icon color="grey lighten-4">mdi-check-circle-outline</v-icon>
@@ -145,7 +133,7 @@
                           Order ID:
                         </p>
                         <p class="mb-0 grey--text text--darken-4">
-                          {{order_id}}
+                          {{orderId}}
                         </p>
                       </div>
                       <div class="d-flex my-3 mx-3">
@@ -153,7 +141,7 @@
                           Placed on:
                         </p>
                         <p class="mb-0 grey--text text--darken-4">
-                          {{ new Date(placed_on).toLocaleString("ja-jp") }}
+                          {{ new Date(placedOn).toLocaleString("ja-jp") }}
                         </p>
                       </div>
                       <div class="d-flex my-3 mx-3">
@@ -161,7 +149,7 @@
                           Delivered on:
                         </p>
                         <p class="mb-0 grey--text text--darken-4">
-                          {{ deliver_on ? new Date(deliver_on).toLocaleString("ja-jp") :'ー' }}
+                          {{ deliverOn ? new Date(deliverOn).toLocaleString("ja-jp") :'ー' }}
                         </p>
                       </div>
                     </div>
@@ -218,7 +206,7 @@
                         Shipping Address
                       </h4>
                       <p class="text-14 mb-0">
-                        {{address_detail}}
+                        {{addressDetail}}
                       </p>
                     </div>
                   </v-card>
@@ -228,7 +216,7 @@
                         Payment Details
                       </h4>
                       <p class="text-14 mb-0">
-                        {{payment_detail}}
+                        {{paymentDetail}}
                       </p>
                     </div>
                   </v-card>
@@ -252,7 +240,7 @@
                           Shipping fee:
                         </p>
                         <p class="tex-14 mb-0 font-weight-bold">
-                          ¥{{shipping_fee}}
+                          ¥{{shippingFee}}
                         </p>
                       </div>
                       <div class="d-flex justify-space-between mb-2">
@@ -269,7 +257,7 @@
                           Total:
                         </p>
                         <p class="tex-14 mb-0 font-weight-bold">
-                          ¥{{totalPrice+shipping_fee}}
+                          ¥{{totalPrice+shippingFee}}
                         </p>
                       </div>
                     </div>
@@ -302,79 +290,78 @@ export default {
     return {
       products: [],
       totalPrice: 0,
-      shipping_fee: 0,
-      order_id: '',
-      address_detail: '',
-      payment_detail: '',
+      shippingFee: 0,
+      orderId: '',
+      addressDetail: '',
+      paymentDetail: '',
       reviewDialog: false,
-      alertReview: false,
       dialogCancel: false,
-      alertCancel: false,
-      alertPay: false,
-      alertReceive: false,
-      order_status: '',
-      is_paid: false,
-      placed_on: '',
-      deliver_on: '',
+      orderStatus: '',
+      isPaid: false,
+      placedOn: '',
+      deliverOn: '',
       comment: '',
       rate: 0
     };
   },
   computed: {
     display_cancel_btn: function () {
-      return this.order_status == 'order_placed' || this.order_status == 'paid' ? true : false
+      return this.orderStatus == 'order_placed' || this.orderStatus == 'paid' ? true : false
     },
     display_pay_btn: function () {
-      return this.order_status == 'order_placed' ? true : false
+      return this.orderStatus == 'order_placed' ? true : false
     },
     display_order_status: function () {
-      return this.order_status;
+      return this.orderStatus;
     },
     display_receive_btn: function () {
-      return this.order_status == 'shipping' ? true : false
+      return this.orderStatus == 'shipping' ? true : false
     }
   },
-  asyncData ({ $axios, params }) {
-    return $axios.get(`api/orders/${params.id}`).then((res) => {
-      var order_items = res.data.order_details;
-      var tmp_products = [];
-      var tmp_total = 0;
-      for (var m = 0; m < order_items.length; m++) {
-        var product = {};
-        product.id = order_items[m].product_id;
-        product.title = order_items[m].product_title;
-        product.price = order_items[m].price;
-        product.cnt = order_items[m].quantity;
-        // TODO baseURL
-        product.image = "http://localhost:3000" + order_items[m].product.images[0].thumb.url;
-        // this.products[m].image = this.$axios.baseURL + this.products[m].image.thumb.url;
-        tmp_products.push(product);
-        tmp_total += order_items[m].subtotal;
-      }
-      return {
-        address_detail: res.data.address.receiver + " " + res.data.address.phone_number
-          + " " + res.data.address.post_code + " " + res.data.address.detail_address,
-        // address_id: res.data.address.id,
-        payment_detail: res.data.payment.holder_name + " **** **** **** " + res.data.payment.card_number.substring(12, 16),
-        products: tmp_products,
-        totalPrice: tmp_total,
-        order_id: params.id,
-        order_status: res.data.order.aasm_state,
-        shipping_fee: res.data.order.shipping_fee == null ? 0 : res.data.order.shipping_fee,
-        is_paid: res.data.order.is_paid == '1' ? true : false,
-        placed_on: res.data.order.created_at,
-        deliver_on: res.data.order.deliver_at ? res.data.order.deliver_at : ''
-      };
-    });
+  created () {
+    this.loadOrder();
   },
   methods: {
-    payOrder (params) {
-      if (!this.$auth.user.id) {
-        // TODO error message
+    loadOrder () {
+      this.$axios.get(`api/orders/${this.$route.params.id}`).then((res) => {
+        var orderItems = res.data.order_details;
+        var tmpProducts = [];
+        var tmpTotal = 0;
+        for (var m = 0; m < orderItems.length; m++) {
+          var product = {};
+          product.id = orderItems[m].product_id;
+          product.title = orderItems[m].product_title;
+          product.price = orderItems[m].price;
+          product.cnt = orderItems[m].quantity;
+          product.image = "http://localhost:3000" + orderItems[m].product.images[0].thumb.url;
+          tmpProducts.push(product);
+          tmpTotal += orderItems[m].subtotal;
+        }
+        this.addressDetail = res.data.address.receiver + " " + res.data.address.phone_number
+          + " " + res.data.address.post_code + " " + res.data.address.detail_address;
+        this.paymentDetail = res.data.payment.holder_name + " **** **** **** " + res.data.payment.card_number.substring(12, 16);
+        this.products = tmpProducts;
+        this.totalPrice = tmpTotal;
+        this.orderId = res.data.order.id;
+        this.orderStatus = res.data.order.aasm_state;
+        this.shippingFee = res.data.order.shipping_fee == null ? 0 : res.data.order.shipping_fee;
+        this.isPaid = res.data.order.is_paid == '1' ? true : false;
+        this.placedOn = res.data.order.created_at;
+        this.deliverOn = res.data.order.deliver_at ? res.data.order.deliver_at : '';
+      }).catch((err) => {
+        if (err.response && err.response.status === 401) {
+          this.$router.push('/orders');
+          this.$toast.error('Unauthorized!');
+        }
+      });
+    },
+    payOrder () {
+      if (!this.$auth.loggedIn) {
+        this.$toast.error('Please login in before pay the order!');
       } else {
-        this.$axios.post(`/api/orders/pay_order`, { id: this.order_id }).then((res) => {
-          this.alertPay = true;
-          this.order_status = res.data.aasm_state;
+        this.$axios.post(`/api/orders/pay_order`, { id: this.orderId }).then((res) => {
+          this.orderStatus = res.data.aasm_state;
+          this.$toast.show('Order paid successfully!');
         });
       }
     },
@@ -382,22 +369,23 @@ export default {
       this.dialogCancel = !this.dialogCancel
     },
     cancelOrder () {
-      if (!this.$auth.user.id) {
-        // TODO error message
+      if (!this.$auth.loggedIn) {
+        this.$toast.error('Please login in before cancel the order!');
       } else {
-        this.$axios.delete(`api/orders/${this.order_id}`).then((res) => {
-          this.order_status = res.data.aasm_state;
+        this.$axios.delete(`api/orders/${this.orderId}`).then((res) => {
+          this.orderStatus = res.data.aasm_state;
           this.dialogCancel = false;
+          this.$toast.show('Cancel order successfully!');
         });
       }
     },
     receiveGoods () {
-      if (!this.$auth.user.id) {
-        // TODO error message
+      if (!this.$auth.loggedIn) {
+        this.$toast.error('Please login in before receive the order!');
       } else {
-        this.$axios.post(`api/orders/receive_good`, { id: this.order_id }).then((res) => {
-          this.alertReceive = true;
-          this.order_status = res.data.aasm_state;
+        this.$axios.post(`api/orders/receive_good`, { id: this.orderId }).then((res) => {
+          this.$toast.show('Receive order successfully!');
+          this.orderStatus = res.data.aasm_state;
         });
       }
     },
@@ -412,14 +400,13 @@ export default {
           user_id: this.$auth.user.id,
           comment: this.comment,
           rate: this.rate
-        }).then((res) => {
-          // TODO success message
-          this.alertReview = true;
+        }).then(() => {
+          this.$toast.show('Review the product successfully!');
           this.rate = 0;
           this.comment = "";
         });
       } else {
-        // TODO redirect to login page
+        this.$toast.error('Please login in before review the product!');
       }
     }
   },

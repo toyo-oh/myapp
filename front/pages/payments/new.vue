@@ -74,6 +74,7 @@ export default {
         formData.append("user_id", this.$auth.user.id)
         this.$axios.post("/api/payments", formData).then((res) => {
           this.$router.push(`.`);
+          this.$toast.show('Create payment successfully!');
         });
       } else {
         this.alertFormError = true;

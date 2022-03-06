@@ -74,13 +74,20 @@ export default {
             id: this.$auth.user.id
           }).then((res) => {
             this.$auth.loginWith('local', { data: { email: res.data.email, password: this.password } })
-              .then((res) => {
-                this.$router.push(`/users/${this.$auth.user.id}`)
+              .then(() => {
+                this.$router.push(`/users/${this.$auth.user.id}`);
+                this.$toast.show('Update Email successfully!');
               });
+          }).catch((err) => {
+            if (err.response && err.response.status === 401) {
+              this.$toast.error('Unauthorized!');
+            }
           })
         } else {
           this.alertFormError = true;
         }
+      } else {
+        this.$router.push(`/login`)
       }
     },
     rtnToProfile () {

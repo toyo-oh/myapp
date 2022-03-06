@@ -42,7 +42,8 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/auth'
+    '@nuxtjs/auth',
+    '@nuxtjs/toast'
   ],
 
   axios: {
@@ -60,7 +61,7 @@ export default {
       login: '/login', 
       logout: '/login',
       callback: false, 
-      home: '/home',
+      home: false,
     },
     strategies: {
       local: {
@@ -71,6 +72,12 @@ export default {
         },
       }
     },
+  },
+
+  toast: {
+    position: 'top-center',
+    duration: 5000,
+    theme:'outline'
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

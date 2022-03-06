@@ -67,7 +67,7 @@
                 <v-divider class="my-3"></v-divider>
                 <h4 class="mb-4">Shipping Estimates</h4>
                 <p class="text-14 mb-1">Prefecture</p>
-                <v-select dense outlined hide-details color="brown lighten-1" class="mb-4" :items="prefectures" item-text="prefecture" item-value="id" v-model="prefectureId" label="Select Prefecture"></v-select>
+                <v-select dense outlined hide-details color="brown lighten-1" item-color="brown lighten-1" class="mb-4" :items="prefectures" item-text="prefecture" item-value="id" v-model="prefectureId" label="Select Prefecture"></v-select>
                 <v-btn color="brown lighten-1" outlined class="text-capitalize mb-4" block @click="calShipping">
                   Calculate Shipping
                 </v-btn>
@@ -152,11 +152,9 @@ export default {
                 break;
               }
             }
-            // TODO baseURL
             this.products[m].image = "http://localhost:3000" + this.products[m].images[0].thumb.url;
             // this.products[m].image = this.$axios.baseURL + this.products[m].image.thumb.url;
           }
-          console.log(this.products);
         });
       }
     },
@@ -182,9 +180,8 @@ export default {
           this.$axios.$post(`api/cart/remove_from_cart`, {
             product_id: this.itemToDelete.id,
             user_id: this.$auth.user.id
-          }).then((res) => {
-            // console.log(res);
-            // TODO
+          }).then(() => {
+            this.$toast.show('Removed item Successfully!');
           });
         }
       }
@@ -203,8 +200,8 @@ export default {
         this.$axios.$post(`api/products/${item.id}/add_to_cart`, {
           product_id: item.id,
           user_id: this.$auth.user.id
-        }).then((res) => {
-          // console.log(res);
+        }).then(() => {
+          this.$toast.show('Increment item Successfully!');
         });
       }
       // add to store
@@ -223,8 +220,8 @@ export default {
         this.$axios.$post(`api/products/${item.id}/decrease_of_cart`, {
           product_id: item.id,
           user_id: this.$auth.user.id
-        }).then((res) => {
-          // TODO
+        }).then(() => {
+          this.$toast.show('Increment item Successfully!');
         });
       }
       // decrease of store
@@ -238,7 +235,6 @@ export default {
         if (!this.$store.getters['getCounter']) {
           this.alertNoItem = true;
         } else {
-          // this.$refs.wizard.nextTab();
           this.$router.push(`/checkout`)
         }
       } else {

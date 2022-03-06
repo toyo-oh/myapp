@@ -68,35 +68,25 @@ export default {
     this.loadUserData();
   },
   methods: {
-    async loadUserData () {
-      if (this.$auth.loggedIn) {
-        const response = await this.$axios.$get(`/api/users/${this.$auth.user.id}`);
-        this.name = response.user.name;
-        this.email = response.user.email;
-      }
-    },
-    editUser () {
-      this.$axios.put(`/api/users/${this.$auth.user.id}`, {
-        name: this.name,
-        email: this.email,
-      }).then((res) => {
-        this.$router.push(`${res.data.id}`)
-      })
+    loadUserData () {
+      this.$axios.$get(`/api/users/${this.$auth.user.id}`).then((res) => {
+        this.name = res.user.name;
+        this.email = res.user.email;
+      }).catch((err) => {
+        if (err.response && err.response.status === 401) {
+          this.$router.push(`/users/${this.$auth.user.id}`);
+          this.$toast.error('Unauthorized!');
+        }
+      });
     },
     editProfile () {
-      if (this.$auth.loggedIn) {
-        this.$router.push({ path: '/users/profile' });
-      }
+      this.$router.push({ path: '/users/profile' });
     },
     editEmail () {
-      if (this.$auth.loggedIn) {
-        this.$router.push({ path: '/users/email' });
-      }
+      this.$router.push({ path: '/users/email' });
     },
     editPassword () {
-      if (this.$auth.loggedIn) {
-        this.$router.push({ path: '/users/psw' });
-      }
+      this.$router.push({ path: '/users/psw' });
     }
   }
 }

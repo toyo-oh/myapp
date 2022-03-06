@@ -25,7 +25,7 @@
             <v-text-field v-model="id" v-if="false"></v-text-field>
             <v-switch v-model="isAvailable" color="brown lighten-1" label="Available"></v-switch>
             <v-text-field outlined　dense color="brown lighten-3" v-model="title" label="Title" type="text" :rules="titleRules"></v-text-field>
-            <v-text-field outlined　dense color="brown lighten-3" v-model="sub_title" label="Sub Title" :rules="subTitleRules"></v-text-field>
+            <v-text-field outlined　dense color="brown lighten-3" v-model="subTitle" label="Sub Title" :rules="subTitleRules"></v-text-field>
             <v-select outlined dense color="brown lighten-3" :items="categories" item-text="category" item-value="id" v-model="categoryId" label="Category" :rules="categoryRules"></v-select>
             <v-textarea outlined　dense color="brown lighten-3" v-model="description" label="Description" :rules="descriptionRules"></v-textarea>
             <v-text-field outlined　dense color="brown lighten-3" v-model="price" label="Price" type="number" :rules="priceRules"></v-text-field>
@@ -124,6 +124,15 @@ export default {
     return {
       alertFormError: false,
       valid: true,
+      id: '',
+      title: '',
+      subTitle: '',
+      categoryId: '',
+      description: '',
+      price: '',
+      quantity: '',
+      tags: '',
+      isAvailable: '',
       photoSrcs: [],
       images: [],
       categories: [],
@@ -187,34 +196,33 @@ export default {
       ]
     };
   },
-  asyncData ({ $axios, params }) {
-    return $axios.$get(`/api/admin/products/${params.id}`).then((res) => {
-      var tmpImages = [];
-      if (res.product.images) {
-        for (var i = 0; i < res.product.images.length; i++) {
-          tmpImages.push(res.product.images[i] ? "http://localhost:3000" + res.product.images[i].thumb.url : "");
-        }
-      }
-      return {
-        id: res.product.id,
-        title: res.product.title,
-        sub_title: res.product.sub_title,
-        categoryId: res.product.category_id,
-        description: res.product.description,
-        price: res.product.price,
-        quantity: res.product.quantity,
-        tags: res.product.tags,
-        images: tmpImages,
-        photoSrcs: tmpImages,
-        isAvailable: res.product.is_available,
-        promotions: res.product.promotions
-      };
-    });
-  },
   created () {
+    this.loadProduct();
     this.loadCategories();
   },
   methods: {
+    loadProduct () {
+      this.$axios.$get(`/api/admin/products/${this.$route.params.id}`).then((res) => {
+        var tmpImages = [];
+        if (res.product.images) {
+          for (var i = 0; i < res.product.images.length; i++) {
+            tmpImages.push(res.product.images[i] ? "http://localhost:3000" + res.product.images[i].thumb.url : "");
+          }
+        }
+        this.id = res.product.id;
+        this.title = res.product.title;
+        this.subTitle = res.product.sub_title;
+        this.categoryId = res.product.category_id;
+        this.description = res.product.description;
+        this.price = res.product.price;
+        this.quantity = res.product.quantity;
+        this.tags = res.product.tags;
+        this.images = tmpImages;
+        this.photoSrcs = tmpImages;
+        this.isAvailable = res.product.is_available;
+        this.promotions = res.product.promotions;
+      });
+    },
     loadCategories () {
       this.$axios.get(`/api/categories`).then((res) => {
         this.categories = res.data;
@@ -253,7 +261,7 @@ export default {
         };
         const formData = new FormData();
         formData.append("title", this.title);
-        formData.append("sub_title", this.sub_title);
+        formData.append("sub_title", this.subTitle);
         formData.append("description", this.description);
         formData.append("price", this.price);
         formData.append("quantity", this.quantity);
@@ -265,7 +273,8 @@ export default {
         formData.append("tags", this.tags ? this.tags : "");
         formData.append("promotions", JSON.stringify(this.promotions));
         this.$axios.put(`api/admin/products/${this.id}`, formData, config).then((res) => {
-          this.$router.push(`.`)
+          this.$router.push(`.`);
+          this.$toast.show('Update product successfully!');
         })
       } else {
         this.alertFormError = true;

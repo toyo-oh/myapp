@@ -112,8 +112,9 @@ export default {
     deletePayment () {
       this.$axios
         .delete(`api/payments/${this.itemToDelete.id}`)
-        .then((res) => {
+        .then(() => {
           this.getPayments();
+          this.$toast.show('Delete payment successfully!');
         });
       this.dialogDelete = false
     },
@@ -121,12 +122,13 @@ export default {
       this.$axios
         .post(`api/payments/set_default`,
           { user_id: this.$auth.user.id, old_id: this.defaultId, id: item.id })
-        .then((res) => {
+        .then(() => {
           this.getPayments();
+          this.$toast.show('Set default payment successfully!');
         });
     },
     newPayment () {
-      this.$router.push(`payments/new`)
+      this.$router.push(`payments/new`);
     }
   },
 };
