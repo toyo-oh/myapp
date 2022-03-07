@@ -1,20 +1,20 @@
 <template>
   <v-app dark>
-    <h1>
-      {{otherError}}
-    </h1>
-    <NuxtLink to="/">
-      Home page
-    </NuxtLink>
+    <v-row>
+      <v-col cols="12">
+        <div class="d-flex justify-center align-center">
+          <img src="@/assets/images/error/500.jpg" width="1000" height="600">
+        </div>
+      </v-col>
+    </v-row>
   </v-app>
 </template>
 
 <script>
 export default {
-  layout: 'empty',
+  // layout: 'empty',
   data () {
     return {
-      // pageNotFound: '404 Not Found',
       otherError: 'An error occurred'
     }
   },
