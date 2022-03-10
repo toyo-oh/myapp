@@ -48,18 +48,20 @@ export default ({
   methods: {
     userLogin () {
       if (this.$refs.form.validate()) {
-        this.$auth.loginWith('local', { data: this.login }).then(() => {
-          this.$axios.$get(`api/cart/find_cart/${this.$auth.user.id}`).then((res) => {
-            this.$store.commit('load_products', res.productList);
+        this.$auth.loginWith('local', { data: this.login })
+          .then(() => {
+            this.$axios.$get(`api/cart/find_cart/${this.$auth.user.id}`)
+              .then((res) => {
+                this.$store.commit('load_products', res.productList);
+                this.$toast.show('Logged In successfully!');
+                // this.$router.push('/home');
+              })
+          }).catch((err) => {
+            if (err.response && err.response.status === 401) {
+              this.alertLoginError = true;
+              this.errorMessage = err.response.data.message;
+            }
           });
-          this.$router.push('/home');
-          this.$toast.show('Logged In successfully!');
-        }).catch((err) => {
-          if (err.response && err.response.status === 401) {
-            this.alertLoginError = true;
-            this.errorMessage = 'Account or password is incorrect';
-          }
-        });
       } else {
         this.alertLoginError = true;
         this.errorMessage = 'Invalid item in the form';

@@ -8,8 +8,9 @@ class ApplicationController < ActionController::API
     render status: 401, json: { status: 401, message: 'Admin Unauthorized' }
   end
 
-  def response_unauthorized
-    render status: 401, json: { status: 401, message: 'Unauthorized' }
+  def response_unauthorized(message)
+    message = 'Unauthorized' if message.blank? 
+    render status: 401, json: { status: 401, message: message }
   end
 
   def response_internal_server_error
@@ -17,7 +18,7 @@ class ApplicationController < ActionController::API
   end
 
   def response_page_not_found
-    render status: 404, json: { status: 404, message: 'page is not found' }
+    render status: 404, json: { status: 404, message: 'Page is not found' }
   end
 
   def response_unprocessable_entity(errors)

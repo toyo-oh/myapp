@@ -21,13 +21,7 @@
       </v-row>
       <v-row justify="center">
         <v-col cols="12" md="6">
-          <v-form ref="form" v-model="valid">
-            <v-text-field outlined　dense color="brown lighten-3" v-model="holderName" label="HolderName" type="text" :rules="holderNameRules"></v-text-field>
-            <v-text-field outlined　dense color="brown lighten-3" v-model="cardNumber" label="CardNumber" type="text" :rules="cardNumberRules"></v-text-field>
-            <v-text-field outlined　dense color="brown lighten-3" v-model="expirationDate" label="ExpiratonDate" type="text" :rules="expiratonDateRules"></v-text-field>
-            <v-text-field outlined　dense color="brown lighten-3" v-model="securityCode" label="SecurityCode" type="text" :rules="securityCodeRules"></v-text-field>
-            <v-btn dark class="mr-4" color="brown lighten-1" @click="editPayment">Save Changes</v-btn>
-          </v-form>
+          <payment-form ref="paymentForm" :holderName.sync="payment.holderName" :cardNumber.sync="payment.cardNumber" :expirationDate.sync="payment.expirationDate" :securityCode.sync="payment.securityCode" submitButton="Save Changes" @submit-payment="editPayment()"></payment-form>
         </v-col>
       </v-row>
     </div>
@@ -35,33 +29,22 @@
 </template>
 
 <script>
+import PaymentForm from "@/components/inputForm/PaymentForm";
 export default {
   middleware: 'auth',
+  components: {
+    PaymentForm
+  },
   data () {
     return {
-      valid: true,
       alertFormError: false,
-      id: '',
-      holderName: '',
-      cardNumber: '',
-      expirationDate: '',
-      securityCode: '',
-      holderNameRules: [
-        v => !!v || 'Holder Name is required',
-        v => (v && v.length <= 20) || 'Holder Name must be less than 20 characters',
-      ],
-      cardNumberRules: [
-        v => !!v || 'Card Number is required',
-        v => /^[0-9]{16}$/.test(v) || 'Card Number must be valid',
-      ],
-      expiratonDateRules: [
-        v => !!v || 'Expiraton Date is required',
-        v => /^[1-2]\d{3}((0[1-9])|(1[0-2]))$/.test(v) || 'Expiraton Date must be valid',
-      ],
-      securityCodeRules: [
-        v => !!v || 'Security Code is required',
-        v => /^[0-9]{3}$/.test(v) || 'Security Code must be less than 100 characters',
-      ],
+      payment: {
+        id: '',
+        holderName: '',
+        cardNumber: '',
+        expirationDate: '',
+        securityCode: '',
+      }
     };
   },
   created () {
@@ -70,11 +53,11 @@ export default {
   methods: {
     loadPayment () {
       this.$axios.$get(`/api/payments/${this.$route.params.id}`).then((res) => {
-        this.id = res.id;
-        this.holderName = res.holder_name;
-        this.cardNumber = res.card_number;
-        this.expirationDate = res.expiration_date;
-        this.securityCode = res.security_code;
+        this.payment.id = res.id;
+        this.payment.holderName = res.holder_name;
+        this.payment.cardNumber = res.card_number;
+        this.payment.expirationDate = res.expiration_date;
+        this.payment.securityCode = res.security_code;
       }).catch((err) => {
         if (err.response && err.response.status === 401) {
           this.$router.push('/payments');
@@ -83,14 +66,14 @@ export default {
       });
     },
     editPayment () {
-      if (this.$refs.form.validate()) {
+      if (this.$refs.paymentForm.validate()) {
         const formData = new FormData();
-        formData.append("id", this.id);
-        formData.append("holder_name", this.holderName);
-        formData.append("card_number", this.cardNumber);
-        formData.append("expiration_date", this.expirationDate);
-        formData.append("security_code", this.securityCode);
-        this.$axios.put(`/api/payments/${this.id}`, formData).then(() => {
+        formData.append("id", this.payment.id);
+        formData.append("holder_name", this.payment.holderName);
+        formData.append("card_number", this.payment.cardNumber);
+        formData.append("expiration_date", this.payment.expirationDate);
+        formData.append("security_code", this.payment.securityCode);
+        this.$axios.put(`/api/payments/${this.payment.id}`, formData).then(() => {
           this.$router.push(`.`);
           this.$toast.show('Update payment successfully!');
         });

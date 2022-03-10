@@ -61,7 +61,7 @@ export default {
       login: '/login', 
       logout: '/login',
       callback: false, 
-      home: false,
+      home: '/home',
     },
     strategies: {
       local: {
@@ -69,7 +69,15 @@ export default {
           login: { url: '/api/login', method: 'post', propertyName: 'jwt' },
           user: { url: '/api/user/current_user', method: 'get', propertyName: 'user'},
           logout: false,
+          // TODO refresh token
+          // refresh: { url: '/api/user/refresh', method: 'post' },
+          // logout: {url: '/api/logout', method: 'post', propertyName: false}
         },
+        // refreshToken: {
+        //   property: 'refresh_token',
+        //   data: 'refresh_token',
+        //   maxAge: 60 * 60 * 24 * 30
+        // },
       }
     },
   },

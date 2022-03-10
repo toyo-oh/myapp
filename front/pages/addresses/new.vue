@@ -21,15 +21,8 @@
       </v-row>
       <v-row justify="center">
         <v-col cols="6">
-          <v-form ref="form" v-model="valid">
-            <v-text-field outlined dense color="brown lighten-3" v-model="receiver" label="Receiver" type="text" :rules="receiverRules"></v-text-field>
-            <v-text-field outlined dense color="brown lighten-3" v-model="phoneNumber" label="PhoneNumber" type="text" :rules="phoneNumberRules"></v-text-field>
-            <v-text-field outlined dense color="brown lighten-3" v-model="postCode" label="PostCode" type="text" :rules="postCodeRules"></v-text-field>
-            <v-select outlined dense color="brown lighten-3" item-color="brown lighten-1" :items="prefectures" item-text="prefecture" item-value="id" v-model="prefectureId" label="Prefecture" :rules="prefectureRules"></v-select>
-            <v-text-field outlined dense color="brown lighten-3" v-model="city" label="City" type="text" :rules="cityRules"></v-text-field>
-            <v-textarea outlined dense color="brown lighten-3" v-model="detail" label="Detail" type="text" :rules="detailRules"></v-textarea>
-            <v-btn dark class="mr-4" color="brown lighten-1" @click="createAddress">create address</v-btn>
-          </v-form>
+          <address-form ref="addressForm" :receiver.sync="address.receiver" :phoneNumber.sync="address.phoneNumber" :postCode.sync="address.postCode" :prefectureId.sync="address.prefectureId" :city.sync="address.city" :detail.sync="address.detail" submitButton="Create Address" @submit-address="createAddress()">
+          </address-form>
         </v-col>
       </v-row>
     </div>
@@ -37,64 +30,38 @@
 </template>
 
 <script>
+import AddressForm from "@/components/inputForm/AddressForm";
 export default {
   middleware: 'auth',
+  components: {
+    AddressForm,
+  },
   data () {
     return {
-      valid: true,
       alertFormError: false,
-      receiver: "",
-      phoneNumber: "",
-      postCode: "",
-      detailAddress: "",
-      prefectureId: "",
-      city: "",
-      detail: "",
-      receiverRules: [
-        v => !!v || 'Receiver is required',
-        v => (v && v.length <= 20) || 'Receiver must be less than 20 characters',
-      ],
-      phoneNumberRules: [
-        v => !!v || 'Post Number is required',
-        v => /^\d{2,4}-\d{2,4}-\d{4}$/.test(v) || 'Phone Number must be valid',
-      ],
-      postCodeRules: [
-        v => !!v || 'Phone Code is required',
-        v => /^[0-9]{3}-[0-9]{4}$/.test(v) || 'Post Code must be valid',
-      ],
-      prefectureRules: [
-        v => !!v || 'Prefectures is required'
-      ],
-      cityRules: [
-        v => !!v || 'City is required'
-      ],
-      detailRules: [
-        v => !!v || 'Detail is required',
-        v => (v && v.length <= 100) || 'Detail Address must be less than 100 characters',
-      ],
-      prefectures: []
+      address: {
+        receiver: '',
+        phoneNumber: '',
+        postCode: '',
+        detailAddress: '',
+        prefectureId: 0,
+        city: '',
+        detail: ''
+      }
     };
   },
-  created () {
-    this.loadPrefectures();
-  },
   methods: {
-    loadPrefectures () {
-      this.$axios.get(`/api/prefectures`).then((res) => {
-        this.prefectures = res.data;
-      });
-    },
     createAddress () {
-      if (this.$refs.form.validate()) {
+      if (this.$refs.addressForm.validate()) {
         const formData = new FormData();
-        formData.append("receiver", this.receiver);
-        formData.append("phone_number", this.phoneNumber);
-        formData.append("post_code", this.postCode);
-        formData.append("city", this.city);
-        formData.append("prefecture_id", this.prefectureId);
-        formData.append("detail", this.detail);
+        formData.append("receiver", this.address.receiver);
+        formData.append("phone_number", this.address.phoneNumber);
+        formData.append("post_code", this.address.postCode);
+        formData.append("city", this.address.city);
+        formData.append("prefecture_id", this.address.prefectureId);
+        formData.append("detail", this.address.detail);
         formData.append("user_id", this.$auth.user.id);
-        this.$axios.post("/api/addresses", formData).then((res) => {
+        this.$axios.post("/api/addresses", formData).then(() => {
           this.$router.push(`.`);
           this.$toast.show('Create address Successfully!');
         });
