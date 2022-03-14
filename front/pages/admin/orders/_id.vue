@@ -21,160 +21,10 @@
                 </div>
                 <v-row>
                   <v-col cols="12">
-                    <v-card>
-                      <div class="px-6 pt-8 pb-8">
-                        <div class="d-flex justify-start mb-10">
-                          <div class="py-2 px-5 brown lighten-4 brown--text text-center text-wrap rounded-pill">
-                            <p class="mb-0">
-                              Order Status:
-                              <span class="font-weight-bold">{{orderStatus}}</span>
-                            </p>
-                          </div>
-                        </div>
-                        <div class="d-flex align-center" v-if="orderStatus=='order_cancelled'">
-                          <div class="p-relative">
-                            <v-avatar size="72" color="brown lighten-2">
-                              <v-badge color="green lighten-1" icon="mdi-check">
-                                <v-icon color="grey lighten-4">mdi-cube-outline</v-icon>
-                              </v-badge>
-                            </v-avatar>
-                          </div>
-                          <v-sheet color="brown lighten-1" elevation="0" height="4" class="flex-grow-1" v-if="isPaid"></v-sheet>
-                          <div v-if="isPaid">
-                            <v-avatar size="72" color="brown lighten-2">
-                              <v-badge color="green lighten-1" icon="mdi-check">
-                                <v-icon color="grey lighten-4">mdi-briefcase-variant-outline</v-icon>
-                              </v-badge>
-                            </v-avatar>
-                          </div>
-                          <v-sheet color="brown lighten-1" elevation="0" height="4" class="flex-grow-1"></v-sheet>
-                          <div>
-                            <v-avatar size="72" color="brown lighten-2">
-                              <v-badge color="green lighten-1" icon="mdi-check">
-                                <v-icon color="grey lighten-4">mdi-cancel</v-icon>
-                              </v-badge>
-                            </v-avatar>
-                          </div>
-                        </div>
-                        <div class="d-flex align-center" v-else>
-                          <div class="p-relative">
-                            <v-avatar size="72" color="brown lighten-2">
-                              <v-badge color="green lighten-1" icon="mdi-check">
-                                <v-icon color="grey lighten-4">mdi-cube-outline</v-icon>
-                              </v-badge>
-                            </v-avatar>
-                          </div>
-                          <v-sheet :color="(orderStatus=='paid' || orderStatus=='shipping' || orderStatus=='shipped') ? 'brown lighten-1' : 'grey lighten-2'" elevation="0" height="4" class="flex-grow-1"></v-sheet>
-                          <div>
-                            <template v-if="(orderStatus=='paid' || orderStatus=='shipping' || orderStatus=='shipped')">
-                              <v-avatar size="72" color="brown lighten-2">
-                                <v-badge color="green lighten-1" icon="mdi-check">
-                                  <v-icon color="grey lighten-4">mdi-briefcase-variant-outline</v-icon>
-                                </v-badge>
-                              </v-avatar>
-                            </template>
-                            <template v-else>
-                              <v-avatar size="72" color="brown lighten-2">
-                                <v-icon color="grey lighten-4">mdi-briefcase-variant-outline</v-icon>
-                              </v-avatar>
-                            </template>
-                          </div>
-                          <v-sheet :color="(orderStatus=='shipping' || orderStatus=='shipped') ? 'brown lighten-1' : 'grey lighten-2'" elevation="0" height="4" class="flex-grow-1"></v-sheet>
-                          <div>
-                            <template v-if="(orderStatus=='shipping' || orderStatus=='shipped') ">
-                              <v-avatar size="72" color="brown lighten-2">
-                                <v-badge color="green lighten-1" icon="mdi-check">
-                                  <v-icon color="grey lighten-4">mdi-car-pickup</v-icon>
-                                </v-badge>
-                              </v-avatar>
-                            </template>
-                            <template v-else>
-                              <v-avatar size="72" color="brown lighten-2">
-                                <v-icon color="grey lighten-4">mdi-car-pickup</v-icon>
-                              </v-avatar>
-                            </template>
-                          </div>
-                          <v-sheet :color="orderStatus=='shipped' ? 'brown lighten-1' : 'grey lighten-2'" elevation="0" height="4" class="flex-grow-1"></v-sheet>
-                          <div>
-                            <template v-if="(orderStatus=='shipped')">
-                              <v-avatar size="72" color="brown lighten-2">
-                                <v-badge color="green lighten-1" icon="mdi-check">
-                                  <v-icon color="grey lighten-4">mdi-check-circle-outline</v-icon>
-                                </v-badge>
-                              </v-avatar>
-                            </template>
-                            <template v-else>
-                              <v-avatar size="72" color="brown lighten-2">
-                                <v-icon color="grey lighten-4">mdi-check-circle-outline</v-icon>
-                              </v-avatar>
-                            </template>
-                          </div>
-                        </div>
-                        <div class="d-flex justify-end mt-10">
-                          <div>
-                            <v-btn v-if="display_cancel_btn" color="brown lighten-1" dark large @click="showCancelDialog()">
-                              Cancel Order
-                            </v-btn>
-                            <v-btn v-if="display_ship_btn" color="brown lighten-1" dark large @click="shipOrder">
-                              Ship
-                            </v-btn>
-                          </div>
-                        </div>
-                      </div>
-                    </v-card>
+                    <status-card :isAdmin="isAdmin" :orderStatus="orderStatus" :isPaid="isPaid" @cancel-order="showCancelDialog" @ship-order="shipOrder"> </status-card>
                   </v-col>
                   <v-col cols="12">
-                    <v-card>
-                      <div class="grey lighten-2 d-flex justify-space-around flex-wrap">
-                        <div class="d-flex my-3 mx-3">
-                          <p class="text-14 grey--text text--darken-2 mb-0 mr-2">
-                            Order ID:
-                          </p>
-                          <p class="mb-0 grey--text text--darken-4">
-                            {{orderId}}
-                          </p>
-                        </div>
-                        <div class="d-flex my-3 mx-3">
-                          <p class="text-14 grey--text text--darken-2 mb-0 mr-2">
-                            Placed on:
-                          </p>
-                          <p class="mb-0 grey--text text--darken-4">
-                            {{ new Date(placedOn).toLocaleString("ja-jp") }}
-                          </p>
-                        </div>
-                        <div class="d-flex my-3 mx-3">
-                          <p class="text-14 grey--text text--darken-2 mb-0 mr-2">
-                            Delivered on:
-                          </p>
-                          <p class="mb-0 grey--text text--darken-4">
-                            {{ deliverOn ? new Date(deliverOn).toLocaleString("ja-jp") :'ー' }}
-                          </p>
-                        </div>
-                      </div>
-                      <div v-for="item in products" :key="item.id">
-                        <div class="d-flex align-center justify-space-around flex-wrap  pa-4">
-                          <div class="d-flex align-center flex-wrap me-4">
-                            <router-link :to="{name: 'products-id', params: {id: item.id}}">
-                              <v-avatar tile size="64" class="me-4">
-                                <img :src="item.image" max-height="100" max-width="100">
-                              </v-avatar>
-                            </router-link>
-                            <div class="">
-                              <div class="text-14">
-                                {{ item.title }}
-                              </div>
-                              <div class="text-14 grey--text text--darken-2">
-                                ¥{{ item.price }} x {{ item.cnt }}
-                              </div>
-                            </div>
-                          </div>
-                          <p class="mb-0 grey--text text--darken-2">
-                            Product properties: TODO
-                          </p>
-                          <v-btn disabled text color="brown lighten-1" class="text-capitalize font-weight-bold">Write a Review</v-btn>
-                        </div>
-                      </div>
-                    </v-card>
+                    <detail-card :isAdmin="isAdmin" :orderId="orderId" :orderStatus="orderStatus" :placedOn="placedOn" :deliverOn="deliverOn" :products="products"> </detail-card>
                   </v-col>
                   <v-col cols="12" lg="6">
                     <v-card>
@@ -190,7 +40,7 @@
                     <v-card>
                       <div class="pa-5 mt-5">
                         <h4 class="mb-3 grey--text text--darken-4">
-                          Payment Details
+                          Payment Informations
                         </h4>
                         <p class="text-14 mb-0">
                           {{paymentDetail}}
@@ -262,33 +112,29 @@
 </template>
 
 <script>
+import StatusCard from '@/components/OrderCard/StatusCard.vue';
+import DetailCard from '@/components/OrderCard/DetailCard.vue';
 export default {
   middleware: ['auth', 'admin'],
+  components: {
+    StatusCard,
+    DetailCard
+  },
   data () {
     return {
       products: [],
-      totalPrice: 0,
-      logisticsFee: 0,
-      orderId: '',
+      orderId: null,
+      orderStatus: '',
+      placedOn: '',
+      deliverOn: '',
       addressDetail: '',
       paymentDetail: '',
-      orderStatus: '',
-      dialogCancel: false,
+      totalPrice: 0,
+      logisticsFee: 0,
       isPaid: false,
-      placedOn: '',
-      deliverOn: ''
+      dialogCancel: false,
+      isAdmin: this.$auth && this.$auth.user && this.$auth.user.is_admin ? true : false
     };
-  },
-  computed: {
-    display_cancel_btn: function () {
-      return this.orderStatus == 'order_placed' || this.orderStatus == 'paid' ? true : false
-    },
-    display_ship_btn: function () {
-      return this.orderStatus == 'paid' ? true : false
-    },
-    display_order_status: function () {
-      return this.orderStatus;
-    }
   },
   created () {
     this.loadOrder();
@@ -306,7 +152,7 @@ export default {
           product.price = orderItems[m].price;
           product.cnt = orderItems[m].quantity;
           // TODO baseURL
-          product.image = "http://localhost:3000" + orderItems[m].product.images[0].thumb.url;
+          product.image = "http://localhost:3000" + orderItems[m].image;
           // this.products[m].image = this.$axios.baseURL + this.products[m].image.thumb.url;
           tmpProducts.push(product);
           tmpTotal += orderItems[m].subtotal;

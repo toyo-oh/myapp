@@ -4,16 +4,13 @@ class OrdersController < ApplicationController
 	before_action :get_order_with_auth_check, only: [:show, :destroy, :pay_order]
 
 	def create_order
-		user_id = params[:user_id]
-		address_id = params[:address_id]
-		payment_id = params[:payment_id]
 		@current_cart = Cart.find_by(user_id: params[:user_id])
 		raise ActiveRecord::RecordNotFound if @current_cart.blank?
 		@cart_items = @current_cart.cart_items
 		@new_order = Order.new
-		@new_order.user_id = user_id
-		@new_order.address_id = address_id
-		@new_order.payment_id = payment_id
+		@new_order.user_id = params[:user_id]
+		@new_order.address_id = params[:address_id]
+		@new_order.payment_id = params[:payment_id]
 		@new_order.aasm_state = 'order_placed'
 		@new_order.is_paid = 0
 		@new_order.shipping_fee = params[:shipping_fee]
@@ -22,7 +19,8 @@ class OrdersController < ApplicationController
 			count = 0
 			amount = 0
 			@cart_items.each do |cart_item|
-				@new_order.create_detail_item(cart_item.product, cart_item.quantity, cart_item.price, '')
+				image = set_order_image(@new_order.id, cart_item.product_id, cart_item.product.images[0])
+				@new_order.create_detail_item(cart_item.product, cart_item.quantity, cart_item.price, '', image)
 				count += cart_item.quantity
 				amount += cart_item.quantity * cart_item.price
 				@product = Product.find(cart_item.product_id)
@@ -30,7 +28,7 @@ class OrdersController < ApplicationController
 					# TODO error handling
 					raise "Order failed. ErrCode: xxx / ErrMessage: quantity not enough"
 				else
-					@product.update!(quantity: @product.quantity-cart_item.quantity)
+					@product.update!(quantity: @product.quantity - cart_item.quantity)
 				end
 			end
 			@new_order.update!(product_count: count, amount_total: amount)
@@ -51,7 +49,7 @@ class OrdersController < ApplicationController
 		@order_details = @order.order_details
 		@address = Address.find(@order.address_id)
 		@payment = Payment.find(@order.payment_id)
-		render :json => {:order => @order, :order_details => @order_details.as_json(:include => :product), :address => @address, :payment => @payment}
+		render :json => {:order => @order, :order_details => @order_details, :address => @address, :payment => @payment}
 	end
 
 	def destroy
@@ -92,6 +90,18 @@ class OrdersController < ApplicationController
 					response_unauthorized
 				end
 			end
+		end
+		
+		# TODO local image directory
+		def set_order_image(order_id, product_id, file_name)
+			src_image = Rails.root.join(file_name.thumb.current_path)
+			dest_dir = Rails.root.join('public', 'uploads', 'order', order_id.to_s, product_id.to_s)
+			dest_image = Rails.root.join(dest_dir, 'thumb_' + file_name.identifier)
+			if !File.exist?(dest_dir)
+				FileUtils.mkdir_p(dest_dir)
+			end
+			FileUtils.cp(src_image, dest_image)
+			return File.join('','uploads', 'order', order_id.to_s, product_id.to_s, 'thumb_' + file_name.identifier)
 		end
 
 end

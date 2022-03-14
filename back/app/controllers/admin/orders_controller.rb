@@ -12,7 +12,7 @@ class Admin::OrdersController < ApplicationController
 		@order_details = @order.order_details
 		@address = Address.find(@order.address_id)
 		@payment = Payment.find(@order.payment_id)
-		render :json => {:order => @order, :order_details => @order_details.as_json(:include => :product), :address => @address, :payment => @payment}
+		render :json => {:order => @order, :order_details => @order_details, :address => @address, :payment => @payment}
 	end
 
 	# cancel

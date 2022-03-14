@@ -1,11 +1,5 @@
 <template>
   <div>
-    <v-alert v-model="alertNoItem" type="error" close-text="Close Alert" dismissible>
-      There are no items in the shopping cart.
-    </v-alert>
-    <v-alert v-model="alertNoPrefecture" type="error" close-text="Close Alert" dismissible>
-      Please select Prefecture.
-    </v-alert>
     <v-row>
       <v-col cols="12">
         <v-row>
@@ -102,20 +96,17 @@
 export default {
   data () {
     return {
-      cardHoverShadow: true,
       products: [],
       itemToDelete: '',
       dialogDelete: false,
-      alertNoItem: false,
       countRules: [
         v => !!v || "This field is required",
         v => (v && v >= 0) || "count should be above 0",
         v => (v && v <= 10) || "Max should not be above 10",
       ],
       prefectures: [],
-      prefectureId: '',
-      shippingFee: 0,
-      alertNoPrefecture: false
+      prefectureId: null,
+      shippingFee: 0
     };
   },
   created () {
@@ -233,7 +224,7 @@ export default {
     checkOut () {
       if (this.$auth.loggedIn) {
         if (!this.$store.getters['getCounter']) {
-          this.alertNoItem = true;
+          this.$toast.error('There are no items in the shopping cart');
         } else {
           this.$router.push(`/checkout`)
         }
@@ -247,7 +238,7 @@ export default {
           this.shippingFee = res.data.fee;
         });
       } else {
-        this.alertNoPrefecture = true;
+        this.$toast.error('Please select prefecture');
       }
     }
   },

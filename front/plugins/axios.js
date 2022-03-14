@@ -1,7 +1,7 @@
 export default ({ $axios, redirect, error}) => {
     // request
     $axios.onRequest((config) => {
-      console.log(config)
+      // console.log(config)
     })
     // response
     $axios.onResponse((config) => {

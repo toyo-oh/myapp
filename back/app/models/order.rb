@@ -2,7 +2,7 @@ class Order < ApplicationRecord
   # enum aasm_state: [:order_placed, :paid, :shipping, :shipped, :order_cancelled, :good_returned]
 	has_many :order_details, dependent: :destroy
 
-	def create_detail_item(product, quantity, price, remark)
+	def create_detail_item(product, quantity, price, remark, image)
 		di = order_details.build
 		di.product_id = product.id
 		di.product_title = product.title
@@ -11,6 +11,7 @@ class Order < ApplicationRecord
 		di.discount = product.discount
 		di.subtotal = price * di.quantity
 		di.remark = remark
+    di.image = image
 		di.save!
 	end
 
