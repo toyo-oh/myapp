@@ -4,8 +4,8 @@ class Admin::ProductsController < ApplicationController
     
     def create
         @product = Product.new(product_params)
-        @product.images = set_images
-        @product.tags = set_tags
+        @product.images = set_images(nil)
+        # @product.tags = set_tags
         Product.transaction do
             if !@product.save!
                 render response_unprocessable_entity(@product.errors)
@@ -38,8 +38,8 @@ class Admin::ProductsController < ApplicationController
 
     def update
         @product = Product.find(params[:id])
-        @product.images = set_images
-        @product.tags = set_tags
+        @product.images = set_images(@product.images)
+        # @product.tags = set_tags
         Product.transaction do
             if !@product.update!(product_params)
                 render response_unprocessable_entity(@product.errors)
@@ -92,11 +92,12 @@ class Admin::ProductsController < ApplicationController
         params.permit(:title, :sub_title, :category_id, :description, :price, :quantity,:tags, {images:[]}, :is_available, {promotions:[]})
     end
 
-    def set_images
+    def set_images(old_images)
         images = Array.new
         images[0] = params[:image1] if params[:image1]
         images[1] = params[:image2] if params[:image2]
         images[2] = params[:image3] if params[:image3]
+        images = old_images if images.blank?
         return images
     end
 

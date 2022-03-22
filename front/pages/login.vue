@@ -16,7 +16,7 @@
             <v-text-field outlined dense color="brown lighten-3" v-model="login.password" type="password" label="Password" :rules="pwdRules" required></v-text-field>
             <v-btn block large dark class="mr-4" color="brown lighten-1" @click="userLogin">Log In</v-btn>
             <div class="text-body-2 text-center my-3">Forgot Your Password?
-              <router-link to="/login" class="brown--text">Reset It</router-link>
+              <router-link to="/users/forget_password" class="brown--text">Reset It</router-link>
             </div>
           </div>
         </v-card>

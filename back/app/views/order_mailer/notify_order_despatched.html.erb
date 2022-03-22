@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>
+      We're pleased to report that your order was despatched today <%=@order.deliver_at%>.<br>
+    </p>
+    <p>
+      You can track the progress of your order by clicking the link below: <br>
+			<a><%= @track_url %></a>
+    </p>
+		<hr>
+    <p>If you have any questions, contact us at service@cf.com</p>
+  </body>
+</html>

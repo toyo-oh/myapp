@@ -80,13 +80,13 @@ export default {
       });
     },
     editProfile () {
-      this.$router.push({ path: '/users/profile' });
+      this.$router.push({ path: '/users/change_profile' });
     },
     editEmail () {
-      this.$router.push({ path: '/users/email' });
+      this.$router.push({ path: '/users/change_email' });
     },
     editPassword () {
-      this.$router.push({ path: '/users/psw' });
+      this.$router.push({ path: '/users/change_password' });
     }
   }
 }

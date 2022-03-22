@@ -25,6 +25,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if !@user.save!
       render response_unprocessable_entity(@user.errors)
+    else
+      UserMailer.welcome_email(@user).deliver_now
     end
   end
 
@@ -88,6 +90,33 @@ class UsersController < ApplicationController
 		else
 			response_unauthorized
 		end
+  end
+
+  def forget_password
+    @user = User.find_by(email: params[:email])
+    if !@user.present?
+      return render json: {error: 'Email address not found. Please check and try again.'}
+    else
+      @token = @user.to_sgid(purpose: 'password reset', expires_in: 15.minutes)
+      UserMailer.reset_password(@user, @token).deliver_now
+    end
+  end
+
+  def reset_password
+    @user = User.find_signed!(params[:token].to_s, purpose: "password reset")
+    # rescue ActiveSupport::MessageVerifier::InvalidSignature
+    if !@user.present?
+      return render json: {error: 'Your token has been expired, please try again'}
+    else
+      if @user.update!(password: params[:new_password], password_confirmation: params[:confirm_password])
+        render json: @user
+      else
+        render response_unprocessable_entity(@user.errors)
+      end
+    end
+  end
+
+  def render_reset_password
   end
 
   private

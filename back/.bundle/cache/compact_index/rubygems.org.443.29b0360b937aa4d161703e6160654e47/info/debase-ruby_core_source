@@ -48,3 +48,4 @@
 0.10.11 |checksum:f0ff3c3db41888cc24f53e7146af249dfe4c57be2fb157bd0351c9f52bc2f425,ruby:>= 1.9.3,rubygems:>= 1.3.6
 0.10.12 |checksum:7cf7280021e3af8203e5de831c935b358d0c40009e81198ca3f1f213eea3a10e,ruby:>= 1.9.3,rubygems:>= 1.3.6
 0.10.13 |checksum:822ed6889c9da822703816821408390759959b5368e833b136214a1367a01edd,ruby:>= 1.9.3,rubygems:>= 1.3.6
+0.10.14 |checksum:9f6a62ba53dad4b5fa38e0b8089550152a45e4ad537f673d832d1cba7f6cba6e,ruby:>= 1.9.3,rubygems:>= 1.3.6

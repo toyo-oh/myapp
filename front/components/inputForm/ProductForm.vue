@@ -5,10 +5,10 @@
     <v-text-field outlined dense color="brown lighten-3" :value="title" @input="$emit('update:title', $event)" label="Title" type="text" :rules="titleRules"></v-text-field>
     <v-text-field outlined dense color="brown lighten-3" :value="subTitle" @input="$emit('update:subTitle', $event)" label="Sub Title" :rules="subTitleRules"></v-text-field>
     <v-select outlined dense color="brown lighten-3" item-color="brown lighten-1" :value="categoryId" @input="$emit('update:categoryId', $event)" :items="categories" item-text="category" item-value="id" label="Category" :rules="categoryRules"></v-select>
-    <v-textarea outlined dense color="brown lighten-3" :value="description" @input="$emit('update:description', $event)" label="Description" :rules="descriptionRules"></v-textarea>
+    <v-textarea outlined dense color="brown lighten-3" :value="description" @input="$emit('update:description', $event)" label="Description" :rules="descriptionRules" hint="separate description with <br>"></v-textarea>
     <v-text-field outlined dense color="brown lighten-3" :value="price" @input="$emit('update:price', Number($event))" label="Price" type="number" :rules="priceRules"></v-text-field>
     <v-text-field outlined dense color="brown lighten-3" :value="quantity" @input="$emit('update:quantity', Number($event))" label="Quantity" type="number" :rules="quantityRules"></v-text-field>
-    <v-text-field outlined dense color="brown lighten-3" :value="tags" @input="$emit('update:tags', $event)" label="Tags"></v-text-field>
+    <v-text-field outlined dense color="brown lighten-3" :value="tags" @input="$emit('update:tags', $event)" label="Tags" hint="separate tags with commas(,)"></v-text-field>
     <div class="d-flex justify-start mb-2">
       <v-img v-for="photo in photoSrcs" :key="photo" :src="photo" height="120" width="120" max-height="120" max-width="120"></v-img>
     </div>
@@ -60,6 +60,7 @@ export default {
     images: Array,
     promotions: Array,
     promotionDialog: Boolean,
+    isImgChange: Boolean,
     submitButton: {
       type: String,
       default: 'Save Changes'
@@ -78,7 +79,7 @@ export default {
       ],
       subTitleRules: [
         v => !!v || 'Sub Title is required',
-        v => (v && v.length <= 25) || 'Sub Title must be less than 25 characters',
+        v => (v && v.length <= 50) || 'Sub Title must be less than 50 characters',
       ],
       categoryRules: [
         v => !!v || 'Category is required'
@@ -131,6 +132,7 @@ export default {
       this.compUrls = e;
       this.$emit('update:photoSrcs', that.compDisps);
       this.$emit('update:images', e);
+      this.$emit('update:isImgChange', true);
     },
     removeImage (index) {
       this.compDisps.splice(index, 1);

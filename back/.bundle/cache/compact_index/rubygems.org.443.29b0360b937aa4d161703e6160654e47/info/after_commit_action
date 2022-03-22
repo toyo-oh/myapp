@@ -1,0 +1,7 @@
+---
+0.1.2 activerecord:>= 3.2.0|checksum:b81d082a64220efd63bc3377e4a4fe217b6559d08aea77c7cf62d308b2a26293
+0.1.3 activerecord:>= 3.0.0|checksum:7d0190288ce261636dae0fc0561c60cffeb98c670efd287602e89bbe7dae410b
+0.1.4 activerecord:>= 3.0.0|checksum:d6d473ca3ab3d6a2cfc227d7dd84739eb2bbdc84d42b0fd29ae613212c3fcde7
+1.0.0 activerecord:>= 3.0.0,activesupport:>= 3.0.0|checksum:845686caf999473feeeab9633277f5d116dc5f70e07a3e40bb4a17dc73a33e25
+1.0.1 activerecord:>= 3.0.0,activesupport:>= 3.0.0|checksum:0414fad42fafeb42005fc0f7422fbf266191bca767061f006c67ba0965a474f8
+1.1.0 activerecord:>= 3.0.0,activesupport:>= 3.0.0|checksum:28a4730735a042127ddee9246334a087fbbe1c20f28791509ddbdc8723017238

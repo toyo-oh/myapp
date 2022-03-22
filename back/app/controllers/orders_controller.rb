@@ -33,6 +33,7 @@ class OrdersController < ApplicationController
 			end
 			@new_order.update!(product_count: count, amount_total: amount)
 			@current_cart.destroy!
+			OrderMailer.notify_order_placed(@new_order).deliver_now
 			render json: {order_id: @new_order.id}
 		end
 	end
@@ -58,9 +59,10 @@ class OrdersController < ApplicationController
 		Order.transaction do
 			for detail in @order_details do
 				@product = Product.find(detail.product_id)
-				@product.update!(quantity: @product.quantity+detail.quantity)
+				@product.update!(quantity: @product.quantity + detail.quantity)
 			end
 			@order.cancel_order!
+			OrderMailer.notify_order_cancelled(@order).deliver_now
 		end
 		render json: @order
 	end

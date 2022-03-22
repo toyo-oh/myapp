@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   root 'products#index' 
   resources :users
   resources :addresses
@@ -20,13 +22,16 @@ Rails.application.routes.draw do
   end
   resources :users do
     member do
-      post 'profile', to:'users#update_profile'
-      post 'email', to:'users#update_email'
-      post 'psw', to:'users#update_password'
+      post 'update_profile', to:'users#update_profile'
+      post 'update_email', to:'users#update_email'
+      post 'update_password', to:'users#update_password'
     end
   end
   post '/login', to: 'authentications#create'
   get '/user/current_user', to: 'users#current_user'
+  post '/password/forget', to: 'users#forget_password'
+  get 'users/reset_password', to: 'users#render_reset_password'
+  post '/password/reset_password', to: 'users#reset_password'
   get '/cart/find_cart/:user_id', to: 'carts#find_cart_items'
   get '/cart/get_checkout_info/:user_id', to:'carts#get_checkout_info'
   get '/cart/show_cart_products', to:'carts#show_cart_products'

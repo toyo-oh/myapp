@@ -1,0 +1,25 @@
+
+ORDER # <%= @order.id %>
+
+We will inform you that the follow order has been cancelled.
+
+===============================================
+Cancelled Order Info
+<% @order_details.each do |order_detail| %>
+<%= order_detail.product_title %> * <%= order_detail.quantity%> <%= order_detail.subtotal %>
+<% end %>
+Subtotal: ¥<%= @order.amount_total %>
+Shipping: ¥<%= @order.shipping_fee %>
+Total: ¥<%= @order.amount_total + @order.shipping_fee %>
+
+Customer information
+Billing Address
+<%= @address.receiver %>
+<%= @address.post_code %>
+<%= @address.detail_address %>
+
+Payment method
+<%= @payment.holder_name %>
+Ending with: <%= @payment.card_number[12..16] %>
+
+If you have any questions, contact us at service@cf.com

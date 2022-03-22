@@ -129,3 +129,4 @@
 3.22.2 rake:< 15.0&>= 0.8|checksum:8ddd70f5365bb0d33f99a63bf64497eda16c220582bee11526960a36c2cd5a82,ruby:< 3.1&>= 2.1,rubygems:>= 1.4
 3.22.3 rake:< 15.0&>= 0.8|checksum:3c3696f4a150d5296fdd9bb39b8cdeff7bb3656617c3d9df7ad572c274974750,ruby:< 4&>= 2.1,rubygems:>= 1.4
 3.23.0 rake:< 15.0&>= 0.8|checksum:01f94e19eeb1ee7c94317a40a3aea7c3aa990cc53df7978e869a15efaa084e27,ruby:< 4&>= 2.1,rubygems:>= 1.4
+3.23.1 rake:< 15.0&>= 0.8|checksum:cf771451604e0989a16aa4365ca6f7e85866489b62b217d64611f43b2a9ab7a9,ruby:< 4&>= 2.1,rubygems:>= 1.4

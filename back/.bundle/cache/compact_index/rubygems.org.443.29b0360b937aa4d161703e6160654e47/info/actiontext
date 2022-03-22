@@ -46,3 +46,15 @@
 6.0.4.4 actionpack:= 6.0.4.4,activerecord:= 6.0.4.4,activestorage:= 6.0.4.4,activesupport:= 6.0.4.4,nokogiri:>= 1.8.5|checksum:eb93e33ea773581578672f9d795d3417f63b5affe7d45f35c8dbc61f800d718c,ruby:>= 2.5.0
 6.1.4.4 actionpack:= 6.1.4.4,activerecord:= 6.1.4.4,activestorage:= 6.1.4.4,activesupport:= 6.1.4.4,nokogiri:>= 1.8.5|checksum:23eef9fb76ae313a0ba4442a972984f365c3f34dc9944347a7e96a8a7e4825c9,ruby:>= 2.5.0
 7.0.0 actionpack:= 7.0.0,activerecord:= 7.0.0,activestorage:= 7.0.0,activesupport:= 7.0.0,globalid:>= 0.6.0,nokogiri:>= 1.8.5|checksum:f17685a40847d58c90c7eb8739caff87b33386300c45c8051915a868f90e55d0,ruby:>= 2.7.0
+7.0.1 actionpack:= 7.0.1,activerecord:= 7.0.1,activestorage:= 7.0.1,activesupport:= 7.0.1,globalid:>= 0.6.0,nokogiri:>= 1.8.5|checksum:dc7c864242c8de58b7ed4b387ae5b4bc9f89dd47acbc6de7b8080fa15a37ca7b,ruby:>= 2.7.0
+7.0.2 actionpack:= 7.0.2,activerecord:= 7.0.2,activestorage:= 7.0.2,activesupport:= 7.0.2,globalid:>= 0.6.0,nokogiri:>= 1.8.5|checksum:afec44c03e400848bb2ff4fc63383cd0f111e73b6a59b89a816d0a431ce14557,ruby:>= 2.7.0
+7.0.2.1 actionpack:= 7.0.2.1,activerecord:= 7.0.2.1,activestorage:= 7.0.2.1,activesupport:= 7.0.2.1,globalid:>= 0.6.0,nokogiri:>= 1.8.5|checksum:1370bf610b3844a2f6bf924733eeef691d060a11755925ccdd79e94f4b126f46,ruby:>= 2.7.0
+6.1.4.5 actionpack:= 6.1.4.5,activerecord:= 6.1.4.5,activestorage:= 6.1.4.5,activesupport:= 6.1.4.5,nokogiri:>= 1.8.5|checksum:14e9008f48b7a39c7e0ddcaab1dcc136975d1f69e1ab2fe98e609fb055005c0c,ruby:>= 2.5.0
+6.0.4.5 actionpack:= 6.0.4.5,activerecord:= 6.0.4.5,activestorage:= 6.0.4.5,activesupport:= 6.0.4.5,nokogiri:>= 1.8.5|checksum:c9b9170bb55658bd7db50cc08c51c04b0b14dba86a6189dcce40b7b9c2b5ca1c,ruby:>= 2.5.0
+6.0.4.6 actionpack:= 6.0.4.6,activerecord:= 6.0.4.6,activestorage:= 6.0.4.6,activesupport:= 6.0.4.6,nokogiri:>= 1.8.5|checksum:a9b7e4a72be9b707d91de375a576dbe3a901532962d65267d0066a2c080581e2,ruby:>= 2.5.0
+6.1.4.6 actionpack:= 6.1.4.6,activerecord:= 6.1.4.6,activestorage:= 6.1.4.6,activesupport:= 6.1.4.6,nokogiri:>= 1.8.5|checksum:f760fab407a42b132820e08ad3d166f37ffca6391c05593238031a59aa2856d8,ruby:>= 2.5.0
+7.0.2.2 actionpack:= 7.0.2.2,activerecord:= 7.0.2.2,activestorage:= 7.0.2.2,activesupport:= 7.0.2.2,globalid:>= 0.6.0,nokogiri:>= 1.8.5|checksum:fed9f9f53369c1be73e5ecbe6ded5c3c562ba9bedcd5eadd3c474afae9ec92b6,ruby:>= 2.7.0
+6.0.4.7 actionpack:= 6.0.4.7,activerecord:= 6.0.4.7,activestorage:= 6.0.4.7,activesupport:= 6.0.4.7,nokogiri:>= 1.8.5|checksum:f604a7e8145c4650df40a82d41213c6adf166e74b731ba5b531160c9bb52c486,ruby:>= 2.5.0
+6.1.4.7 actionpack:= 6.1.4.7,activerecord:= 6.1.4.7,activestorage:= 6.1.4.7,activesupport:= 6.1.4.7,nokogiri:>= 1.8.5|checksum:8d87bd15a215fb30659bcb0b57b8327d968c45fa67840967fada33a7e1b79137,ruby:>= 2.5.0
+7.0.2.3 actionpack:= 7.0.2.3,activerecord:= 7.0.2.3,activestorage:= 7.0.2.3,activesupport:= 7.0.2.3,globalid:>= 0.6.0,nokogiri:>= 1.8.5|checksum:78f9f8b3cab1a48bfeb8ca1ba45ebe7daf717463a8720f3f883a2cc27a047e2e,ruby:>= 2.7.0
+6.1.5 actionpack:= 6.1.5,activerecord:= 6.1.5,activestorage:= 6.1.5,activesupport:= 6.1.5,nokogiri:>= 1.8.5|checksum:2bf6631dfe073359715ba8b3f90bd4cb32185a134e0dc44863db98c3238578c2,ruby:>= 2.5.0

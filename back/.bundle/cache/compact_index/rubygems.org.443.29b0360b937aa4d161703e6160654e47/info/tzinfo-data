@@ -58,3 +58,4 @@
 1.2021.3 tzinfo:>= 1.0.0|checksum:b9d2e0488acb4d386b13fb92cc71d3beada550f1716a060d523cdc70d1a33cb9,ruby:>= 1.8.7
 1.2021.4 tzinfo:>= 1.0.0|checksum:744aca61abfc741e2283777c9f2b69846a6beacc1aa63fc32a06d64b0676fc7b,ruby:>= 1.8.7
 1.2021.5 tzinfo:>= 1.0.0|checksum:2899daecce8c8e2b66906a37923c4192cb235eb0569262486ebb8b0af8f63170,ruby:>= 1.8.7
+1.2022.1 tzinfo:>= 1.0.0|checksum:43c4b2d1854747223ba3c5067b2da49d21592ef0df0d738a918564707ef76e7b,ruby:>= 1.8.7

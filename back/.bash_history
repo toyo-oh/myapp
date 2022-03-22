@@ -24,3 +24,7 @@ rails console
 exit;
 rails console
 exit;
+exit
+pwd
+rails c
+exit

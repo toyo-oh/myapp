@@ -42,3 +42,5 @@
 2.11.0 crass:~> 1.0.2,nokogiri:>= 1.5.9|checksum:d54c3bcdc8acde2b04c56fde64e4fb935a43ecf83592bda079222957fa98915f
 2.12.0 crass:~> 1.0.2,nokogiri:>= 1.5.9|checksum:bcbe9a6c96455a72e14422e5e8890544d1db4004c6bbd88247c58a7e8af20cdb
 2.13.0 crass:~> 1.0.2,nokogiri:>= 1.5.9|checksum:efb11e6d9e2d09586e4cd05381a6aee725177e757add765a3a2544c6705e3b9f
+2.14.0 crass:~> 1.0.2,nokogiri:>= 1.5.9|checksum:9c54d949001e234b293d89f4ad56b2a35331b01780b11d8d6f431ac32b6b0b7d
+2.15.0 crass:~> 1.0.2,nokogiri:>= 1.5.9|checksum:43f07a44426c7873937e307e0c6b81632ba9e89fcb5089badd78b67b6480e1fa

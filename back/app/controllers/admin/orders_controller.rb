@@ -19,6 +19,7 @@ class Admin::OrdersController < ApplicationController
 	def destroy
 		@order = Order.find(params[:id]);
 		@order.cancel_order!
+		OrderMailer.notify_order_cancelled(@order).deliver_now
 		render json: @order
 	end
 
@@ -27,6 +28,7 @@ class Admin::OrdersController < ApplicationController
 		@order = Order.find(params[:id]);
 		@order.set_deliver_at!
 		@order.ship!
+		OrderMailer.notify_order_despatched(@order).deliver_now
 		render json: @order
 	end
 	

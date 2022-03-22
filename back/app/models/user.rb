@@ -10,6 +10,7 @@ class User < ApplicationRecord
 	has_many :addresses
 	has_many :payments
 	has_many :reviews
+	has_many :orders
 
 	def admin?
 		is_admin

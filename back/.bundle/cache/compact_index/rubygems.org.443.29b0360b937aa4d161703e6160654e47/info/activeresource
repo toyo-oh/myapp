@@ -152,3 +152,4 @@
 5.0.0 activemodel:< 6&>= 5.0,activemodel-serializers-xml:~> 1.0,activesupport:< 6&>= 5.0|checksum:e8c73eca93836e9efc3045b49aaaa0a822e28b43f1ba89465bd163e0fcec2817,ruby:>= 2.2.2
 5.1.0 activemodel:< 7&>= 5.0,activemodel-serializers-xml:~> 1.0,activesupport:< 7&>= 5.0|checksum:8b9fe5198004a5ee9b96a514524e1949b966c939eba48a3a6927e3b4081616b6,ruby:>= 2.2.2
 5.1.1 activemodel:< 7&>= 5.0,activemodel-serializers-xml:~> 1.0,activesupport:< 7&>= 5.0|checksum:63dbaa2f29a12c328ba7af1b89198678ffa3c3d34891e91935caeb46bee021df,ruby:>= 2.2.2
+6.0.0 activemodel:>= 6.0,activemodel-serializers-xml:~> 1.0,activesupport:>= 6.0|checksum:cf9a8b391e919ed970fdb645b80800faf674729b141bd73bd9dfd6aa484a2828,ruby:>= 2.6.0
