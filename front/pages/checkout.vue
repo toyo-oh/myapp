@@ -247,7 +247,7 @@ export default {
         formData.append("payment_id", this.paymentId);
         formData.append("shipping_fee", this.shippingFee);
         this.$axios.post("/api/order/create_order", formData).then((res) => {
-          this.$router.push(`/orders/${res.data.order_id}`);
+          this.$router.push(`/orders/${res.data.order_no}`);
           this.$store.commit('clear_cart');
           this.$toast.show('Create order successfully!');
         });

@@ -24,7 +24,7 @@
                     <status-card :isAdmin="isAdmin" :orderStatus="orderStatus" :isPaid="isPaid" @cancel-order="showCancelDialog" @ship-order="shipOrder"> </status-card>
                   </v-col>
                   <v-col cols="12">
-                    <detail-card :isAdmin="isAdmin" :orderId="orderId" :orderStatus="orderStatus" :placedOn="placedOn" :deliverOn="deliverOn" :products="products"> </detail-card>
+                    <detail-card :isAdmin="isAdmin" :orderId="orderId" :orderNo="orderNo" :orderStatus="orderStatus" :placedOn="placedOn" :deliverOn="deliverOn" :products="products"> </detail-card>
                   </v-col>
                   <v-col cols="12" lg="6">
                     <v-card>
@@ -124,6 +124,7 @@ export default {
     return {
       products: [],
       orderId: null,
+      orderNo: '',
       orderStatus: '',
       placedOn: '',
       deliverOn: '',
@@ -141,7 +142,7 @@ export default {
   },
   methods: {
     loadOrder () {
-      this.$axios.get(`api/admin/orders/${this.$route.params.id}`).then((res) => {
+      this.$axios.get(`api/admin/orders/show_order/${this.$route.params.id}`).then((res) => {
         var orderItems = res.data.order_details;
         var tmpProducts = [];
         var tmpTotal = 0;
@@ -164,6 +165,7 @@ export default {
         this.products = tmpProducts;
         this.totalPrice = tmpTotal;
         this.orderId = res.data.order.id;
+        this.orderNo = res.data.order.order_no;
         this.orderStatus = res.data.order.aasm_state;
         this.logisticsFee = res.data.order.logistics_fee == null ? 0 : res.data.order.logistics_fee;
         this.isPaid = res.data.order.is_paid == '1' ? true : false;
@@ -175,7 +177,7 @@ export default {
       this.dialogCancel = !this.dialogCancel
     },
     cancelOrder () {
-      this.$axios.delete(`api/admin/orders/${this.orderId}`).then((res) => {
+      this.$axios.post(`api/admin/orders/cancel_order`, { id: this.orderId }).then((res) => {
         this.orderStatus = res.data.aasm_state;
         this.dialogCancel = false;
         this.$toast.show('Cancel order successfully!');

@@ -49,15 +49,16 @@ export default {
   methods: {
     resetPassword () {
       if (this.$refs.form.validate()) {
-        console.log(this.$route.query.token)
         this.$axios.post(`/api/password/reset_password`, {
           token: this.$route.query.token,
           new_password: this.newPassword,
           confirm_password: this.confirmPassword,
         }).then(() => {
+          this.$router.push('/login');
           this.$toast.show('Your password has been successfully reset! Please login in.');
         }).catch((err) => {
-          if (err.response && err.response.status === 404) {
+          if (err.response && err.response.status != 200) {
+            this.$router.push('/login');
             this.$toast.error('Your token has been expired, please try again.');
           }
         })

@@ -34,7 +34,7 @@ class OrdersController < ApplicationController
 			@new_order.update!(product_count: count, amount_total: amount)
 			@current_cart.destroy!
 			OrderMailer.notify_order_placed(@new_order).deliver_now
-			render json: {order_id: @new_order.id}
+			render json: {order_id: @new_order.id, order_no:@new_order.order_no}
 		end
 	end
 
@@ -45,7 +45,7 @@ class OrdersController < ApplicationController
 		end
 	end
 
-	def show
+	def show_order_by_no
 		@order = get_order_with_auth_check
 		@order_details = @order.order_details
 		@address = Address.find(@order.address_id)
@@ -53,7 +53,7 @@ class OrdersController < ApplicationController
 		render :json => {:order => @order, :order_details => @order_details, :address => @address, :payment => @payment}
 	end
 
-	def destroy
+	def cancel_order
 		@order = get_order_with_auth_check
 		@order_details = @order.order_details
 		Order.transaction do
@@ -61,7 +61,7 @@ class OrdersController < ApplicationController
 				@product = Product.find(detail.product_id)
 				@product.update!(quantity: @product.quantity + detail.quantity)
 			end
-			@order.cancel_order!
+			@order.cancel!
 			OrderMailer.notify_order_cancelled(@order).deliver_now
 		end
 		render json: @order
@@ -85,7 +85,11 @@ class OrdersController < ApplicationController
 			if validate_user.blank?
 					response_unauthorized
 			else
-				@order = Order.find(params[:id])
+				if !params[:order_no].blank?
+					@order = Order.find_by!(order_no: params[:order_no])
+				else
+					@order = Order.find(params[:id])
+				end
 				if validate_user.id == @order.user_id
 					return @order
 				else

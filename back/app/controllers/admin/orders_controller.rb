@@ -7,8 +7,8 @@ class Admin::OrdersController < ApplicationController
 		render :json => {:orders => @orders.as_json(:include => :order_details)}
 	end
 
-	def show
-		@order = Order.find(params[:id])
+	def show_order_by_no
+		@order = Order.find_by!(order_no: params[:order_no])
 		@order_details = @order.order_details
 		@address = Address.find(@order.address_id)
 		@payment = Payment.find(@order.payment_id)
@@ -16,9 +16,9 @@ class Admin::OrdersController < ApplicationController
 	end
 
 	# cancel
-	def destroy
+	def cancel_order
 		@order = Order.find(params[:id]);
-		@order.cancel_order!
+		@order.cancel!
 		OrderMailer.notify_order_cancelled(@order).deliver_now
 		render json: @order
 	end

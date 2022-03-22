@@ -3,10 +3,10 @@
     <div class="grey lighten-3 d-flex justify-space-around flex-wrap">
       <div class="d-flex my-3 mx-3">
         <p class="text-14 grey--text text--darken-2 mb-0 mr-2">
-          Order ID:
+          Order NO:
         </p>
         <p class="mb-0 grey--text text--darken-4">
-          {{order.id}}
+          {{order.order_no}}
         </p>
       </div>
       <div class="d-flex my-3 mx-3">
@@ -26,7 +26,7 @@
         </p>
       </div>
       <div class="d-flex my-3 mx-3">
-        <v-btn outlined color="brown lighten-1" class="mr-2" @click="getOrderDetail(order.id)">View Detail</v-btn>
+        <v-btn outlined color="brown lighten-1" class="mr-2" @click="getOrderDetail(order.order_no)">View Detail</v-btn>
       </div>
     </div>
     <div v-for="item in details" :key="item.id">
@@ -88,8 +88,8 @@ export default {
     details: Array
   },
   methods: {
-    getOrderDetail (id) {
-      this.$router.push(`/orders/${id}`)
+    getOrderDetail (order_no) {
+      this.$router.push(`/orders/${order_no}`)
     }
   }
 }

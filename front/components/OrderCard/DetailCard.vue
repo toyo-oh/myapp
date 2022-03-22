@@ -3,10 +3,10 @@
     <div class="grey lighten-2 d-flex justify-space-around flex-wrap">
       <div class="d-flex my-3 mx-3">
         <p class="text-14 grey--text text--darken-2 mb-0 mr-2">
-          Order ID:
+          Order NO:
         </p>
         <p class="mb-0 grey--text text--darken-4">
-          {{orderId}}
+          {{orderNo}}
         </p>
       </div>
       <div class="d-flex my-3 mx-3">
@@ -55,7 +55,7 @@
 export default {
   name: 'DetailCard',
   props: {
-    orderId: Number,
+    orderNo: String,
     orderStatus: String,
     placedOn: String,
     deliverOn: String,

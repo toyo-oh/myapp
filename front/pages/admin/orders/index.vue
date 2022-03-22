@@ -9,8 +9,8 @@
       </div>
     </div>
     <v-data-table :headers="headers" :items="orders" :page.sync="page" :items-per-page="itemsPerPage" hide-default-footer>
-      <template v-slot:[`item.id`]="{ item }">
-        <h4 class="mb-0">{{item.id}}</h4>
+      <template v-slot:[`item.order_no`]="{ item }">
+        <h5 class="mb-0">{{item.order_no}}</h5>
       </template>
       <template v-slot:[`item.aasmState`]="{ item }">
         <v-chip class="ma-2" color="grey lighten-2" small>
@@ -45,7 +45,7 @@ export default {
       pageCount: 0,
       itemsPerPage: 10,
       headers: [
-        { text: "Order ID", align: "start", sortable: false, value: "id", class: "text-h6 grey--text text--darken-2 flex-1 mr-3" },
+        { text: "Order NO", align: "start", sortable: false, value: "order_no", class: "text-h6 grey--text text--darken-2 flex-1 mr-3" },
         { text: "Status", value: "aasmState", sortable: false, class: "text-h6 grey--text text--darken-2 flex-1 mr-3" },
         { text: "ShortDetails", value: "shortDetails", sortable: false, class: "text-h6 grey--text text--darken-2 flex-1 mr-3" },
         { text: "CreateTime", value: "createdAt", sortable: false, class: "text-h6 grey--text text--darken-2 flex-1 mr-3" },
@@ -68,6 +68,7 @@ export default {
         for (var m = 0; m < tmpOrders.length; m++) {
           var order = {};
           order.id = tmpOrders[m].id;
+          order.order_no = tmpOrders[m].order_no;
           order.createdAt = tmpOrders[m].created_at;
           order.amountTotal = tmpOrders[m].amount_total;
           order.aasmState = tmpOrders[m].aasm_state;
@@ -81,7 +82,7 @@ export default {
       });
     },
     getOrderDetail (item) {
-      this.$router.push(`/admin/orders/${item.id}`)
+      this.$router.push(`/admin/orders/${item.order_no}`)
     }
   },
 };

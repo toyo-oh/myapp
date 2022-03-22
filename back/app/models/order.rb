@@ -1,7 +1,12 @@
 class Order < ApplicationRecord
+  before_create :generate_order_no
   # enum aasm_state: [:order_placed, :paid, :shipping, :shipped, :order_cancelled, :good_returned]
 	has_many :order_details, dependent: :destroy
   belongs_to :user
+  
+  def generate_order_no
+    self.order_no = SecureRandom.uuid
+  end
 
 	def create_detail_item(product, quantity, price, remark, image)
 		di = order_details.build
@@ -52,7 +57,7 @@ class Order < ApplicationRecord
       transitions from: :shipped,      to: :good_returned
     end
 
-    event :cancel_order do
+    event :cancel do
       transitions from: [:order_placed, :paid], to: :order_cancelled
     end
   end

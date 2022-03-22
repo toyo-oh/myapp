@@ -45,6 +45,7 @@ export default {
         for (var m = 0; m < tmpOrders.length; m++) {
           var order = {};
           order.id = tmpOrders[m].id;
+          order.order_no = tmpOrders[m].order_no;
           order.createdAt = tmpOrders[m].created_at;
           order.amountTotal = tmpOrders[m].amount_total;
           order.orderStatus = tmpOrders[m].aasm_state;
@@ -57,9 +58,6 @@ export default {
         }
         this.pageCount = Math.ceil(res.data.orders.length / this.itemsPerPage);
       });
-    },
-    getOrderDetail (item) {
-      this.$router.push(`orders/${item.id}`)
     }
   },
 };

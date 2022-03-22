@@ -54,7 +54,7 @@ class UsersController < ApplicationController
     end
   end
 
-  # POST /users/1/email
+  # POST /users/1/update_email
   def update_email
     @user = get_user_with_auth_check
 		if @user.email == params[:current_email] && @user.authenticate(params[:password])
@@ -68,7 +68,7 @@ class UsersController < ApplicationController
 		end
   end
 
-  # POST /users/1/profile
+  # POST /users/1/update_profile
   def update_profile
     @user = get_user_with_auth_check
       if @user.update!(name: params[:name], phone_number: params[:phone_number])
@@ -78,7 +78,7 @@ class UsersController < ApplicationController
       end
   end
 
-  # POST /users/1/psw
+  # POST /users/1/update_password
   def update_password
     @user = get_user_with_auth_check
 		if @user.email == params[:email] && @user.authenticate(params[:current_password])
@@ -97,13 +97,13 @@ class UsersController < ApplicationController
     if !@user.present?
       return render json: {error: 'Email address not found. Please check and try again.'}
     else
-      @token = @user.to_sgid(purpose: 'password reset', expires_in: 15.minutes)
+      @token = @user.signed_id(purpose: 'password reset', expires_in: 15.minutes)
       UserMailer.reset_password(@user, @token).deliver_now
     end
   end
 
   def reset_password
-    @user = User.find_signed!(params[:token].to_s, purpose: "password reset")
+    @user = User.find_signed!(params[:token], purpose: "password reset")
     # rescue ActiveSupport::MessageVerifier::InvalidSignature
     if !@user.present?
       return render json: {error: 'Your token has been expired, please try again'}
