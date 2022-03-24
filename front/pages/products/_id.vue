@@ -41,7 +41,7 @@
           <p v-else class="text-overline">Out Of Stock</p>
         </div>
         <div class="mb-6">
-          <v-btn v-if="!is_admin &&isAvailable && quantity > 0" dark x-large width="250" @click="addToCart({'id':id, 'price':price})" color="brown lighten-1" class="text-capitalize mb-3">
+          <v-btn v-if="!is_admin &&isAvailable && quantity > 0" dark x-large width="250" @click="addToCart({'hashid':hashid, 'price':price})" color="brown lighten-1" class="text-capitalize mb-3">
             Add to Cart
           </v-btn>
           <v-btn v-else x-large width="250" color="brown lighten-1" class="text-capitalize mb-3" disabled>
@@ -65,7 +65,7 @@
             <div v-html="description"></div>
           </v-tab-item>
           <v-tab-item>
-            <div class="mb-8" v-for="(item,i) in reviewList" :key="i">
+            <div class="mb-8" v-for="(item, i) in reviewList" :key="i">
               <div class="d-flex flex-wrap mb-4">
                 <v-avatar class="me-3" size="48" color="brown lighten-3">
                   <v-icon dark>mdi-account-circle</v-icon>
@@ -111,7 +111,7 @@
         <h3 class="mb-6">Related Products</h3>
         <v-row>
           <v-col v-for="(item, index) in relatedProducts" :key="index" cols="12" xs="4" sm="4" md="2" lg="2" xl="2">
-            <item-card :pId="item.id" :pImg="item.images[0]" :pTitle="item.title" :originalPrice="item.price" :pDiscount="Number(item.discount)" @cartAdd="addToCart({'id':item.id, 'price':parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(0)})">
+            <item-card :pHashId="item.hashid" :pImg="item.images[0]" :pTitle="item.title" :originalPrice="item.price" :pDiscount="Number(item.discount)" @cartAdd="addToCart({'hashid':item.hashid, 'price':parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(0)})">
             </item-card>
           </v-col>
         </v-row>
@@ -128,7 +128,7 @@ export default {
   },
   data () {
     return {
-      id: '',
+      hashid: '',
       title: '',
       subTitle: '',
       avgRate: 0,
@@ -168,8 +168,8 @@ export default {
       }
       if (res)
         return {
-          id: res.product.id,
           title: res.product.title,
+          hashid: res.product.hashid,
           subTitle: res.product.sub_title,
           description: res.product.description,
           price: parseFloat(Number(res.product.price) * (1 - Number(res.product.discount))).toFixed(0),
@@ -189,15 +189,15 @@ export default {
     reviewProduct () {
       if (this.$auth.loggedIn) {
         this.$axios.$post('api/reviews', {
-          product_id: this.id,
-          user_id: this.$auth.user.id,
+          product_id: this.hashid,
+          user_id: this.$auth.user.hashid,
           comment: this.comment,
           rate: this.rate
         }).then(() => {
           // reset comment input form
           this.comment = '';
           this.rate = 0;
-          this.$axios.$get(`api/reviews/find_by_product_id/${this.id}`).then((res) => {
+          this.$axios.$get(`api/reviews/find_by_product_id/${this.hashid}`).then((res) => {
             this.reviewList = res.reviews
           });
         });

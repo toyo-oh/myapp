@@ -4,10 +4,12 @@ class AddressesController < ApplicationController
 	before_action :get_address_with_auth_check, only: [:show, :update, :destroy]
 
 	def create
+		user_id = decode_user_id(params[:user_id])
 		@address = Address.new(address_params)
+		@address.user_id = user_id;
 		@prefecture_item = ShippingFee.find(params[:prefecture_id])
 		@address.detail_address = @prefecture_item.prefecture + params[:city] + params[:detail]
-		if !Address.exists?(user_id: params[:user_id])
+		if !Address.exists?(user_id: user_id)
 			@address.is_default = 1
 		end
 		if !@address.save!
@@ -16,13 +18,13 @@ class AddressesController < ApplicationController
 	end
 
 	def find_by_user_id
-		@addresses = Address.where(user_id: params[:user_id])
-		render json: @addresses
+		@addresses = Address.where(user_id: decode_user_id(params[:user_id]))
+		render json: { addresses: @addresses.as_json(methods: [:hashid, :user_hashid], except:[:id, :created_at, :updated_at]) } 
 	end
 
 	def show
 		@address = get_address_with_auth_check
-		render json: @address
+		render json: @address.wrap_json_address
 	end
 
 	def update
@@ -63,14 +65,18 @@ class AddressesController < ApplicationController
 
 	private
 	def address_params
-		params.permit(:id, :user_id, :receiver, :phone_number, :post_code, :prefecture_id, :city, :detail)
+		params.permit(:receiver, :phone_number, :post_code, :prefecture_id, :city, :detail)
 	end
 
 	def get_address_with_auth_check
 		if validate_user.blank?
 				response_unauthorized
 		else
-			@address = Address.find(params[:id])
+			if params[:id].blank?
+				@address = Address.find(params[:hashid])
+			else
+				@address = Address.find(params[:id])
+			end
 			if validate_user.id == @address.user_id
 				return @address
 			else

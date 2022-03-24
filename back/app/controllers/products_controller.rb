@@ -2,15 +2,10 @@ class ProductsController < ApplicationController
 
     before_action :require_login, only: [:add_to_cart, :decrease_of_cart]
 
-    # def index
-    #     @products = Product.all
-    #     render json: @products
-    # end
-
     def show
-        @product = Product.find(params[:id])
+        @product = find_product
         @reviews = @product.reviews
-        avg_rate = Review.where(product_id: params[:id]).average("rate")
+        avg_rate = Review.where(product_id: @product.id).average("rate")
         @product.discount = ProductsController.get_discount(@product)
         if !@product.tags.blank?
             segments,tags = set_tags_like @product.tags.split(",")
@@ -18,26 +13,33 @@ class ProductsController < ApplicationController
         else
             @related_products = Product.where("is_available = 1 AND quantity > 0 AND category_id = ? AND id <> ?", @product.category_id, @product.id)
         end
-        render :json => {:product => @product.as_json(:include => {:reviews => {:include=>{user: {only: :name }}}}),:avg_rate => avg_rate, :related_products =>set_discount_to_list(@related_products)}
+        render :json => {:product => @product.as_json(
+            methods: :hashid, 
+            except:[:id, :created_at, :updated_at], 
+            :include => {:reviews => {only: [:rate, :comment, :created_at], :include=>{user: {only: :name }}}}),
+            :avg_rate => avg_rate,
+            :related_products =>set_discount_to_list(@related_products).as_json(methods: :hashid, except:[:id, :created_at, :updated_at])
+        }
     end
 
     def add_to_cart
+        user_id = decode_user_id(params[:user_id])
         @product = Product.find(params[:product_id])
         discount = ProductsController.get_discount(@product)
         @product.price = (@product.price * (1-discount)).round(0)
-        @current_cart = Cart.find_by(user_id: params[:user_id])
+        @current_cart = Cart.find_by(user_id: user_id)
         # cart is not exist
         if @current_cart.blank?
-            @new_cart = Cart.new(user_id: params[:user_id])
+            @new_cart = Cart.new(user_id: user_id)
             Cart.transaction do
                 @new_cart.save!
-                @new_cart.add_product_to_cart(@product,params[:user_id])
+                @new_cart.add_product_to_cart(@product, user_id)
             end
         else
             # cart is alreay exist
-            @cart_item = @current_cart.cart_items.find_by(product_id: params[:product_id])
+            @cart_item = @current_cart.cart_items.find_by(product_id: @product.id)
             if @cart_item.blank?
-                @current_cart.add_product_to_cart(@product,params[:user_id])
+                @current_cart.add_product_to_cart(@product, user_id)
             else
                 new_count = @cart_item.quantity + 1
                 @cart_item.update(quantity: new_count)
@@ -46,9 +48,11 @@ class ProductsController < ApplicationController
     end
 
     def decrease_of_cart
-        @current_cart = Cart.find_by(user_id: params[:user_id])
+        user_id = decode_user_id(params[:user_id])
+        product_id = decode_product_id(params[:product_id])
+        @current_cart = Cart.find_by(user_id: user_id)
         raise ActiveRecord::RecordNotFound if @current_cart.blank?
-        @cart_item = @current_cart.cart_items.find_by(product_id: params[:product_id])
+        @cart_item = @current_cart.cart_items.find_by(product_id: product_id)
         if @cart_item.quantity == 1
             @cart_item.destroy
         else
@@ -81,7 +85,7 @@ class ProductsController < ApplicationController
             @products.each do |item| 
             item.discount = ProductsController.get_discount(item)
         end
-        render json: @products
+        render json: { products: @products.as_json(methods: [:hashid], except:[:id, :created_at, :updated_at]) } 
     end
 
     def index
@@ -100,14 +104,14 @@ class ProductsController < ApplicationController
         @category_2 = Product.where("is_available = 1 AND quantity > 0 AND category_id = ?", 2).limit(limit_cnt_2)
         @category_3 = Product.where("is_available = 1 AND quantity > 0 AND category_id = ?", 3).limit(limit_cnt_2)
         @category_4 = Product.where("is_available = 1 AND quantity > 0 AND category_id = ?", 4).limit(limit_cnt_2)
-        render :json => {:new_arrivals => set_discount_to_list(@new_arrivals), 
-                        :best_sellers => set_discount_to_list(@best_sellers), 
-                        :top_rankings =>set_discount_to_list(@top_rankings), 
-                        :big_discounts =>set_discount_to_list(@big_discounts),
-                        :category_1 => set_discount_to_list(@category_1), 
-                        :category_2 => set_discount_to_list(@category_2), 
-                        :category_3 => set_discount_to_list(@category_3), 
-                        :category_4 => set_discount_to_list(@category_4)}
+        render :json => {:new_arrivals => set_discount_to_list(@new_arrivals).as_json(methods: [:hashid], except:[:id, :created_at, :updated_at]), 
+                        :best_sellers => set_discount_to_list(@best_sellers).as_json(methods: [:hashid], except:[:id, :created_at, :updated_at]), 
+                        :top_rankings =>set_discount_to_list(@top_rankings).as_json(methods: [:hashid], except:[:id, :created_at, :updated_at]), 
+                        :big_discounts =>set_discount_to_list(@big_discounts).as_json(methods: [:hashid], except:[:id, :created_at, :updated_at]),
+                        :category_1 => set_discount_to_list(@category_1).as_json(methods: [:hashid], except:[:id, :created_at, :updated_at]), 
+                        :category_2 => set_discount_to_list(@category_2).as_json(methods: [:hashid], except:[:id, :created_at, :updated_at]), 
+                        :category_3 => set_discount_to_list(@category_3).as_json(methods: [:hashid], except:[:id, :created_at, :updated_at]), 
+                        :category_4 => set_discount_to_list(@category_4).as_json(methods: [:hashid], except:[:id, :created_at, :updated_at])}
     end
 
     def self.get_discount(product)
@@ -134,6 +138,15 @@ class ProductsController < ApplicationController
     end
 
     private
+    def find_product
+        if !params[:id].blank?
+            @product = Product.find(params[:id])
+          else
+            @product = Product.find_by_hashid!(params[:hashid])
+          end
+        return @product
+    end
+
     def set_tags_like(tags)
         segments = []
         tags = tags.map{ |tag|

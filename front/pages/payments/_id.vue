@@ -39,7 +39,6 @@ export default {
     return {
       alertFormError: false,
       payment: {
-        id: '',
         holderName: '',
         cardNumber: '',
         expirationDate: '',
@@ -53,7 +52,7 @@ export default {
   methods: {
     loadPayment () {
       this.$axios.$get(`/api/payments/${this.$route.params.id}`).then((res) => {
-        this.payment.id = res.id;
+        this.payment.hashid = res.hashid;
         this.payment.holderName = res.holder_name;
         this.payment.cardNumber = res.card_number;
         this.payment.expirationDate = res.expiration_date;
@@ -68,12 +67,12 @@ export default {
     editPayment () {
       if (this.$refs.paymentForm.validate()) {
         const formData = new FormData();
-        formData.append("id", this.payment.id);
+        formData.append("hashid", this.payment.hashid);
         formData.append("holder_name", this.payment.holderName);
         formData.append("card_number", this.payment.cardNumber);
         formData.append("expiration_date", this.payment.expirationDate);
         formData.append("security_code", this.payment.securityCode);
-        this.$axios.put(`/api/payments/${this.payment.id}`, formData).then(() => {
+        this.$axios.put(`/api/payments/${this.payment.hashid}`, formData).then(() => {
           this.$router.push(`.`);
           this.$toast.show('Update payment successfully!');
         });

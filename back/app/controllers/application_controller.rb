@@ -9,8 +9,11 @@ class ApplicationController < ActionController::API
   end
 
   def response_unauthorized(message)
-    message = 'Unauthorized' if message.blank? 
     render status: 401, json: { status: 401, message: message }
+  end
+
+  def response_unauthorized
+    render status: 401, json: { status: 401, message: 'Unauthorized' }
   end
 
   def response_internal_server_error
@@ -53,6 +56,26 @@ class ApplicationController < ActionController::API
         []
       end
     end
+  end
+
+  # TODO rewrite(hashids.decode)
+  def decode_user_id(hashid)
+    return User.find(hashid).id
+  end
+
+  # TODO rewrite(hashids.decode)
+  def decode_product_id(hashid)
+    return Product.find(hashid).id
+  end
+
+  # TODO rewrite(hashids.decode)
+  def decode_address_id(hashid)
+    return Address.find(hashid).id
+  end
+
+  # TODO rewrite(hashids.decode)
+  def decode_payment_id(hashid)
+    return Payment.find(hashid).id
   end
 
   private

@@ -66,20 +66,21 @@ export default {
     updatePassword () {
       if (this.$auth.loggedIn) {
         if (this.$refs.form.validate()) {
-          this.$axios.post(`/api/users/${this.$auth.user.id}/update_password`, {
+          this.$axios.post(`/api/users/${this.$auth.user.hashid}/update_password`, {
             email: this.email,
             current_password: this.currentPassword,
             new_password: this.newPassword,
             confirm_password: this.confirmPassword,
-            id: this.$auth.user.id
+            hashid: this.$auth.user.hashid
           }).then((res) => {
             this.$auth.loginWith('local', { data: { email: res.data.email, password: this.newPassword } })
               .then(() => {
-                this.$router.push(`/users/${this.$auth.user.id}`);
+                this.$router.push(`/users/${this.$auth.user.hashid}`);
                 this.$toast.show('Update password successfully!');
               });
           }).catch((err) => {
             if (err.response && err.response.status === 401) {
+              this.$router.push(`/users/${this.$auth.user.hashid}`);
               this.$toast.error('Unauthorized!');
             }
           })
@@ -91,7 +92,7 @@ export default {
       }
     },
     rtnToProfile () {
-      this.$router.push(`/users/${this.$auth.user.id}`)
+      this.$router.push(`/users/${this.$auth.user.hashid}`)
     }
   }
 }

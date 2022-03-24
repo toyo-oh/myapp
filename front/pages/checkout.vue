@@ -36,7 +36,7 @@
                         <v-card-text style="height: 300px;">
                           <v-radio-group v-model="selectedAddressId" column>
                             <v-radio v-for="(item, index) in addressList" color="brown lighten-1" :key="index" :label='item.receiver + " " + item.phone_number
-          + " " + item.post_code + " " + item.detail_address' :value="item.id"></v-radio>
+          + " " + item.post_code + " " + item.detail_address' :value="item.hashid"></v-radio>
                           </v-radio-group>
                         </v-card-text>
                         <v-divider></v-divider>
@@ -84,7 +84,7 @@
                         <v-divider></v-divider>
                         <v-card-text style="height: 300px;">
                           <v-radio-group v-model="selectedPaymentId" column>
-                            <v-radio v-for="(item, index) in paymentList" color="brown lighten-1" :key="index" :label='item.holder_name + " **** **** **** " + item.card_number.substring(12,16)+ " " + item.expiration_date' :value="item.id"></v-radio>
+                            <v-radio v-for="(item, index) in paymentList" color="brown lighten-1" :key="index" :label='item.holder_name + " **** **** **** " + item.card_number.substring(12,16)+ " " + item.expiration_date' :value="item.hashid"></v-radio>
                           </v-radio-group>
                         </v-card-text>
                         <v-divider></v-divider>
@@ -109,7 +109,7 @@
       </v-col>
       <v-col cols="12" md="6" lg="4" xl="4">
         <p class="font-weight-bold mb-6">You Order</p>
-        <div v-for="item in products" :key="item.id" class="d-flex justify-space-between mb-6">
+        <div v-for="item in products" :key="item.hashid" class="d-flex justify-space-between mb-6">
           <p class="mb-0"><span class="font-weight-bold">{{item.cnt}}</span> x {{item.title}}</p>
           <p class="mb-0">¥{{item.price * item.cnt}}</p>
         </div>
@@ -167,7 +167,7 @@ export default {
   },
   methods: {
     loadData () {
-      this.$axios.get(`api/cart/get_checkout_info/${this.$auth.user.id}`).then((res) => {
+      this.$axios.get(`api/cart/get_checkout_info/${this.$auth.user.hashid}`).then((res) => {
         var cartItems = res.data.cart_items;
         for (var m = 0; m < cartItems.length; m++) {
           var product = {};
@@ -179,17 +179,13 @@ export default {
           // this.products[m].image = this.$axios.baseURL + this.products[m].image.thumb.url;
           this.products.push(product);
         }
-        if (res.data.address.length > 0) {
-          var default_address = res.data.address[0];
-          this.addressDetail = default_address.receiver + " " + default_address.phone_number
-            + " " + default_address.post_code + " " + default_address.detail_address;
-          this.addressId = default_address.id;
-        }
-        if (res.data.payment.length > 0) {
-          this.paymentId = res.data.payment[0].id;
-          this.paymentHolderName = res.data.payment[0].holder_name;
-          this.paymentCardNumber = res.data.payment[0].card_number.substring(12, 16);
-        }
+        var default_address = res.data.address;
+        this.addressId = default_address.hashid;
+        this.addressDetail = default_address.receiver + " " + default_address.phone_number
+          + " " + default_address.post_code + " " + default_address.detail_address;
+        this.paymentId = res.data.payment.hashid;
+        this.paymentHolderName = res.data.payment.holder_name;
+        this.paymentCardNumber = res.data.payment.card_number.substring(12, 16);
         this.getShipping();
       });
     },
@@ -201,14 +197,14 @@ export default {
       }
     },
     getAddressList () {
-      this.$axios.get(`api/addresses/find_by_user_id/${this.$auth.user.id}`).then((res) => {
-        this.addressList = res.data;
+      this.$axios.get(`api/addresses/find_by_user_id/${this.$auth.user.hashid}`).then((res) => {
+        this.addressList = res.data.addresses;
       });
     },
     chooseAddress () {
       this.addressDialog = false;
       for (var m = 0; m < this.addressList.length; m++) {
-        if (this.addressList[m].id == this.selectedAddressId) {
+        if (this.addressList[m].hashid == this.selectedAddressId) {
           this.addressDetail = this.addressList[m].receiver + " " + this.addressList[m].phone_number
             + " " + this.addressList[m].post_code + " " + this.addressList[m].detail_address;
           this.addressId = this.selectedAddressId;
@@ -218,14 +214,14 @@ export default {
       this.getShipping();
     },
     getPaymentList () {
-      this.$axios.get(`api/payments/find_by_user_id/${this.$auth.user.id}`).then((res) => {
-        this.paymentList = res.data;
+      this.$axios.get(`api/payments/find_by_user_id/${this.$auth.user.hashid}`).then((res) => {
+        this.paymentList = res.data.payments;
       });
     },
     choosePayment () {
       this.paymentDialog = false;
       for (var m = 0; m < this.paymentList.length; m++) {
-        if (this.paymentList[m].id == this.selectedPaymentId) {
+        if (this.paymentList[m].hashid == this.selectedPaymentId) {
           this.paymentHolderName = this.paymentList[m].holder_name;
           this.paymentCardNumber = this.paymentList[m].card_number.substring(12, 16);
           this.paymentId = this.selectedPaymentId;
@@ -234,7 +230,7 @@ export default {
       }
     },
     createOrder () {
-      if (!this.$auth.user.id) {
+      if (!this.$auth.loggedIn) {
         this.$router.push(`/login`)
       } else if (!this.addressId) {
         this.$toast.error('Please select Delivery Address!');
@@ -242,7 +238,7 @@ export default {
         this.$toast.error('Please select Payment Method!');
       } else {
         const formData = new FormData();
-        formData.append("user_id", this.$auth.user.id);
+        formData.append("user_id", this.$auth.user.hashid);
         formData.append("address_id", this.addressId);
         formData.append("payment_id", this.paymentId);
         formData.append("shipping_fee", this.shippingFee);

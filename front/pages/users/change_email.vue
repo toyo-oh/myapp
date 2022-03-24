@@ -22,10 +22,10 @@
       <v-row justify="center">
         <v-col cols="12" md="6">
           <v-form ref="form" v-model="valid">
-            <v-text-field outlined　dense color="brown lighten-3" v-model="currentEmail" label="Current Email" :rules="currentEmailRules" type="text"></v-text-field>
-            <v-text-field outlined　dense color="brown lighten-3" v-model="password" label="Password" type="password" :rules="passwordRules"></v-text-field>
-            <v-text-field outlined　dense color="brown lighten-3" v-model="newEmail" label="New Email" type="text" :rules="newEmailRules"></v-text-field>
-            <v-text-field outlined　dense color="brown lighten-3" v-model="confirmEmail" label="Confirm Email" type="text" :rules="emailConfirmRules"></v-text-field>
+            <v-text-field outlined dense color="brown lighten-3" v-model="currentEmail" label="Current Email" :rules="currentEmailRules" type="text"></v-text-field>
+            <v-text-field outlined dense color="brown lighten-3" v-model="password" label="Password" type="password" :rules="passwordRules"></v-text-field>
+            <v-text-field outlined dense color="brown lighten-3" v-model="newEmail" label="New Email" type="text" :rules="newEmailRules"></v-text-field>
+            <v-text-field outlined dense color="brown lighten-3" v-model="confirmEmail" label="Confirm Email" type="text" :rules="emailConfirmRules"></v-text-field>
             <v-btn dark class="mr-4" color="brown lighten-1" @click="updateEmail">Save Changes</v-btn>
           </v-form>
         </v-col>
@@ -66,20 +66,21 @@ export default {
     updateEmail () {
       if (this.$auth.loggedIn) {
         if (this.$refs.form.validate()) {
-          this.$axios.post(`/api/users/${this.$auth.user.id}/update_email`, {
+          this.$axios.post(`/api/users/${this.$auth.user.hashid}/update_email`, {
             current_email: this.currentEmail,
             password: this.password,
-            newEmail: this.newEmail,
-            confirmEmail: this.confirmEmail,
-            id: this.$auth.user.id
+            new_email: this.newEmail,
+            confirm_email: this.confirmEmail,
+            hashid: this.$auth.user.hashid
           }).then((res) => {
             this.$auth.loginWith('local', { data: { email: res.data.email, password: this.password } })
               .then(() => {
-                this.$router.push(`/users/${this.$auth.user.id}`);
+                this.$router.push(`/users/${this.$auth.user.hashid}`);
                 this.$toast.show('Update Email successfully!');
               });
           }).catch((err) => {
             if (err.response && err.response.status === 401) {
+              this.$router.push(`/users/${this.$auth.user.hashid}`);
               this.$toast.error('Unauthorized!');
             }
           })
@@ -91,7 +92,7 @@ export default {
       }
     },
     rtnToProfile () {
-      this.$router.push(`/users/${this.$auth.user.id}`)
+      this.$router.push(`/users/${this.$auth.user.hashid}`)
     }
   }
 }

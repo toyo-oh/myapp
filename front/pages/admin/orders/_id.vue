@@ -24,7 +24,7 @@
                     <status-card :isAdmin="isAdmin" :orderStatus="orderStatus" :isPaid="isPaid" @cancel-order="showCancelDialog" @ship-order="shipOrder"> </status-card>
                   </v-col>
                   <v-col cols="12">
-                    <detail-card :isAdmin="isAdmin" :orderId="orderId" :orderNo="orderNo" :orderStatus="orderStatus" :placedOn="placedOn" :deliverOn="deliverOn" :products="products"> </detail-card>
+                    <detail-card :isAdmin="isAdmin" :orderNo="orderNo" :orderStatus="orderStatus" :placedOn="placedOn" :deliverOn="deliverOn" :products="products"> </detail-card>
                   </v-col>
                   <v-col cols="12" lg="6">
                     <v-card>
@@ -123,7 +123,6 @@ export default {
   data () {
     return {
       products: [],
-      orderId: null,
       orderNo: '',
       orderStatus: '',
       placedOn: '',
@@ -148,7 +147,7 @@ export default {
         var tmpTotal = 0;
         for (var m = 0; m < orderItems.length; m++) {
           var product = {};
-          product.id = orderItems[m].product_id;
+          product.hashid = orderItems[m].product_hashid;
           product.title = orderItems[m].product_title;
           product.price = orderItems[m].price;
           product.cnt = orderItems[m].quantity;
@@ -164,7 +163,6 @@ export default {
         this.addressId = res.data.address.id;
         this.products = tmpProducts;
         this.totalPrice = tmpTotal;
-        this.orderId = res.data.order.id;
         this.orderNo = res.data.order.order_no;
         this.orderStatus = res.data.order.aasm_state;
         this.logisticsFee = res.data.order.logistics_fee == null ? 0 : res.data.order.logistics_fee;
@@ -177,14 +175,14 @@ export default {
       this.dialogCancel = !this.dialogCancel
     },
     cancelOrder () {
-      this.$axios.post(`api/admin/orders/cancel_order`, { id: this.orderId }).then((res) => {
+      this.$axios.post(`api/admin/orders/cancel_order`, { order_no: this.orderNo }).then((res) => {
         this.orderStatus = res.data.aasm_state;
         this.dialogCancel = false;
         this.$toast.show('Cancel order successfully!');
       });
     },
     shipOrder () {
-      this.$axios.post(`api/admin/orders/ship_order`, { id: this.orderId }).then((res) => {
+      this.$axios.post(`api/admin/orders/ship_order`, { order_no: this.orderNo }).then((res) => {
         this.orderStatus = res.data.aasm_state;
         this.$toast.show('Order shipped successfully!');
       });

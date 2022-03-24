@@ -96,19 +96,19 @@ export default {
   },
   methods: {
     getAddresses () {
-      this.$axios.get(`api/addresses/find_by_user_id/${this.$auth.user.id}`).then((res) => {
-        this.addresses = res.data;
-        this.pageCount = Math.ceil(res.data.length / this.itemsPerPage);
+      this.$axios.get(`api/addresses/find_by_user_id/${this.$auth.user.hashid}`).then((res) => {
+        this.addresses = res.data.addresses;
+        this.pageCount = Math.ceil(this.addresses.length / this.itemsPerPage);
         for (var n = 0; n < this.addresses.length; n++) {
           if (this.addresses[n].is_default == 1) {
-            this.defaultId = this.addresses[n].id;
+            this.defaultId = this.addresses[n].hashid;
             break;
           }
         }
       });
     },
     editAddress (item) {
-      this.$router.push(`addresses/${item.id}`)
+      this.$router.push(`addresses/${item.hashid}`)
     },
     showDeleteDialog (item) {
       this.itemToDelete = item
@@ -116,7 +116,7 @@ export default {
     },
     deleteAddress () {
       this.$axios
-        .delete(`api/addresses/${this.itemToDelete.id}`)
+        .delete(`api/addresses/${this.itemToDelete.hashid}`)
         .then(() => {
           this.getAddresses();
           this.$toast.show('Delete address Successfully!');
@@ -126,7 +126,7 @@ export default {
     setDefault (item) {
       this.$axios
         .post(`api/addresses/set_default`,
-          { user_id: this.$auth.user.id, old_id: this.defaultId, id: item.id })
+          { user_id: this.$auth.user.hashid, old_id: this.defaultId, id: item.hashid })
         .then(() => {
           this.getAddresses();
           this.$toast.show('Set default address Successfully!');

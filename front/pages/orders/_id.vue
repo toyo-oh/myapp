@@ -23,7 +23,7 @@
                   <status-card :isAdmin="isAdmin" :orderStatus="orderStatus" :isPaid="isPaid" @pay-order="payOrder" @cancel-order="showCancelDialog" @receive-good="receiveGoods"></status-card>
                 </v-col>
                 <v-col cols="12">
-                  <detail-card :isAdmin="isAdmin" :orderId="orderId" :orderNo="orderNo" :orderStatus="orderStatus" :placedOn="placedOn" :deliverOn="deliverOn" :products="products" @review-product="showReviewDialog"> </detail-card>
+                  <detail-card :isAdmin="isAdmin" :orderNo="orderNo" :orderStatus="orderStatus" :placedOn="placedOn" :deliverOn="deliverOn" :products="products" @review-product="showReviewDialog"> </detail-card>
                 </v-col>
                 <v-col cols="12" lg="6">
                   <v-card>
@@ -126,7 +126,7 @@ export default {
       products: [],
       totalPrice: 0,
       shippingFee: 0,
-      orderId: null,
+      // orderId: null,
       orderNo: '',
       orderStatus: '',
       isPaid: false,
@@ -151,7 +151,7 @@ export default {
         var tmpTotal = 0;
         for (var m = 0; m < orderItems.length; m++) {
           var product = {};
-          product.id = orderItems[m].product_id;
+          product.hashid = orderItems[m].product_hashid;
           product.title = orderItems[m].product_title;
           product.price = orderItems[m].price;
           product.cnt = orderItems[m].quantity;
@@ -164,7 +164,7 @@ export default {
         this.paymentDetail = res.data.payment.holder_name + " Ending With: " + res.data.payment.card_number.substring(12, 16);
         this.products = tmpProducts;
         this.totalPrice = tmpTotal;
-        this.orderId = res.data.order.id;
+        // this.orderId = res.data.order.id;
         this.orderNo = res.data.order.order_no;
         this.orderStatus = res.data.order.aasm_state;
         this.shippingFee = res.data.order.shipping_fee == null ? 0 : res.data.order.shipping_fee;
@@ -189,7 +189,7 @@ export default {
       if (!this.$auth.loggedIn) {
         this.$toast.error('Please login in before pay the order!');
       } else {
-        this.$axios.post(`/api/orders/pay_order`, { id: this.orderId }).then((res) => {
+        this.$axios.post(`/api/orders/pay_order`, { order_no: this.orderNo }).then((res) => {
           this.orderStatus = res.data.aasm_state;
           this.$toast.show('Order paid successfully!');
         });
@@ -199,7 +199,7 @@ export default {
       if (!this.$auth.loggedIn) {
         this.$toast.error('Please login in before cancel the order!');
       } else {
-        this.$axios.post(`api/orders/cancel_order`, { id: this.orderId }).then((res) => {
+        this.$axios.post(`api/orders/cancel_order`, { order_no: this.orderNo }).then((res) => {
           this.orderStatus = res.data.aasm_state;
           this.dialogCancel = false;
           this.$toast.show('Cancel order successfully!');
@@ -210,7 +210,7 @@ export default {
       if (!this.$auth.loggedIn) {
         this.$toast.error('Please login in before receive the order!');
       } else {
-        this.$axios.post(`api/orders/receive_good`, { id: this.orderId }).then((res) => {
+        this.$axios.post(`api/orders/receive_good`, { order_no: this.orderId }).then((res) => {
           this.$toast.show('Receive order successfully!');
           this.orderStatus = res.data.aasm_state;
         });

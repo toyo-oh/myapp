@@ -33,7 +33,7 @@
                     <template v-slot:default="props">
                       <v-row>
                         <v-col v-for="(item, index) in props.items" :key="index" cols="12" sm="6" md="6" lg="3" xl="3">
-                          <item-card :pId="item.id" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" :subTitle="item.sub_title" :pDiscount="Number(item.discount)" @cartAdd="addToCart({'id':item.id, 'price':parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(0)})">
+                          <item-card :pHashId="item.hashid" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" :subTitle="item.sub_title" :pDiscount="Number(item.discount)" @cartAdd="addToCart({'hashid':item.hashid, 'price':parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(0)})">
                           </item-card>
                         </v-col>
                       </v-row>
@@ -100,7 +100,7 @@ export default {
     ...mapActions(['addToCart']),
     searchProducts () {
       this.$axios.$post(`/api/products/search`, { value: this.$route.query.value }).then((res) => {
-        var products = res;
+        var products = res.products;
         for (var m = 0; m < products.length; m++) {
           products[m].image = "http://localhost:3000" + products[m].images[0].medium.url;
           products[m].qty = 1;
@@ -121,23 +121,7 @@ export default {
     },
     formerPage () {
       if (this.page - 1 >= 1) this.page -= 1
-    },
-    // addToCart (item) {
-    //   // add to backend cart
-    //   if (this.$auth.loggedIn) {
-    //     this.$axios.$post(`api/products/${item.id}/add_to_cart`, {
-    //       product_id: item.id,
-    //       user_id: this.$auth.user.id
-    //     }).then((res) => {
-    //       // console.log(res);
-    //     });
-    //   }
-    //   // add to store
-    //   var cartItem = new Object();
-    //   cartItem.product_id = item.id;
-    //   cartItem.price = item.price;
-    //   this.$store.commit('add_product_to_cart', cartItem);
-    // }
+    }
   }
 };
 </script>

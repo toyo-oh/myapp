@@ -40,7 +40,7 @@ export const mutations = {
     var productList = state.productList;
     var existFlg = false;
     for(var i=0; i< productList.length; i++){
-      if(productList[i].product_id == cartItem.product_id){
+      if(productList[i].product_hashid == cartItem.product_hashid){
         productList[i].quantity += 1;
         existFlg = true;
         break;
@@ -57,7 +57,7 @@ export const mutations = {
     var productList = state.productList;
     var existFlg = false;
     for(var i=0; i< productList.length; i++){
-      if(productList[i].product_id == cartItem.product_id){
+      if(productList[i].product_hashid == cartItem.product_hashid){
         productList[i].quantity -= 1;
         existFlg = true;
         break;
@@ -68,10 +68,10 @@ export const mutations = {
       localStorage.setItem('Cart',JSON.stringify(productList));
     }
   },
-  remove_product_from_cart(state,product_id){
+  remove_product_from_cart(state, product_hashid){
     var productList = state.productList;
     for(var i=0; i< productList.length; i++){
-      if(productList[i].product_id == product_id){
+      if(productList[i].product_hashid == product_hashid){
         productList.splice(i,1);
         break;
       }
@@ -89,14 +89,14 @@ export const actions = {
   addToCart ({commit}, product) {
     // add to backend cart
     if (this.$auth.loggedIn) {
-      this.$axios.$post(`api/products/${product.id}/add_to_cart`, {
-        product_id: product.id,
-        user_id: this.$auth.user.id
-      }).then((res) => {});
+      this.$axios.$post(`api/products/${product.hashid}/add_to_cart`, {
+        product_id: product.hashid,
+        user_id: this.$auth.user.hashid
+      }).then(() => {});
     }
     // add to store
     var cartItem = new Object();
-    cartItem.product_id = product.id;
+    cartItem.product_hashid = product.hashid;
     cartItem.price = product.price;
     commit('add_product_to_cart', cartItem);
   },

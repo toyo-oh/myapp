@@ -7,8 +7,8 @@ class UsersController < ApplicationController
   def current_user
     if decoded_token.present?
       user_id = decoded_token[0]['user_id']
-      @user = User.find_by(id: user_id)
-      render json: {user: @user}
+      @user = User.find(user_id)
+      render json: {user: @user.wrap_json_user}
     else
       response_unauthorized
     end
@@ -33,14 +33,14 @@ class UsersController < ApplicationController
   # GET /users/1
   def show
     @user = get_user_with_auth_check
-    render json: {user: @user}
+    render json: {user: @user.wrap_json_user}
   end
 
   # PATCH/PUT /users/1
   def update
     @current_user = get_user_with_auth_check
     if @current_user.update!(name: params[:name], email: params[:email])
-      render json: @current_user
+      render json: {user: @current_user.wrap_json_user}
     else
       render response_unprocessable_entity(@current_user.errors)
     end
@@ -59,7 +59,7 @@ class UsersController < ApplicationController
     @user = get_user_with_auth_check
 		if @user.email == params[:current_email] && @user.authenticate(params[:password])
       if @user.update!(email: params[:new_email])
-        render json: @user
+        render json: {user: @user.wrap_json_user}
       else
         render response_unprocessable_entity(@user.errors)
       end
@@ -72,7 +72,7 @@ class UsersController < ApplicationController
   def update_profile
     @user = get_user_with_auth_check
       if @user.update!(name: params[:name], phone_number: params[:phone_number])
-        render json: @user
+        render json: {user: @user.wrap_json_user}
       else
         render response_unprocessable_entity(@user.errors)
       end
@@ -83,7 +83,7 @@ class UsersController < ApplicationController
     @user = get_user_with_auth_check
 		if @user.email == params[:email] && @user.authenticate(params[:current_password])
       if @user.update!(password: params[:new_password], password_confirmation: params[:confirm_password])
-        render json: @user
+        render json: {user: @user.wrap_json_user}
       else
         render response_unprocessable_entity(@user.errors)
       end
@@ -109,7 +109,7 @@ class UsersController < ApplicationController
       return render json: {error: 'Your token has been expired, please try again'}
     else
       if @user.update!(password: params[:new_password], password_confirmation: params[:confirm_password])
-        render json: @user
+        render json: {user: @user.wrap_json_user}
       else
         render response_unprocessable_entity(@user.errors)
       end
@@ -120,11 +120,6 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
-
     # Only allow a trusted parameter "white list" through.
     def user_params
       params.require(:user).permit(:name, :password, :password_confirmation, :email, :is_admin)
@@ -134,7 +129,11 @@ class UsersController < ApplicationController
 			if validate_user.blank?
 					response_unauthorized
 			else
-				@user = User.find(params[:id])
+        if params[:id].blank?
+          @user = User.find(params[:hashid]) 
+        else
+          @user = User.find(params[:id]) 
+        end
 				if validate_user.id == @user.id
 					return @user
 				else

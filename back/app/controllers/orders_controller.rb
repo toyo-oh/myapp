@@ -4,13 +4,14 @@ class OrdersController < ApplicationController
 	before_action :get_order_with_auth_check, only: [:show, :destroy, :pay_order]
 
 	def create_order
-		@current_cart = Cart.find_by(user_id: params[:user_id])
+		user_id = decode_user_id(params[:user_id])
+		@current_cart = Cart.find_by(user_id: user_id)
 		raise ActiveRecord::RecordNotFound if @current_cart.blank?
 		@cart_items = @current_cart.cart_items
 		@new_order = Order.new
-		@new_order.user_id = params[:user_id]
-		@new_order.address_id = params[:address_id]
-		@new_order.payment_id = params[:payment_id]
+		@new_order.user_id = user_id
+		@new_order.address_id = decode_address_id(params[:address_id])
+		@new_order.payment_id = decode_payment_id(params[:payment_id])
 		@new_order.aasm_state = 'order_placed'
 		@new_order.is_paid = 0
 		@new_order.shipping_fee = params[:shipping_fee]
@@ -20,7 +21,7 @@ class OrdersController < ApplicationController
 			amount = 0
 			@cart_items.each do |cart_item|
 				image = set_order_image(@new_order.id, cart_item.product_id, cart_item.product.images[0])
-				@new_order.create_detail_item(cart_item.product, cart_item.quantity, cart_item.price, '', image)
+				@new_order.create_detail_item(cart_item.product, cart_item.quantity, cart_item.price, '', image, @new_order.order_no)
 				count += cart_item.quantity
 				amount += cart_item.quantity * cart_item.price
 				@product = Product.find(cart_item.product_id)
@@ -34,50 +35,56 @@ class OrdersController < ApplicationController
 			@new_order.update!(product_count: count, amount_total: amount)
 			@current_cart.destroy!
 			OrderMailer.notify_order_placed(@new_order).deliver_now
-			render json: {order_id: @new_order.id, order_no:@new_order.order_no}
+			render json: {order_no:@new_order.order_no}
 		end
 	end
 
 	def get_orders_by_user_id
-		@orders = Order.where(user_id: params[:user_id])
+		@orders = Order.where(user_id: decode_user_id(params[:user_id]))
 		if !@orders.blank?
-			render :json => {:orders => @orders.as_json(:include => :order_details)}
+			render :json => {:orders => @orders.as_json(
+				methods: :user_hashid, 
+				except:[:id, :user_id, :updated_at],
+				:include => {order_details: {methods: [:product_hashid], except:[:id, :order_id, :product_id, :created_at, :updated_at]}})}
 		end
 	end
 
 	def show_order_by_no
 		@order = get_order_with_auth_check
-		@order_details = @order.order_details
 		@address = Address.find(@order.address_id)
 		@payment = Payment.find(@order.payment_id)
-		render :json => {:order => @order, :order_details => @order_details, :address => @address, :payment => @payment}
+		render :json => {
+			:order => @order.wrap_json_order, 
+			:order_details => @order.order_details.as_json(methods: [:product_hashid], except:[:id, :order_id, :product_id, :created_at, :updated_at]), 
+			:address => @address.wrap_json_address, 
+			:payment => @payment.wrap_json_payment}
 	end
 
 	def cancel_order
 		@order = get_order_with_auth_check
 		@order_details = @order.order_details
 		Order.transaction do
-			for detail in @order_details do
+			@order_details.each do |detail|
 				@product = Product.find(detail.product_id)
 				@product.update!(quantity: @product.quantity + detail.quantity)
 			end
 			@order.cancel!
 			OrderMailer.notify_order_cancelled(@order).deliver_now
 		end
-		render json: @order
+		render json: @order.wrap_json_order
 	end
 
 	def pay_order
 		@order = get_order_with_auth_check
 		@order.pay!
 		@order.make_payment!
-		render json: @order
+		render json: @order.wrap_json_order
 	end
 
 	def receive_good
 		@order = get_order_with_auth_check
 		@order.deliver!
-		render json: @order
+		render json: @order.wrap_json_order
 	end
 
 	private

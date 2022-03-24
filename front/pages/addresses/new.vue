@@ -60,7 +60,7 @@ export default {
         formData.append("city", this.address.city);
         formData.append("prefecture_id", this.address.prefectureId);
         formData.append("detail", this.address.detail);
-        formData.append("user_id", this.$auth.user.id);
+        formData.append("user_id", this.$auth.user.hashid);
         this.$axios.post("/api/addresses", formData).then(() => {
           this.$router.push(`.`);
           this.$toast.show('Create address Successfully!');

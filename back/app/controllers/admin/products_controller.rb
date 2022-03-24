@@ -28,16 +28,19 @@ class Admin::ProductsController < ApplicationController
 
     def index
         @products = Product.all
-        render json: @products
+        render json: { products: @products.as_json(methods: [:hashid], except:[:id, :created_at, :updated_at]) } 
     end
 
     def show
-        @product = Product.find(params[:id])
-        render :json => {:product => @product.as_json(:include => :promotions)}
+        @product = find_product
+        render :json => {:product => @product.as_json(
+            methods: :hashid, 
+            except:[:id, :created_at, :updated_at], 
+            :include => {:promotions => {methods: [:product_hashid,:hashid], except:[:id, :product_id, :created_at, :updated_at]} })}
     end
 
     def update
-        @product = Product.find(params[:id])
+        @product = find_product
         @product.images = set_images(@product.images)
         # @product.tags = set_tags
         Product.transaction do
@@ -47,9 +50,9 @@ class Admin::ProductsController < ApplicationController
             promotions = JSON.parse(params[:promotions])
             promotions.each do |p_item|
                 if p_item["start_at"] > Time.new.strftime("%Y-%m-%d")
-                    if p_item["id"].blank?
+                    if p_item["hashid"].blank?
                         @promotion = Promotion.new(
-                            product_id: p_item["product_id"],
+                            product_id: @product.id,
                             start_at: p_item["start_at"],
                             end_at: p_item["end_at"],
                             is_active: p_item["is_active"],
@@ -59,9 +62,9 @@ class Admin::ProductsController < ApplicationController
                             render response_unprocessable_entity(@promotion.errors)
                         end
                     else
-                        @promotion = Promotion.find(p_item["id"])
+                        @promotion = Promotion.find(p_item["hashid"])
                         if !@promotion.update!(
-                            product_id: p_item["product_id"],
+                            product_id: @product.id,
                             start_at: p_item["start_at"],
                             end_at: p_item["end_at"],
                             is_active: p_item["is_active"],
@@ -76,7 +79,7 @@ class Admin::ProductsController < ApplicationController
     end
 
     def destroy
-        @product = Product.find(params[:id])
+        @product = find_product
         if !@product.destroy 
             render response_unprocessable_entity(@product.errors)
         end
@@ -90,6 +93,15 @@ class Admin::ProductsController < ApplicationController
     private
     def product_params
         params.permit(:title, :sub_title, :category_id, :description, :price, :quantity,:tags, {images:[]}, :is_available, {promotions:[]})
+    end
+
+    def find_product
+        if !params[:id].blank?
+            @product = Product.find(params[:id])
+          else
+            @product = Product.find_by_hashid!(params[:hashid])
+          end
+        return @product
     end
 
     def set_images(old_images)

@@ -91,19 +91,19 @@ export default {
   },
   methods: {
     getPayments () {
-      this.$axios.get(`api/payments/find_by_user_id/${this.$auth.user.id}`).then((res) => {
-        this.payments = res.data;
-        this.pageCount = Math.ceil(res.data.length / this.itemsPerPage);
+      this.$axios.get(`api/payments/find_by_user_id/${this.$auth.user.hashid}`).then((res) => {
+        this.payments = res.data.payments;
+        this.pageCount = Math.ceil(this.payments.length / this.itemsPerPage);
         for (var n = 0; n < this.payments.length; n++) {
           if (this.payments[n].is_default == 1) {
-            this.defaultId = this.payments[n].id;
+            this.defaultId = this.payments[n].hashid;
             break;
           }
         }
       });
     },
     editPayment (item) {
-      this.$router.push(`payments/${item.id}`)
+      this.$router.push(`payments/${item.hashid}`)
     },
     showDeleteDialog (item) {
       this.itemToDelete = item
@@ -111,7 +111,7 @@ export default {
     },
     deletePayment () {
       this.$axios
-        .delete(`api/payments/${this.itemToDelete.id}`)
+        .delete(`api/payments/${this.itemToDelete.hashid}`)
         .then(() => {
           this.getPayments();
           this.$toast.show('Delete payment successfully!');
@@ -121,7 +121,7 @@ export default {
     setDefault (item) {
       this.$axios
         .post(`api/payments/set_default`,
-          { user_id: this.$auth.user.id, old_id: this.defaultId, id: item.id })
+          { user_id: this.$auth.user.hashid, old_id: this.defaultId, id: item.hashid })
         .then(() => {
           this.getPayments();
           this.$toast.show('Set default payment successfully!');

@@ -25,7 +25,7 @@ export default {
   name: 'ReviewForm',
   props: {
     reviewDialog: Boolean,
-    reviewPid: Number
+    reviewPid: String
   },
   data () {
     return {
@@ -35,12 +35,12 @@ export default {
     }
   },
   methods: {
-    reviewProduct (pid) {
+    reviewProduct (phashid) {
       this.$emit('update:reviewDialog', false)
       if (this.$auth.loggedIn) {
         this.$axios.$post('api/reviews', {
-          product_id: pid,
-          user_id: this.$auth.user.id,
+          product_id: phashid,
+          user_id: this.$auth.user.hashid,
           comment: this.comment,
           rate: this.rate
         }).then(() => {

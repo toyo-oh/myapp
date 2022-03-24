@@ -69,12 +69,12 @@ export default {
   },
   methods: {
     loadUserData () {
-      this.$axios.$get(`/api/users/${this.$auth.user.id}`).then((res) => {
+      this.$axios.$get(`/api/users/${this.$auth.user.hashid}`).then((res) => {
         this.name = res.user.name;
         this.email = res.user.email;
       }).catch((err) => {
         if (err.response && err.response.status === 401) {
-          this.$router.push(`/users/${this.$auth.user.id}`);
+          this.$router.push(`/users/${this.$auth.user.hashid}`);
           this.$toast.error('Unauthorized!');
         }
       });

@@ -1,10 +1,10 @@
 <template>
   <v-card max-width="100%">
     <v-card-text>
-      <router-link :to="{name: 'products-id', params: {id: pId}}">
+      <router-link :to="{name: 'products-id', params: {id: pHashId}}">
         <v-img :src="pImg"></v-img>
       </router-link>
-      <router-link :to="{name: 'products-id', params: {id: pId}}" class="text-decoration-none">
+      <router-link :to="{name: 'products-id', params: {id: pHashId}}" class="text-decoration-none">
         <h5 class="grey--text text--darken-4">{{ pTitle }}</h5>
       </router-link>
       <div class="d-flex justify-space-between">
@@ -29,6 +29,7 @@ export default {
       type: Number,
       default: 0
     },
+    pHashId: String,
     pImg: String,
     pTitle: String,
     subTitle: String,

@@ -4,10 +4,10 @@
       {{parseFloat(pDiscount).toFixed(10)*100}}%off
     </v-chip>
     <v-card-text>
-      <router-link :to="{name: 'products-id', params: {id: pId}}">
+      <router-link :to="{name: 'products-id', params: {id: pHashId}}">
         <v-img :src="pImg"></v-img>
       </router-link>
-      <router-link :to="{name: 'products-id', params: {id: pId}}" color="brown lighten-1" class="text-decoration-none">
+      <router-link :to="{name: 'products-id', params: {id: pHashId}}" color="brown lighten-1" class="text-decoration-none">
         <h3 class="mb-0 brown--text text--darken-4">{{pTitle}} </h3>
       </router-link>
       <div class="d-flex mb-1 grey--text">
@@ -31,10 +31,7 @@
 export default {
   name: 'ItemCard',
   props: {
-    pId: {
-      type: Number,
-      default: 0
-    },
+    pHashId: String,
     pImg: String,
     pTitle: String,
     subTitle: String,
@@ -54,7 +51,7 @@ export default {
   data () {
     return {
       dialog: false,
-      
+
     }
   },
 }

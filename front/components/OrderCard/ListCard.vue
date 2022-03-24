@@ -32,7 +32,7 @@
     <div v-for="item in details" :key="item.id">
       <div class="d-flex align-center justify-space-around flex-wrap  pa-4">
         <div class="d-flex align-center flex-wrap me-4">
-          <router-link :to="{name: 'products-id', params: {id: item.product_id}}">
+          <router-link :to="{name: 'products-id', params: {id: item.product_hashid}}">
             <v-avatar tile size="64" class="me-4">
               <img :src="item.image" max-height="100" max-width="100">
             </v-avatar>

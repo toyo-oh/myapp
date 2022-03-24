@@ -10,7 +10,7 @@
     </div>
     <v-data-iterator :items="orders" :page.sync="page" :items-per-page="itemsPerPage" hide-default-footer>
       <template v-slot:default="{ items }">
-        <list-card v-for="item in items" :key="item.id" :order="item" :details="item.details"></list-card>
+        <list-card v-for="item in items" :key="item.order_no" :order="item" :details="item.details"></list-card>
       </template>
     </v-data-iterator>
     <div class="text-center pt-2">
@@ -39,12 +39,11 @@ export default {
   },
   methods: {
     getOrders () {
-      this.$axios.get(`api/orders/get_orders_by_user_id/${this.$auth.user.id}`).then((res) => {
+      this.$axios.get(`api/orders/get_orders_by_user_id/${this.$auth.user.hashid}`).then((res) => {
         this.orders = [];
         var tmpOrders = res.data.orders;
         for (var m = 0; m < tmpOrders.length; m++) {
           var order = {};
-          order.id = tmpOrders[m].id;
           order.order_no = tmpOrders[m].order_no;
           order.createdAt = tmpOrders[m].created_at;
           order.amountTotal = tmpOrders[m].amount_total;

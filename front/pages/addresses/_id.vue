@@ -41,7 +41,6 @@ export default {
       valid: true,
       alertFormError: false,
       address: {
-        id: '',
         receiver: '',
         phoneNumber: '',
         postCode: '',
@@ -57,7 +56,7 @@ export default {
   methods: {
     loadAddress () {
       this.$axios.$get(`/api/addresses/${this.$route.params.id}`).then((res) => {
-        this.address.id = res.id;
+        this.address.hashid = res.hashid;
         this.address.receiver = res.receiver;
         this.address.phoneNumber = res.phone_number;
         this.address.postCode = res.post_code;
@@ -74,14 +73,14 @@ export default {
     editAddress () {
       if (this.$refs.addressForm.validate()) {
         const formData = new FormData();
-        formData.append("id", this.address.id);
+        formData.append("hashid", this.address.hashid);
         formData.append("receiver", this.address.receiver);
         formData.append("phone_number", this.address.phoneNumber);
         formData.append("post_code", this.address.postCode);
         formData.append("city", this.address.city);
         formData.append("prefecture_id", this.address.prefectureId);
         formData.append("detail", this.address.detail);
-        this.$axios.put(`/api/addresses/${this.address.id}`, formData).then(() => {
+        this.$axios.put(`/api/addresses/${this.address.hashid}`, formData).then(() => {
           this.$router.push(`.`);
           this.$toast.show('Update address Successfully!');
         });

@@ -39,7 +39,6 @@ export default {
     return {
       alertFormError: false,
       payment: {
-        id: '',
         holderName: '',
         cardNumber: '',
         expirationDate: '',
@@ -55,7 +54,7 @@ export default {
         formData.append("card_number", this.payment.cardNumber);
         formData.append("expiration_date", this.payment.expirationDate);
         formData.append("security_code", this.payment.securityCode);
-        formData.append("user_id", this.$auth.user.id)
+        formData.append("user_id", this.$auth.user.hashid)
         this.$axios.post("/api/payments", formData).then(() => {
           this.$router.push(`.`);
           this.$toast.show('Create payment successfully!');

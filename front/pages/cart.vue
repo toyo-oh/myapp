@@ -17,7 +17,7 @@
           <v-col cols="12" md="6" lg="8" xl="8">
             <div v-for="item in products" :key="item.id">
               <v-card class="d-flex flex-wrap mb-6">
-                <router-link :to="{name: 'products-id', params: {id: item.id}}">
+                <router-link :to="{name: 'products-id', params: {id: item.hashid}}">
                   <img :src="item.image" max-height="100" max-width="100" alt="">
                 </router-link>
                 <div class="d-flex flex-column flex-grow-1 flex-wrap pa-4 mw-0">
@@ -121,20 +121,20 @@ export default {
       if (cartItems.length == 0) {
         this.products = [];
       } else {
-        var ids = [];
+        var hashids = [];
         for (var i = 0; i < cartItems.length; i++) {
-          ids.push(cartItems[i].product_id);
+          hashids.push(cartItems[i].product_hashid);
         }
         this.$axios.get("api/cart/show_cart_products", {
           params: {
-            ids: ids
+            hashids: hashids
           }
         }).then((res) => {
-          this.products = res.data;
+          this.products = res.data.products;
           // merge server cart to local cart 
           for (var m = 0; m < this.products.length; m++) {
             for (var n = 0; n < cartItems.length; n++) {
-              if (this.products[m].id == cartItems[n].product_id) {
+              if (this.products[m].hashid == cartItems[n].product_hashid) {
                 this.products[m].cnt = cartItems[n].quantity;
                 this.products[m].price = parseFloat(this.products[m].price * (1 - this.products[m].discount)).toFixed(0)
                 // set button 
@@ -169,8 +169,8 @@ export default {
       if (this.itemToDelete.cnt > 0) {
         if (this.$auth.loggedIn) {
           this.$axios.$post(`api/cart/remove_from_cart`, {
-            product_id: this.itemToDelete.id,
-            user_id: this.$auth.user.id
+            product_id: this.itemToDelete.hashid,
+            user_id: this.$auth.user.hashid
           }).then(() => {
             this.$toast.show('Removed item Successfully!');
           });
@@ -179,7 +179,7 @@ export default {
       // flag
       this.dialogDelete = false
       // remove from store
-      this.$store.commit('remove_product_from_cart', this.itemToDelete.id);
+      this.$store.commit('remove_product_from_cart', this.itemToDelete.hashid);
       this.getProductList();
     },
     increment (item) {
@@ -188,16 +188,16 @@ export default {
         return;
       }
       if (this.$auth.loggedIn) {
-        this.$axios.$post(`api/products/${item.id}/add_to_cart`, {
-          product_id: item.id,
-          user_id: this.$auth.user.id
+        this.$axios.$post(`api/products/${item.hashid}/add_to_cart`, {
+          product_id: item.hashid,
+          user_id: this.$auth.user.hashid
         }).then(() => {
           this.$toast.show('Increment item Successfully!');
         });
       }
       // add to store
       var cartItem = new Object();
-      cartItem.product_id = item.id;
+      cartItem.product_hashid = item.hashid;
       cartItem.price = this.price;
       this.$store.commit('add_product_to_cart', cartItem);
       this.getProductList();
@@ -208,16 +208,16 @@ export default {
         return;
       }
       if (this.$auth.loggedIn) {
-        this.$axios.$post(`api/products/${item.id}/decrease_of_cart`, {
-          product_id: item.id,
-          user_id: this.$auth.user.id
+        this.$axios.$post(`api/products/${item.hashid}/decrease_of_cart`, {
+          product_id: item.hashid,
+          user_id: this.$auth.user.hashid
         }).then(() => {
           this.$toast.show('Increment item Successfully!');
         });
       }
       // decrease of store
       var cartItem = new Object();
-      cartItem.product_id = item.id;
+      cartItem.product_hashid = item.hashid;
       this.$store.commit('decrease_product_of_cart', cartItem);
       this.getProductList();
     },

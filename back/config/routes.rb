@@ -54,5 +54,5 @@ Rails.application.routes.draw do
   post '/products/search', to:'products#search'
   get '/payments/find_by_user_id/:user_id', to: 'payments#find_by_user_id'
   post '/payments/set_default', to: 'payments#set_default'
-  get '/reviews/find_by_product_id/:product_id', to: 'reviews#find_by_product_id'
+  get '/reviews/find_by_product_id/:phashid', to: 'reviews#find_by_product_id'
 end

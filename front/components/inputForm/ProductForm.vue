@@ -1,6 +1,6 @@
 <template>
   <v-form ref="form" v-model="valid">
-    <v-text-field :value="id" v-if="false"></v-text-field>
+    <v-text-field :value="hashid" v-if="false"></v-text-field>
     <v-switch color="brown lighten-1" :value="isAvailable" @change="$emit('update:isAvailable', $event)" label="Available"></v-switch>
     <v-text-field outlined dense color="brown lighten-3" :value="title" @input="$emit('update:title', $event)" label="Title" type="text" :rules="titleRules"></v-text-field>
     <v-text-field outlined dense color="brown lighten-3" :value="subTitle" @input="$emit('update:subTitle', $event)" label="Sub Title" :rules="subTitleRules"></v-text-field>
@@ -28,7 +28,7 @@
         </v-btn>
       </div>
       <v-list-item-group>
-        <v-list-item v-for="item in promotions" :key="item.id">
+        <v-list-item v-for="item in promotions" :key="item.hashid">
           <v-list-item-action>
             <v-checkbox v-model="item.is_active" :input-value="item.is_active" :disabled="item.start_at <= today" color="brown lighten-1"></v-checkbox>
           </v-list-item-action>
@@ -47,7 +47,7 @@
 export default {
   name: 'ProductForm',
   props: {
-    id: Number,
+    hashid: String,
     title: String,
     subTitle: String,
     categoryId: Number,

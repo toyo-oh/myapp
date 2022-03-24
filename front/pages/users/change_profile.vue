@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     loadUserData () {
-      this.$axios.$get(`/api/users/${this.$auth.user.id}`).then((res) => {
+      this.$axios.$get(`/api/users/${this.$auth.user.hashid}`).then((res) => {
         this.name = res.user.name;
         this.email = res.user.email;
         this.phoneNumber = res.user.phone_number;
@@ -70,15 +70,16 @@ export default {
     updateProfile () {
       if (this.$auth.loggedIn) {
         if (this.$refs.form.validate()) {
-          this.$axios.post(`/api/users/${this.$auth.user.id}/update_profile`, {
+          this.$axios.post(`/api/users/${this.$auth.user.hashid}/update_profile`, {
             name: this.name,
             phone_number: this.phoneNumber,
-            id: this.$auth.user.id
+            hashid: this.$auth.user.hashid
           }).then(() => {
-            this.$router.push(`/users/${this.$auth.user.id}`);
+            this.$router.push(`/users/${this.$auth.user.hashid}`);
             this.$toast.show('Update Profile successfully!');
           }).catch((err) => {
             if (err.response && err.response.status === 401) {
+              this.$router.push(`/users/${this.$auth.user.hashid}`);
               this.$toast.error('Unauthorized!');
             }
           })
@@ -90,7 +91,7 @@ export default {
       }
     },
     rtnToProfile () {
-      this.$router.push(`/users/${this.$auth.user.id}`)
+      this.$router.push(`/users/${this.$auth.user.hashid}`)
     }
   }
 }

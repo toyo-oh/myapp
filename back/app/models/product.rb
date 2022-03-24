@@ -1,4 +1,7 @@
 class Product < ApplicationRecord
+	include Hashid::Rails
+	hashid_config pepper: "products"
+
 	has_many :reviews
 	has_many :promotions
 
@@ -10,4 +13,10 @@ class Product < ApplicationRecord
 	validates :quantity, {presence: true, numericality: {less_than_or_equal_to:99999999 }}
 
 	mount_uploaders :images, ImageUploader
+
+
+	def wrap_json_product
+		return self.as_json(methods: :hashid, except:[:id, :created_at, :updated_at])
+	end
+
 end

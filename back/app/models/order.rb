@@ -3,13 +3,23 @@ class Order < ApplicationRecord
   # enum aasm_state: [:order_placed, :paid, :shipping, :shipped, :order_cancelled, :good_returned]
 	has_many :order_details, dependent: :destroy
   belongs_to :user
+  attr_accessor :user_hashid
   
   def generate_order_no
     self.order_no = SecureRandom.uuid
   end
 
-	def create_detail_item(product, quantity, price, remark, image)
+	def user_hashid
+		self.user_hashid = self.user.hashid
+	end
+
+  def wrap_json_order
+		return self.as_json(methods: :user_hashid, except:[:id, :payment_id, :address_id, :user_id, :updated_at])
+	end
+
+	def create_detail_item(product, quantity, price, remark, image, no)
 		di = order_details.build
+    di.order_no = no
 		di.product_id = product.id
 		di.product_title = product.title
 		di.price = price

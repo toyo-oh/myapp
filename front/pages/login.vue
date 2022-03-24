@@ -50,7 +50,7 @@ export default ({
       if (this.$refs.form.validate()) {
         this.$auth.loginWith('local', { data: this.login })
           .then(() => {
-            this.$axios.$get(`api/cart/find_cart/${this.$auth.user.id}`)
+            this.$axios.$get(`api/cart/find_cart/${this.$auth.user.hashid}`)
               .then((res) => {
                 this.$store.commit('load_products', res.productList);
                 this.$toast.show('Logged In successfully!');

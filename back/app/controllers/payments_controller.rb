@@ -4,8 +4,10 @@ class PaymentsController < ApplicationController
 	before_action :get_payment_with_auth_check, only: [:show, :update, :destroy]
 
 	def create
+		user_id = decode_user_id(params[:user_id])
 		@payment = Payment.new(payment_params)
-		if !Payment.exists?(user_id: params[:user_id])
+		@payment.user_id = user_id;
+		if !Payment.exists?(user_id: user_id)
 			@payment.is_default = 1
 		end
 		if !@payment.save
@@ -14,13 +16,14 @@ class PaymentsController < ApplicationController
 	end
 
 	def find_by_user_id
-		@payments = Payment.where(user_id: params[:user_id])
-		render json: @payments
+		user_id = decode_user_id(params[:user_id])
+		@payments = Payment.where(user_id: user_id)
+		render json: { payments: @payments.as_json(methods: [:hashid, :user_hashid], except:[:id, :created_at, :updated_at]) } 
 	end
 
 	def show
 		@payment = get_payment_with_auth_check
-		render json: @payment
+		render json: @payment.wrap_json_payment
 	end
 
 	def update
@@ -48,14 +51,18 @@ class PaymentsController < ApplicationController
 
 	private
 	def payment_params
-		params.permit(:id, :user_id, :holder_name, :card_number, :expiration_date, :security_code)
+		params.permit(:holder_name, :card_number, :expiration_date, :security_code)
 	end 
 
 	def get_payment_with_auth_check
 		if validate_user.blank?
 				response_unauthorized
 		else
-			@payment = Payment.find(params[:id])
+			if params[:id].blank?
+				@payment = Payment.find(params[:hashid])
+			else
+				@payment = Payment.find(params[:id])
+			end
 			if validate_user.id == @payment.user_id
 				return @payment
 			else

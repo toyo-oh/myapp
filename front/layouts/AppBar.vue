@@ -115,7 +115,7 @@ export default {
       this.$router.push(`/users/new`)
     },
     userInfo () {
-      this.$router.push(`/users/${this.$auth.user.id}`)
+      this.$router.push(`/users/${this.$auth.user.hashid}`)
     },
     useOrder () {
       this.$router.push('/orders')
@@ -130,10 +130,11 @@ export default {
       this.$auth.logout();
       this.$store.commit('load_products', []);
     },
-    async loadCart () {
+    loadCart () {
       if (this.$auth.loggedIn) {
-        const response = await this.$axios.$get(`api/cart/find_cart/${this.$auth.user.id}`);
-        this.$store.commit('load_products', response.productList);
+        this.$axios.$get(`api/cart/find_cart/${this.$auth.user.hashid}`).then((res) => {
+          this.$store.commit('load_products', res.productList);
+        });
       } else {
         // array→[],object→{}(等价于new Object())
         var localCart = [];

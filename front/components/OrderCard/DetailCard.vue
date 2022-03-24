@@ -26,10 +26,10 @@
         </p>
       </div>
     </div>
-    <div v-for="item in products" :key="item.id">
+    <div v-for="item in products" :key="item.hashid">
       <div class="d-flex align-center justify-space-around flex-wrap  pa-4">
         <div class="d-flex align-center flex-wrap me-4">
-          <router-link :to="{name: 'products-id', params: {id: item.id}}">
+          <router-link :to="{name: 'products-id', params: {id: item.hashid}}">
             <v-avatar tile size="64" class="me-4">
               <img :src="item.image" max-height="100" max-width="100">
             </v-avatar>
@@ -46,7 +46,7 @@
         <p class="mb-0 grey--text text--darken-2">
           Product properties: TODO
         </p>
-        <v-btn :disabled="isAdmin" text color="brown lighten-1" class="text-capitalize font-weight-bold" @click="$emit('review-product', item.id)">Write a Review</v-btn>
+        <v-btn :disabled="isAdmin" text color="brown lighten-1" class="text-capitalize font-weight-bold" @click="$emit('review-product', item.hashid)">Write a Review</v-btn>
       </div>
     </div>
   </v-card>
