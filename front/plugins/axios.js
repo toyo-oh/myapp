@@ -9,14 +9,11 @@ export default ({ $axios, redirect, error}) => {
     })
     // error
     $axios.onError((err) => {
-      const code = parseInt(err.response && err.response.status)
+      const status = parseInt(err.response && err.response.status)
       const message = err.response && err.response.data.message;
-      if (code === 401) {
-        // if account or password is incorrect, do not need to redirect
-        if(message!="Account or password is incorrect"){
-          return redirect("/login");
-        }
-      }else if(code === 404){
+      if (status === 401) {
+        return redirect("/login");
+      }else if(status === 404){
         return redirect("/error/404");
       }else{
         return redirect("/error/500");

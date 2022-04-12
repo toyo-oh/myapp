@@ -1,31 +1,31 @@
 class ApplicationController < ActionController::API
   
   SECRET_KEY_BASE = Rails.application.credentials.secret_key_base
-	# rescue_from StandardError, with: :response_internal_server_error
+	rescue_from StandardError, with: :response_internal_server_error
   rescue_from ActiveRecord::RecordNotFound, with: :response_page_not_found
   
   def response_admin_unauthorized
-    render status: 401, json: { status: 401, message: 'Admin Unauthorized' }
-  end
-
-  def response_unauthorized(message)
-    render status: 401, json: { status: 401, message: message }
+    render status: 401, json: { code: 401, message: 'Admin Unauthorized' }
   end
 
   def response_unauthorized
-    render status: 401, json: { status: 401, message: 'Unauthorized' }
+    render status: 401, json: { code: 401, message: 'Unauthorized' }
   end
 
   def response_internal_server_error
-    render status: 500, json: { status: 500, message: 'Internal Server Error' }
+    render status: 500, json: { code: 500, message: 'Internal Server Error' }
   end
 
   def response_page_not_found
-    render status: 404, json: { status: 404, message: 'Page is not found' }
+    render status: 404, json: { code: 404, message: 'Page is not found' }
   end
 
   def response_unprocessable_entity(errors)
-    render status: unprocessable_entity, json: { status: unprocessable_entity, message: errors }
+    render json: { code: unprocessable_entity, message: errors }
+  end
+
+  def response_custom_error(code, error_message)
+    render json: { code: code, message: error_message }
   end
 
   def require_login

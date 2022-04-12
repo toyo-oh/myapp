@@ -171,8 +171,12 @@ export default {
           this.$axios.$post(`api/cart/remove_from_cart`, {
             product_id: this.itemToDelete.hashid,
             user_id: this.$auth.user.hashid
-          }).then(() => {
-            this.$toast.show('Removed item Successfully!');
+          }).then((res) => {
+            if (res.data.code === "error") {
+              this.$toast.error(res.data.message);
+            } else {
+              this.$toast.show('Removed item Successfully!');
+            }
           });
         }
       }

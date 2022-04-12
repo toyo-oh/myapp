@@ -63,45 +63,13 @@
                   <h3 class="font-weight-light">Payment Methods</h3>
                 </div>
               </v-col>
-              <v-col cols="12" xl="4" lg="4">
-                <div class="pa-4 grey lighten-3 br-8 d-flex justify-space-between">
-                  <div class="flex-1 mr-3">
-                    <v-avatar tile size="32">
-                      <v-icon>mdi-credit-card</v-icon>
-                    </v-avatar>
-                    <p class="mb-0">**** **** **** {{paymentCardNumber}}</p>
-                    <p class="mb-0">{{paymentHolderName}}</p>
-                  </div>
-                  <div class="flex-1 mt-5 mr-0">
-                    <v-dialog v-model="paymentDialog" scrollable max-width="500px">
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-btn icon color="brown" class="" v-bind="attrs" v-on="on" @click="getPaymentList">
-                          <v-icon>mdi-arrow-right</v-icon>
-                        </v-btn>
-                      </template>
-                      <v-card>
-                        <v-card-title>Select Payment</v-card-title>
-                        <v-divider></v-divider>
-                        <v-card-text style="height: 300px;">
-                          <v-radio-group v-model="selectedPaymentId" column>
-                            <v-radio v-for="(item, index) in paymentList" color="brown lighten-1" :key="index" :label='item.holder_name + " **** **** **** " + item.card_number.substring(12,16)+ " " + item.expiration_date' :value="item.hashid"></v-radio>
-                          </v-radio-group>
-                        </v-card-text>
-                        <v-divider></v-divider>
-                        <v-card-actions>
-                          <v-btn color="brown lighten-1" text @click="paymentDialog = false">CLOSE</v-btn>
-                          <v-btn color="brown lighten-1" text @click="choosePayment">OK</v-btn>
-                        </v-card-actions>
-                      </v-card>
-                    </v-dialog>
-                  </div>
+              <v-col cols="12">
+                <div class="pa-4  lighten-3 br-8">
+                  <stripe-element-card ref="elementRef" :hidePostalCode="hidePostalCode" :pk="publishableKey" @token="tokenCreated" />
                 </div>
-
               </v-col>
               <v-col cols="12" class="py-0">
-                <v-btn dark color="brown lighten-1" class="text-capitalize mb-4" block @click="createOrder">
-                  Place Order
-                </v-btn>
+                <v-btn id="custom-button" dark color="brown lighten-1" class="text-capitalize mb-4" block @click="submit">Place Order</v-btn>
               </v-col>
             </v-row>
           </div>
@@ -137,9 +105,14 @@
 </template>
 
 <script>
+import { StripeElementCard } from '@vue-stripe/vue-stripe';
 export default {
   middleware: 'auth',
+  components: {
+    StripeElementCard,
+  },
   data () {
+    this.publishableKey = process.env.STRIPE_PK;
     return {
       products: [],
       totalPrice: '',
@@ -148,13 +121,10 @@ export default {
       addressDialog: false,
       addressList: [],
       selectedAddressId: '',
-      paymentId: '',
-      paymentHolderName: '',
-      paymentCardNumber: '',
-      paymentDialog: false,
-      paymentList: [],
       selectedPaymentId: '',
-      shippingFee: 0
+      shippingFee: 0,
+      token: null,
+      hidePostalCode: true,
     };
   },
   created () {
@@ -163,30 +133,38 @@ export default {
   computed: {
     display_address: function () {
       return this.addressDetail;
-    }
+    },
   },
   methods: {
+    submit () {
+      this.$refs.elementRef.submit();
+    },
+    tokenCreated (token) {
+      // send it to your server
+      this.createOrder(token.id);
+    },
     loadData () {
       this.$axios.get(`api/cart/get_checkout_info/${this.$auth.user.hashid}`).then((res) => {
-        var cartItems = res.data.cart_items;
-        for (var m = 0; m < cartItems.length; m++) {
-          var product = {};
-          product.title = cartItems[m].product.title;
-          product.price = cartItems[m].price;
-          product.cnt = cartItems[m].quantity;
-          // TODO baseURL
-          product.image = "http://localhost:3000" + cartItems[m].product.images[0].thumb.url;
-          // this.products[m].image = this.$axios.baseURL + this.products[m].image.thumb.url;
-          this.products.push(product);
+        if (res.data.code === "error") {
+          this.$toast.error(res.data.message);
+        } else {
+          var cartItems = res.data.cart_items;
+          for (var m = 0; m < cartItems.length; m++) {
+            var product = {};
+            product.title = cartItems[m].product.title;
+            product.price = cartItems[m].price;
+            product.cnt = cartItems[m].quantity;
+            // TODO baseURL
+            product.image = "http://localhost:3000" + cartItems[m].product.images[0].thumb.url;
+            // this.products[m].image = this.$axios.baseURL + this.products[m].image.thumb.url;
+            this.products.push(product);
+          }
+          var default_address = res.data.address;
+          this.addressId = default_address.hashid;
+          this.addressDetail = default_address.receiver + " " + default_address.phone_number
+            + " " + default_address.post_code + " " + default_address.detail_address;
+          this.getShipping();
         }
-        var default_address = res.data.address;
-        this.addressId = default_address.hashid;
-        this.addressDetail = default_address.receiver + " " + default_address.phone_number
-          + " " + default_address.post_code + " " + default_address.detail_address;
-        this.paymentId = res.data.payment.hashid;
-        this.paymentHolderName = res.data.payment.holder_name;
-        this.paymentCardNumber = res.data.payment.card_number.substring(12, 16);
-        this.getShipping();
       });
     },
     getShipping () {
@@ -213,42 +191,29 @@ export default {
       }
       this.getShipping();
     },
-    getPaymentList () {
-      this.$axios.get(`api/payments/find_by_user_id/${this.$auth.user.hashid}`).then((res) => {
-        this.paymentList = res.data.payments;
-      });
-    },
-    choosePayment () {
-      this.paymentDialog = false;
-      for (var m = 0; m < this.paymentList.length; m++) {
-        if (this.paymentList[m].hashid == this.selectedPaymentId) {
-          this.paymentHolderName = this.paymentList[m].holder_name;
-          this.paymentCardNumber = this.paymentList[m].card_number.substring(12, 16);
-          this.paymentId = this.selectedPaymentId;
-          break;
-        }
-      }
-    },
-    createOrder () {
+    createOrder (token_id) {
       if (!this.$auth.loggedIn) {
         this.$router.push(`/login`)
       } else if (!this.addressId) {
         this.$toast.error('Please select Delivery Address!');
-      } else if (!this.paymentId) {
-        this.$toast.error('Please select Payment Method!');
-      } else {
+      }
+      else {
         const formData = new FormData();
         formData.append("user_id", this.$auth.user.hashid);
         formData.append("address_id", this.addressId);
-        formData.append("payment_id", this.paymentId);
         formData.append("shipping_fee", this.shippingFee);
+        formData.append("stripe_token", token_id);
         this.$axios.post("/api/order/create_order", formData).then((res) => {
-          this.$router.push(`/orders/${res.data.order_no}`);
-          this.$store.commit('clear_cart');
-          this.$toast.show('Create order successfully!');
+          if (res.data.code == "error") {
+            this.$toast.error(res.data.message);
+          } else {
+            this.$router.push(`/orders/${res.data.order_no}`);
+            this.$store.commit('clear_cart');
+            this.$toast.show('Create order successfully!');
+          }
         });
       }
     }
-  },
+  }
 };
 </script>

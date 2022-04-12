@@ -21,7 +21,7 @@
                 </div>
                 <v-row>
                   <v-col cols="12">
-                    <status-card :isAdmin="isAdmin" :orderStatus="orderStatus" :isPaid="isPaid" @cancel-order="showCancelDialog" @ship-order="shipOrder"> </status-card>
+                    <status-card :isAdmin="isAdmin" :orderStatus="orderStatus" :isPaid="isPaid" @cancel-order="showCancelDialog" @ship-order="showShipDialog"> </status-card>
                   </v-col>
                   <v-col cols="12">
                     <detail-card :isAdmin="isAdmin" :orderNo="orderNo" :orderStatus="orderStatus" :placedOn="placedOn" :deliverOn="deliverOn" :products="products"> </detail-card>
@@ -104,6 +104,26 @@
                 </v-card-actions>
               </v-card>
             </v-dialog>
+            <v-dialog v-model="dialogShip" max-width="300px">
+              <v-card>
+                <v-card-title>Input tracking info</v-card-title>
+                <v-divider></v-divider>
+                <v-card-text>
+                  <br>
+                  <v-form ref="form" v-model="valid">
+                    <h5 class="mb-3">Carrier <sup class="brown--text">*</sup></h5>
+                    <v-select outlined dense color="brown lighten-3" item-color="brown lighten-1" v-model="carrier" :items="carrierList" item-text="label" item-value="slug" :rules="carrierRules"></v-select>
+                    <h5 class="mb-3">Tracking Number <sup class="brown--text">*</sup></h5>
+                    <v-text-field outlined dense color="brown lighten-1" background-color="white" v-model="trackingNumber" :rules="trackingNumberRules"></v-text-field>
+                  </v-form>
+                </v-card-text>
+                <v-divider></v-divider>
+                <v-card-actions>
+                  <v-btn color="brown lighten-1" text @click="shipOrder()">Submit</v-btn>
+                  <v-btn color="brown lighten-1" text @click="closeShipDialog()">Cancel</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
           </div>
         </v-col>
       </v-row>
@@ -133,7 +153,18 @@ export default {
       logisticsFee: 0,
       isPaid: false,
       dialogCancel: false,
-      isAdmin: this.$auth && this.$auth.user && this.$auth.user.is_admin ? true : false
+      dialogShip: false,
+      isAdmin: this.$auth && this.$auth.user && this.$auth.user.is_admin ? true : false,
+      carrierList: [{ "label": "Sagawa", "slug": "sagawa" }, { "label": "Yamato", "slug": "taqbin-jp" }],
+      valid: true,
+      carrier: '',
+      trackingNumber: '',
+      carrierRules: [
+        v => !!v || 'Carrier is required'
+      ],
+      trackingNumberRules: [
+        v => !!v || 'Tracking Number is required'
+      ],
     };
   },
   created () {
@@ -159,7 +190,7 @@ export default {
         }
         this.addressDetail = res.data.address.receiver + " " + res.data.address.phone_number
           + " " + res.data.address.post_code + " " + res.data.address.detail_address;
-        this.paymentDetail = res.data.payment.holder_name + " **** **** **** " + res.data.payment.card_number.substring(12, 16);
+        this.paymentDetail = " Ending With: " + res.data.order.last4;
         this.addressId = res.data.address.id;
         this.products = tmpProducts;
         this.totalPrice = tmpTotal;
@@ -174,6 +205,15 @@ export default {
     showCancelDialog () {
       this.dialogCancel = !this.dialogCancel
     },
+    showShipDialog () {
+      this.dialogShip = !this.dialogShip
+    },
+    closeShipDialog () {
+      this.dialogShip = false;
+      this.carrier = '';
+      this.trackingNumber = '';
+      this.$refs.form.reset();
+    },
     cancelOrder () {
       this.$axios.post(`api/admin/orders/cancel_order`, { order_no: this.orderNo }).then((res) => {
         this.orderStatus = res.data.aasm_state;
@@ -182,10 +222,15 @@ export default {
       });
     },
     shipOrder () {
-      this.$axios.post(`api/admin/orders/ship_order`, { order_no: this.orderNo }).then((res) => {
-        this.orderStatus = res.data.aasm_state;
-        this.$toast.show('Order shipped successfully!');
-      });
+      if (this.$refs.form.validate()) {
+        this.$axios.post(`api/admin/orders/ship_order`, {
+          order_no: this.orderNo, slug: this.carrier, tracking_number: this.trackingNumber
+        }).then((res) => {
+          this.orderStatus = res.data.aasm_state;
+          this.dialogShip = false;
+          this.$toast.show('Order shipped successfully!');
+        });
+      }
     },
     returnToList () {
       this.$router.push(`.`);

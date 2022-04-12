@@ -1,4 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
+import env from 'dotenv'
 
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
@@ -18,7 +19,17 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ],
+    script: [
+      {
+        src: 'https://js.stripe.com/v3'
+      }
     ]
+  },
+
+  env: {
+    STRIPE_PK: process.env.STRIPE_PK,
+    AFTERSHIP_PK: process.env.AFTERSHIP_PK
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -43,7 +54,8 @@ export default {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/auth',
-    '@nuxtjs/toast'
+    '@nuxtjs/toast',
+    '@nuxtjs/dotenv'
   ],
 
   axios: {

@@ -6,7 +6,7 @@
   <body>
     <div class="row">
       <div class="col-md-12">
-        <h2> ORDER # <%= @order.id %> <br>
+        <h2> ORDER # <%= @order.order_no %> <br>
           <small>
             We will inform you that the follow order has been cancelled.
           </small>
@@ -76,10 +76,7 @@
           </thead>
           <tbody>
             <tr>
-              <td><%= @payment.holder_name %></td>
-            </tr>
-            <tr>
-              <td>Ending with: <%= @payment.card_number[12..16] %></td>
+              <td>Ending with: <%= @order.last4 %></td>
             </tr>
           </tbody>
         </table>

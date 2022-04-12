@@ -49,17 +49,19 @@ export default ({
     userLogin () {
       if (this.$refs.form.validate()) {
         this.$auth.loginWith('local', { data: this.login })
-          .then(() => {
-            this.$axios.$get(`api/cart/find_cart/${this.$auth.user.hashid}`)
-              .then((res) => {
-                this.$store.commit('load_products', res.productList);
-                this.$toast.show('Logged In successfully!');
-                // this.$router.push('/home');
-              })
+          .then((res) => {
+            if (res.data.code === "error") {
+              this.$toast.error(res.data.message);
+            } else {
+              this.$toast.show(res.data.message);
+              this.$axios.$get(`api/cart/find_cart/${this.$auth.user.hashid}`)
+                .then((res) => {
+                  this.$store.commit('load_products', res.productList);
+                })
+            }
           }).catch((err) => {
             if (err.response && err.response.status === 401) {
-              this.alertLoginError = true;
-              this.errorMessage = err.response.data.message;
+              this.$toast.error(err.response.data.message);
             }
           });
       } else {

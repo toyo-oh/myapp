@@ -13,12 +13,10 @@ class Admin::OrdersController < ApplicationController
 	def show_order_by_no
 		@order = find_order
 		@address = Address.find(@order.address_id)
-		@payment = Payment.find(@order.payment_id)
 		render :json => {
 			:order => @order.wrap_json_order, 
 			:order_details => @order.order_details.as_json(methods: [:product_hashid], except:[:id, :order_id, :product_id, :created_at, :updated_at]), 
-			:address => @address, 
-			:payment => @payment}	
+			:address => @address}	
 	end
 
 	# cancel
@@ -32,7 +30,7 @@ class Admin::OrdersController < ApplicationController
 	# ship
 	def ship_order
 		@order = find_order
-		@order.set_deliver_at!
+		@order.set_deliver_info!(params[:slug], params[:tracking_number])
 		@order.ship!
 		OrderMailer.notify_order_despatched(@order).deliver_now
 		render json: @order.wrap_json_order

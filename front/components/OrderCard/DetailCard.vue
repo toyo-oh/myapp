@@ -17,14 +17,14 @@
           {{ new Date(placedOn).toLocaleString("ja-jp") }}
         </p>
       </div>
-      <div class="d-flex my-3 mx-3">
+      <!-- <div class="d-flex my-3 mx-3">
         <p class="text-14 grey--text text--darken-2 mb-0 mr-2">
           Delivered on:
         </p>
         <p class="mb-0 grey--text text--darken-4">
           {{ deliverOn ? new Date(deliverOn).toLocaleString("ja-jp") :'ー' }}
         </p>
-      </div>
+      </div> -->
     </div>
     <div v-for="item in products" :key="item.hashid">
       <div class="d-flex align-center justify-space-around flex-wrap  pa-4">

@@ -10,7 +10,7 @@ class UsersController < ApplicationController
       @user = User.find(user_id)
       render json: {user: @user.wrap_json_user}
     else
-      response_unauthorized
+      response_custom_error("error", "Account or password is incorrect")
     end
   end
 
