@@ -42,7 +42,7 @@ class Admin::OrdersController < ApplicationController
 		else
 			return response_custom_error("error", errors)
 		end
-		render json: @order.wrap_json_order
+		render json:{ message:'cancelled order successfully!', order: @order.wrap_json_order }
 	end
 
 	# ship
@@ -51,7 +51,7 @@ class Admin::OrdersController < ApplicationController
 		@order.set_deliver_info!(params[:slug], params[:tracking_number])
 		@order.ship!
 		OrderMailer.notify_order_despatched(@order).deliver_now
-		render json: @order.wrap_json_order
+		render json:{ message:'shipped order successfully!', order: @order.wrap_json_order }		
 	end
 
 	private

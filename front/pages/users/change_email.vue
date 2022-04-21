@@ -73,11 +73,15 @@ export default {
             confirm_email: this.confirmEmail,
             hashid: this.$auth.user.hashid
           }).then((res) => {
-            this.$auth.loginWith('local', { data: { email: res.data.email, password: this.password } })
-              .then(() => {
-                this.$router.push(`/users/${this.$auth.user.hashid}`);
-                this.$toast.show('Update Email successfully!');
-              });
+            if (res.data.code === "error") {
+              this.$toast.error(res.data.message);
+            } else {
+              this.$toast.show(res.data.message);
+              this.$auth.loginWith('local', { data: { email: res.data.user.email, password: this.password } })
+                .then(() => {
+                  this.$router.push(`/users/${this.$auth.user.hashid}`);
+                });
+            }
           }).catch((err) => {
             if (err.response && err.response.status === 401) {
               this.$router.push(`/users/${this.$auth.user.hashid}`);

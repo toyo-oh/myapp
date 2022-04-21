@@ -29,7 +29,7 @@ class CartsController < ApplicationController
 		user_id = decode_user_id(params[:user_id])
 		@cart = Cart.find_by(user_id: user_id)
 		if @cart.blank?
-			response_custom_error("error","The cart is not exist.")
+			response_custom_error("error", "The cart is not exist.")
 		else
 			@cart_items = @cart.cart_items
 			@address = Address.where("user_id = ? AND is_default = 1", user_id).take
@@ -65,6 +65,8 @@ class CartsController < ApplicationController
 			@cart_item = @current_cart.cart_items.find_by(product_id: product_id)
 			if !@cart_item.destroy
 				render response_unprocessable_entity(@cart_item.errors)
+			else
+				render json: { code: "ok", message: "removed item successfully!"}
 			end
 		end
 	end

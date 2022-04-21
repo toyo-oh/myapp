@@ -5,7 +5,6 @@ class Admin::ProductsController < ApplicationController
     def create
         @product = Product.new(product_params)
         @product.images = set_images(nil)
-        # @product.tags = set_tags
         Product.transaction do
             if !@product.save!
                 render response_unprocessable_entity(@product.errors)
@@ -24,6 +23,7 @@ class Admin::ProductsController < ApplicationController
                 end
             end
         end
+        render json: { code: "ok", message: "add new product successfully!" }
     end
 
     def index
@@ -76,12 +76,15 @@ class Admin::ProductsController < ApplicationController
                 end
             end
         end
+        render json: { code: "ok", message: "updated product successfully!" }
     end
 
     def destroy
         @product = find_product
         if !@product.destroy 
             render response_unprocessable_entity(@product.errors)
+        else
+            render json: { code: "ok", message: "deleted product successfully!" }
         end
     end
 

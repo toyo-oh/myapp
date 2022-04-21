@@ -209,7 +209,7 @@ export default {
           } else {
             this.$router.push(`/orders/${res.data.order_no}`);
             this.$store.commit('clear_cart');
-            this.$toast.show('Create order successfully!');
+            this.$toast.show(res.data.message);
           }
         });
       }

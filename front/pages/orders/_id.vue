@@ -308,9 +308,9 @@ export default {
             this.dialogCancel = false;
             this.$toast.error(res.data.message);
           } else {
-            this.orderStatus = res.data.aasm_state;
+            this.orderStatus = res.data.order.aasm_state;
             this.dialogCancel = false;
-            this.$toast.show('Cancel order successfully!');
+            this.$toast.show(res.data.message);
           }
         });
       }

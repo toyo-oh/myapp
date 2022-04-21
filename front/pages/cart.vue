@@ -172,17 +172,15 @@ export default {
             product_id: this.itemToDelete.hashid,
             user_id: this.$auth.user.hashid
           }).then((res) => {
-            if (res.data.code === "error") {
-              this.$toast.error(res.data.message);
+            if (res.code === "error") {
+              this.$toast.error(res.message);
             } else {
-              this.$toast.show('Removed item Successfully!');
+              this.$toast.show(res.message);
             }
           });
         }
       }
-      // flag
       this.dialogDelete = false
-      // remove from store
       this.$store.commit('remove_product_from_cart', this.itemToDelete.hashid);
       this.getProductList();
     },
@@ -195,8 +193,12 @@ export default {
         this.$axios.$post(`api/products/${item.hashid}/add_to_cart`, {
           product_id: item.hashid,
           user_id: this.$auth.user.hashid
-        }).then(() => {
-          this.$toast.show('Increment item Successfully!');
+        }).then((res) => {
+          if (res.code === "error") {
+            this.$toast.error(res.message);
+          } else {
+            this.$toast.show(res.message);
+          }
         });
       }
       // add to store
@@ -215,8 +217,12 @@ export default {
         this.$axios.$post(`api/products/${item.hashid}/decrease_of_cart`, {
           product_id: item.hashid,
           user_id: this.$auth.user.hashid
-        }).then(() => {
-          this.$toast.show('Increment item Successfully!');
+        }).then((res) => {
+          if (res.code === "error") {
+            this.$toast.error(res.message);
+          } else {
+            this.$toast.show(res.message);
+          }
         });
       }
       // decrease of store

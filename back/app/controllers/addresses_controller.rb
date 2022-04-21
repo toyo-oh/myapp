@@ -14,6 +14,8 @@ class AddressesController < ApplicationController
 		end
 		if !@address.save!
 			render response_unprocessable_entity(@address.errors)
+		else
+			render json: {code:'ok', message:'added new address successfully!'}
 		end
 	end
 
@@ -33,6 +35,8 @@ class AddressesController < ApplicationController
 		@address.detail_address = @prefecture_item.prefecture + params[:city] + params[:detail]
 		if !@address.update!(address_params)
 			render response_unprocessable_entity(@address.errors)
+		else
+			render json: {code:'ok', message:'updated address successfully!'}
 		end
 	end
 
@@ -40,6 +44,8 @@ class AddressesController < ApplicationController
 		@address = get_address_with_auth_check
 		if !@address.destroy
 			render response_unprocessable_entity(@address.errors)
+		else
+			render json: {code:'ok', message:'deleted address successfully!'}
 		end
 	end
 
@@ -50,6 +56,7 @@ class AddressesController < ApplicationController
 			@old_address.update!(is_default: 0)
 			@new_address.update!(is_default: 1)
 		end
+		render json: {code:'ok', message:'set default address successfully!'}
 	end
 
 	def get_prefectures

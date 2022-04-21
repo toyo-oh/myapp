@@ -193,13 +193,17 @@ export default {
           user_id: this.$auth.user.hashid,
           comment: this.comment,
           rate: this.rate
-        }).then(() => {
-          // reset comment input form
-          this.comment = '';
-          this.rate = 0;
-          this.$axios.$get(`api/reviews/find_by_product_id/${this.hashid}`).then((res) => {
-            this.reviewList = res.reviews
-          });
+        }).then((res) => {
+          if (res.code === "error") {
+            this.$toast.error(res.message);
+          } else {
+            this.$toast.show(res.message);
+            this.comment = '';
+            this.rate = 0;
+            this.$axios.$get(`api/reviews/find_by_product_id/${this.hashid}`).then((res) => {
+              this.reviewList = res.reviews
+            });
+          }
         });
       } else {
         this.reviewAlert = true;

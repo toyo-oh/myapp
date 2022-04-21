@@ -43,9 +43,13 @@ export default {
       if (this.$refs.form.validate()) {
         this.$axios.post(`/api/password/forget`, {
           email: this.email,
-        }).then(() => {
-          this.$router.push('/login');
-          this.$toast.show('Reset mail has been send successfully!');
+        }).then((res) => {
+          if (res.data.code === "error") {
+            this.$toast.error(res.data.message);
+          } else {
+            this.$toast.show(res.data.message);
+            this.$router.push('/login');
+          }
         })
       } else {
         this.alertFormError = true;

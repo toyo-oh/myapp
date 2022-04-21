@@ -10,7 +10,7 @@ class UsersController < ApplicationController
       @user = User.find(user_id)
       render json: {user: @user.wrap_json_user}
     else
-      response_custom_error("error", "Account or password is incorrect")
+      response_custom_error("error", "account or password is incorrect")
     end
   end
 
@@ -27,6 +27,7 @@ class UsersController < ApplicationController
       render response_unprocessable_entity(@user.errors)
     else
       UserMailer.welcome_email(@user).deliver_now
+      render json: {code: "ok", message: "signed up successfully!"}
     end
   end
 
@@ -40,7 +41,7 @@ class UsersController < ApplicationController
   def update
     @current_user = get_user_with_auth_check
     if @current_user.update!(name: params[:name], email: params[:email])
-      render json: {user: @current_user.wrap_json_user}
+      render json: {code: "ok", message: "updated user info successfully!", user: @current_user.wrap_json_user}
     else
       render response_unprocessable_entity(@current_user.errors)
     end
@@ -51,6 +52,8 @@ class UsersController < ApplicationController
     @user = get_user_with_auth_check
     if !@user.destroy!
       render response_unprocessable_entity(@user.errors)
+    else
+      render json: {code: "ok", message: "deleted user info successfully!"}
     end
   end
 
@@ -59,7 +62,7 @@ class UsersController < ApplicationController
     @user = get_user_with_auth_check
 		if @user.email == params[:current_email] && @user.authenticate(params[:password])
       if @user.update!(email: params[:new_email])
-        render json: {user: @user.wrap_json_user}
+        render json: {code: "ok", message: "updated email successfully!", user: @user.wrap_json_user}
       else
         render response_unprocessable_entity(@user.errors)
       end
@@ -72,7 +75,7 @@ class UsersController < ApplicationController
   def update_profile
     @user = get_user_with_auth_check
       if @user.update!(name: params[:name], phone_number: params[:phone_number])
-        render json: {user: @user.wrap_json_user}
+        render json: {code: "ok", message: "updated profile successfully!", user: @user.wrap_json_user}
       else
         render response_unprocessable_entity(@user.errors)
       end
@@ -83,7 +86,7 @@ class UsersController < ApplicationController
     @user = get_user_with_auth_check
 		if @user.email == params[:email] && @user.authenticate(params[:current_password])
       if @user.update!(password: params[:new_password], password_confirmation: params[:confirm_password])
-        render json: {user: @user.wrap_json_user}
+        render json: {code: "ok", message: "updated password successfully!", user: @user.wrap_json_user}
       else
         render response_unprocessable_entity(@user.errors)
       end
@@ -95,10 +98,11 @@ class UsersController < ApplicationController
   def forget_password
     @user = User.find_by(email: params[:email])
     if !@user.present?
-      return render json: {error: 'Email address not found. Please check and try again.'}
+      return render json: {error: 'email address not found. please check and try again.'}
     else
       @token = @user.signed_id(purpose: 'password reset', expires_in: 15.minutes)
       UserMailer.reset_password(@user, @token).deliver_now
+      render json: {code: "ok", message: "password reset mail has been sent, please check!", user: @user.wrap_json_user}
     end
   end
 
@@ -106,10 +110,10 @@ class UsersController < ApplicationController
     @user = User.find_signed!(params[:token], purpose: "password reset")
     # rescue ActiveSupport::MessageVerifier::InvalidSignature
     if !@user.present?
-      return render json: {error: 'Your token has been expired, please try again'}
+      return render json: {error: 'your token has been expired, please try again'}
     else
       if @user.update!(password: params[:new_password], password_confirmation: params[:confirm_password])
-        render json: {user: @user.wrap_json_user}
+        render json: {code: "ok", message: "reset password successfully!", user: @user.wrap_json_user}
       else
         render response_unprocessable_entity(@user.errors)
       end
@@ -142,3 +146,4 @@ class UsersController < ApplicationController
 			end
 		end
 end
+

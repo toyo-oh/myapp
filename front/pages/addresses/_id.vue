@@ -80,9 +80,13 @@ export default {
         formData.append("city", this.address.city);
         formData.append("prefecture_id", this.address.prefectureId);
         formData.append("detail", this.address.detail);
-        this.$axios.put(`/api/addresses/${this.address.hashid}`, formData).then(() => {
-          this.$router.push(`.`);
-          this.$toast.show('Update address Successfully!');
+        this.$axios.put(`/api/addresses/${this.address.hashid}`, formData).then((res) => {
+          if (res.data.code === "error") {
+            this.$toast.error(res.data.message);
+          } else {
+            this.$toast.show(res.data.message);
+            this.$router.push(`.`);
+          }
         });
       } else {
         this.alertFormError = true;

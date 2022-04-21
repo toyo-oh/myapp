@@ -45,6 +45,7 @@ class ProductsController < ApplicationController
                 @cart_item.update(quantity: new_count)
             end
         end
+        render json: {code: "ok", message: "increased item successfully!" }
     end
 
     def decrease_of_cart
@@ -59,6 +60,7 @@ class ProductsController < ApplicationController
             new_count = @cart_item.quantity - 1
             @cart_item.update(quantity: new_count)
         end
+        render json: {code: "ok", message: "decreased item successfully!" }
     end
 
     def search

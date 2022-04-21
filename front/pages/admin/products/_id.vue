@@ -120,9 +120,13 @@ export default {
           formData.append("category_id", this.product.categoryId);
           formData.append("tags", this.product.tags ? this.product.tags : "");
           formData.append("promotions", JSON.stringify(this.product.promotions));
-          this.$axios.put(`api/admin/products/${this.product.hashid}`, formData, config).then(() => {
-            this.$router.push(`.`);
-            this.$toast.show('Update product successfully!');
+          this.$axios.put(`api/admin/products/${this.product.hashid}`, formData, config).then((res) => {
+            if (res.data.code === "error") {
+              this.$toast.error(res.data.message);
+            } else {
+              this.$toast.show(res.data.message);
+              this.$router.push(`.`);
+            }
           })
         }
       } else {

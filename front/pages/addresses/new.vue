@@ -61,9 +61,13 @@ export default {
         formData.append("prefecture_id", this.address.prefectureId);
         formData.append("detail", this.address.detail);
         formData.append("user_id", this.$auth.user.hashid);
-        this.$axios.post("/api/addresses", formData).then(() => {
-          this.$router.push(`.`);
-          this.$toast.show('Create address Successfully!');
+        this.$axios.post("/api/addresses", formData).then((res) => {
+          if (res.data.code === "error") {
+            this.$toast.error(res.data.message);
+          } else {
+            this.$toast.show(res.data.message);
+            this.$router.push(`.`);
+          }
         });
       } else {
         this.alertFormError = true;

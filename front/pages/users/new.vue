@@ -76,11 +76,16 @@ export default ({
           email: this.email,
           is_admin: this.is_admin
         }).then((res) => {
-          // login after signed up
-          var login = {};
-          login.email = this.email;
-          login.password = this.password;
-          this.$auth.loginWith('local', { data: login });
+          if (res.data.code === "error") {
+            this.$toast.error(res.data.message);
+          } else {
+            this.$toast.show(res.data.message);
+            // login after signed up
+            var login = {};
+            login.email = this.email;
+            login.password = this.password;
+            this.$auth.loginWith('local', { data: login });
+          }
         })
       } else {
         this.alertSignUpError = true;

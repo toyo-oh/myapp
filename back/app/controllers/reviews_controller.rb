@@ -8,6 +8,8 @@ class ReviewsController < ApplicationController
 		@review = Review.new(review_params)
 		if !@review.save!
 			render response_unprocessable_entity(@review.errors)
+		else
+			render json: {code:'ok', message:'reviewed successfully!'}
 		end
 	end
 

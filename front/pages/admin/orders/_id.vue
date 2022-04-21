@@ -224,13 +224,12 @@ export default {
     },
     cancelOrder () {
       this.$axios.post(`api/admin/orders/cancel_order`, { order_no: this.orderNo }).then((res) => {
-        if (res.data.code == "error") {
-          this.dialogCancel = false;
+        this.dialogCancel = false;
+        if (res.data.code === "error") {
           this.$toast.error(res.data.message);
         } else {
-          this.orderStatus = res.data.aasm_state;
-          this.dialogCancel = false;
-          this.$toast.show('Cancel order successfully!');
+          this.orderStatus = res.data.order.aasm_state;
+          this.$toast.show(res.data.message);
         }
       });
     },
@@ -240,8 +239,12 @@ export default {
           order_no: this.orderNo, slug: this.carrier, tracking_number: this.trackingNumber
         }).then((res) => {
           this.dialogShip = false;
-          this.$toast.show('Order shipped successfully!');
-          this.loadOrder();
+          if (res.data.code == "error") {
+            this.$toast.error(res.data.message);
+          } else {
+            this.$toast.show(res.data.message);
+            this.loadOrder();
+          }
         });
       }
     },

@@ -12,6 +12,8 @@ class PaymentsController < ApplicationController
 		end
 		if !@payment.save
 			render response_unprocessable_entity(@payment.errors)
+		else
+			render json: {code:'ok', message:'added payment way successfully!'}
 		end
 	end
 
@@ -30,6 +32,8 @@ class PaymentsController < ApplicationController
 		@payment = get_payment_with_auth_check
 		if !@payment.update(payment_params)
 			render response_unprocessable_entity(@payment.errors)
+		else
+			render json: {code:'ok', message:'updated payment Successfully!'}
 		end
 	end
 
@@ -37,6 +41,8 @@ class PaymentsController < ApplicationController
 		@payment = get_payment_with_auth_check
 		if !@payment.destroy
 			render response_unprocessable_entity(@payment.errors)
+		else
+			render json: {code:'ok', message:'deleted payment Successfully!'}
 		end
 	end
 
@@ -47,6 +53,7 @@ class PaymentsController < ApplicationController
 			@old_payment.update!(is_default: 0)
 			@new_payment.update!(is_default: 1)
 		end
+		render json: {code:'ok', message:'set default payment way successfully!'}
 	end
 
 	private

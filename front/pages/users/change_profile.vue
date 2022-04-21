@@ -74,9 +74,13 @@ export default {
             name: this.name,
             phone_number: this.phoneNumber,
             hashid: this.$auth.user.hashid
-          }).then(() => {
-            this.$router.push(`/users/${this.$auth.user.hashid}`);
-            this.$toast.show('Update Profile successfully!');
+          }).then((res) => {
+            if (res.data.code === "error") {
+              this.$toast.error(res.data.message);
+            } else {
+              this.$toast.show(res.data.message);
+              this.$router.push(`/users/${this.$auth.user.hashid}`);
+            }
           }).catch((err) => {
             if (err.response && err.response.status === 401) {
               this.$router.push(`/users/${this.$auth.user.hashid}`);

@@ -28,7 +28,7 @@ class OrdersController < ApplicationController
 				@new_order.create_detail_item(cart_item.product, cart_item.quantity, cart_item.price, '', image, @new_order.order_no)
 				@product = Product.find(cart_item.product_id)
 				if @product.quantity < cart_item.quantity
-					error_message = "Order failed.quantity not enough."
+					error_message = "order failed.quantity not enough."
 					errors << error_message
 					logger.error error_message
 				else
@@ -50,7 +50,7 @@ class OrdersController < ApplicationController
 			end
 		end
 		return response_custom_error("error", errors) if errors.present?
-		return render json: {order_no: @new_order.order_no}
+		return render json: {message:'created order successfully!' , order_no: @new_order.order_no}
 	end
 
 	def get_orders_by_user_id
@@ -95,9 +95,10 @@ class OrdersController < ApplicationController
 		else
 			return response_custom_error("error", errors)
 		end
-		render json: @order.wrap_json_order
+		render json:{ message:'cancelled order successfully!', order: @order.wrap_json_order }
 	end
 
+	# NOT IN USE
 	def receive_good
 		@order = get_order_with_auth_check
 		@order.deliver!

@@ -117,9 +117,13 @@ export default {
     deleteAddress () {
       this.$axios
         .delete(`api/addresses/${this.itemToDelete.hashid}`)
-        .then(() => {
-          this.getAddresses();
-          this.$toast.show('Delete address Successfully!');
+        .then((res) => {
+          if (res.data.code === "error") {
+            this.$toast.error(res.data.message);
+          } else {
+            this.$toast.show(res.data.message);
+            this.getAddresses();
+          }
         });
       this.dialogDelete = false
     },
@@ -127,9 +131,13 @@ export default {
       this.$axios
         .post(`api/addresses/set_default`,
           { user_id: this.$auth.user.hashid, old_id: this.defaultId, id: item.hashid })
-        .then(() => {
-          this.getAddresses();
-          this.$toast.show('Set default address Successfully!');
+        .then((res) => {
+          if (res.data.code === "error") {
+            this.$toast.error(res.data.message);
+          } else {
+            this.$toast.show(res.data.message);
+            this.getAddresses();
+          }
         });
     },
     newAddress () {

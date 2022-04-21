@@ -42,20 +42,22 @@ export default {
       this.$axios.get(`api/orders/get_orders_by_user_id/${this.$auth.user.hashid}`).then((res) => {
         this.orders = [];
         var tmpOrders = res.data.orders;
-        for (var m = 0; m < tmpOrders.length; m++) {
-          var order = {};
-          order.order_no = tmpOrders[m].order_no;
-          order.createdAt = tmpOrders[m].created_at;
-          order.amountTotal = tmpOrders[m].amount_total;
-          order.orderStatus = tmpOrders[m].aasm_state;
-          order.shippingFee = tmpOrders[m].shipping_fee;
-          order.details = tmpOrders[m].order_details;
-          for (var n = 0; n < order.details.length; n++) {
-            order.details[n].image = "http://localhost:3000" + order.details[n].image
+        if (tmpOrders && tmpOrders.length > 0) {
+          for (var m = 0; m < tmpOrders.length; m++) {
+            var order = {};
+            order.order_no = tmpOrders[m].order_no;
+            order.createdAt = tmpOrders[m].created_at;
+            order.amountTotal = tmpOrders[m].amount_total;
+            order.orderStatus = tmpOrders[m].aasm_state;
+            order.shippingFee = tmpOrders[m].shipping_fee;
+            order.details = tmpOrders[m].order_details;
+            for (var n = 0; n < order.details.length; n++) {
+              order.details[n].image = "http://localhost:3000" + order.details[n].image
+            }
+            this.orders.push(order);
           }
-          this.orders.push(order);
         }
-        this.pageCount = Math.ceil(res.data.orders.length / this.itemsPerPage);
+        this.pageCount = Math.ceil(this.orders.length / this.itemsPerPage);
       });
     }
   },
