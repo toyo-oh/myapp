@@ -28,3 +28,19 @@ exit
 pwd
 rails c
 exit
+bundle exec whenever --update-crontab
+bundle exec whenever --update-crontab
+exit
+service cron status
+service cron start
+exit
+mysql -h localhost -u root -p
+exit
+service cron status
+service cron start
+exit
+service cron start
+service cron status
+service cron stop
+service cron status
+exit

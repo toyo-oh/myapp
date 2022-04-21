@@ -1,7 +1,9 @@
 
-ORDER # <%= @order.id %>
+ORDER # <%= @order.order_no %>
 
-We will inform you that the follow order has been cancelled.
+We will inform you that the following order has been cancelled.
+Refunds can be sent back to the original payment method used in a charge.
+You will see the refund as a credit approximately 5-10 business days later, depending upon the bank.
 
 ===============================================
 Cancelled Order Info
@@ -19,7 +21,6 @@ Billing Address
 <%= @address.detail_address %>
 
 Payment method
-<%= @payment.holder_name %>
-Ending with: <%= @payment.card_number[12..16] %>
+Ending with: <%= @order.last4 %>
 
 If you have any questions, contact us at service@cf.com

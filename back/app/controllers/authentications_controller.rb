@@ -7,9 +7,9 @@ class AuthenticationsController < UsersController
 		if user && user.authenticate(params[:password])
 			payload = { user_id: user.id, email: user.email }
 			token = encode_token(payload)
-			render json: { jwt: token, status: 200, message: 'Logged In successfully' }
+			render json: { jwt: token, message: 'Logged In successfully' }
 		else
-			response_unauthorized 'Account or password is incorrect'
+			response_custom_error("error", "Account or password is incorrect")
 		end
 	end
 end

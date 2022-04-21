@@ -4,8 +4,13 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
+    <h2> ORDER # <%= @order.order_no %> <br></h2>
     <p>
       We're pleased to report that your order was despatched today <%=@order.deliver_at%>.<br>
+    </p>
+    <p>
+    	Carrier:<%= @order.slug %>
+			Tracking Number:<%= @order.tracking_number %>
     </p>
     <p>
       You can track the progress of your order by clicking the link below: <br>

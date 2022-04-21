@@ -1,8 +1,10 @@
 
-ORDER # <%= @order.id %>
+ORDER # <%= @order.order_no %>
 
 We're pleased to report that your order was despatched today <%=@order.deliver_at%>.
 
+Carrier:<%= @order.slug %>
+Tracking Number:<%= @order.tracking_number %>
 You can track the progress of your order by clicking the link below: 
 <%= @track_url %>
 

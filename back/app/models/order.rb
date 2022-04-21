@@ -1,6 +1,7 @@
 class Order < ApplicationRecord
-  before_create :generate_order_no
+  # enum status: { order_placed: 0, paid: 1, shipping: 2, shipped: 3, order_cancelled: 4, good_returned: 5}
   # enum aasm_state: [:order_placed, :paid, :shipping, :shipped, :order_cancelled, :good_returned]
+  before_create :generate_order_no
 	has_many :order_details, dependent: :destroy
   belongs_to :user
   attr_accessor :user_hashid
@@ -31,12 +32,18 @@ class Order < ApplicationRecord
 		di.save!
 	end
 
-	def pay!
-		self.update_columns(is_paid: true)
+	def pay!(customer_id, charge_id, last4)
+		self.update_columns(is_paid: true, customer_id: customer_id, charge_id: charge_id, last4: last4)
+    make_payment!
 	end
 
-  def set_deliver_at!
-    self.update_columns(deliver_at: DateTime.now)   
+  def refund!(refund_id)
+    self.update_columns(refund_id: refund_id)
+    cancel!
+  end
+
+  def set_deliver_info!(slug, tracking_number)
+    self.update_columns(slug: slug, tracking_number: tracking_number, deliver_at: DateTime.now)   
   end
 
 	include AASM
@@ -44,28 +51,32 @@ class Order < ApplicationRecord
     state :order_placed, initial: true
     state :paid
     state :shipping
-    state :shipped
+    state :delivered
     state :order_cancelled
     state :good_returned
 
-    event :make_payment, after_commit: :pay! do
-			transitions from: :order_placed, to: :paid
-		end
-    # event :make_payment do
+    # event :make_payment, after_commit: :pay! do
 		# 	transitions from: :order_placed, to: :paid
 		# end
+    event :make_payment do
+			transitions from: :order_placed, to: :paid
+		end
 
-    event :ship, after_commit: :set_deliver_at! do
-      transitions from: :paid,         to: :shipping
+    # event :ship, after_commit: :set_deliver_info! do
+    #   transitions from: :paid,         to: :shipping
+    # end
+
+    event :ship do
+      transitions from: :paid,  to: :shipping
     end
 
     event :deliver do
-      transitions from: :shipping,     to: :shipped
+      transitions from: :shipping,     to: :delivered
     end
 
-    event :return_good do
-      transitions from: :shipped,      to: :good_returned
-    end
+    # event :return_good do
+    #   transitions from: :shipping,      to: :delivered
+    # end
 
     event :cancel do
       transitions from: [:order_placed, :paid], to: :order_cancelled

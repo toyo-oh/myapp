@@ -77,11 +77,16 @@ GEM
       marcel (~> 1.0.0)
       mini_mime (>= 0.1.3)
       ssrf_filter (~> 1.0)
+    chronic (0.10.2)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
     debase (0.2.4.1)
       debase-ruby_core_source (>= 0.10.2)
     debase-ruby_core_source (0.10.14)
+    dotenv (2.7.6)
+    dotenv-rails (2.7.6)
+      dotenv (= 2.7.6)
+      railties (>= 3.2)
     erubi (1.10.0)
     ffi (1.15.5)
     globalid (1.0.0)
@@ -177,12 +182,15 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     ssrf_filter (1.0.7)
+    stripe (5.47.0)
     thor (1.2.1)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    whenever (1.0.0)
+      chronic (>= 0.6.3)
     zeitwerk (2.5.4)
 
 PLATFORMS
@@ -195,6 +203,7 @@ DEPENDENCIES
   byebug
   carrierwave
   debase
+  dotenv-rails
   hashid-rails
   jwt
   letter_opener
@@ -207,7 +216,9 @@ DEPENDENCIES
   ruby-debug-ide
   spring
   spring-watcher-listen
+  stripe
   tzinfo-data
+  whenever
 
 RUBY VERSION
    ruby 2.6.9p207
