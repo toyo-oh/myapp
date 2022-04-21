@@ -65,7 +65,12 @@ export default {
   },
 
   proxy: {
-    '/api/': { target: 'http://back:3000', pathRewrite: { '^/api/': '/' } }
+    '/api/': { target: 'http://back:3000', pathRewrite: { '^/api/': '/' } },
+    '/tracking_api/': { 
+      target: 'http://nanoappli.com/tracking/api', 
+      changeOrigin: true, 
+      pathRewrite: {'^/tracking_api/': '/'}
+    }
   },
 
   auth: {

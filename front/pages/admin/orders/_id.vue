@@ -21,7 +21,7 @@
                 </div>
                 <v-row>
                   <v-col cols="12">
-                    <status-card :isAdmin="isAdmin" :orderStatus="orderStatus" :isPaid="isPaid" @cancel-order="showCancelDialog" @ship-order="showShipDialog"> </status-card>
+                    <status-card :isAdmin="isAdmin" :orderStatus="orderStatus" :isPaid="isPaid" :trackingNumber="trackingNumber" :carrier="carrier" :deliverOn="deliverOn" @cancel-order="showCancelDialog" @ship-order="showShipDialog"> </status-card>
                   </v-col>
                   <v-col cols="12">
                     <detail-card :isAdmin="isAdmin" :orderNo="orderNo" :orderStatus="orderStatus" :placedOn="placedOn" :deliverOn="deliverOn" :products="products"> </detail-card>
@@ -67,7 +67,7 @@
                             Shipping fee:
                           </p>
                           <p class="tex-14 mb-0 font-weight-bold">
-                            ¥{{logisticsFee}}
+                            ¥{{shippingFee}}
                           </p>
                         </div>
                         <div class="d-flex justify-space-between mb-2">
@@ -150,12 +150,13 @@ export default {
       addressDetail: '',
       paymentDetail: '',
       totalPrice: 0,
-      logisticsFee: 0,
+      shippingFee: 0,
       isPaid: false,
       dialogCancel: false,
       dialogShip: false,
       isAdmin: this.$auth && this.$auth.user && this.$auth.user.is_admin ? true : false,
-      carrierList: [{ "label": "Sagawa", "slug": "sagawa" }, { "label": "Yamato", "slug": "taqbin-jp" }],
+      // carrierList: [{ "label": "Sagawa", "slug": "sagawa" }, { "label": "Yamato", "slug": "taqbin-jp" }],
+      carrierList: [{ "label": "Yamato", "slug": "taqbin-jp" }],
       valid: true,
       carrier: '',
       trackingNumber: '',
@@ -166,6 +167,11 @@ export default {
         v => !!v || 'Tracking Number is required'
       ],
     };
+  },
+  computed: {
+    displayTrackingInfo: function () {
+      return this.orderStatus == 'shipping' || this.orderStatus == 'delivered' ? true : false
+    }
   },
   created () {
     this.loadOrder();
@@ -196,10 +202,12 @@ export default {
         this.totalPrice = tmpTotal;
         this.orderNo = res.data.order.order_no;
         this.orderStatus = res.data.order.aasm_state;
-        this.logisticsFee = res.data.order.logistics_fee == null ? 0 : res.data.order.logistics_fee;
+        this.shippingFee = res.data.order.shipping_fee == null ? 0 : res.data.order.shipping_fee;
         this.isPaid = res.data.order.is_paid == '1' ? true : false;
         this.placedOn = res.data.order.created_at;
         this.deliverOn = res.data.order.deliver_at ? res.data.order.deliver_at : '';
+        this.carrier = res.data.order.slug;
+        this.trackingNumber = res.data.order.tracking_number;
       });
     },
     showCancelDialog () {
@@ -209,16 +217,21 @@ export default {
       this.dialogShip = !this.dialogShip
     },
     closeShipDialog () {
+      this.$refs.form.reset();
       this.dialogShip = false;
       this.carrier = '';
       this.trackingNumber = '';
-      this.$refs.form.reset();
     },
     cancelOrder () {
       this.$axios.post(`api/admin/orders/cancel_order`, { order_no: this.orderNo }).then((res) => {
-        this.orderStatus = res.data.aasm_state;
-        this.dialogCancel = false;
-        this.$toast.show('Cancel order successfully!');
+        if (res.data.code == "error") {
+          this.dialogCancel = false;
+          this.$toast.error(res.data.message);
+        } else {
+          this.orderStatus = res.data.aasm_state;
+          this.dialogCancel = false;
+          this.$toast.show('Cancel order successfully!');
+        }
       });
     },
     shipOrder () {
@@ -226,9 +239,9 @@ export default {
         this.$axios.post(`api/admin/orders/ship_order`, {
           order_no: this.orderNo, slug: this.carrier, tracking_number: this.trackingNumber
         }).then((res) => {
-          this.orderStatus = res.data.aasm_state;
           this.dialogShip = false;
           this.$toast.show('Order shipped successfully!');
+          this.loadOrder();
         });
       }
     },

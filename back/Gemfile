@@ -55,3 +55,4 @@ gem 'aasm'
 gem 'hashid-rails'
 gem 'stripe'
 gem 'dotenv-rails'
+gem 'whenever', require: false

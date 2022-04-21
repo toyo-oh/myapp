@@ -3,7 +3,7 @@ class Admin::OrdersController < ApplicationController
 	before_action :require_login, :require_admin
 
 	def index
-		@orders = Order.all
+		@orders = Order.all.order(created_at: :desc)
 		render :json => {:orders => @orders.as_json(
 			methods: :user_hashid, 
 			except:[:id, :user_id, :updated_at],
@@ -22,8 +22,26 @@ class Admin::OrdersController < ApplicationController
 	# cancel
 	def cancel_order
 		@order = find_order
-		@order.cancel!
-		OrderMailer.notify_order_cancelled(@order).deliver_now
+		@order_details = @order.order_details
+		errors = []
+		begin
+			refund = refund_by_stripe(@order.charge_id)
+		rescue Stripe::StripeError => e
+			logger.error "#{e.class} / #{e.message}"
+			errors << e.message
+		end
+		if !errors.present? and refund.status == "succeeded"
+			Order.transaction do
+				@order_details.each do |detail|
+					@product = Product.find(detail.product_id)
+					@product.update!(quantity: @product.quantity + detail.quantity)
+				end
+				@order.refund!(refund.id)
+				OrderMailer.notify_order_cancelled(@order).deliver_now
+			end
+		else
+			return response_custom_error("error", errors)
+		end
 		render json: @order.wrap_json_order
 	end
 
@@ -43,6 +61,11 @@ class Admin::OrdersController < ApplicationController
 		else
 			@order = Order.find(params[:id])
 		end
+	end
+
+	def refund_by_stripe(charge_id)
+		refund = Stripe::Refund.create({ charge: charge_id })
+		return refund
 	end
 	
 end

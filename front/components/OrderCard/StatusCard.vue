@@ -42,9 +42,9 @@
             </v-badge>
           </v-avatar>
         </div>
-        <v-sheet :color="(orderStatus=='paid' || orderStatus=='shipping' || orderStatus=='shipped') ? 'brown lighten-1' : 'grey lighten-2'" elevation="0" height="4" class="flex-grow-1"></v-sheet>
+        <v-sheet :color="(orderStatus=='paid' || orderStatus=='shipping' || orderStatus=='delivered') ? 'brown lighten-1' : 'grey lighten-2'" elevation="0" height="4" class="flex-grow-1"></v-sheet>
         <div>
-          <template v-if="(orderStatus=='paid' || orderStatus=='shipping' || orderStatus=='shipped')">
+          <template v-if="(orderStatus=='paid' || orderStatus=='shipping' || orderStatus=='delivered')">
             <v-avatar size="72" color="brown lighten-2">
               <v-badge color="green lighten-1" icon="mdi-check">
                 <v-icon color="grey lighten-4">mdi-briefcase-variant-outline</v-icon>
@@ -57,9 +57,9 @@
             </v-avatar>
           </template>
         </div>
-        <v-sheet :color="(orderStatus=='shipping' || orderStatus=='shipped') ? 'brown lighten-1' : 'grey lighten-2'" elevation="0" height="4" class="flex-grow-1"></v-sheet>
+        <v-sheet :color="(orderStatus=='shipping' || orderStatus=='delivered') ? 'brown lighten-1' : 'grey lighten-2'" elevation="0" height="4" class="flex-grow-1"></v-sheet>
         <div>
-          <template v-if="(orderStatus=='shipping' || orderStatus=='shipped') ">
+          <template v-if="(orderStatus=='shipping' || orderStatus=='delivered') ">
             <v-avatar size="72" color="brown lighten-2">
               <v-badge color="green lighten-1" icon="mdi-check">
                 <v-icon color="grey lighten-4">mdi-car-pickup</v-icon>
@@ -72,9 +72,9 @@
             </v-avatar>
           </template>
         </div>
-        <v-sheet :color="orderStatus=='shipped' ? 'brown lighten-1' : 'grey lighten-2'" elevation="0" height="4" class="flex-grow-1"></v-sheet>
+        <v-sheet :color="orderStatus=='delivered' ? 'brown lighten-1' : 'grey lighten-2'" elevation="0" height="4" class="flex-grow-1"></v-sheet>
         <div>
-          <template v-if="(orderStatus=='shipped')">
+          <template v-if="(orderStatus=='delivered')">
             <v-avatar size="72" color="brown lighten-2">
               <v-badge color="green lighten-1" icon="mdi-check">
                 <v-icon color="grey lighten-4">mdi-check-circle-outline</v-icon>
@@ -98,15 +98,42 @@
           </v-btn>
         </div>
         <div v-if="!isAdmin">
-          <v-btn v-if="displayPayBtn" dark color="brown lighten-1" class="text-capitalize" @click="$emit('pay-order')">
+          <!-- <v-btn v-if="displayPayBtn" dark color="brown lighten-1" class="text-capitalize" @click="$emit('pay-order')">
             Pay Order
-          </v-btn>
+          </v-btn> -->
           <v-btn v-if="displayCancelBtn" dark color="brown lighten-1" class="text-capitalize" @click="$emit('cancel-order')">
             Cancel Order
           </v-btn>
-          <v-btn v-if="displayReceiveBtn" dark color="brown lighten-1" class="text-capitalize" @click="$emit('receive-good')">
+          <!-- <v-btn v-if="displayReceiveBtn" dark color="brown lighten-1" class="text-capitalize" @click="$emit('receive-good')">
             Receive goods
-          </v-btn>
+          </v-btn> -->
+        </div>
+      </div>
+      <v-divider v-if="displayTrackingInfo && isAdmin"></v-divider>
+      <div v-if="displayTrackingInfo && isAdmin" class="d-flex justify-space-around flex-wrap">
+        <div class="d-flex my-3 mx-3">
+          <p class="text-14 grey--text text--darken-2 mb-0 mr-2">
+            Tracking NO:
+          </p>
+          <p class="mb-0 grey--text text--darken-4">
+            {{trackingNumber ? trackingNumber : 'ー'}}
+          </p>
+        </div>
+        <div class="d-flex my-3 mx-3">
+          <p class="text-14 grey--text text--darken-2 mb-0 mr-2">
+            Carrier:
+          </p>
+          <p class="mb-0 grey--text text--darken-4">
+            {{carrier ?  carrier : 'ー'}}
+          </p>
+        </div>
+        <div class="d-flex my-3 mx-3">
+          <p class="text-14 grey--text text--darken-2 mb-0 mr-2">
+            Delivered on:
+          </p>
+          <p class="mb-0 grey--text text--darken-4">
+            {{ deliverOn ? new Date(deliverOn).toLocaleString("ja-jp") :'ー' }}
+          </p>
         </div>
       </div>
     </div>
@@ -118,7 +145,10 @@ export default {
   props: {
     isAdmin: Boolean,
     orderStatus: String,
-    isPaid: Boolean
+    isPaid: Boolean,
+    trackingNumber: String,
+    carrier: String,
+    deliverOn: String
   },
   data () {
     return {
@@ -128,14 +158,17 @@ export default {
     displayCancelBtn: function () {
       return this.orderStatus == 'order_placed' || this.orderStatus == 'paid' ? true : false
     },
-    displayPayBtn: function () {
-      return this.orderStatus == 'order_placed' ? true : false
-    },
-    displayReceiveBtn: function () {
-      return this.orderStatus == 'shipping' ? true : false
-    },
+    // displayPayBtn: function () {
+    //   return this.orderStatus == 'order_placed' ? true : false
+    // },
+    // displayReceiveBtn: function () {
+    //   return this.orderStatus == 'shipping' ? true : false
+    // },
     displayShipBtn: function () {
       return this.orderStatus == 'paid' ? true : false
+    },
+    displayTrackingInfo: function () {
+      return this.orderStatus == 'shipping' || this.orderStatus == 'delivered' ? true : false
     }
   }
 }

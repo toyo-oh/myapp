@@ -37,6 +37,11 @@ class Order < ApplicationRecord
     make_payment!
 	end
 
+  def refund!(refund_id)
+    self.update_columns(refund_id: refund_id)
+    cancel!
+  end
+
   def set_deliver_info!(slug, tracking_number)
     self.update_columns(slug: slug, tracking_number: tracking_number, deliver_at: DateTime.now)   
   end
@@ -46,7 +51,7 @@ class Order < ApplicationRecord
     state :order_placed, initial: true
     state :paid
     state :shipping
-    state :shipped
+    state :delivered
     state :order_cancelled
     state :good_returned
 
@@ -66,12 +71,12 @@ class Order < ApplicationRecord
     end
 
     event :deliver do
-      transitions from: :shipping,     to: :shipped
+      transitions from: :shipping,     to: :delivered
     end
 
-    event :return_good do
-      transitions from: :shipped,      to: :good_returned
-    end
+    # event :return_good do
+    #   transitions from: :shipping,      to: :delivered
+    # end
 
     event :cancel do
       transitions from: [:order_placed, :paid], to: :order_cancelled

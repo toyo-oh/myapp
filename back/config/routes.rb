@@ -46,7 +46,6 @@ Rails.application.routes.draw do
   get '/orders/show_order/:order_no', to: 'orders#show_order_by_no'
   post '/order/create_order', to:'orders#create_order'
   post '/orders/cancel_order', to: 'orders#cancel_order'
-  post '/orders/pay_order', to: 'orders#pay_order'
   post '/orders/receive_good', to: 'orders#receive_good'
   get '/admin/orders/show_order/:order_no', to: 'admin/orders#show_order_by_no'
   post '/admin/orders/cancel_order', to: 'admin/orders#cancel_order'

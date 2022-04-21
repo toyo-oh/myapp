@@ -17,6 +17,9 @@ class OrdersController < ApplicationController
 		count, amount = cal_items_sum(@cart_items)
 		@new_order.product_count = count
 		@new_order.amount_total = amount
+		logger.debug(amount)
+		pay_amount = amount + params[:shipping_fee].to_i
+		logger.debug(pay_amount)
 		errors = []
 		ActiveRecord::Base.transaction do
 			@new_order.save!
@@ -34,7 +37,7 @@ class OrdersController < ApplicationController
 			end
 			@current_cart.destroy!
 			begin
-				customer, charge = pay_by_stripe(@user.email, amount)
+				customer, charge = pay_by_stripe(@user.email, pay_amount)
 			rescue Stripe::StripeError => e
 				logger.error "#{e.class} / #{e.message}"
 				errors << e.message
@@ -51,7 +54,7 @@ class OrdersController < ApplicationController
 	end
 
 	def get_orders_by_user_id
-		@orders = Order.where(user_id: decode_user_id(params[:user_id]))
+		@orders = Order.where(user_id: decode_user_id(params[:user_id])).order(created_at: :desc)
 		if !@orders.blank?
 			render :json => {:orders => @orders.as_json(
 				methods: :user_hashid, 
@@ -73,33 +76,32 @@ class OrdersController < ApplicationController
 	def cancel_order
 		@order = get_order_with_auth_check
 		@order_details = @order.order_details
-		Order.transaction do
-			@order_details.each do |detail|
-				@product = Product.find(detail.product_id)
-				@product.update!(quantity: @product.quantity + detail.quantity)
+		errors = []
+		begin
+			refund = refund_by_stripe(@order.charge_id)
+		rescue Stripe::StripeError => e
+			logger.error "#{e.class} / #{e.message}"
+			errors << e.message
+		end
+		if !errors.present? and refund.status == "succeeded"
+			Order.transaction do
+				@order_details.each do |detail|
+					@product = Product.find(detail.product_id)
+					@product.update!(quantity: @product.quantity + detail.quantity)
+				end
+				@order.refund!(refund.id)
+				OrderMailer.notify_order_cancelled(@order).deliver_now
 			end
-			@order.cancel!
-			OrderMailer.notify_order_cancelled(@order).deliver_now
+		else
+			return response_custom_error("error", errors)
 		end
 		render json: @order.wrap_json_order
 	end
-
-	# NOT IN USE
-	# def pay_order
-	# 	@order = get_order_with_auth_check
-	# 	@order.pay!
-	# 	@order.make_payment!
-	# 	render json: @order.wrap_json_order
-	# end
 
 	def receive_good
 		@order = get_order_with_auth_check
 		@order.deliver!
 		render json: @order.wrap_json_order
-	end
-
-	# TODO
-	def refund
 	end
 
 	private
@@ -142,6 +144,11 @@ class OrdersController < ApplicationController
 				currency: 'jpy',
 			})
 			return customer, charge
+		end
+
+		def refund_by_stripe(charge_id)
+			refund = Stripe::Refund.create({ charge: charge_id })
+			return refund
 		end
 
 		# TODO local image directory

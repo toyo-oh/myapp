@@ -20,65 +20,77 @@
               </div>
               <v-row>
                 <v-col cols="12">
-                  <status-card :isAdmin="isAdmin" :orderStatus="orderStatus" :isPaid="isPaid" @pay-order="payOrder" @cancel-order="showCancelDialog" @receive-good="receiveGoods"></status-card>
+                  <div class="d-flex justify-start">
+                    <div v-if="displayCancelledLbl" class="py-2 px-5 brown lighten-4 brown--text text-center text-wrap rounded-pill">
+                      Order Status:<span class="font-weight-bold">{{orderStatus}}</span>
+                    </div>
+                    <div v-if="displayCancelBtn" class="d-flex justify-end">
+                      <v-btn dark color="brown lighten-1" class="text-capitalize" @click="showCancelDialog">
+                        Cancel Order
+                      </v-btn>
+                    </div>
+                  </div>
                 </v-col>
                 <v-col cols="12">
-                  <v-card>
-                    <v-card-title class="pa-2 brown lighten-3">
-                      <h3 class="text-h6 font-weight-light text-center grow">
-                        {{tracking_title}}
-                      </h3>
-                    </v-card-title>
-                    <v-card-text>
-                      <template v-if="checkpoints.length >0">
-                        <v-timeline align-top dense>
-                          <v-timeline-item color="brown lighten-2" small v-for="item in checkpoints" :key="item.index">
-                            <v-row class="pt-1">
-                              <v-col cols="3">
-                                <strong>{{item.message}}</strong>
-                              </v-col>
-                              <v-col>
-                                <strong>{{item.location}}</strong>
-                                <div class="text-caption">
-                                  {{item.checkpoint_time}}
-                                </div>
-                              </v-col>
-                            </v-row>
-                          </v-timeline-item>
-                        </v-timeline>
-                      </template>
-                      <template v-else>
-                        The tracking Information will be shown here when we get updates from the carrier.
-                      </template>
-                    </v-card-text>
-                    <v-divider></v-divider>
-                    <div class="d-flex justify-space-around flex-wrap">
-                      <div class="d-flex my-3 mx-3">
-                        <p class="text-14 grey--text text--darken-2 mb-0 mr-2">
-                          Tracking NO:
-                        </p>
-                        <p class="mb-0 grey--text text--darken-4">
-                          {{tracking_number ? tracking_number : 'ー'}}
-                        </p>
+                  <div v-if="!displayCancelledLbl">
+                    <v-card>
+                      <v-card-title class="pa-2 brown lighten-3">
+                        <h3 class="text-h6 font-weight-light text-center grow">
+                          Tracking History - {{tracking_title}}
+                        </h3>
+                      </v-card-title>
+                      <v-card-text>
+                        <template v-if="checkpoints.length >0">
+                          <v-timeline align-top dense>
+                            <v-timeline-item color="brown lighten-2" small v-for="item in checkpoints" :key="item.index">
+                              <v-row class="pt-1">
+                                <v-col cols="3">
+                                  <strong>{{item.status}}</strong>
+                                </v-col>
+                                <v-col>
+                                  <strong>{{item.placeName}}</strong>
+                                  <div class="text-caption">
+                                    {{item.date + ' ' + item.time}}
+                                  </div>
+                                </v-col>
+                              </v-row>
+                            </v-timeline-item>
+                          </v-timeline>
+                        </template>
+                        <template v-else>
+                          <br>
+                          The tracking Information will be shown here when we get updates from the carrier.
+                        </template>
+                      </v-card-text>
+                      <v-divider></v-divider>
+                      <div class="d-flex justify-space-around flex-wrap">
+                        <div class="d-flex my-3 mx-3">
+                          <p class="text-14 grey--text text--darken-2 mb-0 mr-2">
+                            Tracking NO:
+                          </p>
+                          <p class="mb-0 grey--text text--darken-4">
+                            {{tracking_number ? tracking_number : 'ー'}}
+                          </p>
+                        </div>
+                        <div class="d-flex my-3 mx-3">
+                          <p class="text-14 grey--text text--darken-2 mb-0 mr-2">
+                            Carrier:
+                          </p>
+                          <p class="mb-0 grey--text text--darken-4">
+                            {{slug ?  slug : 'ー'}}
+                          </p>
+                        </div>
+                        <div class="d-flex my-3 mx-3">
+                          <p class="text-14 grey--text text--darken-2 mb-0 mr-2">
+                            Delivered on:
+                          </p>
+                          <p class="mb-0 grey--text text--darken-4">
+                            {{ deliverOn ? new Date(deliverOn).toLocaleString("ja-jp") :'ー' }}
+                          </p>
+                        </div>
                       </div>
-                      <div class="d-flex my-3 mx-3">
-                        <p class="text-14 grey--text text--darken-2 mb-0 mr-2">
-                          Carrier:
-                        </p>
-                        <p class="mb-0 grey--text text--darken-4">
-                          {{slug ?  slug : 'ー'}}
-                        </p>
-                      </div>
-                      <div class="d-flex my-3 mx-3">
-                        <p class="text-14 grey--text text--darken-2 mb-0 mr-2">
-                          Delivered on:
-                        </p>
-                        <p class="mb-0 grey--text text--darken-4">
-                          {{ deliverOn ? new Date(deliverOn).toLocaleString("ja-jp") :'ー' }}
-                        </p>
-                      </div>
-                    </div>
-                  </v-card>
+                    </v-card>
+                  </div>
                 </v-col>
                 <v-col cols="12">
                   <detail-card :isAdmin="isAdmin" :orderNo="orderNo" :orderStatus="orderStatus" :placedOn="placedOn" :deliverOn="deliverOn" :products="products" @review-product="showReviewDialog"> </detail-card>
@@ -169,13 +181,11 @@
 </template>
 
 <script>
-import StatusCard from '@/components/OrderCard/StatusCard.vue';
 import DetailCard from '@/components/OrderCard/DetailCard.vue';
 import ReviewForm from '@/components/inputForm/ReviewForm.vue';
 export default {
   middleware: 'auth',
   components: {
-    StatusCard,
     DetailCard,
     ReviewForm
   },
@@ -201,12 +211,17 @@ export default {
       tracking_title: ''
     };
   },
+  computed: {
+    displayCancelBtn: function () {
+      return this.orderStatus == 'order_placed' || this.orderStatus == 'paid' ? true : false
+    },
+    displayCancelledLbl: function () {
+      return this.orderStatus == 'order_cancelled' ? true : false
+    }
+  },
   created () {
     this.loadOrder();
   },
-  // mounted () {
-  //   console.log(`process.env.AFTERSHIP_PK: ${process.env.AFTERSHIP_PK}`)
-  // },
   methods: {
     loadOrder () {
       this.$axios.get(`api/orders/show_order/${this.$route.params.id}`).then((res) => {
@@ -249,21 +264,30 @@ export default {
       });
     },
     fetchTracking () {
-      const options = {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          'aftership-api-key': `${process.env.AFTERSHIP_PK}`
-        }
-      }
-      // console.log(this.afterShipKey);
-      fetch(`https://api.aftership.com/v4/trackings/${this.slug}/${this.tracking_number}`, options)
-        .then(response => response.json())
+      // const options = {
+      //   method: 'GET',
+      //   headers: {
+      //     Accept: 'application/json',
+      //     'Content-Type': 'application/json',
+      //     'aftership-api-key': `${process.env.AFTERSHIP_PK}`
+      //   }
+      // }
+      // fetch(`https://api.aftership.com/v4/trackings/${this.slug}/${this.tracking_number}`, options)
+      //   .then(response => response.json())
+      //   .then(response => {
+      //     if (response.meta.code === 200) {
+      //       this.checkpoints = response.data.tracking.checkpoints;
+      //       this.tracking_title = this.checkpoints ? this.checkpoints[this.checkpoints.length - 1].tag : 'Order confirmed';
+      //     }
+      //   })
+      //   .catch(err => console.error(err));
+
+      this.$axios.get(`tracking_api/${this.tracking_number}.json`)
         .then(response => {
-          if (response.meta.code === 200) {
-            this.checkpoints = response.data.tracking.checkpoints;
-            this.tracking_title = this.checkpoints ? this.checkpoints[this.checkpoints.length - 1].tag : 'Order confirmed';
+          // resultは0が正常終了0以外が異常終了(-1: 伝票番号誤り/伝票番号未登録)
+          if (response.data.result === "0") {
+            this.checkpoints = response.data.statusList;
+            this.tracking_title = response.data.status ? response.data.status : 'Order confirmed';
           }
         })
         .catch(err => console.error(err));
@@ -275,37 +299,42 @@ export default {
     showCancelDialog () {
       this.dialogCancel = !this.dialogCancel
     },
-    payOrder () {
-      if (!this.$auth.loggedIn) {
-        this.$toast.error('Please login in before pay the order!');
-      } else {
-        this.$axios.post(`/ api / orders / pay_order`, { order_no: this.orderNo }).then((res) => {
-          this.orderStatus = res.data.aasm_state;
-          this.$toast.show('Order paid successfully!');
-        });
-      }
-    },
     cancelOrder () {
       if (!this.$auth.loggedIn) {
         this.$toast.error('Please login in before cancel the order!');
       } else {
-        this.$axios.post(`api / orders / cancel_order`, { order_no: this.orderNo }).then((res) => {
-          this.orderStatus = res.data.aasm_state;
-          this.dialogCancel = false;
-          this.$toast.show('Cancel order successfully!');
+        this.$axios.post('api/orders/cancel_order', { order_no: this.orderNo }).then((res) => {
+          if (res.data.code == "error") {
+            this.dialogCancel = false;
+            this.$toast.error(res.data.message);
+          } else {
+            this.orderStatus = res.data.aasm_state;
+            this.dialogCancel = false;
+            this.$toast.show('Cancel order successfully!');
+          }
         });
       }
     },
-    receiveGoods () {
-      if (!this.$auth.loggedIn) {
-        this.$toast.error('Please login in before receive the order!');
-      } else {
-        this.$axios.post(`api / orders / receive_good`, { order_no: this.orderId }).then((res) => {
-          this.$toast.show('Receive order successfully!');
-          this.orderStatus = res.data.aasm_state;
-        });
-      }
-    },
+    // payOrder () {
+    //   if (!this.$auth.loggedIn) {
+    //     this.$toast.error('Please login in before pay the order!');
+    //   } else {
+    //     this.$axios.post('/api/orders/pay_order', { order_no: this.orderNo }).then((res) => {
+    //       this.orderStatus = res.data.aasm_state;
+    //       this.$toast.show('Order paid successfully!');
+    //     });
+    //   }
+    // },
+    // receiveGoods () {
+    //   if (!this.$auth.loggedIn) {
+    //     this.$toast.error('Please login in before receive the order!');
+    //   } else {
+    //     this.$axios.post('api/orders/receive_good', { order_no: this.orderId }).then((res) => {
+    //       this.$toast.show('Receive order successfully!');
+    //       this.orderStatus = res.data.aasm_state;
+    //     });
+    //   }
+    // },
     rtnToList () {
       this.$router.push(`.`);
     }
