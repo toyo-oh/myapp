@@ -56,7 +56,7 @@
         <v-icon>mdi-cart</v-icon>
       </v-badge>
     </v-btn>
-    <v-btn text>
+    <v-btn text @click="help">
       <v-icon>mdi-help-circle-outline</v-icon>
       Help
     </v-btn>
@@ -129,6 +129,9 @@ export default {
     logout () {
       this.$auth.logout();
       this.$store.commit('load_products', []);
+    },
+    help () {
+      this.$router.push(`/footer/contact_us`)
     },
     loadCart () {
       if (this.$auth.loggedIn) {

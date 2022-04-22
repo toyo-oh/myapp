@@ -63,6 +63,7 @@ export default {
     // browserBaseURL: 'http://back:3000',
     proxy: true
   },
+  // baseURL = process.env.BASE_URL
 
   proxy: {
     '/api/': { target: 'http://back:3000', pathRewrite: { '^/api/': '/' } },
