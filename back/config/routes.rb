@@ -18,6 +18,8 @@ Rails.application.routes.draw do
     member do
       post 'add_to_cart'
       post 'decrease_of_cart'
+      post 'add_favourite'
+      post 'cancel_favourite'
     end
   end
   resources :users do
@@ -54,4 +56,5 @@ Rails.application.routes.draw do
   get '/payments/find_by_user_id/:user_id', to: 'payments#find_by_user_id'
   post '/payments/set_default', to: 'payments#set_default'
   get '/reviews/find_by_product_id/:phashid', to: 'reviews#find_by_product_id'
+  get '/favourites/get_favourites_by_user_id/:user_id', to: 'products#get_favourites_by_user_id'
 end

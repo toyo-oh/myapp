@@ -75,7 +75,7 @@ export default {
         { index: 2, text: 'My Orders', icon: ' mdi-shopping', action: this.useOrder },
         { index: 3, text: 'My Addresses', icon: ' mdi-map-marker', action: this.userAddress },
         { index: 4, text: 'My Payments', icon: ' mdi-credit-card', action: this.userPayment },
-        { index: 5, text: 'My Favourites', icon: 'mdi-heart', action: '' },
+        { index: 5, text: 'My Favourites', icon: 'mdi-heart', action: this.userFavourite },
         { index: 6, text: 'Log Out', icon: 'mdi-logout', action: this.logout }],
       adminmenus: [
         { index: 1, text: 'Product Management', icon: 'mdi-clipboard-outline', action: this.adminProduct },
@@ -125,6 +125,9 @@ export default {
     },
     userPayment () {
       this.$router.push(`/payments`)
+    },
+    userFavourite () {
+      this.$router.push(`/favourites`)
     },
     logout () {
       this.$auth.logout();

@@ -17,8 +17,11 @@
       <v-col cols="5" lg="5">
         <div class="d-flex mb-10"></div>
         <h1 class="mb-4">{{title}}</h1>
-        <div class="d-flex mb-4">
-          <p class="mb-0">{{subTitle}}</p>
+        <div class="d-flex">
+          <p class="mt-2">{{subTitle}}</p>
+          <div>
+            <fav-button :isFav="isFav" :phashid="hashid"></fav-button>
+          </div>
         </div>
         <div class="d-flex mb-4">
           <p class="grey--text text--grey-lighten-1 me-3 mb-0">Rated:</p>
@@ -122,9 +125,11 @@
 <script>
 import { mapActions } from 'vuex'
 import ItemCard from "@/components/productCard/ItemCard";
+import FavButton from "@/components/common/FavButton";
 export default {
   components: {
-    ItemCard
+    ItemCard,
+    FavButton
   },
   data () {
     return {
@@ -144,7 +149,8 @@ export default {
       reviewList: [],
       relatedProducts: [],
       reviewAlert: false,
-      discount: 0
+      discount: 0,
+      isFav: false
     }
   },
   computed: {
@@ -180,7 +186,8 @@ export default {
           reviewList: res.product.reviews,
           avgRate: Number(res.avg_rate),
           discount: Number(res.product.discount),
-          relatedProducts: res.related_products
+          relatedProducts: res.related_products,
+          isFav: res.is_fav
         };
     });
   },
@@ -208,10 +215,7 @@ export default {
       } else {
         this.reviewAlert = true;
       }
-    },
-    // TODO 收藏功能
-    addToFavorite () {
-    },
+    }
   }
 };
 </script>

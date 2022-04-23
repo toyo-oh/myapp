@@ -44,3 +44,5 @@ service cron status
 service cron stop
 service cron status
 exit
+rails c
+exit

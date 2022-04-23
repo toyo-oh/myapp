@@ -4,6 +4,7 @@ class Product < ApplicationRecord
 
 	has_many :reviews
 	has_many :promotions
+	has_many :favourites
 
   validates :title, {presence: true, length: { maximum: 10 }}
 	validates :sub_title, {presence: true, length: { maximum: 50 }}

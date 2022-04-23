@@ -68,37 +68,42 @@
                   <stripe-element-card ref="elementRef" :hidePostalCode="hidePostalCode" :pk="publishableKey" @token="tokenCreated" />
                 </div>
               </v-col>
-              <v-col cols="12" class="py-0">
+              <!-- <v-col cols="12" class="py-0">
                 <v-btn id="custom-button" dark color="brown lighten-1" class="text-capitalize mb-4" block @click="submit">Place Order</v-btn>
-              </v-col>
+              </v-col> -->
             </v-row>
           </div>
         </v-card>
       </v-col>
       <v-col cols="12" md="6" lg="4" xl="4">
-        <p class="font-weight-bold mb-6">You Order</p>
-        <div v-for="item in products" :key="item.hashid" class="d-flex justify-space-between mb-6">
-          <p class="mb-0"><span class="font-weight-bold">{{item.cnt}}</span> x {{item.title}}</p>
-          <p class="mb-0">¥{{item.price * item.cnt}}</p>
-        </div>
-        <v-divider class="my-4"></v-divider>
-        <div class="d-flex justify-space-between mb-2">
-          <p class="mb-0 grey--text text--darken-2">Subtotal:</p>
-          <p class="mb-0 font-weight-bold">¥{{$store.getters['getTotalPrice']}}</p>
-        </div>
-        <div class="d-flex justify-space-between mb-2">
-          <p class="mb-0 grey--text text--darken-2">Shipping:</p>
-          <p class="mb-0 font-weight-bold">¥{{shippingFee}}</p>
-        </div>
-        <div class="d-flex justify-space-between mb-2">
-          <p class="mb-0 grey--text text--darken-2">Discount:</p>
-          <p class="mb-0 font-weight-bold"> - </p>
-        </div>
-        <v-divider class="my-4"></v-divider>
-        <div class="d-flex justify-space-between mb-2">
-          <p class="mb-0 font-weight-bold">Total:</p>
-          <p class="mb-0 font-weight-bold"> ¥{{$store.getters['getTotalPrice']+ this.shippingFee}}</p>
-        </div>
+        <v-card>
+          <div class="pa-5">
+            <p class="font-weight-bold mb-6">You Order</p>
+            <div v-for="item in products" :key="item.hashid" class="d-flex justify-space-between mb-6">
+              <p class="mb-0"><span class="font-weight-bold">{{item.cnt}}</span> x {{item.title}}</p>
+              <p class="mb-0">¥{{item.price * item.cnt}}</p>
+            </div>
+            <v-divider class="my-4"></v-divider>
+            <div class="d-flex justify-space-between mb-2">
+              <p class="mb-0 grey--text text--darken-2">Subtotal:</p>
+              <p class="mb-0 font-weight-bold">¥{{$store.getters['getTotalPrice']}}</p>
+            </div>
+            <div class="d-flex justify-space-between mb-2">
+              <p class="mb-0 grey--text text--darken-2">Shipping:</p>
+              <p class="mb-0 font-weight-bold">¥{{shippingFee}}</p>
+            </div>
+            <div class="d-flex justify-space-between mb-2">
+              <p class="mb-0 grey--text text--darken-2">Discount:</p>
+              <p class="mb-0 font-weight-bold"> - </p>
+            </div>
+            <v-divider class="my-4"></v-divider>
+            <div class="d-flex justify-space-between mb-4">
+              <p class="mb-0 font-weight-bold">Total:</p>
+              <p class="mb-0 font-weight-bold"> ¥{{$store.getters['getTotalPrice']+ this.shippingFee}}</p>
+            </div>
+            <v-btn id="custom-button" dark color="brown lighten-1" class="text-capitalize mb-4" block @click="submit">Place Order</v-btn>
+          </div>
+        </v-card>
       </v-col>
     </v-row>
   </div>

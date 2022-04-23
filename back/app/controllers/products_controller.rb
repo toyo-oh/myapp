@@ -1,23 +1,35 @@
 class ProductsController < ApplicationController
 
-    before_action :require_login, only: [:add_to_cart, :decrease_of_cart]
+    before_action :require_login, only: [:add_to_cart, :decrease_of_cart, :add_favourite, :cancel_favourite, :get_favourites_by_user_id]
 
     def show
         @product = find_product
         @reviews = @product.reviews
         avg_rate = Review.where(product_id: @product.id).average("rate")
+        #discount
         @product.discount = ProductsController.get_discount(@product)
+        #related_products
         if !@product.tags.blank?
             segments,tags = set_tags_like @product.tags.split(",")
             @related_products = Product.where("(" + segments.join(' OR ') +" OR category_id = ?) AND is_available = 1 AND quantity > 0 AND id <> ?", *tags, @product.category_id, @product.id)
         else
             @related_products = Product.where("is_available = 1 AND quantity > 0 AND category_id = ? AND id <> ?", @product.category_id, @product.id)
         end
+        # is_fav
+        is_fav = false
+        if decoded_token.present?
+            user_id = decoded_token[0]['user_id']
+            @fav = Favourite.find_by(user_id: user_id, product_id: @product.id)
+            if !@fav.blank?
+                is_fav = true
+            end
+        end
         render :json => {:product => @product.as_json(
             methods: :hashid, 
             except:[:id, :created_at, :updated_at], 
             :include => {:reviews => {only: [:rate, :comment, :created_at], :include=>{user: {only: :name }}}}),
             :avg_rate => avg_rate,
+            :is_fav => is_fav,
             :related_products =>set_discount_to_list(@related_products).as_json(methods: :hashid, except:[:id, :created_at, :updated_at])
         }
     end
@@ -138,6 +150,45 @@ class ProductsController < ApplicationController
         end
         return products
     end
+
+    def add_favourite
+        user_id = decode_user_id(params[:user_id])
+        product_id = decode_product_id(params[:product_id])
+        @current_fav = Favourite.find_by(user_id: user_id, product_id: product_id)
+        if  @current_fav.blank?
+            favourite = Favourite.new
+            favourite.user_id = user_id
+            favourite.product_id = product_id
+            if favourite.save!
+                render json: { code: "ok", message: "add to favourite successfully!" }
+            else
+                render response_unprocessable_entity(favourite.errors)
+            end
+        else
+            render json: { code: "error", message: "the product is already in favourite!" }
+        end
+    end
+
+    def cancel_favourite
+        user_id = decode_user_id(params[:user_id])
+        product_id = decode_product_id(params[:product_id])
+        @current_fav = Favourite.find_by(user_id: user_id, product_id: product_id)
+        if  @current_fav.blank?
+            render json: { code: "error", message: "the product is not in favourite!" }
+        else
+            if @current_fav.destroy!
+                render json: { code: "ok", message: "cancel favourite successfully!" }
+            else
+                render response_unprocessable_entity(@current_fav.errors)
+            end
+        end
+    end
+
+    def get_favourites_by_user_id
+        user_id = decode_user_id(params[:user_id])
+        @products = Product.joins("INNER JOIN favourites ON favourites.product_id = products.id").where("favourites.user_id = ?", user_id);
+        render :json => {:products => set_discount_to_list(@products).as_json(methods: [:hashid], except:[:id, :created_at, :updated_at])}
+	end
 
     private
     def find_product
