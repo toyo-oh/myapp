@@ -9,7 +9,7 @@
     <v-btn text>Product</v-btn>
     <v-spacer />
     <v-col cols="6" md="4" sm="4" xs="4">
-      <v-text-field v-model="searchText" color="brown lighten-1" class="" placeholder="Searching For" filled rounded hide-details dense prepend-inner-icon="mdi-magnify" @keydown.enter="search"></v-text-field>
+      <v-text-field v-model="searchText" color="brown lighten-1" class="" placeholder="Search" filled rounded hide-details dense prepend-inner-icon="mdi-magnify" @keydown.enter="search"></v-text-field>
     </v-col>
     <!-- menu for common user -->
     <v-menu v-if="isLoggedIn&&!isAdmin" offset-y>

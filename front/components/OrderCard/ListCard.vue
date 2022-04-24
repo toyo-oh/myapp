@@ -6,7 +6,7 @@
           Order NO:
         </p>
         <p class="mb-0 grey--text text--darken-4">
-          {{order.order_no}}
+          {{order.orderNo}}
         </p>
       </div>
       <div class="d-flex my-3 mx-3">
@@ -26,7 +26,7 @@
         </p>
       </div>
       <div class="d-flex my-3 mx-3">
-        <v-btn outlined color="brown lighten-1" class="mr-2" @click="getOrderDetail(order.order_no)">View Detail</v-btn>
+        <v-btn outlined color="brown lighten-1" class="mr-2" @click="getOrderDetail(order.orderNo)">View Detail</v-btn>
       </div>
     </div>
     <div v-for="item in details" :key="item.id">
@@ -88,8 +88,8 @@ export default {
     details: Array
   },
   methods: {
-    getOrderDetail (order_no) {
-      this.$router.push(`/orders/${order_no}`)
+    getOrderDetail (orderNo) {
+      this.$router.push(`/orders/${orderNo}`)
     }
   }
 }

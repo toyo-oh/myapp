@@ -11,8 +11,16 @@
         Add New Product
       </v-btn>
     </div>
-    <!-- <v-spacer></v-spacer> -->
-    <v-data-table :headers="headers" :items="products" :page.sync="page" :items-per-page="itemsPerPage" hide-default-footer>
+    <div class="mb-5">
+      <v-card>
+        <v-card-title>
+          <v-text-field class="mr-6" color="brown lighten-3" outlined dense v-model="idSearch" append-icon="mdi-magnify" label="Product ID" @change="filter" clearable hide-details></v-text-field>
+          <v-text-field class="mr-6" color="brown lighten-3" outlined dense v-model="titleSearch" append-icon="mdi-magnify" label="Product Title" @change="filter" clearable hide-details></v-text-field>
+          <v-select class="mr-6" color="brown lighten-3" item-color="brown lighten-1" outlined dense :items="categories" item-text="category" item-value="id" v-model="ctgSearch" label="Category" @change="filter" hide-details></v-select>
+        </v-card-title>
+      </v-card>
+    </div>
+    <v-data-table :headers="headers" :items="filteredProducts" :page.sync="page" :items-per-page="itemsPerPage" hide-default-footer>
       <template v-slot:[`item.edit`]="{ item }">
         <v-icon small class="mr-2" @click="editProduct(item)">mdi-pencil</v-icon>
       </template>
@@ -55,6 +63,11 @@ export default {
         { text: "Edit", value: "edit", sortable: false, class: "text-h6 grey--text text--darken-2 flex-1 mr-3" },
       ],
       products: [],
+      filteredProducts: [],
+      categories: [],
+      idSearch: '',
+      titleSearch: '',
+      ctgSearch: 0,
       dialogDelete: false,
       itemToDelete: ''
     };
@@ -66,7 +79,13 @@ export default {
     getProducts () {
       this.$axios.get("api/admin/products").then((res) => {
         this.products = res.data.products;
-        this.pageCount = Math.ceil(res.data.products.length / this.itemsPerPage);
+        this.filteredProducts = this.products
+        this.pageCount = Math.ceil(this.filteredProducts.length / this.itemsPerPage);
+      });
+      this.$axios.get(`/api/categories`).then((res) => {
+        var all_item = { category: 'all', id: 0 }
+        this.categories.push(all_item);
+        this.categories = this.categories.concat(res.data);
       });
     },
     editProduct (item) {
@@ -86,7 +105,26 @@ export default {
     },
     newProduct () {
       this.$router.push(`products/new`)
+    },
+    filter () {
+      this.filteredProducts = this.products;
+      if (this.idSearch != null && this.idSearch.trim() != '') {
+        this.filteredProducts = this.filteredProducts.filter(item =>
+          item.hashid == this.idSearch.trim() ? true : false
+        );
+      }
+      if (this.titleSearch != null && this.titleSearch.trim() != '') {
+        this.filteredProducts = this.filteredProducts.filter(item =>
+          item.title == this.titleSearch.trim() ? true : false
+        );
+      }
+      if (this.ctgSearch != 0) {
+        this.filteredProducts = this.filteredProducts.filter(item =>
+          item.category_id == this.ctgSearch ? true : false
+        );
+      }
+      this.pageCount = Math.ceil(this.filteredProducts.length / this.itemsPerPage);
     }
-  },
+  }
 };
 </script>

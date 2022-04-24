@@ -8,9 +8,18 @@
         <h2 class="mb-0 brown--text text--darken-3">My Orders</h2>
       </div>
     </div>
-    <v-data-iterator :items="orders" :page.sync="page" :items-per-page="itemsPerPage" hide-default-footer>
+    <div class="mb-5">
+      <v-card>
+        <v-card-title>
+          <v-text-field class="mr-6" color="brown lighten-3" outlined dense v-model="noSearch" append-icon="mdi-magnify" label="Order No" @change="filter" clearable hide-details></v-text-field>
+          <v-select class="mr-6" color="brown lighten-3" item-color="brown lighten-1" outlined dense :items="orderStsList" item-text="status" item-value="value" v-model="stsSearch" label="Order Status" @change="filter" hide-details></v-select>
+          <v-select class="mr-6" color="brown lighten-3" item-color="brown lighten-1" outlined dense :items="createdAtList" item-text="createdAt" item-value="date" v-model="crtAtSearch" label="Created At" @change="filter" hide-details></v-select>
+        </v-card-title>
+      </v-card>
+    </div>
+    <v-data-iterator :items="filteredOrders" :page.sync="page" :items-per-page="itemsPerPage" hide-default-footer>
       <template v-slot:default="{ items }">
-        <list-card v-for="item in items" :key="item.order_no" :order="item" :details="item.details"></list-card>
+        <list-card v-for="item in items" :key="item.orderNo" :order="item" :details="item.details"></list-card>
       </template>
     </v-data-iterator>
     <div class="text-center pt-2">
@@ -20,6 +29,7 @@
 </template>
 
 <script>
+import dayjs from 'dayjs';
 import ListCard from '@/components/OrderCard/ListCard.vue';
 export default {
   middleware: 'auth',
@@ -32,6 +42,24 @@ export default {
       pageCount: 0,
       itemsPerPage: 5,
       orders: [],
+      filteredOrders: [],
+      noSearch: '',
+      stsSearch: '',
+      crtAtSearch: '',
+      orderStsList: [
+        { status: 'all', value: '' },
+        { status: 'order_placed', value: 'order_placed' },
+        { status: 'paid', value: 'paid' },
+        { status: 'shipping', value: 'shipping' },
+        { status: 'delivered', value: 'delivered' },
+        { status: 'order_cancelled', value: 'order_cancelled' }],
+      createdAtList: [
+        { createdAt: 'all', date: '' },
+        { createdAt: 'today', date: dayjs().format('YYYY/MM/DD') },
+        { createdAt: 'this week', date: dayjs().subtract(1, 'week').format('YYYY/MM/DD') },
+        { createdAt: 'this month', date: dayjs().subtract(1, 'month').format('YYYY/MM/DD') },
+        { createdAt: '3 months', date: dayjs().subtract(3, 'month').format('YYYY/MM/DD') },
+        { createdAt: 'half year', date: dayjs().subtract(6, 'month').format('YYYY/MM/DD') }]
     };
   },
   created () {
@@ -45,7 +73,7 @@ export default {
         if (tmpOrders && tmpOrders.length > 0) {
           for (var m = 0; m < tmpOrders.length; m++) {
             var order = {};
-            order.order_no = tmpOrders[m].order_no;
+            order.orderNo = tmpOrders[m].order_no;
             order.createdAt = tmpOrders[m].created_at;
             order.amountTotal = tmpOrders[m].amount_total;
             order.orderStatus = tmpOrders[m].aasm_state;
@@ -57,9 +85,29 @@ export default {
             this.orders.push(order);
           }
         }
-        this.pageCount = Math.ceil(this.orders.length / this.itemsPerPage);
+        this.filteredOrders = this.orders;
+        this.pageCount = Math.ceil(this.filteredOrders.length / this.itemsPerPage);
       });
+    },
+    filter () {
+      this.filteredOrders = this.orders;
+      if (this.noSearch != null && this.noSearch.trim() != '') {
+        this.filteredOrders = this.filteredOrders.filter(item =>
+          item.orderNo == this.noSearch.trim() ? true : false
+        );
+      }
+      if (this.stsSearch != '') {
+        this.filteredOrders = this.filteredOrders.filter(item =>
+          item.orderStatus == this.stsSearch ? true : false
+        );
+      }
+      if (this.crtAtSearch != '') {
+        this.filteredOrders = this.filteredOrders.filter(item =>
+          dayjs(item.createdAt).format('YYYY/MM/DD') >= this.crtAtSearch ? true : false
+        );
+      }
+      this.pageCount = Math.ceil(this.filteredOrders.length / this.itemsPerPage);
     }
-  },
+  }
 };
 </script>
