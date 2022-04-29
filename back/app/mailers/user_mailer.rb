@@ -1,10 +1,11 @@
 class UserMailer < ApplicationMailer
   default from: 'service@cf.com'
  
-  def welcome_email(user)
+  def activate_account(user, token)
     @user = user
+    @token = token
     @url  = 'http://monstercoffee.com/login'
-    mail(to: @user.email, subject: 'Welcome to Monster Coffee Site')
+    mail(to: @user.email, subject: '[MonsterCoffee]Account Activation')
   end
 
   def reset_password(user, token)

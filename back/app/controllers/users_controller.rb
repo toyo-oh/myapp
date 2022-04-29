@@ -9,7 +9,7 @@ class UsersController < ApplicationController
       @user = validate_user
       render json: {user: @user.wrap_json_user}
     else
-      response_custom_error("error", "account or password is incorrect")
+      response_custom_error('error', 'account or password is incorrect')
     end
   end
 
@@ -21,13 +21,32 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    @user = User.new(user_params)
-    if !@user.save!
-      render response_unprocessable_entity(@user.errors)
-    else
-      UserMailer.welcome_email(@user).deliver_now
-      render json: {code: "ok", message: "signed up successfully!"}
+    @user = User.find_by(email: params[:email])
+    if !@user.present?
+      @user = User.new(user_params)
+      if !@user.save!
+        render response_unprocessable_entity(@user.errors)
+      end
     end
+    @token = @user.signed_id(purpose: 'activate account', expires_in: 1.minutes)
+    UserMailer.activate_account(@user, @token).deliver_now
+    render json: {code: 'ok', message: 'account activation mail has been sent, please check!'}
+  end
+
+  def activate_account
+    @user = User.find_signed(params[:token], purpose: 'activate account')
+    if !@user.present?
+      return render json: {code: 'error', message: 'your token has been expired, please try again'}
+    else
+      if @user.update!(is_activated: true)
+        render json: {code: 'ok', message: 'account activate successfully, please login!'}
+      else
+        render response_unprocessable_entity(@user.errors)
+      end
+    end
+  end
+
+  def render_activate_account
   end
 
   # GET /users/1
@@ -97,7 +116,7 @@ class UsersController < ApplicationController
   def forget_password
     @user = User.find_by(email: params[:email])
     if !@user.present?
-      return render json: {error: 'email address not found. please check and try again.'}
+      return render json: {code: 'error', message: 'email address not found. please check and try again.'}
     else
       @token = @user.signed_id(purpose: 'password reset', expires_in: 15.minutes)
       UserMailer.reset_password(@user, @token).deliver_now
@@ -106,10 +125,9 @@ class UsersController < ApplicationController
   end
 
   def reset_password
-    @user = User.find_signed!(params[:token], purpose: "password reset")
-    # rescue ActiveSupport::MessageVerifier::InvalidSignature
+    @user = User.find_signed(params[:token], purpose: "password reset")
     if !@user.present?
-      return render json: {error: 'your token has been expired, please try again'}
+      return render json: {code: 'error', message: 'your token has been expired, please try again.'}
     else
       if @user.update!(password: params[:new_password], password_confirmation: params[:confirm_password])
         render json: {code: "ok", message: "reset password successfully!", user: @user.wrap_json_user}

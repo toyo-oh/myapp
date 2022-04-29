@@ -80,11 +80,7 @@ export default ({
             this.$toast.error(res.data.message);
           } else {
             this.$toast.show(res.data.message);
-            // login after signed up
-            var login = {};
-            login.email = this.email;
-            login.password = this.password;
-            this.$auth.loginWith('local', { data: login });
+            this.$router.push(`/home`);
           }
         })
       } else {

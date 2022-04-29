@@ -34,6 +34,8 @@ Rails.application.routes.draw do
   post '/password/forget', to: 'users#forget_password'
   get 'users/reset_password', to: 'users#render_reset_password'
   post '/password/reset_password', to: 'users#reset_password'
+  get '/users/activate_account', to: 'users#render_activate_account'
+  post '/account/activate_account', to: 'users#activate_account'
   get '/cart/find_cart/:user_id', to: 'carts#find_cart_items'
   get '/cart/get_checkout_info/:user_id', to:'carts#get_checkout_info'
   get '/cart/show_cart_products', to:'carts#show_cart_products'

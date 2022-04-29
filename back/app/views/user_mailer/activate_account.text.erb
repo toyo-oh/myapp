@@ -2,9 +2,10 @@
 Welcome to monstercoffee.com, <%= @user.name %>
 ===============================================
  
-You have successfully signed up to monstercoffee.com
 your login email is: <%= @user.email %>.
- 
+please click the following link to activate your monstercoffee.com account:
+<%= link_to users_activate_account_url(token: @token), users_activate_account_url(token: @token) %>
+
 To login to the site, just follow this link: <%= @url %>.
- 
+
 Thanks for joining and have a great day!
