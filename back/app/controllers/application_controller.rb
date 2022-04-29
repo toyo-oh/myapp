@@ -12,6 +12,10 @@ class ApplicationController < ActionController::API
     render status: 401, json: { code: 401, message: 'Unauthorized' }
   end
 
+  def response_token_expired
+    render status: 401, json: { code: 401, message: 'Token has expired' }
+  end
+
   def response_internal_server_error
     render status: 500, json: { code: 500, message: 'Internal Server Error' }
   end
@@ -36,28 +40,6 @@ class ApplicationController < ActionController::API
     response_admin_unauthorized if !validate_user.admin?
   end
 
-  def validate_user
-    if decoded_token.present?
-      user_id = decoded_token[0]['user_id']
-      @user = User.find_by(id: user_id)
-    end
-  end
-
-  def encode_token(payload)
-    JWT.encode payload, SECRET_KEY_BASE, 'HS256'
-  end
-
-  def decoded_token
-    if auth_header
-      token = auth_header.split(' ')[1]
-      begin
-        JWT.decode token, SECRET_KEY_BASE, true, { algorithm: 'HS256' }
-      rescue JWT::DecodeError
-        []
-      end
-    end
-  end
-
   # TODO rewrite(hashids.decode)
   def decode_user_id(hashid)
     return User.find(hashid).id
@@ -76,6 +58,33 @@ class ApplicationController < ActionController::API
   # TODO rewrite(hashids.decode)
   def decode_payment_id(hashid)
     return Payment.find(hashid).id
+  end
+
+  def validate_user
+    if decoded_token.present?
+      user_id = decoded_token[0]['user_id']
+      expired = decoded_token[0]['expired']
+      if expired >= Time.now.to_i
+        @user = User.find_by(id: user_id)
+      else
+        response_token_expired
+      end
+    end
+  end
+
+  def encode_token(payload)
+    JWT.encode payload, SECRET_KEY_BASE, 'HS256'
+  end
+
+  def decoded_token
+    if auth_header
+      token = auth_header.split(' ')[1]
+      begin
+        JWT.decode token, SECRET_KEY_BASE, true, { algorithm: 'HS256' }
+      rescue JWT::DecodeError
+        []
+      end
+    end
   end
 
   private

@@ -59,11 +59,12 @@ export default ({
                   this.$store.commit('load_products', res.productList);
                 })
             }
-          }).catch((err) => {
-            if (err.response && err.response.status === 401) {
-              this.$toast.error(err.response.data.message);
-            }
-          });
+          })
+        // .catch((err) => {
+        //   if (err.response && err.response.status === 401) {
+        //     this.$toast.error(err.response.data.message);
+        //   }
+        // });
       } else {
         this.alertLoginError = true;
         this.errorMessage = 'Invalid item in the form';

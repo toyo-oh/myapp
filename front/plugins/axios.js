@@ -1,22 +1,29 @@
-export default ({ $axios, redirect, error}) => {
+// context api : https://www.nuxtjs.cn/api/context
+// nuxtjs plugins: https://nuxtjs.org/docs/directory-structure/plugins
+export default (context, inject) => {
     // request
-    $axios.onRequest((config) => {
+    context.$axios.onRequest((config) => {
       console.log(config)
     })
     // response
-    $axios.onResponse((config) => {
+    context.$axios.onResponse((config) => {
       console.log(config)
     })
     // error
-    $axios.onError((err) => {
+    context.$axios.onError((err) => {
       const status = parseInt(err.response && err.response.status)
       const message = err.response && err.response.data.message;
       if (status === 401) {
-        return redirect("/login");
+        if(message === "Token has expired"){
+          context.$auth.logout();
+          context.store.commit('load_products', []);
+        }
+        context.$toast.error(message);
+        return context.redirect("/login");
       }else if(status === 404){
-        return redirect("/error/404");
+        return context.redirect("/error/404");
       }else{
-        return redirect("/error/500");
+        return context.redirect("/error/500");
       }
     })
   }
