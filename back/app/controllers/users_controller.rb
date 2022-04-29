@@ -5,9 +5,8 @@ class UsersController < ApplicationController
   wrap_parameters :user, include: [:name, :password, :password_confirmation, :email, :is_admin]
   
   def current_user
-    if decoded_token.present?
-      user_id = decoded_token[0]['user_id']
-      @user = User.find(user_id)
+    if !validate_user.blank?
+      @user = validate_user
       render json: {user: @user.wrap_json_user}
     else
       response_custom_error("error", "account or password is incorrect")

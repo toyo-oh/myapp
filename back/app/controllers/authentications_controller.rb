@@ -5,7 +5,8 @@ class AuthenticationsController < UsersController
 	def create
 		user = User.find_by(email: params[:email])
 		if user && user.authenticate(params[:password])
-			payload = { user_id: user.id, email: user.email }
+			expired = (Time.now + 1.hours).to_i
+			payload = { user_id: user.id, email: user.email, expired: expired }
 			token = encode_token(payload)
 			render json: { jwt: token, message: "logged in successfully!" }
 		else

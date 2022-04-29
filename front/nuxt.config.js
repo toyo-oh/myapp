@@ -75,6 +75,12 @@ export default {
   },
 
   auth: {
+    cookie: {
+      options: {
+       maxAge: 60 * 60 * 24 * 1
+      }
+    },
+    localStorage: false,
     redirect: {
       login: '/login', 
       logout: '/login',
@@ -87,9 +93,7 @@ export default {
           login: { url: '/api/login', method: 'post', propertyName: 'jwt' },
           user: { url: '/api/user/current_user', method: 'get', propertyName: 'user'},
           logout: false,
-          // TODO refresh token
           // refresh: { url: '/api/user/refresh', method: 'post' },
-          // logout: {url: '/api/logout', method: 'post', propertyName: false}
         },
         // refreshToken: {
         //   property: 'refresh_token',
@@ -102,7 +106,7 @@ export default {
 
   toast: {
     position: 'top-center',
-    duration: 5000,
+    duration: 3000,
     theme:'outline'
   },
 
