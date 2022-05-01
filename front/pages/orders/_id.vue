@@ -234,6 +234,7 @@ export default {
           product.title = orderItems[m].product_title;
           product.price = orderItems[m].price;
           product.cnt = orderItems[m].quantity;
+          product.property = orderItems[m].property;
           product.image = "http://localhost:3000" + orderItems[m].image;
           tmpProducts.push(product);
           tmpTotal += orderItems[m].subtotal;

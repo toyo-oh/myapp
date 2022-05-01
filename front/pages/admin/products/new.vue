@@ -21,7 +21,7 @@
       </v-row>
       <v-row justify="center">
         <v-col cols="6" md="6">
-          <product-form ref="productForm" :promotionDialog.sync="promotionDialog" :id="product.id" :title.sync="product.title" :subTitle.sync="product.subTitle" :categoryId.sync="product.categoryId" :description.sync="product.description" :price.sync="product.price" :quantity.sync="product.quantity" :tags.sync="product.tags" :isAvailable.sync="product.isAvailable" :photoSrcs.sync="product.photoSrcs" :images.sync="product.images" :promotions="product.promotions" @submit-product="createProduct()" submitButton="Add Product"></product-form>
+          <product-form ref="productForm" :promotionDialog.sync="promotionDialog" :id="product.id" :title.sync="product.title" :subTitle.sync="product.subTitle" :categoryId.sync="product.categoryId" :description.sync="product.description" :price.sync="product.price" :quantity.sync="product.quantity" :tags.sync="product.tags" :property.sync="product.property" :isAvailable.sync="product.isAvailable" :photoSrcs.sync="product.photoSrcs" :images.sync="product.images" :promotions="product.promotions" @submit-product="createProduct()" submitButton="Add Product"></product-form>
         </v-col>
       </v-row>
       <promotion-form ref="promotionForm" :promotionDialog="promotionDialog" :proActive.sync="promotion.proActive" :proTitle.sync="promotion.proTitle" :proDiscount.sync="promotion.proDiscount" :proStartAt.sync="promotion.proStartAt" :proEndAt.sync="promotion.proEndAt" @add-promotion="addPromotion()" @close-dialog="closeDialog()"></promotion-form>
@@ -53,6 +53,7 @@ export default {
         quantity: null,
         categoryId: null,
         tags: '',
+        property: '',
         photoSrcs: [],
         images: [],
         promotions: []
@@ -95,6 +96,7 @@ export default {
           }
           formData.append("category_id", this.product.categoryId);
           formData.append("tags", this.product.tags ? this.product.tags : "");
+          formData.append("property", this.product.property);
           formData.append("promotions", JSON.stringify(this.product.promotions));
           this.$axios.post("/api/admin/products", formData, config).then((res) => {
             if (res.data.code === "error") {

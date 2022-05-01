@@ -21,7 +21,7 @@
       </v-row>
       <v-row justify="center">
         <v-col cols="6">
-          <product-form ref="productForm" :promotionDialog.sync="promotionDialog" :title.sync="product.title" :subTitle.sync="product.subTitle" :categoryId.sync="product.categoryId" :description.sync="product.description" :price.sync="product.price" :quantity.sync="product.quantity" :tags.sync="product.tags" :isAvailable.sync="product.isAvailable" :photoSrcs.sync="product.photoSrcs" :images.sync="product.images" :isImgChange.sync="isImgChange" :promotions="product.promotions" @submit-product="updateProduct()"></product-form>
+          <product-form ref="productForm" :promotionDialog.sync="promotionDialog" :title.sync="product.title" :subTitle.sync="product.subTitle" :categoryId.sync="product.categoryId" :description.sync="product.description" :price.sync="product.price" :quantity.sync="product.quantity" :tags.sync="product.tags" :property.sync="product.property" :isAvailable.sync="product.isAvailable" :photoSrcs.sync="product.photoSrcs" :images.sync="product.images" :isImgChange.sync="isImgChange" :promotions="product.promotions" @submit-product="updateProduct()"></product-form>
         </v-col>
       </v-row>
       <promotion-form ref="promotionForm" :promotionDialog="promotionDialog" :proActive.sync="promotion.proActive" :proTitle.sync="promotion.proTitle" :proDiscount.sync="promotion.proDiscount" :proStartAt.sync="promotion.proStartAt" :proEndAt.sync="promotion.proEndAt" @add-promotion="addPromotion()" @close-dialog="closeDialog()"></promotion-form>
@@ -52,6 +52,7 @@ export default {
         price: null,
         quantity: null,
         tags: '',
+        property: '',
         isAvailable: false,
         photoSrcs: [],
         images: [],
@@ -87,6 +88,7 @@ export default {
         this.product.price = Number(res.product.price);
         this.product.quantity = Number(res.product.quantity);
         this.product.tags = res.product.tags;
+        this.product.property = res.product.property;
         this.product.images = tmpImages;
         this.product.photoSrcs = tmpImages;
         this.product.isAvailable = res.product.is_available;
@@ -119,6 +121,7 @@ export default {
           }
           formData.append("category_id", this.product.categoryId);
           formData.append("tags", this.product.tags ? this.product.tags : "");
+          formData.append("property", this.product.property);
           formData.append("promotions", JSON.stringify(this.product.promotions));
           this.$axios.put(`api/admin/products/${this.product.hashid}`, formData, config).then((res) => {
             if (res.data.code === "error") {

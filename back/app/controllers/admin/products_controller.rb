@@ -95,7 +95,7 @@ class Admin::ProductsController < ApplicationController
 
     private
     def product_params
-        params.permit(:title, :sub_title, :category_id, :description, :price, :quantity,:tags, {images:[]}, :is_available, {promotions:[]})
+        params.permit(:title, :sub_title, :category_id, :description, :price, :quantity,:tags, :property, {images:[]}, :is_available, {promotions:[]})
     end
 
     def find_product

@@ -31,25 +31,34 @@
     </div>
     <div v-for="item in details" :key="item.id">
       <div class="d-flex align-center justify-space-around flex-wrap  pa-4">
-        <div class="d-flex align-center flex-wrap me-4">
-          <router-link :to="{name: 'products-id', params: {id: item.product_hashid}}">
-            <v-avatar tile size="64" class="me-4">
-              <img :src="item.image" max-height="100" max-width="100">
-            </v-avatar>
-          </router-link>
-          <div>
-            <div class="text-14">
-              {{ item.product_title }}
+        <v-row>
+          <v-col cols="2">
+          </v-col>
+          <v-col cols="4">
+            <div class="d-flex align-center flex-wrap me-4">
+              <router-link :to="{name: 'products-id', params: {id: item.product_hashid}}">
+                <v-avatar tile size="64" class="me-4">
+                  <img :src="item.image" max-height="100" max-width="100">
+                </v-avatar>
+              </router-link>
+              <div>
+                <div class="text-14">
+                  {{ item.product_title }}
+                </div>
+                <div class="text-14 grey--text text--darken-2">
+                  ¥{{ item.price }} x {{ item.quantity }}
+                </div>
+              </div>
             </div>
-            <div class="text-14 grey--text text--darken-2">
-              ¥{{ item.price }} x {{ item.quantity }}
+          </v-col>
+          <v-col cols="6">
+            <div class="d-flex align-center flex-wrap me-4 mt-4">
+              <p class="mb-0 grey--text text--darken-2">
+                {{ item.property }}
+              </p>
             </div>
-          </div>
-        </div>
-        <p class="mb-0 grey--text text--darken-2">
-          Product properties: TODO
-        </p>
-        <!-- <v-btn :disabled="isAdmin" text color="brown lighten-1" class="text-capitalize font-weight-bold" @click="$emit('review-product', item.id)">Write a Review</v-btn> -->
+          </v-col>
+        </v-row>
       </div>
     </div>
     <div class="grey lighten-3 d-flex justify-space-around flex-wrap">

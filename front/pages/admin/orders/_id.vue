@@ -188,6 +188,7 @@ export default {
           product.title = orderItems[m].product_title;
           product.price = orderItems[m].price;
           product.cnt = orderItems[m].quantity;
+          product.property = orderItems[m].property;
           // TODO baseURL
           product.image = "http://localhost:3000" + orderItems[m].image;
           // this.products[m].image = this.$axios.baseURL + this.products[m].image.thumb.url;

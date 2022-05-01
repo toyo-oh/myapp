@@ -29,6 +29,7 @@ class Order < ApplicationRecord
 		di.subtotal = price * di.quantity
 		di.remark = remark
     di.image = image
+    di.property = product.property
 		di.save!
 	end
 

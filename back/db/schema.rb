@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_29_081441) do
+ActiveRecord::Schema.define(version: 2022_05_01_035101) do
 
   create_table "addresses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "user_id"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 2022_04_29_081441) do
     t.integer "order_id", null: false
     t.integer "price"
     t.string "image"
+    t.string "property"
   end
 
   create_table "orders", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -117,6 +118,7 @@ ActiveRecord::Schema.define(version: 2022_04_29_081441) do
     t.json "tags"
     t.string "sub_title"
     t.float "discount"
+    t.string "property"
   end
 
   create_table "promotions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

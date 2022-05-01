@@ -31,6 +31,9 @@
                           <span class="brown--text text--darken-4 ms-2">¥{{item.price * item.cnt}}</span>
                         </p>
                       </div>
+                      <div>
+                        <p class="grey--text text--darken-1 mb-0">{{item.property}}</p>
+                      </div>
                     </div>
                     <v-btn icon @click="showDeleteDialog(item)">
                       <v-icon>mdi-close</v-icon>

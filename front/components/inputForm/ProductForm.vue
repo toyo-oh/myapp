@@ -9,6 +9,7 @@
     <v-text-field outlined dense color="brown lighten-3" :value="price" @input="$emit('update:price', Number($event))" label="Price" type="number" :rules="priceRules"></v-text-field>
     <v-text-field outlined dense color="brown lighten-3" :value="quantity" @input="$emit('update:quantity', Number($event))" label="Quantity" type="number" :rules="quantityRules"></v-text-field>
     <v-text-field outlined dense color="brown lighten-3" :value="tags" @input="$emit('update:tags', $event)" label="Tags" hint="separate tags with commas(,)"></v-text-field>
+    <v-text-field outlined dense color="brown lighten-3" :value="property" @input="$emit('update:property', $event)" label="Property" hint="size, weight..."></v-text-field>
     <div class="d-flex justify-start mb-2">
       <v-img v-for="photo in photoSrcs" :key="photo" :src="photo" height="120" width="120" max-height="120" max-width="120"></v-img>
     </div>
@@ -55,6 +56,7 @@ export default {
     price: Number,
     quantity: Number,
     tags: String,
+    property: String,
     isAvailable: Boolean,
     photoSrcs: Array,
     images: Array,
