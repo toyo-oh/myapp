@@ -6,7 +6,7 @@
         <v-row>
           <v-col cols="12" xl="12" lg="12">
             <v-carousel cycle height="100%" light hide-delimiter-background show-arrows-on-hover :show-arrows="false">
-              <v-carousel-item v-for="(item, index) in sliders" :key="index">
+              <v-carousel-item v-for="(item, index) in slideProducts" :key="index">
                 <v-sheet height="100%" light>
                   <v-row class="fill-height" align="center">
                     <v-col cols="7" lg="8" class="mb-14 mb-sm-0">
@@ -239,26 +239,7 @@ export default {
       category2: [],
       category3: [],
       category4: [],
-      // TODO (top products)
-      sliders: [
-        {
-          'id': 2,
-          'image': 'http://localhost:3000/uploads/product/images/2/medium_lamp2.jpeg',
-          'title': '2_titletitletitletitletitletitletitletitle',
-          'sub_title': '2_sub_titlesub_titlesub_titlesub_titlesub_titlesub_title'
-        },
-        {
-          'id': 26,
-          'image': 'http://localhost:3000/uploads/product/images/26/medium_cup1.jpg',
-          'title': '26_titletitletitletitletitletitletitletitle',
-          'sub_title': '26_sub_titlesub_titlesub_titlesub_titlesub_titlesub_title'
-        },
-        {
-          'id': 23,
-          'image': 'http://localhost:3000/uploads/product/images/23/medium_table2.jpeg',
-          'title': '23_titletitletitletitletitletitletitletitle',
-          'sub_title': '23_sub_titlesub_titlesub_titlesub_titlesub_titlesub_title'
-        }]
+      slideProducts: []
     };
   },
   methods: {
@@ -274,6 +255,7 @@ export default {
         this.category2 = this.setImagePath(res.data.category_2, "medium");
         this.category3 = this.setImagePath(res.data.category_3, "medium");
         this.category4 = this.setImagePath(res.data.category_4, "medium");
+        this.slideProducts = this.setImagePath(res.data.slide_products, "medium");
       });
     },
     // TODO image path

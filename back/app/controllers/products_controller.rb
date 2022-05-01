@@ -118,6 +118,9 @@ class ProductsController < ApplicationController
         @category_2 = Product.where("is_available = 1 AND quantity > 0 AND category_id = ?", 2).limit(limit_cnt_2)
         @category_3 = Product.where("is_available = 1 AND quantity > 0 AND category_id = ?", 3).limit(limit_cnt_2)
         @category_4 = Product.where("is_available = 1 AND quantity > 0 AND category_id = ?", 4).limit(limit_cnt_2)
+        # slide products
+        slide_config = Rails.application.config_for(:promotion, env: Rails.env)
+        @slide_products = Product.find(slide_config["slide_products"])     
         render :json => {:new_arrivals => set_discount_to_list(@new_arrivals).as_json(methods: [:hashid], except:[:id, :created_at, :updated_at]), 
                         :best_sellers => set_discount_to_list(@best_sellers).as_json(methods: [:hashid], except:[:id, :created_at, :updated_at]), 
                         :top_rankings =>set_discount_to_list(@top_rankings).as_json(methods: [:hashid], except:[:id, :created_at, :updated_at]), 
@@ -125,7 +128,9 @@ class ProductsController < ApplicationController
                         :category_1 => set_discount_to_list(@category_1).as_json(methods: [:hashid], except:[:id, :created_at, :updated_at]), 
                         :category_2 => set_discount_to_list(@category_2).as_json(methods: [:hashid], except:[:id, :created_at, :updated_at]), 
                         :category_3 => set_discount_to_list(@category_3).as_json(methods: [:hashid], except:[:id, :created_at, :updated_at]), 
-                        :category_4 => set_discount_to_list(@category_4).as_json(methods: [:hashid], except:[:id, :created_at, :updated_at])}
+                        :category_4 => set_discount_to_list(@category_4).as_json(methods: [:hashid], except:[:id, :created_at, :updated_at]),
+                        :slide_products => set_discount_to_list(@slide_products).as_json(methods: [:hashid], except:[:id, :created_at, :updated_at])
+                    }
     end
 
     def self.get_discount(product)

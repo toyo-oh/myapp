@@ -1,0 +1,6 @@
+development:
+  slide_products: [2, 26, 36]
+test:
+  slide_products: [2, 26, 36]
+production:
+  slide_products: [2, 26, 36]
