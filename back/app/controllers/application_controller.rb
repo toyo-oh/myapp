@@ -1,9 +1,8 @@
 class ApplicationController < ActionController::API
-  
   SECRET_KEY_BASE = Rails.application.credentials.secret_key_base
-	rescue_from StandardError, with: :response_internal_server_error
+  rescue_from StandardError, with: :response_internal_server_error
   rescue_from ActiveRecord::RecordNotFound, with: :response_page_not_found
-  
+
   def response_admin_unauthorized
     render status: 401, json: { code: 401, message: 'Admin Unauthorized' }
   end
@@ -37,27 +36,27 @@ class ApplicationController < ActionController::API
   end
 
   def require_admin
-    response_admin_unauthorized if !validate_user.admin?
+    response_admin_unauthorized unless validate_user.admin?
   end
 
-  # TODO rewrite(hashids.decode)
+  # TODO: rewrite(hashids.decode)
   def decode_user_id(hashid)
-    return User.find(hashid).id
+    User.find(hashid).id
   end
 
-  # TODO rewrite(hashids.decode)
+  # TODO: rewrite(hashids.decode)
   def decode_product_id(hashid)
-    return Product.find(hashid).id
+    Product.find(hashid).id
   end
 
-  # TODO rewrite(hashids.decode)
+  # TODO: rewrite(hashids.decode)
   def decode_address_id(hashid)
-    return Address.find(hashid).id
+    Address.find(hashid).id
   end
 
-  # TODO rewrite(hashids.decode)
+  # TODO: rewrite(hashids.decode)
   def decode_payment_id(hashid)
-    return Payment.find(hashid).id
+    Payment.find(hashid).id
   end
 
   def validate_user
@@ -88,8 +87,8 @@ class ApplicationController < ActionController::API
   end
 
   private
-    def auth_header
-      request.headers['Authorization']
-    end
 
+  def auth_header
+    request.headers['Authorization']
+  end
 end

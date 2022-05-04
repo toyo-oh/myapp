@@ -7,7 +7,7 @@
 #
 # set :output, "/path/to/my/cron_log.log"
 
-require File.expand_path(File.dirname(__FILE__) + "/environment")
+require File.expand_path(File.dirname(__FILE__) + '/environment')
 rails_env = ENV['RAILS_ENV'] || :development
 set :environment, rails_env
 set :output, "#{Rails.root}/log/cron.log"
@@ -29,7 +29,7 @@ ENV.each { |k, v| env(k, v) }
 # end
 
 every 1.day, at: '01:00 am' do
-  runner "OrderTrackingNano.order_tracking"
+  runner 'OrderTrackingNano.order_tracking'
 end
 
 # Learn more: http://github.com/javan/whenever
