@@ -44,7 +44,7 @@
           <p v-else class="text-overline">Out Of Stock</p>
         </div>
         <div class="mb-6">
-          <v-btn v-if="!is_admin &&isAvailable && quantity > 0" dark x-large width="250" @click="addToCart({'hashid':hashid, 'price':price})" color="brown lighten-1" class="text-capitalize mb-3">
+          <v-btn v-if="!isAdmin &&isAvailable && quantity > 0" dark x-large width="250" @click="addToCart({'hashid':hashid, 'price':price})" color="brown lighten-1" class="text-capitalize mb-3">
             Add to Cart
           </v-btn>
           <v-btn v-else x-large width="250" color="brown lighten-1" class="text-capitalize mb-3" disabled>
@@ -154,7 +154,7 @@ export default {
     }
   },
   computed: {
-    is_admin () {
+    isAdmin () {
       return this.$auth && this.$auth.user && this.$auth.user.is_admin ? true : false
     }
   },

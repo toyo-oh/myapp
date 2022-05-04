@@ -72,7 +72,7 @@
                   <p class="mb-4">Shipping Fee</p>
                   <h4>¥{{shippingFee}}</h4>
                 </div>
-                <v-btn v-if="!$auth.user.is_admin" dark color="brown lighten-1" class="text-capitalize mb-4" block @click="checkOut">
+                <v-btn v-if="!isAdmin" dark color="brown lighten-1" class="text-capitalize mb-4" block @click="checkOut">
                   Checkout Now
                 </v-btn>
               </div>
@@ -117,6 +117,9 @@ export default {
     this.loadPrefectures();
   },
   computed: {
+    isAdmin: function () {
+      return this.$auth && this.$auth.user && this.$auth.user.is_admin ? true : false
+    }
   },
   methods: {
     getProductList () {

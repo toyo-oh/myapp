@@ -206,12 +206,14 @@ export default {
       reviewPid: null,
       reviewDialog: false,
       dialogCancel: false,
-      isAdmin: this.$auth && this.$auth.user && this.$auth.user.is_admin ? true : false,
       checkpoints: [],
       tracking_title: ''
     };
   },
   computed: {
+    isAdmin: function () {
+      return this.$auth && this.$auth.user && this.$auth.user.is_admin ? true : false
+    },
     displayCancelBtn: function () {
       return this.orderStatus == 'order_placed' || this.orderStatus == 'paid' ? true : false
     },

@@ -154,7 +154,6 @@ export default {
       isPaid: false,
       dialogCancel: false,
       dialogShip: false,
-      isAdmin: this.$auth && this.$auth.user && this.$auth.user.is_admin ? true : false,
       // carrierList: [{ "label": "Sagawa", "slug": "sagawa" }, { "label": "Yamato", "slug": "taqbin-jp" }],
       carrierList: [{ "label": "Yamato", "slug": "taqbin-jp" }],
       valid: true,
@@ -169,6 +168,9 @@ export default {
     };
   },
   computed: {
+    isAdmin: function () {
+      return this.$auth && this.$auth.user && this.$auth.user.is_admin ? true : false
+    },
     displayTrackingInfo: function () {
       return this.orderStatus == 'shipping' || this.orderStatus == 'delivered' ? true : false
     }
