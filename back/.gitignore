@@ -13,6 +13,8 @@ rerun.txt
 pickle-email-*.html
 
 # Ignore all logfiles and tempfiles.
+/.cache/*
+/.gem/*
 /log/*
 /tmp/*
 !/log/.keep
