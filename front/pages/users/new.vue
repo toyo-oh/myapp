@@ -44,7 +44,7 @@ export default ({
       password: '',
       passwordConfirmation: '',
       email: '',
-      is_admin: false,
+      isAdmin: false,
       agree: '',
       nameRules: [
         v => !!v || 'Name is required',
@@ -74,7 +74,7 @@ export default ({
           password: this.password,
           password_confirmation: this.passwordConfirmation,
           email: this.email,
-          is_admin: this.is_admin
+          isAdmin: this.isAdmin
         }).then((res) => {
           if (res.data.code === "error") {
             this.$toast.error(res.data.message);
