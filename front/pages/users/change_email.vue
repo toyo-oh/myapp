@@ -77,10 +77,8 @@ export default {
               this.$toast.error(res.data.message);
             } else {
               this.$toast.show(res.data.message);
-              this.$auth.loginWith('local', { data: { email: res.data.user.email, password: this.password } })
-                .then(() => {
-                  this.$router.push(`/users/${this.$auth.user.hashid}`);
-                });
+              this.$auth.logout();
+              this.$router.push(`/login`);
             }
           }).catch((err) => {
             if (err.response && err.response.status === 401) {
