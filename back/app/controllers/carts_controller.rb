@@ -1,5 +1,5 @@
 class CartsController < ApplicationController
-  before_action :require_login, only: %i[find_cart_items get_checkout_info remove_from_cart]
+  before_action :require_login, only: %i[find_cart_items find_checkout_info remove_from_cart]
 
   def current_cart
     @current_cart ||= find_cart
@@ -19,13 +19,11 @@ class CartsController < ApplicationController
     else
       @cart_items = cart.cart_items
       render json: { productList: @cart_items.as_json(methods: [:product_hashid],
-                                                      except: %i[
-                                                        id cart_id product_id created_at updated_at
-                                                      ]) }
+                                                      except: %i[id cart_id product_id created_at updated_at]) }
     end
   end
 
-  def get_checkout_info
+  def find_checkout_info
     user_id = decode_user_id(params[:user_id])
     @cart = Cart.find_by(user_id: user_id)
     if @cart.blank?
@@ -37,7 +35,9 @@ class CartsController < ApplicationController
       # as_json	vs to_json, to_json	with escape
       render json: {
         cart_items: @cart_items.as_json(include: :product, methods: [:product_hashid],
-                                        except: %i[created_at updated_at product_id]), address: @address.wrap_json_address, payment: @payment.wrap_json_payment
+                                        except: %i[created_at updated_at product_id]), 
+        address: @address.wrap_json_address, 
+        payment: @payment.wrap_json_payment
       }
     end
   end
@@ -52,7 +52,7 @@ class CartsController < ApplicationController
       end
       @products = Product.where(id: ids)
       @products.each do |item|
-        item.discount = ProductsController.get_discount(item)
+        item.discount = ProductsController.cal_discount(item)
       end
       render json: { products: @products.as_json(methods: [:hashid], except: %i[created_at updated_at id]) }
     end

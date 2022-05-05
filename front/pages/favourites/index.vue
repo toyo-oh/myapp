@@ -78,7 +78,7 @@ export default {
   methods: {
     ...mapActions(['addToCart']),
     loadData () {
-      this.$axios.$get(`/api/favourites/get_favourites_by_user_id/${this.$auth.user.hashid}`).then((res) => {
+      this.$axios.$get(`/api/favourites/list_favourites_by_user_id/${this.$auth.user.hashid}`).then((res) => {
         var products = res.products;
         for (var m = 0; m < products.length; m++) {
           products[m].image = "http://localhost:3000" + products[m].images[0].medium.url;

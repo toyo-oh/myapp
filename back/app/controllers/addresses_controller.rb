@@ -1,6 +1,6 @@
 class AddressesController < ApplicationController
   before_action :require_login, only: %i[create find_by_user_id set_default]
-  before_action :get_address_with_auth_check, only: %i[show update destroy]
+  before_action :auth_check, only: %i[show update destroy]
 
   def create
     user_id = decode_user_id(params[:user_id])
@@ -24,12 +24,12 @@ class AddressesController < ApplicationController
   end
 
   def show
-    @address = get_address_with_auth_check
+    @address = auth_check
     render json: @address.wrap_json_address
   end
 
   def update
-    @address = get_address_with_auth_check
+    @address = auth_check
     @prefecture_item = ShippingFee.find(params[:prefecture_id])
     @address.detail_address = @prefecture_item.prefecture + params[:city] + params[:detail]
     if !@address.update!(address_params)
@@ -40,7 +40,7 @@ class AddressesController < ApplicationController
   end
 
   def destroy
-    @address = get_address_with_auth_check
+    @address = auth_check
     if !@address.destroy
       render response_unprocessable_entity(@address.errors)
     else
@@ -49,7 +49,7 @@ class AddressesController < ApplicationController
   end
 
   def set_default
-    @new_address = get_address_with_auth_check
+    @new_address = auth_check
     @old_address = Address.find(params[:old_id])
     Address.transaction do
       @old_address.update!(is_default: 0)
@@ -58,12 +58,12 @@ class AddressesController < ApplicationController
     render json: { code: 'ok', message: 'set default address successfully!' }
   end
 
-  def get_prefectures
+  def list_prefectures
     @prefectures = ShippingFee.find_by_sql('SELECT id, prefecture FROM shipping_fees')
     render json: @prefectures
   end
 
-  def get_shipping_fee
+  def find_shipping_fee
     @address = Address.find(params[:address_id])
     @shipping_fee = ShippingFee.find(@address.prefecture_id)
     render json: @shipping_fee
@@ -75,7 +75,7 @@ class AddressesController < ApplicationController
     params.permit(:receiver, :phone_number, :post_code, :prefecture_id, :city, :detail)
   end
 
-  def get_address_with_auth_check
+  def auth_check
     if validate_user.blank?
       response_unauthorized
     else

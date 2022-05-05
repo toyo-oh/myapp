@@ -149,7 +149,7 @@ export default {
       this.createOrder(token.id);
     },
     loadData () {
-      this.$axios.get(`api/cart/get_checkout_info/${this.$auth.user.hashid}`).then((res) => {
+      this.$axios.get(`api/cart/find_checkout_info/${this.$auth.user.hashid}`).then((res) => {
         if (res.data.code === "error") {
           this.$toast.error(res.data.message);
         } else {
@@ -174,7 +174,7 @@ export default {
     },
     getShipping () {
       if (this.addressId) {
-        this.$axios.get(`api/addresses/get_shipping_fee/${this.addressId}`).then((res) => {
+        this.$axios.get(`api/addresses/find_shipping_fee/${this.addressId}`).then((res) => {
           this.shippingFee = res.data.fee
         });
       }

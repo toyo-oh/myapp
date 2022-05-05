@@ -1,0 +1,51 @@
+AllCops:
+  TargetRubyVersion: 2.6
+  Exclude:
+    - "db/**/*"
+    - "config/**/*"
+    - "script/**/*"
+    - "bin/{rails,rake,bundle,setup,spring}"
+    - !ruby/regexp /old_and_unused\.rb$/
+    - "test/**/*"
+    - "uploaders/**/*"
+    - "vendor/**/*"
+    - "Gemfile"
+    - "Rakefile"
+    - "channels/**/*"
+    - "spec/{rails_helper.rb,spec_helper.rb}"
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: false
+
+# Style/ClassAndModuleChildren:
+#   EnforcedStyle: compact
+
+Layout/TrailingWhitespace:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 140
+
+Metrics/AbcSize:
+  Max: 100
+
+Metrics/MethodLength:
+  Max: 50
+
+Metrics/BlockLength:
+  Max: 100
+
+Metrics/ClassLength:
+  Max: 500
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+Metrics/PerceivedComplexity:
+  Max: 10

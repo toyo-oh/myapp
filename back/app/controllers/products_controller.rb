@@ -1,18 +1,19 @@
 class ProductsController < ApplicationController
   before_action :require_login,
-                only: %i[add_to_cart decrease_of_cart add_favourite cancel_favourite get_favourites_by_user_id]
+                only: %i[add_to_cart decrease_of_cart add_favourite cancel_favourite list_favourites_by_user_id]
 
   def show
     @product = find_product
     @reviews = @product.reviews
     avg_rate = Review.where(product_id: @product.id).average('rate')
     # discount
-    @product.discount = ProductsController.get_discount(@product)
+    @product.discount = ProductsController.cal_discount(@product)
     # related_products
     if !@product.tags.blank?
-      segments, tags = set_tags_like @product.tags.split(',')
+      segments, tags = concat_tags_like @product.tags.split(',')
       @related_products = Product.where(
-        '(' + segments.join(' OR ') + ' OR category_id = ?) AND is_available = 1 AND quantity > 0 AND id <> ?', *tags, @product.category_id, @product.id
+        format('(%s OR category_id = ?) AND is_available = 1 AND quantity > 0 AND id <> ?', segments.join(' OR ')), 
+        *tags, @product.category_id, @product.id
       )
     else
       @related_products = Product.where('is_available = 1 AND quantity > 0 AND category_id = ? AND id <> ?',
@@ -30,18 +31,16 @@ class ProductsController < ApplicationController
       except: %i[id created_at updated_at],
       include: { reviews: { only: %i[rate comment created_at], include: { user: { only: :name } } } }
     ),
-                   avg_rate: avg_rate,
-                   is_fav: is_fav,
-                   related_products: set_discount_to_list(@related_products).as_json(methods: :hashid,
-                                                                                     except: %i[
-                                                                                       id created_at updated_at
-                                                                                     ]) }
+      avg_rate: avg_rate,
+      is_fav: is_fav,
+      related_products: discount_setting(@related_products).as_json(methods: :hashid,
+                                                                    except: %i[id created_at updated_at]) }
   end
 
   def add_to_cart
     user_id = decode_user_id(params[:user_id])
     @product = Product.find(params[:product_id])
-    discount = ProductsController.get_discount(@product)
+    discount = ProductsController.cal_discount(@product)
     @product.price = (@product.price * (1 - discount)).round(0)
     @current_cart = Cart.find_by(user_id: user_id)
     # cart is not exist
@@ -81,93 +80,80 @@ class ProductsController < ApplicationController
   end
 
   def search
-    if params[:value] == 'best_sellers'
+    case params[:value] 
+    when 'best_sellers'
       @products = Product.joins('INNER JOIN (SELECT product_id, sum(quantity) as count FROM order_details GROUP BY product_id) order_sum ON products.id = order_sum.product_id where products.is_available = 1 AND products.quantity > 0').order('order_sum.count DESC')
-    elsif params[:value] == 'new_arrivals'
+    when 'new_arrivals'
       @products = Product.where('is_available = 1 AND quantity > 0').order(created_at: :desc)
-    elsif params[:value] == 'top_rankings'
+    when 'top_rankings'
       @products = Product.joins('INNER JOIN (SELECT product_id ,avg(rate) as avg_rate from reviews GROUP BY product_id) rate_result ON products.id = rate_result.product_id where products.is_available = 1 AND products.quantity > 0').order('rate_result.avg_rate DESC')
-    elsif params[:value] == 'big_discounts'
+    when 'big_discounts'
       today = Time.new.strftime('%Y-%m-%d')
       @products = Product.find_by_sql([
                                         'SELECT * FROM products INNER JOIN (SELECT product_id, sum(discount) as all_discount FROM promotions where start_at <= ? AND end_at >= ? AND is_active = 1 group by product_id) active_promotion ON products.id = active_promotion.product_id where products.is_available = 1 AND products.quantity > 0 ORDER BY active_promotion.all_discount DESC', today, today
                                       ])
-    elsif params[:value] == 'category_1'
+    when 'category_1'
       @products = Product.where('is_available = 1 AND quantity > 0 AND category_id = ?', 1)
-    elsif params[:value] == 'category_2'
+    when 'category_2'
       @products = Product.where('is_available = 1 AND quantity > 0 AND category_id = ?', 2)
-    elsif params[:value] == 'category_3'
+    when 'category_3'
       @products = Product.where('is_available = 1 AND quantity > 0 AND category_id = ?', 3)
-    elsif params[:value] == 'category_4'
+    when 'category_4'
       @products = Product.where('is_available = 1 AND quantity > 0 AND category_id = ?', 4)
     else
       @products = Product.where(
-        'is_available = 1 AND quantity > 0 AND (title LIKE :search OR description LIKE :search)', search: "%#{params[:value]}%"
+        'is_available = 1 AND quantity > 0 AND (title LIKE :search OR description LIKE :search)', 
+        search: "%#{params[:value]}%"
       )
     end
     @products.each do |item|
-      item.discount = ProductsController.get_discount(item)
+      item.discount = ProductsController.cal_discount(item)
     end
     render json: { products: @products.as_json(methods: [:hashid], except: %i[id created_at updated_at]) }
   end
 
   def index
-    limit_cnt_1 = 6
-    limit_cnt_2 = 8
+    limit_cnt1 = 6
+    limit_cnt2 = 8
     today = Time.new.strftime('%Y-%m-%d')
     # New Arrivals order by created_at desc
-    @new_arrivals = Product.where('is_available = 1 AND quantity > 0').order(created_at: :desc).limit(limit_cnt_1)
+    @new_arrivals = Product.where('is_available = 1 AND quantity > 0').order(created_at: :desc).limit(limit_cnt1)
     # Best sellers order_details group by product_id sum(quantity) desc
-    @best_sellers = Product.joins('INNER JOIN (SELECT product_id, sum(quantity) as count FROM order_details GROUP BY product_id) order_sum ON products.id = order_sum.product_id where products.is_available = 1 AND products.quantity > 0').order('order_sum.count DESC').limit(limit_cnt_1)
+    @best_sellers = Product.joins('INNER JOIN (SELECT product_id, sum(quantity) as count FROM order_details GROUP BY product_id) order_sum 
+                                  ON products.id = order_sum.product_id where products.is_available = 1 AND products.quantity > 0')
+                                  .order('order_sum.count DESC').limit(limit_cnt1)
     # Top Ratings reviews group by product_id avg(rate) desc
-    @top_rankings = Product.joins('INNER JOIN (SELECT product_id ,avg(rate) as avg_rate from reviews GROUP BY product_id) rate_result ON products.id = rate_result.product_id where products.is_available = 1 AND products.quantity > 0').order('rate_result.avg_rate DESC').limit(limit_cnt_1)
+    @top_rankings = Product.joins('INNER JOIN (SELECT product_id ,avg(rate) as avg_rate from reviews GROUP BY product_id) rate_result 
+                                  ON products.id = rate_result.product_id where products.is_available = 1 AND products.quantity > 0')
+                                  .order('rate_result.avg_rate DESC').limit(limit_cnt1)
     # Big Discounts promotions group by product_id sum(discount)
     @big_discounts = Product.find_by_sql([
-                                           'SELECT * FROM products INNER JOIN (SELECT product_id, sum(discount) as all_discount FROM promotions where start_at <= ? AND end_at >= ? AND is_active = 1 group by product_id) active_promotion ON products.id = active_promotion.product_id where products.is_available = 1 AND products.quantity > 0 ORDER BY active_promotion.all_discount DESC limit ?', today, today, limit_cnt_1
+                                           'SELECT * FROM products 
+                                           INNER JOIN (SELECT product_id, sum(discount) as all_discount FROM promotions 
+                                           where start_at <= ? AND end_at >= ? AND is_active = 1 group by product_id) active_promotion 
+                                           ON products.id = active_promotion.product_id 
+                                           where products.is_available = 1 AND products.quantity > 0 ORDER BY active_promotion.all_discount DESC limit ?', 
+                                           today, today, limit_cnt1
                                          ])
-    @category_1 = Product.where('is_available = 1 AND quantity > 0 AND category_id = ?', 1).limit(limit_cnt_2)
-    @category_2 = Product.where('is_available = 1 AND quantity > 0 AND category_id = ?', 2).limit(limit_cnt_2)
-    @category_3 = Product.where('is_available = 1 AND quantity > 0 AND category_id = ?', 3).limit(limit_cnt_2)
-    @category_4 = Product.where('is_available = 1 AND quantity > 0 AND category_id = ?', 4).limit(limit_cnt_2)
+    @category1 = Product.where('is_available = 1 AND quantity > 0 AND category_id = ?', 1).limit(limit_cnt2)
+    @category2 = Product.where('is_available = 1 AND quantity > 0 AND category_id = ?', 2).limit(limit_cnt2)
+    @category3 = Product.where('is_available = 1 AND quantity > 0 AND category_id = ?', 3).limit(limit_cnt2)
+    @category4 = Product.where('is_available = 1 AND quantity > 0 AND category_id = ?', 4).limit(limit_cnt2)
     # slide products
     slide_config = Rails.application.config_for(:promotion, env: Rails.env)
     @slide_products = Product.find(slide_config['slide_products'])
-    render json: { new_arrivals: set_discount_to_list(@new_arrivals).as_json(methods: [:hashid], except: %i[id created_at updated_at]),
-                   best_sellers: set_discount_to_list(@best_sellers).as_json(methods: [:hashid],
-                                                                             except: %i[
-                                                                               id created_at updated_at
-                                                                             ]),
-                   top_rankings: set_discount_to_list(@top_rankings).as_json(methods: [:hashid],
-                                                                             except: %i[
-                                                                               id created_at updated_at
-                                                                             ]),
-                   big_discounts: set_discount_to_list(@big_discounts).as_json(methods: [:hashid],
-                                                                               except: %i[
-                                                                                 id created_at updated_at
-                                                                               ]),
-                   category_1: set_discount_to_list(@category_1).as_json(methods: [:hashid],
-                                                                         except: %i[
-                                                                           id created_at updated_at
-                                                                         ]),
-                   category_2: set_discount_to_list(@category_2).as_json(methods: [:hashid],
-                                                                         except: %i[
-                                                                           id created_at updated_at
-                                                                         ]),
-                   category_3: set_discount_to_list(@category_3).as_json(methods: [:hashid],
-                                                                         except: %i[
-                                                                           id created_at updated_at
-                                                                         ]),
-                   category_4: set_discount_to_list(@category_4).as_json(methods: [:hashid],
-                                                                         except: %i[
-                                                                           id created_at updated_at
-                                                                         ]),
-                   slide_products: set_discount_to_list(@slide_products).as_json(methods: [:hashid],
-                                                                                 except: %i[
-                                                                                   id created_at updated_at
-                                                                                 ]) }
+    render json: { new_arrivals: discount_setting(@new_arrivals).as_json(methods: [:hashid], except: %i[id created_at updated_at]),
+                   best_sellers: discount_setting(@best_sellers).as_json(methods: [:hashid], except: %i[id created_at updated_at]),
+                   top_rankings: discount_setting(@top_rankings).as_json(methods: [:hashid], except: %i[id created_at updated_at]),
+                   big_discounts: discount_setting(@big_discounts).as_json(methods: [:hashid], except: %i[id created_at updated_at]),
+                   category1: discount_setting(@category1).as_json(methods: [:hashid], except: %i[id created_at updated_at]),
+                   category2: discount_setting(@category2).as_json(methods: [:hashid], except: %i[id created_at updated_at]),
+                   category3: discount_setting(@category3).as_json(methods: [:hashid], except: %i[id created_at updated_at]),
+                   category4: discount_setting(@category4).as_json(methods: [:hashid], except: %i[id created_at updated_at]),
+                   slide_products: discount_setting(@slide_products).as_json(methods: [:hashid], except: %i[id created_at updated_at]) }
   end
 
-  def self.get_discount(product)
+  def self.cal_discount(product)
     discount = 0
     unless product.promotions.blank?
       today = Time.new.strftime('%Y-%m-%d')
@@ -184,9 +170,9 @@ class ProductsController < ApplicationController
     discount
   end
 
-  def set_discount_to_list(products)
+  def discount_setting(products)
     products.each do |item|
-      item.discount = ProductsController.get_discount(item)
+      item.discount = ProductsController.cal_discount(item)
     end
     products
   end
@@ -222,15 +208,12 @@ class ProductsController < ApplicationController
     end
   end
 
-  def get_favourites_by_user_id
+  def list_favourites_by_user_id
     user_id = decode_user_id(params[:user_id])
     @products = Product.joins('INNER JOIN favourites ON favourites.product_id = products.id').where(
       'favourites.user_id = ?', user_id
     )
-    render json: { products: set_discount_to_list(@products).as_json(methods: [:hashid],
-                                                                     except: %i[
-                                                                       id created_at updated_at
-                                                                     ]) }
+    render json: { products: discount_setting(@products).as_json(methods: [:hashid], except: %i[id created_at updated_at]) }
   end
 
   private
@@ -244,7 +227,7 @@ class ProductsController < ApplicationController
     @product
   end
 
-  def set_tags_like(tags)
+  def concat_tags_like(tags)
     segments = []
     tags = tags.map do |tag|
       segments.push('tags LIKE ?')

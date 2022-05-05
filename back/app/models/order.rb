@@ -18,18 +18,18 @@ class Order < ApplicationRecord
     as_json(methods: :user_hashid, except: %i[id payment_id address_id user_id updated_at])
   end
 
-  def create_detail_item(product, quantity, price, remark, image, no)
+  def create_detail_item(cart_item, remark, image, order_no)
     di = order_details.build
-    di.order_no = no
-    di.product_id = product.id
-    di.product_title = product.title
-    di.price = price
-    di.quantity = quantity
-    di.discount = product.discount
-    di.subtotal = price * di.quantity
+    di.order_no = order_no
+    di.product_id = cart_item.product.id
+    di.product_title = cart_item.product.title
+    di.price = cart_item.price
+    di.quantity = cart_item.quantity
+    di.discount = cart_item.product.discount
+    di.subtotal = cart_item.price * di.quantity
     di.remark = remark
     di.image = image
-    di.property = product.property
+    di.property = cart_item.product.property
     di.save!
   end
 

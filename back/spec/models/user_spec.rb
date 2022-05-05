@@ -36,7 +36,8 @@ RSpec.describe User, type: :model do
       @user.password = nil
       @user.valid?
       expect(@user.errors.full_messages).to include("Password can't be blank",
-                                                    'Password is too short (minimum is 6 characters)', "Password confirmation doesn't match Password")
+                                                    'Password is too short (minimum is 6 characters)', 
+                                                    "Password confirmation doesn't match Password")
     end
 
     it 'password_length_error' do

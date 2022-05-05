@@ -251,10 +251,10 @@ export default {
         this.topRatings = this.setImagePath(res.data.top_rankings, "medium");
         this.newArrivals = this.setImagePath(res.data.new_arrivals, "medium");
         this.bigDiscounts = this.setImagePath(res.data.big_discounts, "medium");
-        this.category1 = this.setImagePath(res.data.category_1, "medium");
-        this.category2 = this.setImagePath(res.data.category_2, "medium");
-        this.category3 = this.setImagePath(res.data.category_3, "medium");
-        this.category4 = this.setImagePath(res.data.category_4, "medium");
+        this.category1 = this.setImagePath(res.data.category1, "medium");
+        this.category2 = this.setImagePath(res.data.category2, "medium");
+        this.category3 = this.setImagePath(res.data.category3, "medium");
+        this.category4 = this.setImagePath(res.data.category4, "medium");
         this.slideProducts = this.setImagePath(res.data.slide_products, "medium");
       });
     },

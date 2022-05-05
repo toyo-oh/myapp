@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
-  before_action :require_login, only: %i[create_order get_orders_by_user_id]
-  before_action :get_order_with_auth_check, only: %i[show destroy pay_order]
+  before_action :require_login, only: %i[create_order list_orders_by_user_id]
+  before_action :auth_check, only: %i[show destroy pay_order]
 
   def create_order
     @user = User.find(params[:user_id])
@@ -25,8 +25,7 @@ class OrdersController < ApplicationController
       @new_order.save!
       @cart_items.each do |cart_item|
         image = set_order_image(@new_order.id, cart_item.product_id, cart_item.product.images[0])
-        @new_order.create_detail_item(cart_item.product, cart_item.quantity, cart_item.price, '', image,
-                                      @new_order.order_no)
+        @new_order.create_detail_item(cart_item, '', image, @new_order.order_no)
         @product = Product.find(cart_item.product_id)
         if @product.quantity < cart_item.quantity
           error_message = 'order failed.quantity not enough.'
@@ -55,7 +54,7 @@ class OrdersController < ApplicationController
     render json: { message: 'created order successfully!', order_no: @new_order.order_no }
   end
 
-  def get_orders_by_user_id
+  def list_orders_by_user_id
     @orders = Order.where(user_id: decode_user_id(params[:user_id])).order(created_at: :desc)
     unless @orders.blank?
       render json: { orders: @orders.as_json(
@@ -68,7 +67,7 @@ class OrdersController < ApplicationController
   end
 
   def show_order_by_no
-    @order = get_order_with_auth_check
+    @order = auth_check
     @address = Address.find(@order.address_id)
     render json: {
       order: @order.wrap_json_order,
@@ -80,7 +79,7 @@ class OrdersController < ApplicationController
   end
 
   def cancel_order
-    @order = get_order_with_auth_check
+    @order = auth_check
     @order_details = @order.order_details
     errors = []
     begin
@@ -89,7 +88,7 @@ class OrdersController < ApplicationController
       logger.error "#{e.class} / #{e.message}"
       errors << e.message
     end
-    if !errors.present? and refund.status == 'succeeded'
+    if !errors.present? && refund.status == 'succeeded'
       Order.transaction do
         @order_details.each do |detail|
           @product = Product.find(detail.product_id)
@@ -106,14 +105,14 @@ class OrdersController < ApplicationController
 
   # NOT IN USE
   def receive_good
-    @order = get_order_with_auth_check
+    @order = auth_check
     @order.deliver!
     render json: @order.wrap_json_order
   end
 
   private
 
-  def get_order_with_auth_check
+  def auth_check
     if validate_user.blank?
       response_unauthorized
     else
@@ -162,9 +161,10 @@ class OrdersController < ApplicationController
   def set_order_image(order_id, product_id, file_name)
     src_image = Rails.root.join(file_name.thumb.current_path)
     dest_dir = Rails.root.join('public', 'uploads', 'order', order_id.to_s, product_id.to_s)
-    dest_image = Rails.root.join(dest_dir, 'thumb_' + file_name.identifier)
+    image_file_name = format('thumb_%s', file_name.identifier)
+    dest_image = Rails.root.join(dest_dir, image_file_name)
     FileUtils.mkdir_p(dest_dir) unless File.exist?(dest_dir)
     FileUtils.cp(src_image, dest_image)
-    File.join('', 'uploads', 'order', order_id.to_s, product_id.to_s, 'thumb_' + file_name.identifier)
+    File.join('', 'uploads', 'order', order_id.to_s, product_id.to_s, image_file_name)
   end
 end

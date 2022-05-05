@@ -34,7 +34,7 @@ class Admin::OrdersController < ApplicationController
       logger.error "#{e.class} / #{e.message}"
       errors << e.message
     end
-    if !errors.present? and refund.status == 'succeeded'
+    if !errors.present? && refund.status == 'succeeded'
       Order.transaction do
         @order_details.each do |detail|
           @product = Product.find(detail.product_id)

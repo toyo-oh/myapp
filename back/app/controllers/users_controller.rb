@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :require_login, only: [:index]
-  before_action :get_user_with_auth_check,
+  before_action :auth_check,
                 only: %i[show update destroy update_email update_profile update_password]
   wrap_parameters :user, include: %i[name password password_confirmation email is_admin]
 
@@ -46,13 +46,13 @@ class UsersController < ApplicationController
 
   # GET /users/1
   def show
-    @user = get_user_with_auth_check
+    @user = auth_check
     render json: { user: @user.wrap_json_user }
   end
 
   # PATCH/PUT /users/1
   def update
-    @current_user = get_user_with_auth_check
+    @current_user = auth_check
     if @current_user.update!(name: params[:name], email: params[:email])
       render json: { code: 'ok', message: 'updated user info successfully!', user: @current_user.wrap_json_user }
     else
@@ -62,7 +62,7 @@ class UsersController < ApplicationController
 
   # DELETE /users/1
   def destroy
-    @user = get_user_with_auth_check
+    @user = auth_check
     if !@user.destroy!
       render response_unprocessable_entity(@user.errors)
     else
@@ -72,10 +72,11 @@ class UsersController < ApplicationController
 
   # POST /users/1/update_email
   def update_email
-    @user = get_user_with_auth_check
+    @user = auth_check
     if @user.email == params[:current_email] && @user.authenticate(params[:password])
       if @user.update!(email: params[:new_email])
-        render json: { code: 'ok', message: 'updated email successfully, please re-login with new email!', user: @user.wrap_json_user }
+        render json: { code: 'ok', message: 'updated email successfully, please re-login with new email!',
+                       user: @user.wrap_json_user }
       else
         render response_unprocessable_entity(@user.errors)
       end
@@ -86,7 +87,7 @@ class UsersController < ApplicationController
 
   # POST /users/1/update_profile
   def update_profile
-    @user = get_user_with_auth_check
+    @user = auth_check
     if @user.update!(name: params[:name], phone_number: params[:phone_number])
       render json: { code: 'ok', message: 'updated profile successfully!', user: @user.wrap_json_user }
     else
@@ -96,10 +97,11 @@ class UsersController < ApplicationController
 
   # POST /users/1/update_password
   def update_password
-    @user = get_user_with_auth_check
+    @user = auth_check
     if @user.email == params[:email] && @user.authenticate(params[:current_password])
       if @user.update!(password: params[:new_password], password_confirmation: params[:confirm_password])
-        render json: { code: 'ok', message: 'updated password successfully, please re-login with new password!', user: @user.wrap_json_user }
+        render json: { code: 'ok', message: 'updated password successfully, please re-login with new password!',
+                       user: @user.wrap_json_user }
       else
         render response_unprocessable_entity(@user.errors)
       end
@@ -140,7 +142,7 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :password, :password_confirmation, :email, :is_admin)
   end
 
-  def get_user_with_auth_check
+  def auth_check
     if validate_user.blank?
       response_unauthorized
     else

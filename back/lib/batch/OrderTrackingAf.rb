@@ -11,7 +11,7 @@ class OrderTrackingAf
     i = 0
     count = length_sagawa / 100
     remainder = length_sagawa % 100
-    count += 1 if remainder > 0
+    count += 1 if remainder.positive?
     trackings = []
     while i < count
       numbers = if length_sagawa - i * 100 < 100
@@ -56,12 +56,8 @@ class OrderTrackingAf
   def self.concat_numbers(orders)
     numbers = ''
     orders.each do |item|
-      if numbers.blank?
-        numbers << item.tracking_number
-      else
-        numbers << '%2C'
-        numbers << item.tracking_number
-      end
+      numbers << '%2C' unless numbers.blank?
+      numbers << item.tracking_number
     end
     numbers
   end

@@ -1,6 +1,6 @@
 class PaymentsController < ApplicationController
   before_action :require_login, only: %i[create find_by_user_id set_default]
-  before_action :get_payment_with_auth_check, only: %i[show update destroy]
+  before_action :auth_check, only: %i[show update destroy]
 
   def create
     user_id = decode_user_id(params[:user_id])
@@ -23,12 +23,12 @@ class PaymentsController < ApplicationController
   end
 
   def show
-    @payment = get_payment_with_auth_check
+    @payment = auth_check
     render json: @payment.wrap_json_payment
   end
 
   def update
-    @payment = get_payment_with_auth_check
+    @payment = auth_check
     if !@payment.update(payment_params)
       render response_unprocessable_entity(@payment.errors)
     else
@@ -37,7 +37,7 @@ class PaymentsController < ApplicationController
   end
 
   def destroy
-    @payment = get_payment_with_auth_check
+    @payment = auth_check
     if !@payment.destroy
       render response_unprocessable_entity(@payment.errors)
     else
@@ -46,7 +46,7 @@ class PaymentsController < ApplicationController
   end
 
   def set_default
-    @new_payment = get_payment_with_auth_check
+    @new_payment = auth_check
     @old_payment = Payment.find(params[:old_id])
     Payment.transaction do
       @old_payment.update!(is_default: 0)
@@ -61,7 +61,7 @@ class PaymentsController < ApplicationController
     params.permit(:holder_name, :card_number, :expiration_date, :security_code)
   end
 
-  def get_payment_with_auth_check
+  def auth_check
     if validate_user.blank?
       response_unauthorized
     else

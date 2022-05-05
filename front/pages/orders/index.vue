@@ -67,7 +67,7 @@ export default {
   },
   methods: {
     getOrders () {
-      this.$axios.get(`api/orders/get_orders_by_user_id/${this.$auth.user.hashid}`).then((res) => {
+      this.$axios.get(`api/orders/list_orders_by_user_id/${this.$auth.user.hashid}`).then((res) => {
         this.orders = [];
         var tmpOrders = res.data.orders;
         if (tmpOrders && tmpOrders.length > 0) {

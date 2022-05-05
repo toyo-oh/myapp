@@ -38,7 +38,7 @@ class OrderTrackingNano
   def self.resolve_result(result, trackings)
     json_result = JSON.parse(result)
     puts json_result
-    if json_result['result'] == '0' and json_result['status'] == '配達完了'
+    if json_result['result'] == '0' && json_result['status'] == '配達完了'
       tracking = TrackingResult.new
       tracking.slug = 'taqbin-jp'
       tracking.tracking_number = json_result['slipNo']

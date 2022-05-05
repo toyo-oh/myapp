@@ -3,7 +3,7 @@ class Admin::ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
-    @product.images = set_images(nil)
+    @product.images = images_setting(nil)
     Product.transaction do
       render response_unprocessable_entity(@product.errors) unless @product.save!
       promotions = JSON.parse(params[:promotions])
@@ -39,8 +39,7 @@ class Admin::ProductsController < ApplicationController
 
   def update
     @product = find_product
-    @product.images = set_images(@product.images)
-    # @product.tags = set_tags
+    @product.images = images_setting(@product.images)
     Product.transaction do
       render response_unprocessable_entity(@product.errors) unless @product.update!(product_params)
       promotions = JSON.parse(params[:promotions])
@@ -84,7 +83,7 @@ class Admin::ProductsController < ApplicationController
     end
   end
 
-  def get_categories
+  def list_categories
     @categories = Category.find_by_sql('SELECT id, category FROM categories')
     render json: @categories
   end
@@ -105,7 +104,7 @@ class Admin::ProductsController < ApplicationController
     @product
   end
 
-  def set_images(old_images)
+  def images_setting(old_images)
     images = []
     images[0] = params[:image1] if params[:image1]
     images[1] = params[:image2] if params[:image2]
@@ -114,7 +113,7 @@ class Admin::ProductsController < ApplicationController
     images
   end
 
-  def set_tags
+  def tags_setting
     tags = []
     tags = params[:tags].split(',') unless params[:tags]
     tags
