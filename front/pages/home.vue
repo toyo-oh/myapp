@@ -5,7 +5,13 @@
       <v-container>
         <v-row>
           <v-col cols="12" xl="12" lg="12">
-            <v-carousel cycle height="100%" light hide-delimiter-background show-arrows-on-hover :show-arrows="false">
+            <v-carousel
+              cycle
+              height="100%"
+              light
+              hide-delimiter-background
+              show-arrows-on-hover
+              :show-arrows="false">
               <v-carousel-item v-for="(item, index) in slideProducts" :key="index">
                 <v-sheet height="100%" light>
                   <v-row class="fill-height" align="center">
@@ -17,10 +23,16 @@
                       </v-col>
                       <v-col cols="12" xl="8">
                         <p class="text--secondary mb-4">
-                          {{item.sub_title}}
+                          {{ item.sub_title }}
                         </p>
                       </v-col>
-                      <v-btn dark color="brown lighten-1" class="text-capitalize ms-3" @click="shopNow(item)">Shop Now</v-btn>
+                      <v-btn
+                        dark
+                        color="brown lighten-1"
+                        class="text-capitalize ms-3"
+                        @click="shopNow(item)"
+                        >Shop Now</v-btn
+                      >
                     </v-col>
                     <v-col cols="5" lg="4">
                       <v-img aspect-ratio="1" contain :src="item.image"></v-img>
@@ -42,15 +54,39 @@
             <div class="d-flex align-center">
               <h2 class="brown--text font-weight-bold">Best Sellers</h2>
             </div>
-            <a @click="viewAll('best_sellers')" class="text-decoration-none blue-grey--text darken-1">
+            <a
+              class="text-decoration-none blue-grey--text darken-1"
+              @click="viewAll('best_sellers')">
               View all
               <v-icon class="m-0 p-0">mdi-menu-right</v-icon>
             </a>
           </div>
           <div>
             <v-row>
-              <v-col cols="12" xs="6" sm="4" md="3" lg="2" xl="2" v-for="(item, index) in bestSellers" :key="index">
-                <small-card :pId="item.id" :pHashId="item.hashid" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" :pDiscount="Number(item.discount)" @cartAdd="addToCart({'hashid':item.hashid, 'price':parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(0)})"></small-card>
+              <v-col
+                v-for="(item, index) in bestSellers"
+                :key="index"
+                cols="12"
+                xs="6"
+                sm="4"
+                md="3"
+                lg="2"
+                xl="2">
+                <small-card
+                  :p-id="item.id"
+                  :p-hash-id="item.hashid"
+                  :p-img="item.image"
+                  :p-title="item.title"
+                  :original-price="item.price"
+                  :p-discount="Number(item.discount)"
+                  @cartAdd="
+                    addToCart({
+                      hashid: item.hashid,
+                      price: parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(
+                        0
+                      ),
+                    })
+                  "></small-card>
               </v-col>
             </v-row>
           </div>
@@ -66,15 +102,39 @@
             <div class="d-flex align-center">
               <h2 class="brown--text font-weight-bold">New Arrivals</h2>
             </div>
-            <a @click="viewAll('new_arrivals')" class="text-decoration-none blue-grey--text darken-1">
+            <a
+              class="text-decoration-none blue-grey--text darken-1"
+              @click="viewAll('new_arrivals')">
               View all
               <v-icon class="m-0 p-0">mdi-menu-right</v-icon>
             </a>
           </div>
           <div>
             <v-row>
-              <v-col cols="12" xs="6" sm="4" md="3" lg="2" xl="2" v-for="(item, index) in newArrivals" :key="index">
-                <small-card :pId="item.id" :pHashId="item.hashid" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" :pDiscount="Number(item.discount)" @cartAdd="addToCart({'hashid':item.hashid, 'price':parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(0)})"></small-card>
+              <v-col
+                v-for="(item, index) in newArrivals"
+                :key="index"
+                cols="12"
+                xs="6"
+                sm="4"
+                md="3"
+                lg="2"
+                xl="2">
+                <small-card
+                  :p-id="item.id"
+                  :p-hash-id="item.hashid"
+                  :p-img="item.image"
+                  :p-title="item.title"
+                  :original-price="item.price"
+                  :p-discount="Number(item.discount)"
+                  @cartAdd="
+                    addToCart({
+                      hashid: item.hashid,
+                      price: parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(
+                        0
+                      ),
+                    })
+                  "></small-card>
               </v-col>
             </v-row>
           </div>
@@ -90,15 +150,39 @@
             <div class="d-flex align-center">
               <h2 class="brown--text font-weight-bold">Big Discounts</h2>
             </div>
-            <a @click="viewAll('big_discounts')" class="text-decoration-none blue-grey--text darken-1">
+            <a
+              class="text-decoration-none blue-grey--text darken-1"
+              @click="viewAll('big_discounts')">
               View all
               <v-icon class="m-0 p-0">mdi-menu-right</v-icon>
             </a>
           </div>
           <div>
             <v-row>
-              <v-col cols="12" xs="6" sm="4" md="3" lg="2" xl="2" v-for="(item, index) in bigDiscounts" :key="index">
-                <small-card :pId="item.id" :pHashId="item.hashid" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" :pDiscount="Number(item.discount)" @cartAdd="addToCart({'hashid':item.hashid, 'price':parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(0)})"></small-card>
+              <v-col
+                v-for="(item, index) in bigDiscounts"
+                :key="index"
+                cols="12"
+                xs="6"
+                sm="4"
+                md="3"
+                lg="2"
+                xl="2">
+                <small-card
+                  :p-id="item.id"
+                  :p-hash-id="item.hashid"
+                  :p-img="item.image"
+                  :p-title="item.title"
+                  :original-price="item.price"
+                  :p-discount="Number(item.discount)"
+                  @cartAdd="
+                    addToCart({
+                      hashid: item.hashid,
+                      price: parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(
+                        0
+                      ),
+                    })
+                  "></small-card>
               </v-col>
             </v-row>
           </div>
@@ -114,15 +198,39 @@
             <div class="d-flex align-center">
               <h2 class="brown--text font-weight-bold">Top Rankings</h2>
             </div>
-            <a @click="viewAll('top_rankings')" class="text-decoration-none blue-grey--text darken-1">
+            <a
+              class="text-decoration-none blue-grey--text darken-1"
+              @click="viewAll('top_rankings')">
               View all
               <v-icon class="m-0 p-0">mdi-menu-right</v-icon>
             </a>
           </div>
           <div>
             <v-row>
-              <v-col cols="12" xs="6" sm="4" md="3" lg="2" xl="2" v-for="(item, index) in topRatings" :key="index">
-                <small-card :pId="item.id" :pHashId="item.hashid" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" :pDiscount="Number(item.discount)" @cartAdd="addToCart({'hashid':item.hashid, 'price':parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(0)})"></small-card>
+              <v-col
+                v-for="(item, index) in topRatings"
+                :key="index"
+                cols="12"
+                xs="6"
+                sm="4"
+                md="3"
+                lg="2"
+                xl="2">
+                <small-card
+                  :p-id="item.id"
+                  :p-hash-id="item.hashid"
+                  :p-img="item.image"
+                  :p-title="item.title"
+                  :original-price="item.price"
+                  :p-discount="Number(item.discount)"
+                  @cartAdd="
+                    addToCart({
+                      hashid: item.hashid,
+                      price: parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(
+                        0
+                      ),
+                    })
+                  "></small-card>
               </v-col>
             </v-row>
           </div>
@@ -136,15 +244,38 @@
         <v-col cols="12">
           <div class="d-flex justify-space-between mb-5">
             <h2 class="brown--text font-weight-bold">Category 1</h2>
-            <a @click="viewAll('category_1')" class="text-decoration-none blue-grey--text darken-1">
+            <a class="text-decoration-none blue-grey--text darken-1" @click="viewAll('category_1')">
               View all
               <v-icon class="m-0 p-0">mdi-menu-right</v-icon>
             </a>
           </div>
           <div>
             <v-row>
-              <v-col cols="12" xs="6" sm="4" md="4" lg="3" xl="3" v-for="(item, index) in category1" :key="index">
-                <item-card :pId="item.id" :pHashId="item.hashid" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" :subTitle="item.sub_title" :pDiscount="Number(item.discount)" @cartAdd="addToCart({'hashid':item.hashid, 'price':parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(0)})"></item-card>
+              <v-col
+                v-for="(item, index) in category1"
+                :key="index"
+                cols="12"
+                xs="6"
+                sm="4"
+                md="4"
+                lg="3"
+                xl="3">
+                <item-card
+                  :p-id="item.id"
+                  :p-hash-id="item.hashid"
+                  :p-img="item.image"
+                  :p-title="item.title"
+                  :original-price="item.price"
+                  :sub-title="item.sub_title"
+                  :p-discount="Number(item.discount)"
+                  @cartAdd="
+                    addToCart({
+                      hashid: item.hashid,
+                      price: parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(
+                        0
+                      ),
+                    })
+                  "></item-card>
               </v-col>
             </v-row>
           </div>
@@ -158,14 +289,35 @@
         <v-col cols="12">
           <div class="d-flex justify-space-between mb-5">
             <h2 class="brown--text font-weight-bold">Category 2</h2>
-            <a @click="viewAll('category_2')" class="text-decoration-none blue-grey--text darken-1">
+            <a class="text-decoration-none blue-grey--text darken-1" @click="viewAll('category_2')">
               View all
               <v-icon class="m-0 p-0">mdi-menu-right</v-icon>
             </a>
           </div>
           <v-row>
-            <v-col cols="12" xs="6" sm="4" md="4" lg="3" xl="3" v-for="(item, index) in category2" :key="index">
-              <item-card :pId="item.id" :pHashId="item.hashid" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" :subTitle="item.sub_title" :pDiscount="Number(item.discount)" @cartAdd="addToCart({'hashid':item.hashid, 'price':parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(0)})"></item-card>
+            <v-col
+              v-for="(item, index) in category2"
+              :key="index"
+              cols="12"
+              xs="6"
+              sm="4"
+              md="4"
+              lg="3"
+              xl="3">
+              <item-card
+                :p-id="item.id"
+                :p-hash-id="item.hashid"
+                :p-img="item.image"
+                :p-title="item.title"
+                :original-price="item.price"
+                :sub-title="item.sub_title"
+                :p-discount="Number(item.discount)"
+                @cartAdd="
+                  addToCart({
+                    hashid: item.hashid,
+                    price: parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(0),
+                  })
+                "></item-card>
             </v-col>
           </v-row>
         </v-col>
@@ -178,14 +330,35 @@
         <v-col cols="12">
           <div class="d-flex justify-space-between mb-5">
             <h2 class="brown--text font-weight-bold">Category 3</h2>
-            <a @click="viewAll('category_3')" class="text-decoration-none blue-grey--text darken-1">
+            <a class="text-decoration-none blue-grey--text darken-1" @click="viewAll('category_3')">
               View all
               <v-icon class="m-0 p-0">mdi-menu-right</v-icon>
             </a>
           </div>
           <v-row>
-            <v-col cols="12" xs="6" sm="4" md="4" lg="3" xl="3" v-for="(item, index) in category3" :key="index">
-              <item-card :pId="item.id" :pHashId="item.hashid" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" :subTitle="item.sub_title" :pDiscount="Number(item.discount)" @cartAdd="addToCart({'hashid':item.hashid, 'price':parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(0)})"></item-card>
+            <v-col
+              v-for="(item, index) in category3"
+              :key="index"
+              cols="12"
+              xs="6"
+              sm="4"
+              md="4"
+              lg="3"
+              xl="3">
+              <item-card
+                :p-id="item.id"
+                :p-hash-id="item.hashid"
+                :p-img="item.image"
+                :p-title="item.title"
+                :original-price="item.price"
+                :sub-title="item.sub_title"
+                :p-discount="Number(item.discount)"
+                @cartAdd="
+                  addToCart({
+                    hashid: item.hashid,
+                    price: parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(0),
+                  })
+                "></item-card>
             </v-col>
           </v-row>
         </v-col>
@@ -198,14 +371,35 @@
         <v-col cols="12">
           <div class="d-flex justify-space-between mb-5">
             <h2 class="brown--text font-weight-bold">Category 4</h2>
-            <a @click="viewAll('category_4')" class="text-decoration-none blue-grey--text darken-1">
+            <a class="text-decoration-none blue-grey--text darken-1" @click="viewAll('category_4')">
               View all
               <v-icon class="m-0 p-0">mdi-menu-right</v-icon>
             </a>
           </div>
           <v-row>
-            <v-col cols="12" xs="6" sm="4" md="4" lg="3" xl="3" v-for="(item, index) in category4" :key="index">
-              <item-card :pId="item.id" :pHashId="item.hashid" :pImg="item.image" :pTitle="item.title" :originalPrice="item.price" :subTitle="item.sub_title" :pDiscount="Number(item.discount)" @cartAdd="addToCart({'hashid':item.hashid, 'price':parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(0)})"></item-card>
+            <v-col
+              v-for="(item, index) in category4"
+              :key="index"
+              cols="12"
+              xs="6"
+              sm="4"
+              md="4"
+              lg="3"
+              xl="3">
+              <item-card
+                :p-id="item.id"
+                :p-hash-id="item.hashid"
+                :p-img="item.image"
+                :p-title="item.title"
+                :original-price="item.price"
+                :sub-title="item.sub_title"
+                :p-discount="Number(item.discount)"
+                @cartAdd="
+                  addToCart({
+                    hashid: item.hashid,
+                    price: parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(0),
+                  })
+                "></item-card>
             </v-col>
           </v-row>
         </v-col>
@@ -215,21 +409,15 @@
 </template>
 
 <script>
-import SmallCard from "@/components/productCard/SmallCard";
-import ItemCard from "@/components/productCard/ItemCard";
-import { mapActions } from 'vuex'
+import SmallCard from "@/components/productCard/SmallCard"
+import ItemCard from "@/components/productCard/ItemCard"
+import { mapActions } from "vuex"
 export default {
   components: {
     SmallCard,
-    ItemCard
+    ItemCard,
   },
-  head: {
-    title: 'Home'
-  },
-  created () {
-    this.loadDatas();
-  },
-  data () {
+  data() {
     return {
       bestSellers: [],
       topRatings: [],
@@ -239,47 +427,51 @@ export default {
       category2: [],
       category3: [],
       category4: [],
-      slideProducts: []
-    };
+      slideProducts: [],
+    }
+  },
+  head: {
+    title: "Home",
+  },
+  created() {
+    this.loadDatas()
   },
   methods: {
-    ...mapActions(['addToCart']),
-    loadDatas () {
-      this.$axios.get("api/products", {
-      }).then((res) => {
-        this.bestSellers = this.setImagePath(res.data.best_sellers, "medium");
-        this.topRatings = this.setImagePath(res.data.top_rankings, "medium");
-        this.newArrivals = this.setImagePath(res.data.new_arrivals, "medium");
-        this.bigDiscounts = this.setImagePath(res.data.big_discounts, "medium");
-        this.category1 = this.setImagePath(res.data.category1, "medium");
-        this.category2 = this.setImagePath(res.data.category2, "medium");
-        this.category3 = this.setImagePath(res.data.category3, "medium");
-        this.category4 = this.setImagePath(res.data.category4, "medium");
-        this.slideProducts = this.setImagePath(res.data.slide_products, "medium");
-      });
+    ...mapActions(["addToCart"]),
+    loadDatas() {
+      this.$axios.get("api/products", {}).then((res) => {
+        this.bestSellers = this.setImagePath(res.data.best_sellers, "medium")
+        this.topRatings = this.setImagePath(res.data.top_rankings, "medium")
+        this.newArrivals = this.setImagePath(res.data.new_arrivals, "medium")
+        this.bigDiscounts = this.setImagePath(res.data.big_discounts, "medium")
+        this.category1 = this.setImagePath(res.data.category1, "medium")
+        this.category2 = this.setImagePath(res.data.category2, "medium")
+        this.category3 = this.setImagePath(res.data.category3, "medium")
+        this.category4 = this.setImagePath(res.data.category4, "medium")
+        this.slideProducts = this.setImagePath(res.data.slide_products, "medium")
+      })
     },
     // TODO image path
-    setImagePath (products, size) {
+    setImagePath(products, size) {
       if (products) {
         for (var m = 0; m < products.length; m++) {
           if (size == "medium") {
-            products[m].image = "http://localhost:3000" + products[m].images[0].medium.url;
-          }
-          else {
-            products[m].image = "http://localhost:3000" + products[m].images[0].thumb.url;
+            products[m].image = "http://localhost:3000" + products[m].images[0].medium.url
+          } else {
+            products[m].image = "http://localhost:3000" + products[m].images[0].thumb.url
           }
         }
       }
-      return products;
+      return products
     },
-    shopNow (item) {
+    shopNow(item) {
       this.$router.push(`/products/${item.hashid}`)
     },
-    viewAll (keyword) {
-      this.$router.push({ path: '/search', query: { value: keyword } });
+    viewAll(keyword) {
+      this.$router.push({ path: "/search", query: { value: keyword } })
     },
-  }
-};
+  },
+}
 </script>
 <style lang="scss" scoped>
 .router-link-active {
@@ -291,5 +483,3 @@ a {
   color: white;
 }
 </style>
-
-

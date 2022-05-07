@@ -14,150 +14,181 @@
           </div>
         </v-col>
         <v-col cols="3">
-          <v-btn outlined color="brown lighten-1" class="text-capitalize ml-16" @click="returnToList">
+          <v-btn
+            outlined
+            color="brown lighten-1"
+            class="text-capitalize ml-16"
+            @click="returnToList">
             Back To Product List
           </v-btn>
         </v-col>
       </v-row>
       <v-row justify="center">
         <v-col cols="6">
-          <product-form ref="productForm" :promotionDialog.sync="promotionDialog" :title.sync="product.title" :subTitle.sync="product.subTitle" :categoryId.sync="product.categoryId" :description.sync="product.description" :price.sync="product.price" :quantity.sync="product.quantity" :tags.sync="product.tags" :property.sync="product.property" :isAvailable.sync="product.isAvailable" :photoSrcs.sync="product.photoSrcs" :images.sync="product.images" :isImgChange.sync="isImgChange" :promotions="product.promotions" @submit-product="updateProduct()"></product-form>
+          <product-form
+            ref="productForm"
+            :promotion-dialog.sync="promotionDialog"
+            :title.sync="product.title"
+            :sub-title.sync="product.subTitle"
+            :category-id.sync="product.categoryId"
+            :description.sync="product.description"
+            :price.sync="product.price"
+            :quantity.sync="product.quantity"
+            :tags.sync="product.tags"
+            :property.sync="product.property"
+            :is-available.sync="product.isAvailable"
+            :photo-srcs.sync="product.photoSrcs"
+            :images.sync="product.images"
+            :is-img-change.sync="isImgChange"
+            :promotions="product.promotions"
+            @submit-product="updateProduct()"></product-form>
         </v-col>
       </v-row>
-      <promotion-form ref="promotionForm" :promotionDialog="promotionDialog" :proActive.sync="promotion.proActive" :proTitle.sync="promotion.proTitle" :proDiscount.sync="promotion.proDiscount" :proStartAt.sync="promotion.proStartAt" :proEndAt.sync="promotion.proEndAt" @add-promotion="addPromotion()" @close-dialog="closeDialog()"></promotion-form>
+      <promotion-form
+        ref="promotionForm"
+        :promotion-dialog="promotionDialog"
+        :pro-active.sync="promotion.proActive"
+        :pro-title.sync="promotion.proTitle"
+        :pro-discount.sync="promotion.proDiscount"
+        :pro-start-at.sync="promotion.proStartAt"
+        :pro-end-at.sync="promotion.proEndAt"
+        @add-promotion="addPromotion()"
+        @close-dialog="closeDialog()"></promotion-form>
     </div>
   </v-container>
 </template>
 <script>
-import ProductForm from "@/components/inputForm/ProductForm";
-import PromotionForm from "@/components/inputForm/PromotionForm";
-import ImageUpload from "@/components/common/ImageUpload";
+import ProductForm from "@/components/inputForm/ProductForm"
+import PromotionForm from "@/components/inputForm/PromotionForm"
 export default {
-  middleware: ['auth', 'admin'],
   components: {
     ProductForm,
     PromotionForm,
-    ImageUpload
   },
-  data () {
+  middleware: ["auth", "admin"],
+  data() {
     return {
       alertFormError: false,
       categories: [],
       isImgChange: false,
       product: {
-        title: '',
-        subTitle: '',
+        title: "",
+        subTitle: "",
         categoryId: null,
-        description: '',
+        description: "",
         price: null,
         quantity: null,
-        tags: '',
-        property: '',
+        tags: "",
+        property: "",
         isAvailable: false,
         photoSrcs: [],
         images: [],
-        promotions: []
+        promotions: [],
       },
       promotionDialog: false,
       promotion: {
         proActive: false,
-        proTitle: '',
-        proDiscount: '',
-        proStartAt: '',
-        proEndAt: '',
-      }
-    };
+        proTitle: "",
+        proDiscount: "",
+        proStartAt: "",
+        proEndAt: "",
+      },
+    }
   },
-  created () {
-    this.loadProduct();
+  created() {
+    this.loadProduct()
   },
   methods: {
-    loadProduct () {
+    loadProduct() {
       this.$axios.$get(`/api/admin/products/${this.$route.params.id}`).then((res) => {
-        var tmpImages = [];
+        var tmpImages = []
         if (res.product.images) {
           for (var i = 0; i < res.product.images.length; i++) {
-            tmpImages.push(res.product.images[i] ? "http://localhost:3000" + res.product.images[i].thumb.url : "");
+            tmpImages.push(
+              res.product.images[i] ? "http://localhost:3000" + res.product.images[i].thumb.url : ""
+            )
           }
         }
-        this.product.hashid = res.product.hashid;
-        this.product.title = res.product.title;
-        this.product.subTitle = res.product.sub_title;
-        this.product.categoryId = res.product.category_id;
-        this.product.description = res.product.description;
-        this.product.price = Number(res.product.price);
-        this.product.quantity = Number(res.product.quantity);
-        this.product.tags = res.product.tags;
-        this.product.property = res.product.property;
-        this.product.images = tmpImages;
-        this.product.photoSrcs = tmpImages;
-        this.product.isAvailable = res.product.is_available;
-        this.product.promotions = res.product.promotions;
-      });
+        this.product.hashid = res.product.hashid
+        this.product.title = res.product.title
+        this.product.subTitle = res.product.sub_title
+        this.product.categoryId = res.product.category_id
+        this.product.description = res.product.description
+        this.product.price = Number(res.product.price)
+        this.product.quantity = Number(res.product.quantity)
+        this.product.tags = res.product.tags
+        this.product.property = res.product.property
+        this.product.images = tmpImages
+        this.product.photoSrcs = tmpImages
+        this.product.isAvailable = res.product.is_available
+        this.product.promotions = res.product.promotions
+      })
     },
-    updateProduct () {
+    updateProduct() {
       if (this.$refs.productForm.validate()) {
         if (this.product.images && this.product.images.length < 1) {
-          this.$toast.error('At least 1 images required');
+          this.$toast.error("At least 1 images required")
         } else if (this.product.images && this.product.images.length > 3) {
-          this.$toast.error('Should not be above 3 images');
+          this.$toast.error("Should not be above 3 images")
         } else {
           const config = {
             headers: {
               "content-type": "multipart/form-data",
             },
-          };
-          const formData = new FormData();
-          formData.append("title", this.product.title);
-          formData.append("sub_title", this.product.subTitle);
-          formData.append("description", this.product.description);
-          formData.append("price", this.product.price);
-          formData.append("quantity", this.product.quantity);
-          formData.append("is_available", this.product.isAvailable);
+          }
+          const formData = new FormData()
+          formData.append("title", this.product.title)
+          formData.append("sub_title", this.product.subTitle)
+          formData.append("description", this.product.description)
+          formData.append("price", this.product.price)
+          formData.append("quantity", this.product.quantity)
+          formData.append("is_available", this.product.isAvailable)
           if (this.isImgChange) {
             for (var i = 0; i < this.product.images.length; i++) {
-              formData.append("image" + (i + 1), this.product.images[i]);
+              formData.append("image" + (i + 1), this.product.images[i])
             }
           }
-          formData.append("category_id", this.product.categoryId);
-          formData.append("tags", this.product.tags ? this.product.tags : "");
-          formData.append("property", this.product.property);
-          formData.append("promotions", JSON.stringify(this.product.promotions));
-          this.$axios.put(`api/admin/products/${this.product.hashid}`, formData, config).then((res) => {
-            if (res.data.code === "error") {
-              this.$toast.error(res.data.message);
-            } else {
-              this.$toast.show(res.data.message);
-              this.$router.push(`.`);
-            }
-          })
+          formData.append("category_id", this.product.categoryId)
+          formData.append("tags", this.product.tags ? this.product.tags : "")
+          formData.append("property", this.product.property)
+          formData.append("promotions", JSON.stringify(this.product.promotions))
+          this.$axios
+            .put(`api/admin/products/${this.product.hashid}`, formData, config)
+            .then((res) => {
+              if (res.data.code === "error") {
+                this.$toast.error(res.data.message)
+              } else {
+                this.$toast.show(res.data.message)
+                this.$router.push(`.`)
+              }
+            })
         }
       } else {
-        this.alertFormError = true;
+        this.alertFormError = true
       }
     },
-    returnToList () {
+    returnToList() {
       this.$router.push(`.`)
     },
-    addPromotion () {
+    addPromotion() {
       if (this.$refs.promotionForm.validate()) {
         // add to promotion list
-        var newPro = {};
-        newPro.product_hashid = this.product.hashid;
-        newPro.title = this.promotion.proTitle;
-        newPro.discount = this.promotion.proDiscount;
-        newPro.start_at = this.promotion.proStartAt;
-        newPro.end_at = this.promotion.proEndAt;
-        newPro.is_active = this.promotion.proActive;
-        this.product.promotions.push(newPro);
-        this.$refs.promotionForm.reset();
-        this.promotionDialog = false;
+        var newPro = {}
+        newPro.product_hashid = this.product.hashid
+        newPro.title = this.promotion.proTitle
+        newPro.discount = this.promotion.proDiscount
+        newPro.start_at = this.promotion.proStartAt
+        newPro.end_at = this.promotion.proEndAt
+        newPro.is_active = this.promotion.proActive
+        this.product.promotions.push(newPro)
+        this.$refs.promotionForm.reset()
+        this.promotionDialog = false
       }
     },
-    closeDialog () {
-      this.$refs.promotionForm.reset();
-      this.promotionDialog = false;
-    }
-  }
-};
+    closeDialog() {
+      this.$refs.promotionForm.reset()
+      this.promotionDialog = false
+    },
+  },
+}
 </script>

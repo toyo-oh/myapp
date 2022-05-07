@@ -17,7 +17,14 @@
       <v-row justify="center">
         <v-col cols="12" md="6">
           <v-form ref="form" v-model="valid">
-            <v-text-field outlined dense color="brown lighten-3" v-model="email" label="Email" :rules="emailRules" type="text"></v-text-field>
+            <v-text-field
+              v-model="email"
+              outlined
+              dense
+              color="brown lighten-3"
+              label="Email"
+              :rules="emailRules"
+              type="text"></v-text-field>
             <v-btn dark class="mr-4" color="brown lighten-1" @click="sendEmail">Send Email</v-btn>
           </v-form>
         </v-col>
@@ -28,33 +35,33 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       valid: true,
       alertFormError: false,
-      email: '',
-      emailRules: [
-        v => !!v || 'Current Email is required'
-      ]
+      email: "",
+      emailRules: [(v) => !!v || "Current Email is required"],
     }
   },
   methods: {
-    sendEmail () {
+    sendEmail() {
       if (this.$refs.form.validate()) {
-        this.$axios.post(`/api/password/forget`, {
-          email: this.email,
-        }).then((res) => {
-          if (res.data.code === "error") {
-            this.$toast.error(res.data.message);
-          } else {
-            this.$toast.show(res.data.message);
-            this.$router.push('/login');
-          }
-        })
+        this.$axios
+          .post(`/api/password/forget`, {
+            email: this.email,
+          })
+          .then((res) => {
+            if (res.data.code === "error") {
+              this.$toast.error(res.data.message)
+            } else {
+              this.$toast.show(res.data.message)
+              this.$router.push("/login")
+            }
+          })
       } else {
-        this.alertFormError = true;
+        this.alertFormError = true
       }
-    }
-  }
+    },
+  },
 }
 </script>

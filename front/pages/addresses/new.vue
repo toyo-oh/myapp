@@ -21,7 +21,16 @@
       </v-row>
       <v-row justify="center">
         <v-col cols="6">
-          <address-form ref="addressForm" :receiver.sync="address.receiver" :phoneNumber.sync="address.phoneNumber" :postCode.sync="address.postCode" :prefectureId.sync="address.prefectureId" :city.sync="address.city" :detail.sync="address.detail" submitButton="Create Address" @submit-address="createAddress()">
+          <address-form
+            ref="addressForm"
+            :receiver.sync="address.receiver"
+            :phone-number.sync="address.phoneNumber"
+            :post-code.sync="address.postCode"
+            :prefecture-id.sync="address.prefectureId"
+            :city.sync="address.city"
+            :detail.sync="address.detail"
+            submit-button="Create Address"
+            @submit-address="createAddress()">
           </address-form>
         </v-col>
       </v-row>
@@ -30,52 +39,52 @@
 </template>
 
 <script>
-import AddressForm from "@/components/inputForm/AddressForm";
+import AddressForm from "@/components/inputForm/AddressForm"
 export default {
-  middleware: 'auth',
   components: {
     AddressForm,
   },
-  data () {
+  middleware: "auth",
+  data() {
     return {
       alertFormError: false,
       address: {
-        receiver: '',
-        phoneNumber: '',
-        postCode: '',
-        detailAddress: '',
+        receiver: "",
+        phoneNumber: "",
+        postCode: "",
+        detailAddress: "",
         prefectureId: 0,
-        city: '',
-        detail: ''
-      }
-    };
-  },
-  methods: {
-    createAddress () {
-      if (this.$refs.addressForm.validate()) {
-        const formData = new FormData();
-        formData.append("receiver", this.address.receiver);
-        formData.append("phone_number", this.address.phoneNumber);
-        formData.append("post_code", this.address.postCode);
-        formData.append("city", this.address.city);
-        formData.append("prefecture_id", this.address.prefectureId);
-        formData.append("detail", this.address.detail);
-        formData.append("user_id", this.$auth.user.hashid);
-        this.$axios.post("/api/addresses", formData).then((res) => {
-          if (res.data.code === "error") {
-            this.$toast.error(res.data.message);
-          } else {
-            this.$toast.show(res.data.message);
-            this.$router.push(`.`);
-          }
-        });
-      } else {
-        this.alertFormError = true;
-      }
-    },
-    rtnToList () {
-      this.$router.push(`.`);
+        city: "",
+        detail: "",
+      },
     }
   },
-};
+  methods: {
+    createAddress() {
+      if (this.$refs.addressForm.validate()) {
+        const formData = new FormData()
+        formData.append("receiver", this.address.receiver)
+        formData.append("phone_number", this.address.phoneNumber)
+        formData.append("post_code", this.address.postCode)
+        formData.append("city", this.address.city)
+        formData.append("prefecture_id", this.address.prefectureId)
+        formData.append("detail", this.address.detail)
+        formData.append("user_id", this.$auth.user.hashid)
+        this.$axios.post("/api/addresses", formData).then((res) => {
+          if (res.data.code === "error") {
+            this.$toast.error(res.data.message)
+          } else {
+            this.$toast.show(res.data.message)
+            this.$router.push(`.`)
+          }
+        })
+      } else {
+        this.alertFormError = true
+      }
+    },
+    rtnToList() {
+      this.$router.push(`.`)
+    },
+  },
+}
 </script>

@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12">
         <div class="d-flex justify-center align-center">
-          <img src="@/assets/images/error/500.jpg" width="1000" height="600">
+          <img src="@/assets/images/error/500.jpg" width="1000" height="600" />
         </div>
       </v-col>
     </v-row>
@@ -13,17 +13,17 @@
 <script>
 export default {
   // layout: 'empty',
-  data () {
+  data() {
     return {
-      otherError: 'An error occurred'
+      otherError: "An error occurred",
     }
   },
-  head () {
+  head() {
     const title = this.otherError
     return {
-      title
+      title,
     }
-  }
+  },
 }
 </script>
 

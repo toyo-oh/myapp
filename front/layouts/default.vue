@@ -13,8 +13,8 @@
 <script>
 export default {
   components: {
-    AppBar: () => import('./AppBar'),
-    Footer: () => import('./Footer'),
-  }
+    AppBar: () => import("./AppBar"),
+    Footer: () => import("./Footer"),
+  },
 }
 </script>

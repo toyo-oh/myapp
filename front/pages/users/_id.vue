@@ -10,8 +10,7 @@
             <h2 class="mb-0 brown--text text--darken-3">My Profile</h2>
           </div>
         </v-col>
-        <v-col cols="3">
-        </v-col>
+        <v-col cols="3"> </v-col>
       </v-row>
       <v-row justify="center">
         <v-col cols="12" md="6">
@@ -21,9 +20,11 @@
                 <h4 class="mb-0 brown--text ltext--ighten-1">Profile</h4>
               </div>
               <div class="flex-1 mr-3">
-                <p class="mb-0">{{name}}</p>
+                <p class="mb-0">{{ name }}</p>
               </div>
-              <v-btn small outlined color="brown lighten-1" class="mr-2" @click="editProfile()">Change</v-btn>
+              <v-btn small outlined color="brown lighten-1" class="mr-2" @click="editProfile()"
+                >Change</v-btn
+              >
             </div>
           </v-card>
           <v-card class="mb-4">
@@ -32,9 +33,11 @@
                 <h4 class="mb-0 brown--text ltext--ighten-1">Email</h4>
               </div>
               <div class="flex-1 mr-3">
-                <p class="mb-0">{{email}}</p>
+                <p class="mb-0">{{ email }}</p>
               </div>
-              <v-btn small outlined color="brown lighten-1" class="mr-2" @click="editEmail()">Change</v-btn>
+              <v-btn small outlined color="brown lighten-1" class="mr-2" @click="editEmail()"
+                >Change</v-btn
+              >
             </div>
           </v-card>
           <v-card class="mb-4">
@@ -45,50 +48,53 @@
               <div class="flex-1 mr-3">
                 <p class="mb-0">********</p>
               </div>
-              <v-btn small outlined color="brown lighten-1" class="mr-2" @click="editPassword()">Change</v-btn>
+              <v-btn small outlined color="brown lighten-1" class="mr-2" @click="editPassword()"
+                >Change</v-btn
+              >
             </div>
           </v-card>
         </v-col>
       </v-row>
     </div>
   </v-container>
-</template> 
-
+</template>
 
 <script>
 export default {
-  middleware: 'auth',
-  data () {
+  middleware: "auth",
+  data() {
     return {
-      name: '',
-      email: '',
+      name: "",
+      email: "",
     }
   },
-  created () {
-    this.loadUserData();
+  created() {
+    this.loadUserData()
   },
   methods: {
-    loadUserData () {
-      this.$axios.$get(`/api/users/${this.$auth.user.hashid}`).then((res) => {
-        this.name = res.user.name;
-        this.email = res.user.email;
-      }).catch((err) => {
-        if (err.response && err.response.status === 401) {
-          this.$router.push(`/users/${this.$auth.user.hashid}`);
-          this.$toast.error('Unauthorized!');
-        }
-      });
+    loadUserData() {
+      this.$axios
+        .$get(`/api/users/${this.$auth.user.hashid}`)
+        .then((res) => {
+          this.name = res.user.name
+          this.email = res.user.email
+        })
+        .catch((err) => {
+          if (err.response && err.response.status === 401) {
+            this.$router.push(`/users/${this.$auth.user.hashid}`)
+            this.$toast.error("Unauthorized!")
+          }
+        })
     },
-    editProfile () {
-      this.$router.push({ path: '/users/change_profile' });
+    editProfile() {
+      this.$router.push({ path: "/users/change_profile" })
     },
-    editEmail () {
-      this.$router.push({ path: '/users/change_email' });
+    editEmail() {
+      this.$router.push({ path: "/users/change_email" })
     },
-    editPassword () {
-      this.$router.push({ path: '/users/change_password' });
-    }
-  }
+    editPassword() {
+      this.$router.push({ path: "/users/change_password" })
+    },
+  },
 }
 </script>
-

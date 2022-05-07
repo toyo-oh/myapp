@@ -21,7 +21,14 @@
       </v-row>
       <v-row justify="center">
         <v-col cols="6">
-          <payment-form ref="paymentForm" :holderName.sync="payment.holderName" :cardNumber.sync="payment.cardNumber" :expirationDate.sync="payment.expirationDate" :securityCode.sync="payment.securityCode" submitButton="Create Payment" @submit-payment="createPayment()"></payment-form>
+          <payment-form
+            ref="paymentForm"
+            :holder-name.sync="payment.holderName"
+            :card-number.sync="payment.cardNumber"
+            :expiration-date.sync="payment.expirationDate"
+            :security-code.sync="payment.securityCode"
+            submit-button="Create Payment"
+            @submit-payment="createPayment()"></payment-form>
         </v-col>
       </v-row>
     </div>
@@ -29,43 +36,43 @@
 </template>
 
 <script>
-import PaymentForm from "@/components/inputForm/PaymentForm";
+import PaymentForm from "@/components/inputForm/PaymentForm"
 export default {
-  middleware: 'auth',
   components: {
-    PaymentForm
+    PaymentForm,
   },
-  data () {
+  middleware: "auth",
+  data() {
     return {
       alertFormError: false,
       payment: {
-        holderName: '',
-        cardNumber: '',
-        expirationDate: '',
-        securityCode: '',
-      }
-    };
-  },
-  methods: {
-    createPayment () {
-      if (this.$refs.paymentForm.validate()) {
-        const formData = new FormData();
-        formData.append("holder_name", this.payment.holderName);
-        formData.append("card_number", this.payment.cardNumber);
-        formData.append("expiration_date", this.payment.expirationDate);
-        formData.append("security_code", this.payment.securityCode);
-        formData.append("user_id", this.$auth.user.hashid)
-        this.$axios.post("/api/payments", formData).then(() => {
-          this.$router.push(`.`);
-          this.$toast.show('Create payment successfully!');
-        });
-      } else {
-        this.alertFormError = true;
-      }
-    },
-    rtnToList () {
-      this.$router.push(`.`);
+        holderName: "",
+        cardNumber: "",
+        expirationDate: "",
+        securityCode: "",
+      },
     }
   },
-};
+  methods: {
+    createPayment() {
+      if (this.$refs.paymentForm.validate()) {
+        const formData = new FormData()
+        formData.append("holder_name", this.payment.holderName)
+        formData.append("card_number", this.payment.cardNumber)
+        formData.append("expiration_date", this.payment.expirationDate)
+        formData.append("security_code", this.payment.securityCode)
+        formData.append("user_id", this.$auth.user.hashid)
+        this.$axios.post("/api/payments", formData).then(() => {
+          this.$router.push(`.`)
+          this.$toast.show("Create payment successfully!")
+        })
+      } else {
+        this.alertFormError = true
+      }
+    },
+    rtnToList() {
+      this.$router.push(`.`)
+    },
+  },
+}
 </script>

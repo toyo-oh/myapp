@@ -2,32 +2,34 @@
   <v-container>
     <div></div>
   </v-container>
-</template> 
+</template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      message: ''
+      message: "",
     }
   },
-  created () {
-    this.initPage();
+  created() {
+    this.initPage()
   },
   methods: {
-    initPage () {
-      this.$axios.$post(`/api/account/activate_account`, { token: this.$route.query.token })
+    initPage() {
+      this.$axios
+        .$post(`/api/account/activate_account`, {
+          token: this.$route.query.token,
+        })
         .then((res) => {
-          if (res.code === 'ok') {
+          if (res.code === "ok") {
             this.$toast.show(res.message)
-            this.$router.push('/login');
+            this.$router.push("/login")
           } else {
             this.$toast.error(res.message)
-            this.$router.push({ path: '/users/new' });
+            this.$router.push({ path: "/users/new" })
           }
-        });
-    }
-  }
+        })
+    },
+  },
 }
 </script>
-

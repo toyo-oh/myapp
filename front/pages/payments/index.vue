@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="d-flex justify-space-between flex-wrap mb-5">
-      <div class="d-flex align-center ">
+      <div class="d-flex align-center">
         <v-avatar tile size="25" class="me-3">
           <v-icon> mdi-credit-card</v-icon>
         </v-avatar>
@@ -14,24 +14,46 @@
     <v-container>
       <v-row>
         <v-col cols="12">
-          <v-data-iterator :items="payments" :items-per-page.sync="itemsPerPage" :page.sync="page" hide-default-footer>
-            <template v-slot:default="props">
+          <v-data-iterator
+            :items="payments"
+            :items-per-page.sync="itemsPerPage"
+            :page.sync="page"
+            hide-default-footer>
+            <template #default="props">
               <v-row>
-                <v-col v-for="item in props.items" :key="item.name" cols="12" sm="6" md="4" lg="4" xl="3">
-                  <v-card class="vendor-card ">
+                <v-col
+                  v-for="item in props.items"
+                  :key="item.name"
+                  cols="12"
+                  sm="6"
+                  md="4"
+                  lg="4"
+                  xl="3">
+                  <v-card class="vendor-card">
                     <div class="ma-4">
                       <div class="d-flex justify-space-between">
-                        <h3 class="ma-4">{{ item.holder_name}}</h3>
-                        <v-chip v-if="item.is_default" dark small class="ma-4 font-weight-medium" color="brown lighten-1">
+                        <h3 class="ma-4">{{ item.holder_name }}</h3>
+                        <v-chip
+                          v-if="item.is_default"
+                          dark
+                          small
+                          class="ma-4 font-weight-medium"
+                          color="brown lighten-1">
                           DEFAULT
                         </v-chip>
                       </div>
                       <div class="d-flex mb-2 ml-3">
-                        <span class="">**** **** **** {{item.card_number.substring(12,16)}}</span>
+                        <span class=""
+                          >**** **** **** {{ item.card_number.substring(12, 16) }}</span
+                        >
                       </div>
                       <div class="d-flex mb-2 ml-3">
                         <!-- <v-icon small class="mr-2" color="grey darken-2">mdi-map-marker</v-icon> -->
-                        <span class="">{{item.expiration_date.substring(0,4)+"/"+item.expiration_date.substring(4,6)}}</span>
+                        <span class="">{{
+                          item.expiration_date.substring(0, 4) +
+                          "/" +
+                          item.expiration_date.substring(4, 6)
+                        }}</span>
                       </div>
                     </div>
                     <v-card-actions class="d-flex justify-end align-center">
@@ -56,7 +78,7 @@
       </v-row>
     </v-container>
     <div class="text-center pt-2">
-      <v-pagination color="brown lighten-1" v-model="page" :length="pageCount"></v-pagination>
+      <v-pagination v-model="page" color="brown lighten-1" :length="pageCount"></v-pagination>
     </div>
     <v-dialog v-model="dialogDelete" max-width="200px">
       <v-card>
@@ -74,62 +96,63 @@
 
 <script>
 export default {
-  middleware: 'auth',
-  data () {
+  middleware: "auth",
+  data() {
     return {
       page: 1,
       pageCount: 0,
       itemsPerPage: 10,
       payments: [],
       dialogDelete: false,
-      itemToDelete: '',
-      defaultId: ''
-    };
+      itemToDelete: "",
+      defaultId: "",
+    }
   },
-  created () {
-    this.getPayments();
+  created() {
+    this.getPayments()
   },
   methods: {
-    getPayments () {
+    getPayments() {
       this.$axios.get(`api/payments/find_by_user_id/${this.$auth.user.hashid}`).then((res) => {
-        this.payments = res.data.payments;
-        this.pageCount = Math.ceil(this.payments.length / this.itemsPerPage);
+        this.payments = res.data.payments
+        this.pageCount = Math.ceil(this.payments.length / this.itemsPerPage)
         for (var n = 0; n < this.payments.length; n++) {
           if (this.payments[n].is_default == 1) {
-            this.defaultId = this.payments[n].hashid;
-            break;
+            this.defaultId = this.payments[n].hashid
+            break
           }
         }
-      });
+      })
     },
-    editPayment (item) {
+    editPayment(item) {
       this.$router.push(`payments/${item.hashid}`)
     },
-    showDeleteDialog (item) {
+    showDeleteDialog(item) {
       this.itemToDelete = item
       this.dialogDelete = !this.dialogDelete
     },
-    deletePayment () {
-      this.$axios
-        .delete(`api/payments/${this.itemToDelete.hashid}`)
-        .then(() => {
-          this.getPayments();
-          this.$toast.show('Delete payment successfully!');
-        });
+    deletePayment() {
+      this.$axios.delete(`api/payments/${this.itemToDelete.hashid}`).then(() => {
+        this.getPayments()
+        this.$toast.show("Delete payment successfully!")
+      })
       this.dialogDelete = false
     },
-    setDefault (item) {
+    setDefault(item) {
       this.$axios
-        .post(`api/payments/set_default`,
-          { user_id: this.$auth.user.hashid, old_id: this.defaultId, id: item.hashid })
+        .post(`api/payments/set_default`, {
+          user_id: this.$auth.user.hashid,
+          old_id: this.defaultId,
+          id: item.hashid,
+        })
         .then(() => {
-          this.getPayments();
-          this.$toast.show('Set default payment successfully!');
-        });
+          this.getPayments()
+          this.$toast.show("Set default payment successfully!")
+        })
     },
-    newPayment () {
-      this.$router.push(`payments/new`);
-    }
+    newPayment() {
+      this.$router.push(`payments/new`)
+    },
   },
-};
+}
 </script>

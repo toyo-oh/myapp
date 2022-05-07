@@ -7,14 +7,14 @@
 
 <script>
 export default {
-  name: 'FavButton',
+  name: "FavButton",
   props: {
-    isFav: Boolean,
-    phashid: String
+    isFav: { type: Boolean, default: false },
+    phashid: { type: String, default: "" },
   },
   data: function () {
     return {
-      favComp: this.isFav
+      favComp: this.isFav,
     }
   },
   methods: {
@@ -22,36 +22,40 @@ export default {
       if (this.$auth.loggedIn) {
         if (this.favComp) {
           // cancel
-          this.$axios.post(`api/products/${this.phashid}/cancel_favourite`, {
-            user_id: this.$auth.user.hashid,
-            product_id: this.phashid
-          }).then((res) => {
-            if (res.data.code === "error") {
-              this.$toast.error(res.data.message)
-            } else {
-              this.favComp = !this.favComp;
-              this.$toast.show(res.data.message)
-            }
-          })
+          this.$axios
+            .post(`api/products/${this.phashid}/cancel_favourite`, {
+              user_id: this.$auth.user.hashid,
+              product_id: this.phashid,
+            })
+            .then((res) => {
+              if (res.data.code === "error") {
+                this.$toast.error(res.data.message)
+              } else {
+                this.favComp = !this.favComp
+                this.$toast.show(res.data.message)
+              }
+            })
         } else {
           // add
-          this.$axios.post(`api/products/${this.phashid}/add_favourite`, {
-            user_id: this.$auth.user.hashid,
-            product_id: this.phashid
-          }).then((res) => {
-            if (res.data.code === "error") {
-              this.$toast.error(res.data.message)
-            } else {
-              this.favComp = !this.favComp;
-              this.$toast.show(res.data.message)
-            }
-          })
+          this.$axios
+            .post(`api/products/${this.phashid}/add_favourite`, {
+              user_id: this.$auth.user.hashid,
+              product_id: this.phashid,
+            })
+            .then((res) => {
+              if (res.data.code === "error") {
+                this.$toast.error(res.data.message)
+              } else {
+                this.favComp = !this.favComp
+                this.$toast.show(res.data.message)
+              }
+            })
         }
       } else {
-        this.$router.push(`/login`);
-        this.$toast.error('please login!');
+        this.$router.push(`/login`)
+        this.$toast.error("please login!")
       }
-    }
-  }
+    },
+  },
 }
 </script>

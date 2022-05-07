@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="d-flex justify-space-between flex-wrap mb-5">
-      <div class="d-flex align-center ">
+      <div class="d-flex align-center">
         <v-avatar tile size="25" class="me-3">
           <v-icon> mdi-map-marker</v-icon>
         </v-avatar>
@@ -14,28 +14,44 @@
     <v-container>
       <v-row>
         <v-col cols="12">
-          <v-data-iterator :items="addresses" :items-per-page.sync="itemsPerPage" :page.sync="page" hide-default-footer>
-            <template v-slot:default="props">
+          <v-data-iterator
+            :items="addresses"
+            :items-per-page.sync="itemsPerPage"
+            :page.sync="page"
+            hide-default-footer>
+            <template #default="props">
               <v-row>
-                <v-col v-for="item in props.items" :key="item.name" cols="12" sm="6" md="4" lg="4" xl="3">
-                  <v-card class="vendor-card ">
+                <v-col
+                  v-for="item in props.items"
+                  :key="item.name"
+                  cols="12"
+                  sm="6"
+                  md="4"
+                  lg="4"
+                  xl="3">
+                  <v-card class="vendor-card">
                     <div class="ma-4">
                       <div class="d-flex justify-space-between">
-                        <h3 class="ma-4">{{ item.receiver}}</h3>
-                        <v-chip v-if="item.is_default" dark small class="ma-4 font-weight-medium" color="brown lighten-1">
+                        <h3 class="ma-4">{{ item.receiver }}</h3>
+                        <v-chip
+                          v-if="item.is_default"
+                          dark
+                          small
+                          class="ma-4 font-weight-medium"
+                          color="brown lighten-1">
                           DEFAULT
                         </v-chip>
                       </div>
                       <div class="d-flex mb-2 ml-3">
-                        <span class="">{{"〒 "+item.post_code}}</span>
+                        <span class="">{{ "〒 " + item.post_code }}</span>
                       </div>
                       <div class="d-flex mb-2 ml-3">
                         <v-icon small class="mr-2" color="grey darken-2">mdi-map-marker</v-icon>
-                        <span class="">{{item.detail_address}}</span>
+                        <span class="">{{ item.detail_address }}</span>
                       </div>
                       <div class="d-flex mb-2 ml-3">
                         <v-icon small class="mr-2" color="grey darken-2">mdi-phone</v-icon>
-                        <span class="">{{item.phone_number}}</span>
+                        <span class="">{{ item.phone_number }}</span>
                       </div>
                     </div>
                     <v-card-actions class="d-flex justify-end align-center">
@@ -61,7 +77,7 @@
     </v-container>
 
     <div class="text-center pt-2">
-      <v-pagination color="brown lighten-1" v-model="page" :length="pageCount"></v-pagination>
+      <v-pagination v-model="page" color="brown lighten-1" :length="pageCount"></v-pagination>
     </div>
     <v-dialog v-model="dialogDelete" max-width="200px">
       <v-card>
@@ -79,70 +95,71 @@
 
 <script>
 export default {
-  middleware: 'auth',
-  data () {
+  middleware: "auth",
+  data() {
     return {
       page: 1,
       pageCount: 0,
       itemsPerPage: 10,
       addresses: [],
       dialogDelete: false,
-      itemToDelete: '',
-      defaultId: ''
-    };
+      itemToDelete: "",
+      defaultId: "",
+    }
   },
-  created () {
-    this.getAddresses();
+  created() {
+    this.getAddresses()
   },
   methods: {
-    getAddresses () {
+    getAddresses() {
       this.$axios.get(`api/addresses/find_by_user_id/${this.$auth.user.hashid}`).then((res) => {
-        this.addresses = res.data.addresses;
-        this.pageCount = Math.ceil(this.addresses.length / this.itemsPerPage);
+        this.addresses = res.data.addresses
+        this.pageCount = Math.ceil(this.addresses.length / this.itemsPerPage)
         for (var n = 0; n < this.addresses.length; n++) {
           if (this.addresses[n].is_default == 1) {
-            this.defaultId = this.addresses[n].hashid;
-            break;
+            this.defaultId = this.addresses[n].hashid
+            break
           }
         }
-      });
+      })
     },
-    editAddress (item) {
+    editAddress(item) {
       this.$router.push(`addresses/${item.hashid}`)
     },
-    showDeleteDialog (item) {
+    showDeleteDialog(item) {
       this.itemToDelete = item
       this.dialogDelete = !this.dialogDelete
     },
-    deleteAddress () {
-      this.$axios
-        .delete(`api/addresses/${this.itemToDelete.hashid}`)
-        .then((res) => {
-          if (res.data.code === "error") {
-            this.$toast.error(res.data.message);
-          } else {
-            this.$toast.show(res.data.message);
-            this.getAddresses();
-          }
-        });
+    deleteAddress() {
+      this.$axios.delete(`api/addresses/${this.itemToDelete.hashid}`).then((res) => {
+        if (res.data.code === "error") {
+          this.$toast.error(res.data.message)
+        } else {
+          this.$toast.show(res.data.message)
+          this.getAddresses()
+        }
+      })
       this.dialogDelete = false
     },
-    setDefault (item) {
+    setDefault(item) {
       this.$axios
-        .post(`api/addresses/set_default`,
-          { user_id: this.$auth.user.hashid, old_id: this.defaultId, id: item.hashid })
+        .post(`api/addresses/set_default`, {
+          user_id: this.$auth.user.hashid,
+          old_id: this.defaultId,
+          id: item.hashid,
+        })
         .then((res) => {
           if (res.data.code === "error") {
-            this.$toast.error(res.data.message);
+            this.$toast.error(res.data.message)
           } else {
-            this.$toast.show(res.data.message);
-            this.getAddresses();
+            this.$toast.show(res.data.message)
+            this.getAddresses()
           }
-        });
+        })
     },
-    newAddress () {
+    newAddress() {
       this.$router.push(`addresses/new`)
-    }
+    },
   },
-};
+}
 </script>
