@@ -1,3 +1,4 @@
+// https://www.nuxtjs.cn/guide/development-tools
 module.exports = {
   root: true,
   env: {
