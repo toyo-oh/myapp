@@ -104,9 +104,7 @@ export default {
         var tmpImages = []
         if (res.product.images) {
           for (var i = 0; i < res.product.images.length; i++) {
-            tmpImages.push(
-              res.product.images[i] ? "http://localhost:3000" + res.product.images[i].thumb.url : ""
-            )
+            tmpImages.push(res.product.images[i] ? res.product.images[i].thumb.url : "")
           }
         }
         this.product.hashid = res.product.hashid
@@ -145,7 +143,7 @@ export default {
           formData.append("is_available", this.product.isAvailable)
           if (this.isImgChange) {
             for (var i = 0; i < this.product.images.length; i++) {
-              formData.append("image" + (i + 1), this.product.images[i])
+              formData.append("images[]", this.product.images[i])
             }
           }
           formData.append("category_id", this.product.categoryId)

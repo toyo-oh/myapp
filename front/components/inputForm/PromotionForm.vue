@@ -100,8 +100,8 @@
 export default {
   name: "PromotionForm",
   props: {
-    promotionDialog: { type: Number, default: 0 },
-    proActive: { type: Number, default: 0 },
+    promotionDialog: { type: Boolean, default: false },
+    proActive: { type: Boolean, default: false },
     proTitle: { type: String, default: "" },
     proDiscount: { type: String, default: "" },
     proStartAt: { type: String, default: "" },

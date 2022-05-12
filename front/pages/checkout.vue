@@ -191,9 +191,7 @@ export default {
             product.title = cartItems[m].product.title
             product.price = cartItems[m].price
             product.cnt = cartItems[m].quantity
-            // TODO baseURL
-            product.image = "http://localhost:3000" + cartItems[m].product.images[0].thumb.url
-            // this.products[m].image = this.$axios.baseURL + this.products[m].image.thumb.url;
+            product.image = cartItems[m].product.images[0].thumb.url
             this.products.push(product)
           }
           var default_address = res.data.address

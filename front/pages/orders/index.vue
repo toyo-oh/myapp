@@ -135,9 +135,6 @@ export default {
             order.orderStatus = tmpOrders[m].aasm_state
             order.shippingFee = tmpOrders[m].shipping_fee
             order.details = tmpOrders[m].order_details
-            for (var n = 0; n < order.details.length; n++) {
-              order.details[n].image = "http://localhost:3000" + order.details[n].image
-            }
             this.orders.push(order)
           }
         }

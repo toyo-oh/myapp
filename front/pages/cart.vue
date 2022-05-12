@@ -18,7 +18,7 @@
             <div v-for="item in products" :key="item.id">
               <v-card class="d-flex flex-wrap mb-6">
                 <router-link :to="{ name: 'products-id', params: { id: item.hashid } }">
-                  <img :src="item.image" max-height="100" max-width="100" alt="" />
+                  <img :src="item.images[0].thumb.url" max-height="100" max-width="100" alt="" />
                 </router-link>
                 <div class="d-flex flex-column flex-grow-1 flex-wrap pa-4 mw-0">
                   <div class="d-flex justify-space-between w-100 mb-3">
@@ -196,9 +196,6 @@ export default {
                   break
                 }
               }
-              this.products[m].image =
-                "http://localhost:3000" + this.products[m].images[0].thumb.url
-              // this.products[m].image = this.$axios.baseURL + this.products[m].image.thumb.url;
             }
           })
       }

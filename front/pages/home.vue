@@ -35,7 +35,7 @@
                       >
                     </v-col>
                     <v-col cols="5" lg="4">
-                      <v-img aspect-ratio="1" contain :src="item.image"></v-img>
+                      <v-img aspect-ratio="1" contain :src="item.images[0].medium.url"></v-img>
                     </v-col>
                   </v-row>
                 </v-sheet>
@@ -75,7 +75,7 @@
                 <small-card
                   :p-id="item.id"
                   :p-hash-id="item.hashid"
-                  :p-img="item.image"
+                  :p-img="item.images[0].medium.url"
                   :p-title="item.title"
                   :original-price="item.price"
                   :p-discount="Number(item.discount)"
@@ -123,7 +123,7 @@
                 <small-card
                   :p-id="item.id"
                   :p-hash-id="item.hashid"
-                  :p-img="item.image"
+                  :p-img="item.images[0].medium.url"
                   :p-title="item.title"
                   :original-price="item.price"
                   :p-discount="Number(item.discount)"
@@ -171,7 +171,7 @@
                 <small-card
                   :p-id="item.id"
                   :p-hash-id="item.hashid"
-                  :p-img="item.image"
+                  :p-img="item.images[0].medium.url"
                   :p-title="item.title"
                   :original-price="item.price"
                   :p-discount="Number(item.discount)"
@@ -219,7 +219,7 @@
                 <small-card
                   :p-id="item.id"
                   :p-hash-id="item.hashid"
-                  :p-img="item.image"
+                  :p-img="item.images[0].medium.url"
                   :p-title="item.title"
                   :original-price="item.price"
                   :p-discount="Number(item.discount)"
@@ -263,7 +263,7 @@
                 <item-card
                   :p-id="item.id"
                   :p-hash-id="item.hashid"
-                  :p-img="item.image"
+                  :p-img="item.images[0].medium.url"
                   :p-title="item.title"
                   :original-price="item.price"
                   :sub-title="item.sub_title"
@@ -307,7 +307,7 @@
               <item-card
                 :p-id="item.id"
                 :p-hash-id="item.hashid"
-                :p-img="item.image"
+                :p-img="item.images[0].medium.url"
                 :p-title="item.title"
                 :original-price="item.price"
                 :sub-title="item.sub_title"
@@ -348,7 +348,7 @@
               <item-card
                 :p-id="item.id"
                 :p-hash-id="item.hashid"
-                :p-img="item.image"
+                :p-img="item.images[0].medium.url"
                 :p-title="item.title"
                 :original-price="item.price"
                 :sub-title="item.sub_title"
@@ -389,7 +389,7 @@
               <item-card
                 :p-id="item.id"
                 :p-hash-id="item.hashid"
-                :p-img="item.image"
+                :p-img="item.images[0].medium.url"
                 :p-title="item.title"
                 :original-price="item.price"
                 :sub-title="item.sub_title"
@@ -440,30 +440,38 @@ export default {
     ...mapActions(["addToCart"]),
     loadDatas() {
       this.$axios.get("api/products", {}).then((res) => {
-        this.bestSellers = this.setImagePath(res.data.best_sellers, "medium")
-        this.topRatings = this.setImagePath(res.data.top_rankings, "medium")
-        this.newArrivals = this.setImagePath(res.data.new_arrivals, "medium")
-        this.bigDiscounts = this.setImagePath(res.data.big_discounts, "medium")
-        this.category1 = this.setImagePath(res.data.category1, "medium")
-        this.category2 = this.setImagePath(res.data.category2, "medium")
-        this.category3 = this.setImagePath(res.data.category3, "medium")
-        this.category4 = this.setImagePath(res.data.category4, "medium")
-        this.slideProducts = this.setImagePath(res.data.slide_products, "medium")
+        // this.bestSellers = this.setImagePath(res.data.best_sellers, "medium")
+        // this.topRatings = this.setImagePath(res.data.top_rankings, "medium")
+        // this.newArrivals = this.setImagePath(res.data.new_arrivals, "medium")
+        // this.bigDiscounts = this.setImagePath(res.data.big_discounts, "medium")
+        // this.category1 = this.setImagePath(res.data.category1, "medium")
+        // this.category2 = this.setImagePath(res.data.category2, "medium")
+        // this.category3 = this.setImagePath(res.data.category3, "medium")
+        // this.category4 = this.setImagePath(res.data.category4, "medium")
+        // this.slideProducts = this.setImagePath(res.data.slide_products, "medium")
+        this.bestSellers = res.data.best_sellers
+        this.topRatings = res.data.top_rankings
+        this.newArrivals = res.data.new_arrivals
+        this.bigDiscounts = res.data.big_discounts
+        this.category1 = res.data.category1
+        this.category2 = res.data.category2
+        this.category3 = res.data.category3
+        this.category4 = res.data.category4
+        this.slideProducts = res.data.slide_products
       })
     },
-    // TODO image path
-    setImagePath(products, size) {
-      if (products) {
-        for (var m = 0; m < products.length; m++) {
-          if (size == "medium") {
-            products[m].image = "http://localhost:3000" + products[m].images[0].medium.url
-          } else {
-            products[m].image = "http://localhost:3000" + products[m].images[0].thumb.url
-          }
-        }
-      }
-      return products
-    },
+    // setImagePath(products, size) {
+    //   if (products) {
+    //     for (var m = 0; m < products.length; m++) {
+    //       if (size == "medium") {
+    //         products[m].image = products[m].images[0].medium.url
+    //       } else {
+    //         products[m].image = +products[m].images[0].thumb.url
+    //       }
+    //     }
+    //   }
+    //   return products
+    // },
     shopNow(item) {
       this.$router.push(`/products/${item.hashid}`)
     },

@@ -3,7 +3,8 @@ class Admin::ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
-    @product.images = images_setting(nil)
+    # @product.images = images_setting(nil)
+    logger.debug(@product.images)
     Product.transaction do
       render response_unprocessable_entity(@product.errors) unless @product.save!
       promotions = JSON.parse(params[:promotions])
@@ -39,7 +40,7 @@ class Admin::ProductsController < ApplicationController
 
   def update
     @product = find_product
-    @product.images = images_setting(@product.images)
+    # @product.images = images_setting(@product.images)
     Product.transaction do
       render response_unprocessable_entity(@product.errors) unless @product.update!(product_params)
       promotions = JSON.parse(params[:promotions])

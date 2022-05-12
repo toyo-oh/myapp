@@ -116,7 +116,7 @@ export default {
           formData.append("quantity", this.product.quantity)
           formData.append("is_available", this.product.isAvailable)
           for (var i = 0; i < this.product.images.length; i++) {
-            formData.append("image" + (i + 1), this.product.images[i])
+            formData.append("images[]", this.product.images[i])
           }
           formData.append("category_id", this.product.categoryId)
           formData.append("tags", this.product.tags ? this.product.tags : "")

@@ -17,14 +17,12 @@ class OrdersController < ApplicationController
     count, amount = cal_items_sum(@cart_items)
     @new_order.product_count = count
     @new_order.amount_total = amount
-    logger.debug(amount)
     pay_amount = amount + params[:shipping_fee].to_i
-    logger.debug(pay_amount)
     errors = []
     ActiveRecord::Base.transaction do
       @new_order.save!
       @cart_items.each do |cart_item|
-        image = set_order_image(@new_order.id, cart_item.product_id, cart_item.product.images[0])
+        image = copy_image(@new_order.id, cart_item.product_id, cart_item.product.images[0])
         @new_order.create_detail_item(cart_item, '', image, @new_order.order_no)
         @product = Product.find(cart_item.product_id)
         if @product.quantity < cart_item.quantity
@@ -157,7 +155,7 @@ class OrdersController < ApplicationController
     Stripe::Refund.create({ charge: charge_id })
   end
 
-  # TODO: local image directory
+  # local image copy
   def set_order_image(order_id, product_id, file_name)
     src_image = Rails.root.join(file_name.thumb.current_path)
     dest_dir = Rails.root.join('public', 'uploads', 'order', order_id.to_s, product_id.to_s)
@@ -167,4 +165,25 @@ class OrdersController < ApplicationController
     FileUtils.cp(src_image, dest_image)
     File.join('', 'uploads', 'order', order_id.to_s, product_id.to_s, image_file_name)
   end
+
+  # s3 image copy
+  def copy_image(order_id, product_id, file_name)
+    dest_file_name = format('thumb_%s', file_name.identifier)
+    dest_path = ['uploads', 'order', order_id.to_s, product_id.to_s, dest_file_name].join('/')
+    bucket = 'img-uploader-bk'
+    s3_client = Aws::S3::Client.new(
+      access_key_id: ENV['S3_ACCESS_KEY_ID'],
+      secret_access_key: ENV['S3_SECRET_ACCESS_KEY'],
+      region: 'ap-northeast-1'
+    )
+    resp = s3_client.copy_object({
+      acl: 'public-read', 
+      bucket: bucket,
+      copy_source: "#{bucket}/#{file_name.thumb.current_path}",
+      key: dest_path
+    })
+
+    full_path = "#{ENV['S3_ASSET_HOST']}/#{dest_path}"
+  end
+
 end

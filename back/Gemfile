@@ -63,3 +63,5 @@ gem 'dotenv-rails'
 gem 'hashid-rails'
 gem 'stripe'
 gem 'whenever', require: false
+gem 'fog-aws'
+gem 'aws-sdk-s3'

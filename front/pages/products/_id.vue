@@ -7,7 +7,7 @@
             <v-carousel-item v-for="(item, i) in images" :key="i">
               <v-row class="fill-height" align="center" justify="center">
                 <v-avatar tile size="300">
-                  <v-img :src="item"></v-img>
+                  <v-img :src="item.medium.url"></v-img>
                 </v-avatar>
               </v-row>
             </v-carousel-item>
@@ -164,7 +164,7 @@
             xl="2">
             <item-card
               :p-hash-id="item.hashid"
-              :p-img="item.images[0]"
+              :p-img="item.images[0].medium.url"
               :p-title="item.title"
               :original-price="item.price"
               :p-discount="Number(item.discount)"
@@ -192,21 +192,21 @@ export default {
   },
   asyncData({ $axios, params }) {
     return $axios.$get(`/api/products/${params.id}`).then((res) => {
-      var tmp_images = []
-      if (res && res.product.images) {
-        for (var i = 0; i < res.product.images.length; i++) {
-          tmp_images.push(
-            res.product.images[i] ? "http://localhost:3000" + res.product.images[i].medium.url : ""
-          )
-          // tmp_images.push(res.product.images[i] ? this.$axios.browserBaseURL + '/api' + res.roduct.images[i].medium.url : "");
-        }
-      }
-      if (res && res.related_products) {
-        for (var j = 0; j < res.related_products.length; j++) {
-          res.related_products[j].images[0] =
-            "http://localhost:3000" + res.related_products[j].images[0].medium.url
-        }
-      }
+      // var tmp_images = []
+      // if (res && res.product.images) {
+      //   for (var i = 0; i < res.product.images.length; i++) {
+      //     tmp_images.push(
+      //       res.product.images[i] ? "http://localhost:3000" + res.product.images[i].medium.url : ""
+      //     )
+      //     // tmp_images.push(res.product.images[i] ? this.$axios.browserBaseURL + '/api' + res.roduct.images[i].medium.url : "");
+      //   }
+      // }
+      // if (res && res.related_products) {
+      //   for (var j = 0; j < res.related_products.length; j++) {
+      //     res.related_products[j].images[0] =
+      //       "http://localhost:3000" + res.related_products[j].images[0].medium.url
+      //   }
+      // }
       if (res)
         return {
           title: res.product.title,
@@ -218,7 +218,7 @@ export default {
           ),
           originalPrice: res.product.price,
           quantity: res.product.quantity,
-          images: tmp_images,
+          images: res.product.images,
           isAvailable: res.product.is_available,
           reviewList: res.product.reviews,
           avgRate: Number(res.avg_rate),
