@@ -1,4 +1,4 @@
-FROM node:12.5.0-alpine
+FROM node:12.22.0-alpine
 
 ENV HOME="/myapp" \
     LANG=C.UTF-8 \
@@ -8,7 +8,7 @@ WORKDIR ${HOME}
 
 RUN apk update && \
     apk upgrade && \
-    npm install -g npm@6.9.0 && \
+    npm install -g npm@6.14.11 && \
     npm install -g @vue/cli
 
 ENV HOST 0.0.0.0
