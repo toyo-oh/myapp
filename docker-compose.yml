@@ -23,7 +23,6 @@ services:
       - db
     stdin_open: true
     tty: true
-    command: bundle exec rails server -b 0.0.0.0
   front:
     container_name: front
     build: front/
