@@ -77,11 +77,6 @@ export default {
             })
           }
         })
-        // .catch((err) => {
-        //   if (err.response && err.response.status === 401) {
-        //     this.$toast.error(err.response.data.message);
-        //   }
-        // });
       } else {
         this.alertLoginError = true
         this.errorMessage = "Invalid item in the form"
