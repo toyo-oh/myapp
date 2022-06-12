@@ -3,4 +3,4 @@ development:
 test:
   slide_products: [12, 26, 36]
 production:
-  slide_products: [12, 26, 36]
+  slide_products: [1, 2, 3]

@@ -3,6 +3,7 @@ import colors from "vuetify/es5/util/colors"
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
+  // mode: spa
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -49,11 +50,10 @@ export default {
   modules: ["@nuxtjs/axios", "@nuxtjs/auth", "@nuxtjs/toast", "@nuxtjs/dotenv"],
 
   axios: {
-    baseURL: "http://back:3000",
+    // baseURL: "http://back:3000",
     // browserBaseURL: 'http://back:3000',
     proxy: true,
   },
-  // baseURL = process.env.BASE_URL
 
   proxy: {
     "/api/": { target: "http://back:3000", pathRewrite: { "^/api/": "/" } },

@@ -27,6 +27,8 @@ services:
     container_name: front
     build: front/
     command: yarn dev
+    environment:
+      - NODE_OPTIONS=--max_old_space_size=4096
     volumes:
       - ./front:/myapp
     ports:

@@ -440,15 +440,6 @@ export default {
     ...mapActions(["addToCart"]),
     loadDatas() {
       this.$axios.get("api/products", {}).then((res) => {
-        // this.bestSellers = this.setImagePath(res.data.best_sellers, "medium")
-        // this.topRatings = this.setImagePath(res.data.top_rankings, "medium")
-        // this.newArrivals = this.setImagePath(res.data.new_arrivals, "medium")
-        // this.bigDiscounts = this.setImagePath(res.data.big_discounts, "medium")
-        // this.category1 = this.setImagePath(res.data.category1, "medium")
-        // this.category2 = this.setImagePath(res.data.category2, "medium")
-        // this.category3 = this.setImagePath(res.data.category3, "medium")
-        // this.category4 = this.setImagePath(res.data.category4, "medium")
-        // this.slideProducts = this.setImagePath(res.data.slide_products, "medium")
         this.bestSellers = res.data.best_sellers
         this.topRatings = res.data.top_rankings
         this.newArrivals = res.data.new_arrivals
@@ -460,18 +451,6 @@ export default {
         this.slideProducts = res.data.slide_products
       })
     },
-    // setImagePath(products, size) {
-    //   if (products) {
-    //     for (var m = 0; m < products.length; m++) {
-    //       if (size == "medium") {
-    //         products[m].image = products[m].images[0].medium.url
-    //       } else {
-    //         products[m].image = +products[m].images[0].thumb.url
-    //       }
-    //     }
-    //   }
-    //   return products
-    // },
     shopNow(item) {
       this.$router.push(`/products/${item.hashid}`)
     },
