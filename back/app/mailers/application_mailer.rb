@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'service@cf.com'
+  default from: 'monstercf.service@gmail.com'
   layout 'mailer'
 end

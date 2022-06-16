@@ -1,9 +1,9 @@
 
-Welcome to monstercoffee.com, <%= @user.name %>
+Welcome to monstercf.net, <%= @user.name %>
 ===============================================
  
 your login email is: <%= @user.email %>.
-please click the following link to activate your monstercoffee.com account:
+please click the following link to activate your monstercf.net account:
 <%= link_to users_activate_account_url(token: @token), users_activate_account_url(token: @token) %>
 
 To login to the site, just follow this link: <%= @url %>.

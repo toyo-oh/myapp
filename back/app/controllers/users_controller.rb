@@ -26,7 +26,7 @@ class UsersController < ApplicationController
       @user = User.new(user_params)
       render response_unprocessable_entity(@user.errors) unless @user.save!
     end
-    @token = @user.signed_id(purpose: 'activate account', expires_in: 1.minutes)
+    @token = @user.signed_id(purpose: 'activate account', expires_in: 30.minutes)
     UserMailer.activate_account(@user, @token).deliver_now
     render json: { code: 'ok', message: 'account activation mail has been sent, please check!' }
   end

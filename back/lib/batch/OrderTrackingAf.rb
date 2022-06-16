@@ -47,8 +47,8 @@ class OrderTrackingAf
     request = Net::HTTP::Get.new(url)
     request['Accept'] = 'application/json'
     request['Content-Type'] = 'application/json'
-    puts ENV['AFTERSHIP_PK']
-    request['aftership-api-key'] = ENV['AFTERSHIP_PK']
+    puts Rails.application.credentials.aftership_pk
+    request['aftership-api-key'] = Rails.application.credentials.aftership_pk
 
     http.request(request).read_body
   end

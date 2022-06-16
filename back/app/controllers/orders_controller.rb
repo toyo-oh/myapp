@@ -172,8 +172,8 @@ class OrdersController < ApplicationController
     dest_path = ['uploads', 'order', order_id.to_s, product_id.to_s, dest_file_name].join('/')
     bucket = 'img-uploader-bk'
     s3_client = Aws::S3::Client.new(
-      access_key_id: ENV['S3_ACCESS_KEY_ID'],
-      secret_access_key: ENV['S3_SECRET_ACCESS_KEY'],
+      access_key_id: Rails.application.credentials.aws_s3[:access_key_id],
+      secret_access_key: Rails.application.credentials.aws_s3[:secret_access_key],
       region: 'ap-northeast-1'
     )
     resp = s3_client.copy_object({
@@ -183,7 +183,7 @@ class OrdersController < ApplicationController
       key: dest_path
     })
 
-    full_path = "#{ENV['S3_ASSET_HOST']}/#{dest_path}"
+    full_path = "#{Rails.application.credentials.aws_s3[:asset_host]}/#{dest_path}"
   end
 
 end
