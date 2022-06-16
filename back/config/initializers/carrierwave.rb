@@ -6,7 +6,7 @@ CarrierWave.configure do |config|
     config.storage :fog
     config.fog_provider = 'fog/aws'
     config.fog_directory  = 'img-uploader-bk'
-		config.asset_host = ENV['S3_ASSET_HOST']
+		config.asset_host = Rails.application.credentials.aws_s3[:asset_host]
     config.fog_public = false
     config.fog_credentials = {
       provider: 'AWS',
