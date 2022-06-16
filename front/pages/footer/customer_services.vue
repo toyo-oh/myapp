@@ -5,7 +5,7 @@
         <div class="mt-6" justify="center">
           <h1>Return and Refund Policy</h1>
           <p>Last updated: April 22, 2022</p>
-          <p>Thank you for shopping at service@cf.com.</p>
+          <p>Thank you for shopping at monstercf.service@gmail.com.</p>
           <p>
             If, for any reason, You are not completely satisfied with a purchase We invite You to
             review our policy on refunds and returns. This Return and Refund Policy has been created
@@ -31,7 +31,7 @@
               <p>
                 <strong>Company</strong> (referred to as either &quot;the Company&quot;,
                 &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in this Agreement) refers to
-                service@cf.com.
+                monstercf.service@gmail.com.
               </p>
             </li>
             <li>
@@ -45,9 +45,9 @@
             </li>
             <li>
               <p>
-                <strong>Website</strong> refers to service@cf.com, accessible from
-                <a href="http://monstercoffee.com" rel="external nofollow noopener" target="_blank"
-                  >http://monstercoffee.com</a
+                <strong>Website</strong> refers to monstercf.service@gmail.com, accessible from
+                <a href="https://monstercf.net" rel="external nofollow noopener" target="_blank"
+                  >https://monstercf.net</a
                 >
               </p>
             </li>
@@ -74,7 +74,7 @@
             means of a clear statement. You can inform us of your decision by:
           </p>
           <ul>
-            <li>By email: service@cf.com</li>
+            <li>By email: monstercf.service@gmail.com</li>
           </ul>
           <p>
             We will reimburse You no later than 14 days from the day on which We receive the
@@ -136,7 +136,7 @@
           <h2>Contact Us</h2>
           <p>If you have any questions about our Returns and Refunds Policy, please contact us:</p>
           <ul>
-            <li>By email: service@cf.com</li>
+            <li>By email: monstercf.service@gmail.com</li>
           </ul>
         </div>
       </v-col>

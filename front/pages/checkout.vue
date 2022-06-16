@@ -11,6 +11,14 @@
                     <p class="white--text mb-0">1</p>
                   </v-avatar>
                   <h3 class="font-weight-light">Delivery Address</h3>
+                  <v-btn
+                    id="addAddress"
+                    dark
+                    color="brown lighten-1"
+                    class="text-capitalize ml-4"
+                    @click="addNewAddress"
+                    >New Address</v-btn
+                  >
                 </div>
               </v-col>
               <v-col cols="12" class="py-0"> </v-col>
@@ -195,15 +203,17 @@ export default {
             this.products.push(product)
           }
           var default_address = res.data.address
-          this.addressId = default_address.hashid
+          this.addressId = default_address == null ? "" : default_address.hashid
           this.addressDetail =
-            default_address.receiver +
-            " " +
-            default_address.phone_number +
-            " " +
-            default_address.post_code +
-            " " +
-            default_address.detail_address
+            default_address == null
+              ? ""
+              : default_address.receiver +
+                " " +
+                default_address.phone_number +
+                " " +
+                default_address.post_code +
+                " " +
+                default_address.detail_address
           this.getShipping()
         }
       })
@@ -214,6 +224,9 @@ export default {
           this.shippingFee = res.data.fee
         })
       }
+    },
+    addNewAddress() {
+      this.$router.push(`/addresses/new`)
     },
     getAddressList() {
       this.$axios.get(`api/addresses/find_by_user_id/${this.$auth.user.hashid}`).then((res) => {

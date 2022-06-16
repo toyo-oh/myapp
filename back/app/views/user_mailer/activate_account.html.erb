@@ -4,10 +4,10 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Welcome to monstercoffee.com, <%= @user.name %></h1>
+    <h1>Welcome to monstercf.net, <%= @user.name %></h1>
     <p>
       your login email is: <%= @user.email %>.<br>
-      please click the following link to activate your monstercoffee.com account:
+      please click the following link to activate your monstercf.net account:
     </p>
     <p><%= link_to users_activate_account_url(token: @token), users_activate_account_url(token: @token) %></p>
     <p>

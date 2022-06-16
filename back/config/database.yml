@@ -49,10 +49,10 @@ test:
 #
 production:
   <<: *default
-  database: <%= ENV['DB_DATABASE'] %>
-  host: <%= ENV['DB_HOST'] %>
-  username: <%= ENV['DB_USERNAME'] %>
-  password: <%= ENV['DB_PASSWORD'] %>
+  database: <%= Rails.application.credentials.aws_rds[:db_database] %>
+  host: <%= Rails.application.credentials.aws_rds[:db_host] %>
+  username: <%= Rails.application.credentials.aws_rds[:username] %>
+  password: <%= Rails.application.credentials.aws_rds[:password] %>
   adapter: mysql2
   encoding: utf8mb4
   charset: utf8mb4

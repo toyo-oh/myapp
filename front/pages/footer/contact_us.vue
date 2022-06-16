@@ -6,7 +6,7 @@
           <h1>Contact Us</h1>
           <p>
             1-1-1 Shibuya, Shibuya City, Tokyo Prefecture, Japan<br />
-            Email: service@cf.com<br />
+            Email: monstercf.service@gmail.com<br />
             Phone: +81 20 0000 0000
           </p>
         </div>

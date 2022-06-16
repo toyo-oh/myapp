@@ -32,12 +32,11 @@ class CartsController < ApplicationController
       @cart_items = @cart.cart_items
       @address = Address.where('user_id = ? AND is_default = 1', user_id).take
       @payment = Payment.where('user_id = ? AND is_default = 1', user_id).take
-      # as_json	vs to_json, to_json	with escape
       render json: {
         cart_items: @cart_items.as_json(include: :product, methods: [:product_hashid],
                                         except: %i[created_at updated_at product_id]), 
-        address: @address.wrap_json_address, 
-        payment: @payment.wrap_json_payment
+        address: @address.present? ? @address.wrap_json_address : nil ,
+        payment: @payment.present? ? @payment.wrap_json_payment : nil
       }
     end
   end

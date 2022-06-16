@@ -4,6 +4,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
     && apt-get update -qq \
     && apt-get install -y nodejs yarn \
     && apt-get install -y cron \
+    && apt-get install -y vim \
     && mkdir /myapp
 
 ENV HOME="/myapp" \

@@ -66,8 +66,8 @@
             <li>
               <p>
                 <strong>Website</strong> refers to monstercoffee, accessible from
-                <a href="http://monstercoffee.com" rel="external nofollow noopener" target="_blank"
-                  >http://monstercoffee.com</a
+                <a href="https://monstercf.net" rel="external nofollow noopener" target="_blank"
+                  >https://monstercf.net</a
                 >
               </p>
             </li>
@@ -247,7 +247,7 @@
           <h1>Contact Us</h1>
           <p>If you have any questions about these Terms and Conditions, You can contact us:</p>
           <ul>
-            <li>By email: service@cf.com</li>
+            <li>By email: monstercf.service@gmail.com</li>
           </ul>
         </div>
       </v-col>
