@@ -21,5 +21,5 @@ RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 EXPOSE 3000
 
-# RUN bundle exec whenever --update-crontab
-# CMD ["rails", "server", "-b", "0.0.0.0"]
+RUN bundle exec whenever --update-crontab
+CMD ["rails", "server", "-b", "0.0.0.0"]
