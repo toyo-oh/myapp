@@ -4,7 +4,7 @@ jobs:
   # job_build
   build:
     machine:
-      image:                 circleci/classic:edge
+      image:                 ubuntu-2004:2022.04.2
     steps:
       - checkout
       - run:
@@ -13,7 +13,7 @@ jobs:
   # job_test
   test:
     machine:
-      image:                 circleci/classic:edge
+      image:                 ubuntu-2004:2022.04.2
     steps:
       - checkout
       - run:
