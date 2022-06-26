@@ -11,7 +11,7 @@ jobs:
       #     extra-build-args: '--build-arg RAILS_MASTER_KEY=${RAILS_MASTER_KEY}'
       - run:
           name:              docker-compose_build
-          command:           docker-compose build
+          command:           docker-compose build --build-arg RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
   # job_test
   test:
     machine:
