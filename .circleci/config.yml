@@ -8,6 +8,8 @@ jobs:
     steps:
       - checkout
       - run:
+          command:           echo $RAILS_MASTER_KEY > myapp/back/config/master.key
+      - run:
           name:              docker-compose_build
           command:           docker-compose build
   # job_test
