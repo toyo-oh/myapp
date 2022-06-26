@@ -18,6 +18,7 @@ COPY . ${HOME}
 
 ARG RAILS_MASTER_KEY
 ENV RAILS_MASTER_KEY ${RAILS_MASTER_KEY}
+RUN echo "RAILS_MASTER_KEY: $RAILS_MASTER_KEY"
 
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
@@ -25,4 +26,4 @@ ENTRYPOINT ["entrypoint.sh"]
 EXPOSE 3000
 
 RUN bundle exec whenever --update-crontab
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["rails", "server", "-e", "test"]
