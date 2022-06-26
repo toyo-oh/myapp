@@ -1,0 +1,43 @@
+version:                     2.1
+
+jobs:
+  # job_build
+  build:
+    machine:
+      image:                 circleci/classic:edge
+    steps:
+      - checkout
+      - run:
+          name:              docker-compose_build
+          command:           docker-compose build
+  # job_test
+  test:
+    machine:
+      image:                 circleci/classic:edge
+    steps:
+      - checkout
+      - run:
+          name:              docker-compose_up
+          command:           docker-compose up -d
+      - run:                 sleep 30
+      - run:
+          name:              create_db
+          command:           docker-compose run back rails db:create RAILS_ENV=test
+      - run:
+          name:              test_backend
+          command:           docker-compose run back bundle exec rspec spec
+      # - run:
+      #     name:              test_frontend
+      #     command:           docker-compose run front npm run lint
+      - run:
+          name:              docker_compose_down
+          command:           docker-compose down
+
+# workflow
+workflows:
+  test_workflow:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
