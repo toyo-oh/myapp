@@ -14,7 +14,7 @@ services:
   back:
     container_name: back
     build: back/
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -e test"
     volumes:
       - ./back:/myapp
     ports:
