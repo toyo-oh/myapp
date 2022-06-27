@@ -57,7 +57,7 @@
                           xl="3">
                           <item-card
                             :p-hash-id="item.hashid"
-                            :p-img="item.image"
+                            :p-img="item.images[0].medium.url"
                             :p-title="item.title"
                             :original-price="item.price"
                             :sub-title="item.sub_title"
@@ -150,7 +150,6 @@ export default {
       this.$axios.$post(`/api/products/search`, { value: this.$route.query.value }).then((res) => {
         var products = res.products
         for (var m = 0; m < products.length; m++) {
-          products[m].image = "http://localhost:3000" + products[m].images[0].medium.url
           products[m].qty = 1
         }
         this.items = products

@@ -69,15 +69,16 @@
                 cols="12"
                 xs="6"
                 sm="4"
-                md="3"
-                lg="2"
-                xl="2">
-                <small-card
+                md="4"
+                lg="3"
+                xl="3">
+                <item-card
                   :p-id="item.id"
                   :p-hash-id="item.hashid"
                   :p-img="item.images[0].medium.url"
                   :p-title="item.title"
                   :original-price="item.price"
+                  :sub-title="item.sub_title"
                   :p-discount="Number(item.discount)"
                   @cartAdd="
                     addToCart({
@@ -86,7 +87,7 @@
                         0
                       ),
                     })
-                  "></small-card>
+                  "></item-card>
               </v-col>
             </v-row>
           </div>
@@ -117,15 +118,16 @@
                 cols="12"
                 xs="6"
                 sm="4"
-                md="3"
-                lg="2"
-                xl="2">
-                <small-card
+                md="4"
+                lg="3"
+                xl="3">
+                <item-card
                   :p-id="item.id"
                   :p-hash-id="item.hashid"
                   :p-img="item.images[0].medium.url"
                   :p-title="item.title"
                   :original-price="item.price"
+                  :sub-title="item.sub_title"
                   :p-discount="Number(item.discount)"
                   @cartAdd="
                     addToCart({
@@ -134,7 +136,7 @@
                         0
                       ),
                     })
-                  "></small-card>
+                  "></item-card>
               </v-col>
             </v-row>
           </div>
@@ -165,15 +167,16 @@
                 cols="12"
                 xs="6"
                 sm="4"
-                md="3"
-                lg="2"
-                xl="2">
-                <small-card
+                md="4"
+                lg="3"
+                xl="3">
+                <item-card
                   :p-id="item.id"
                   :p-hash-id="item.hashid"
                   :p-img="item.images[0].medium.url"
                   :p-title="item.title"
                   :original-price="item.price"
+                  :sub-title="item.sub_title"
                   :p-discount="Number(item.discount)"
                   @cartAdd="
                     addToCart({
@@ -182,7 +185,7 @@
                         0
                       ),
                     })
-                  "></small-card>
+                  "></item-card>
               </v-col>
             </v-row>
           </div>
@@ -213,15 +216,16 @@
                 cols="12"
                 xs="6"
                 sm="4"
-                md="3"
-                lg="2"
-                xl="2">
-                <small-card
+                md="4"
+                lg="3"
+                xl="3">
+                <item-card
                   :p-id="item.id"
                   :p-hash-id="item.hashid"
                   :p-img="item.images[0].medium.url"
                   :p-title="item.title"
                   :original-price="item.price"
+                  :sub-title="item.sub_title"
                   :p-discount="Number(item.discount)"
                   @cartAdd="
                     addToCart({
@@ -230,7 +234,7 @@
                         0
                       ),
                     })
-                  "></small-card>
+                  "></item-card>
               </v-col>
             </v-row>
           </div>
