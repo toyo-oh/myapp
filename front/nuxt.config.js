@@ -55,7 +55,7 @@ export default {
   },
 
   proxy: {
-    "/api/": { target: "http://back:3000", pathRewrite: { "^/api/": "/" } },
+    "/api/": { target: "https://monstercf-api.net", pathRewrite: { "^/api/": "/" } },
     "/tracking_api/": {
       target: "http://nanoappli.com/tracking/api",
       changeOrigin: true,

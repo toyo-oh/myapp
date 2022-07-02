@@ -12,7 +12,10 @@ services:
   #     - mysql-data:/var/lib/mysql
   back:
     container_name: back
-    build: back/
+    build: 
+      context: back/  
+      args: 
+        RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -e production"
     volumes:
       - ./back:/myapp
@@ -24,7 +27,10 @@ services:
     tty: true
   front:
     container_name: front
-    build: front/
+    build: 
+      context: front/  
+      args: 
+        FRONT_STRIPE_PK: ${FRONT_STRIPE_PK}
     command: yarn start
     environment:
       - NODE_OPTIONS=--max_old_space_size=4096
