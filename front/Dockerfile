@@ -5,6 +5,8 @@ ENV HOME="/myapp" \
     TZ=Asia/Tokyo
 
 WORKDIR ${HOME}
+COPY package.json .
+COPY . .
 
 RUN apk update && \
     apk upgrade && \
