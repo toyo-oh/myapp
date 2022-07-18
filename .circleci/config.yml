@@ -24,9 +24,9 @@ jobs:
       - run:
           name:              create_db
           command:           docker-compose run back rails db:create RAILS_ENV=test
-      - run:
-          name:              migrate_db
-          command:           docker-compose run back rails db:migrate RAILS_ENV=test
+      # - run:
+      #     name:              migrate_db
+      #     command:           docker-compose run back rails db:migrate RAILS_ENV=test
       - run:
           name:              test_back
           command:           docker-compose run back bundle exec rspec spec
