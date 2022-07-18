@@ -16,7 +16,7 @@ services:
       context: back/
       args: 
         RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -e production"
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0"
     volumes:
       - ./back:/myapp
     ports:
@@ -31,12 +31,10 @@ services:
       context: front/  
       args: 
         FRONT_STRIPE_PK: ${FRONT_STRIPE_PK}
-    command: yarn start
-    # environment:
-    #   - NODE_OPTIONS=--max_old_space_size=4096
-    #   - NODE_ENV=production
+    command: yarn dev
     volumes:
       - ./front:/myapp
+      - node_modules:/myapp/node_modules
     ports:
       - 80:3000
       - 443:3000
@@ -45,3 +43,4 @@ services:
 volumes:
   mysql-data:
     driver: local
+  node_modules:
