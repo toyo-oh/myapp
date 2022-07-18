@@ -36,6 +36,8 @@ services:
       dockerfile: Dockerfile
       context: front/
     command: yarn dev
+    environment:
+      FRONT_STRIPE_PK: ${FRONT_STRIPE_PK}
     volumes:
       - ./front:/myapp
       - node_modules:/myapp/node_modules

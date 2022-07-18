@@ -19,7 +19,7 @@ jobs:
       - checkout
       - run:
           name:              docker-compose_up
-          command:           sudo RAILS_MASTER_KEY=${RAILS_MASTER_KEY} FRONT_STRIPE_PK=${FRONT_STRIPE_PK} docker-compose up
+          command:           sudo docker-compose up -d
       - run:                 sleep 30
       - run:
           name:              create_db
