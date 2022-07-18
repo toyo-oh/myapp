@@ -1,19 +1,19 @@
 version: '3'
 services:
-  # db:
-  #   container_name: db
-  #   build: mysql/    #add
-  #   image: mysql:8.0
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: password
-  #   ports:
-  #     - '3307:3306'
-  #   volumes:
-  #     - mysql-data:/var/lib/mysql
+  db:
+    container_name: db
+    build: mysql/
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - '3307:3306'
+    volumes:
+      - mysql-data:/var/lib/mysql
   back:
     container_name: back
     build: 
-      context: back/  
+      context: back/
       args: 
         RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -e production"
@@ -31,10 +31,10 @@ services:
       context: front/  
       args: 
         FRONT_STRIPE_PK: ${FRONT_STRIPE_PK}
-    command: yarn start
-    environment:
-      - NODE_OPTIONS=--max_old_space_size=4096
-      - NODE_ENV=production
+    command: yarn run dev
+    # environment:
+    #   - NODE_OPTIONS=--max_old_space_size=4096
+    #   - NODE_ENV=production
     volumes:
       - ./front:/myapp
     ports:
