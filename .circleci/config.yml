@@ -19,7 +19,7 @@ jobs:
       - checkout
       - run:
           name:              docker-compose_up
-          command:           docker-compose up
+          command:           sudo docker-compose up
       - run:                 sleep 30
       - run:
           name:              create_db
