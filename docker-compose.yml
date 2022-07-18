@@ -21,8 +21,8 @@ services:
       - ./back:/myapp
     ports:
       - "3000:3000" 
-    # depends_on:
-    #   - db
+    depends_on:
+      - db
     stdin_open: true
     tty: true
   front:
