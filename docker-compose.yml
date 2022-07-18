@@ -2,7 +2,9 @@ version: '3'
 services:
   db:
     container_name: db
-    build: mysql/
+    build: 
+      dockerfile: Dockerfile
+      context: mysql/
     image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: password
@@ -13,10 +15,13 @@ services:
   back:
     container_name: back
     build: 
+      dockerfile: Dockerfile
       context: back/
       args: 
         RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0"
+    environment:
+      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
     volumes:
       - ./back:/myapp
     ports:
@@ -28,9 +33,8 @@ services:
   front:
     container_name: front
     build: 
-      context: front/  
-      args: 
-        FRONT_STRIPE_PK: ${FRONT_STRIPE_PK}
+      dockerfile: Dockerfile
+      context: front/
     command: yarn dev
     volumes:
       - ./front:/myapp
