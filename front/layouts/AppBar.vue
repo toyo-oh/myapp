@@ -6,7 +6,6 @@
       </v-avatar>
     </router-link>
     <v-btn text @click="toMain">Store</v-btn>
-    <v-btn text>Product</v-btn>
     <v-spacer />
     <v-col cols="6" md="4" sm="4" xs="4">
       <v-text-field

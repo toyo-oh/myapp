@@ -27,7 +27,7 @@ class UsersController < ApplicationController
       render response_unprocessable_entity(@user.errors) unless @user.save!
     end
     @token = @user.signed_id(purpose: 'activate account', expires_in: 30.minutes)
-    UserMailer.activate_account(@user, @token).deliver_now
+    UserMailer.activate_account(@user, @token).deliver_later
     render json: { code: 'ok', message: 'account activation mail has been sent, please check!' }
   end
 
@@ -116,7 +116,7 @@ class UsersController < ApplicationController
       render json: { code: 'error', message: 'email address not found. please check and try again.' }
     else
       @token = @user.signed_id(purpose: 'password reset', expires_in: 15.minutes)
-      UserMailer.reset_password(@user, @token).deliver_now
+      UserMailer.reset_password(@user, @token).deliver_later
       render json: { code: 'ok', message: 'password reset mail has been sent, please check!',
                      user: @user.wrap_json_user }
     end
