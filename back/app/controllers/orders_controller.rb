@@ -44,7 +44,7 @@ class OrdersController < ApplicationController
         raise ActiveRecord::Rollback
       else
         @new_order.pay!(customer.id, charge.id, charge.source.last4)
-        OrderMailer.notify_order_placed(@new_order).deliver_now
+        OrderMailer.notify_order_placed(@new_order).deliver_later
       end
     end
     return response_custom_error('error', errors) if errors.present?
@@ -93,7 +93,7 @@ class OrdersController < ApplicationController
           @product.update!(quantity: @product.quantity + detail.quantity)
         end
         @order.refund!(refund.id)
-        OrderMailer.notify_order_cancelled(@order).deliver_now
+        OrderMailer.notify_order_cancelled(@order).deliver_later
       end
     else
       return response_custom_error('error', errors)

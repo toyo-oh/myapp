@@ -413,12 +413,10 @@
 </template>
 
 <script>
-import SmallCard from "@/components/productCard/SmallCard"
 import ItemCard from "@/components/productCard/ItemCard"
 import { mapActions } from "vuex"
 export default {
   components: {
-    SmallCard,
     ItemCard,
   },
   data() {

@@ -72,5 +72,8 @@ export default {
     Logo,
     VuetifyLogo,
   },
+  middleware({ redirect }) {
+    redirect("/home")
+  },
 }
 </script>

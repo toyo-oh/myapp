@@ -134,9 +134,6 @@
           </v-btn>
         </div>
         <div v-if="!isAdmin">
-          <!-- <v-btn v-if="displayPayBtn" dark color="brown lighten-1" class="text-capitalize" @click="$emit('pay-order')">
-            Pay Order
-          </v-btn> -->
           <v-btn
             v-if="displayCancelBtn"
             dark
@@ -145,9 +142,6 @@
             @click="$emit('cancel-order')">
             Cancel Order
           </v-btn>
-          <!-- <v-btn v-if="displayReceiveBtn" dark color="brown lighten-1" class="text-capitalize" @click="$emit('receive-good')">
-            Receive goods
-          </v-btn> -->
         </div>
       </div>
       <v-divider v-if="displayTrackingInfo && isAdmin"></v-divider>
@@ -192,12 +186,6 @@ export default {
     displayCancelBtn: function () {
       return this.orderStatus == "order_placed" || this.orderStatus == "paid" ? true : false
     },
-    // displayPayBtn: function () {
-    //   return this.orderStatus == 'order_placed' ? true : false
-    // },
-    // displayReceiveBtn: function () {
-    //   return this.orderStatus == 'shipping' ? true : false
-    // },
     displayShipBtn: function () {
       return this.orderStatus == "paid" ? true : false
     },

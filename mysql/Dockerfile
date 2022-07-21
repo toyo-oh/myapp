@@ -1,4 +1,4 @@
-FROM mysql
+FROM mysql:8.0-debian
 
 RUN apt-get update
 RUN apt-get -y install locales-all

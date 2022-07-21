@@ -41,7 +41,7 @@ class Admin::OrdersController < ApplicationController
           @product.update!(quantity: @product.quantity + detail.quantity)
         end
         @order.refund!(refund.id)
-        OrderMailer.notify_order_cancelled(@order).deliver_now
+        OrderMailer.notify_order_cancelled(@order).deliver_later
       end
     else
       return response_custom_error('error', errors)
@@ -54,7 +54,7 @@ class Admin::OrdersController < ApplicationController
     @order = find_order
     @order.set_deliver_info!(params[:slug], params[:tracking_number])
     @order.ship!
-    OrderMailer.notify_order_despatched(@order).deliver_now
+    OrderMailer.notify_order_despatched(@order).deliver_later
     render json: { message: 'shipped order successfully!', order: @order.wrap_json_order }
   end
 
