@@ -242,13 +242,15 @@
       </v-row>
     </v-container>
 
-    <!-- Category 1  -->
+    <!-- Coffee Beans  -->
     <v-container class="mb-60">
       <v-row>
         <v-col cols="12">
           <div class="d-flex justify-space-between mb-5">
-            <h2 class="brown--text font-weight-bold">Category 1</h2>
-            <a class="text-decoration-none blue-grey--text darken-1" @click="viewAll('category_1')">
+            <h2 class="brown--text font-weight-bold">Coffee Beans</h2>
+            <a
+              class="text-decoration-none blue-grey--text darken-1"
+              @click="viewAll('category_CoffeeBeans')">
               View all
               <v-icon class="m-0 p-0">mdi-menu-right</v-icon>
             </a>
@@ -256,7 +258,7 @@
           <div>
             <v-row>
               <v-col
-                v-for="(item, index) in category1"
+                v-for="(item, index) in coffeeBeans"
                 :key="index"
                 cols="12"
                 xs="6"
@@ -287,20 +289,22 @@
       </v-row>
     </v-container>
 
-    <!-- Category 2  -->
+    <!-- Drip Bag  -->
     <v-container class="mb-60">
       <v-row>
         <v-col cols="12">
           <div class="d-flex justify-space-between mb-5">
-            <h2 class="brown--text font-weight-bold">Category 2</h2>
-            <a class="text-decoration-none blue-grey--text darken-1" @click="viewAll('category_2')">
+            <h2 class="brown--text font-weight-bold">Drip Bag</h2>
+            <a
+              class="text-decoration-none blue-grey--text darken-1"
+              @click="viewAll('category_DripBag')">
               View all
               <v-icon class="m-0 p-0">mdi-menu-right</v-icon>
             </a>
           </div>
           <v-row>
             <v-col
-              v-for="(item, index) in category2"
+              v-for="(item, index) in dripBag"
               :key="index"
               cols="12"
               xs="6"
@@ -328,20 +332,22 @@
       </v-row>
     </v-container>
 
-    <!-- Category 3  -->
+    <!-- Liquid Coffee  -->
     <v-container class="mb-60">
       <v-row>
         <v-col cols="12">
           <div class="d-flex justify-space-between mb-5">
-            <h2 class="brown--text font-weight-bold">Category 3</h2>
-            <a class="text-decoration-none blue-grey--text darken-1" @click="viewAll('category_3')">
+            <h2 class="brown--text font-weight-bold">Liquid Coffee</h2>
+            <a
+              class="text-decoration-none blue-grey--text darken-1"
+              @click="viewAll('category_LiquidCoffee')">
               View all
               <v-icon class="m-0 p-0">mdi-menu-right</v-icon>
             </a>
           </div>
           <v-row>
             <v-col
-              v-for="(item, index) in category3"
+              v-for="(item, index) in liquidCoffee"
               :key="index"
               cols="12"
               xs="6"
@@ -369,20 +375,108 @@
       </v-row>
     </v-container>
 
-    <!-- Category 4  -->
+    <!-- Instant Coffee  -->
     <v-container class="mb-60">
       <v-row>
         <v-col cols="12">
           <div class="d-flex justify-space-between mb-5">
-            <h2 class="brown--text font-weight-bold">Category 4</h2>
-            <a class="text-decoration-none blue-grey--text darken-1" @click="viewAll('category_4')">
+            <h2 class="brown--text font-weight-bold">Instant Coffee</h2>
+            <a
+              class="text-decoration-none blue-grey--text darken-1"
+              @click="viewAll('category_InstantCoffee')">
               View all
               <v-icon class="m-0 p-0">mdi-menu-right</v-icon>
             </a>
           </div>
           <v-row>
             <v-col
-              v-for="(item, index) in category4"
+              v-for="(item, index) in instantCoffee"
+              :key="index"
+              cols="12"
+              xs="6"
+              sm="4"
+              md="4"
+              lg="3"
+              xl="3">
+              <item-card
+                :p-id="item.id"
+                :p-hash-id="item.hashid"
+                :p-img="item.images[0].medium.url"
+                :p-title="item.title"
+                :original-price="item.price"
+                :sub-title="item.sub_title"
+                :p-discount="Number(item.discount)"
+                @cartAdd="
+                  addToCart({
+                    hashid: item.hashid,
+                    price: parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(0),
+                  })
+                "></item-card>
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
+    </v-container>
+
+    <!-- Sugar&Milk  -->
+    <v-container class="mb-60">
+      <v-row>
+        <v-col cols="12">
+          <div class="d-flex justify-space-between mb-5">
+            <h2 class="brown--text font-weight-bold">Sugar&Milk</h2>
+            <a
+              class="text-decoration-none blue-grey--text darken-1"
+              @click="viewAll('category_Sugar&Milk')">
+              View all
+              <v-icon class="m-0 p-0">mdi-menu-right</v-icon>
+            </a>
+          </div>
+          <v-row>
+            <v-col
+              v-for="(item, index) in sugarMilk"
+              :key="index"
+              cols="12"
+              xs="6"
+              sm="4"
+              md="4"
+              lg="3"
+              xl="3">
+              <item-card
+                :p-id="item.id"
+                :p-hash-id="item.hashid"
+                :p-img="item.images[0].medium.url"
+                :p-title="item.title"
+                :original-price="item.price"
+                :sub-title="item.sub_title"
+                :p-discount="Number(item.discount)"
+                @cartAdd="
+                  addToCart({
+                    hashid: item.hashid,
+                    price: parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(0),
+                  })
+                "></item-card>
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
+    </v-container>
+
+    <!-- Coffee Tools  -->
+    <v-container class="mb-60">
+      <v-row>
+        <v-col cols="12">
+          <div class="d-flex justify-space-between mb-5">
+            <h2 class="brown--text font-weight-bold">Coffee Tools</h2>
+            <a
+              class="text-decoration-none blue-grey--text darken-1"
+              @click="viewAll('category_CoffeeTools')">
+              View all
+              <v-icon class="m-0 p-0">mdi-menu-right</v-icon>
+            </a>
+          </div>
+          <v-row>
+            <v-col
+              v-for="(item, index) in coffeeTools"
               :key="index"
               cols="12"
               xs="6"
@@ -425,10 +519,12 @@ export default {
       topRatings: [],
       newArrivals: [],
       bigDiscounts: [],
-      category1: [],
-      category2: [],
-      category3: [],
-      category4: [],
+      coffeeBeans: [],
+      dripBag: [],
+      liquidCoffee: [],
+      instantCoffee: [],
+      sugarMilk: [],
+      coffeeTools: [],
       slideProducts: [],
     }
   },
@@ -446,10 +542,12 @@ export default {
         this.topRatings = res.data.top_rankings
         this.newArrivals = res.data.new_arrivals
         this.bigDiscounts = res.data.big_discounts
-        this.category1 = res.data.category1
-        this.category2 = res.data.category2
-        this.category3 = res.data.category3
-        this.category4 = res.data.category4
+        this.coffeeBeans = res.data.coffeeBeans
+        this.dripBag = res.data.dripBag
+        this.liquidCoffee = res.data.liquidCoffee
+        this.instantCoffee = res.data.instantCoffee
+        this.sugarMilk = res.data.sugarMilk
+        this.coffeeTools = res.data.coffeeTools
         this.slideProducts = res.data.slide_products
       })
     },

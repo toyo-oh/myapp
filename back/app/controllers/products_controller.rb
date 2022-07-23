@@ -92,14 +92,8 @@ class ProductsController < ApplicationController
       @products = Product.find_by_sql([
                                         'SELECT * FROM products INNER JOIN (SELECT product_id, sum(discount) as all_discount FROM promotions where start_at <= ? AND end_at >= ? AND is_active = 1 group by product_id) active_promotion ON products.id = active_promotion.product_id where products.is_available = 1 AND products.quantity > 0 ORDER BY active_promotion.all_discount DESC', today, today
                                       ])
-    when 'category_1'
-      @products = Product.where('is_available = 1 AND quantity > 0 AND category_id = ?', 1)
-    when 'category_2'
-      @products = Product.where('is_available = 1 AND quantity > 0 AND category_id = ?', 2)
-    when 'category_3'
-      @products = Product.where('is_available = 1 AND quantity > 0 AND category_id = ?', 3)
-    when 'category_4'
-      @products = Product.where('is_available = 1 AND quantity > 0 AND category_id = ?', 4)
+    when /^category_/
+      @products = Product.find_by_sql(['SELECT * FROM products INNER JOIN categories on products.category_id = categories.id where products.is_available = 1 AND products.quantity > 0 AND categories.category = ?', params[:value][9, params[:value].length]])
     else
       @products = Product.where(
         'is_available = 1 AND quantity > 0 AND (title LIKE :search OR description LIKE :search)', 
@@ -113,7 +107,7 @@ class ProductsController < ApplicationController
   end
 
   def index
-    limit_cnt1 = 6
+    limit_cnt1 = 8
     limit_cnt2 = 8
     today = Time.new.strftime('%Y-%m-%d')
     # New Arrivals order by created_at desc
@@ -135,10 +129,12 @@ class ProductsController < ApplicationController
                                            where products.is_available = 1 AND products.quantity > 0 ORDER BY active_promotion.all_discount DESC limit ?', 
                                            today, today, limit_cnt1
                                          ])
-    @category1 = Product.where('is_available = 1 AND quantity > 0 AND category_id = ?', 1).limit(limit_cnt2)
-    @category2 = Product.where('is_available = 1 AND quantity > 0 AND category_id = ?', 2).limit(limit_cnt2)
-    @category3 = Product.where('is_available = 1 AND quantity > 0 AND category_id = ?', 3).limit(limit_cnt2)
-    @category4 = Product.where('is_available = 1 AND quantity > 0 AND category_id = ?', 4).limit(limit_cnt2)
+    @coffeeBeans = Product.find_by_sql(['SELECT * FROM products INNER JOIN categories on products.category_id = categories.id where products.is_available = 1 AND products.quantity > 0 AND categories.category = ? limit ?', 'CoffeeBeans',limit_cnt2])
+    @dripBag = Product.find_by_sql(['SELECT * FROM products INNER JOIN categories on products.category_id = categories.id where products.is_available = 1 AND products.quantity > 0 AND categories.category = ? limit ?', 'DripBag',limit_cnt2])
+    @liquidCoffee = Product.find_by_sql(['SELECT * FROM products INNER JOIN categories on products.category_id = categories.id where products.is_available = 1 AND products.quantity > 0 AND categories.category = ? limit ?', 'LiquidCoffee',limit_cnt2])
+    @instantCoffee = Product.find_by_sql(['SELECT * FROM products INNER JOIN categories on products.category_id = categories.id where products.is_available = 1 AND products.quantity > 0 AND categories.category = ? limit ?', 'InstantCoffee',limit_cnt2])
+    @sugarMilk = Product.find_by_sql(['SELECT * FROM products INNER JOIN categories on products.category_id = categories.id where products.is_available = 1 AND products.quantity > 0 AND categories.category = ? limit ?', 'Sugar&Milk',limit_cnt2])
+    @coffeeTools = Product.find_by_sql(['SELECT * FROM products INNER JOIN categories on products.category_id = categories.id where products.is_available = 1 AND products.quantity > 0 AND categories.category = ? limit ?', 'CoffeeTools',limit_cnt2])
     # slide products
     slide_config = Rails.application.config_for(:promotion, env: Rails.env)
     @slide_products = Product.find(slide_config['slide_products'])
@@ -146,10 +142,12 @@ class ProductsController < ApplicationController
                    best_sellers: discount_setting(@best_sellers).as_json(methods: [:hashid], except: %i[id created_at updated_at]),
                    top_rankings: discount_setting(@top_rankings).as_json(methods: [:hashid], except: %i[id created_at updated_at]),
                    big_discounts: discount_setting(@big_discounts).as_json(methods: [:hashid], except: %i[id created_at updated_at]),
-                   category1: discount_setting(@category1).as_json(methods: [:hashid], except: %i[id created_at updated_at]),
-                   category2: discount_setting(@category2).as_json(methods: [:hashid], except: %i[id created_at updated_at]),
-                   category3: discount_setting(@category3).as_json(methods: [:hashid], except: %i[id created_at updated_at]),
-                   category4: discount_setting(@category4).as_json(methods: [:hashid], except: %i[id created_at updated_at]),
+                   coffeeBeans: discount_setting(@coffeeBeans).as_json(methods: [:hashid], except: %i[id created_at updated_at]),
+                   dripBag: discount_setting(@dripBag).as_json(methods: [:hashid], except: %i[id created_at updated_at]),
+                   liquidCoffee: discount_setting(@liquidCoffee).as_json(methods: [:hashid], except: %i[id created_at updated_at]),
+                   instantCoffee: discount_setting(@instantCoffee).as_json(methods: [:hashid], except: %i[id created_at updated_at]),
+                   sugarMilk: discount_setting(@sugarMilk).as_json(methods: [:hashid], except: %i[id created_at updated_at]),
+                   coffeeTools: discount_setting(@coffeeTools).as_json(methods: [:hashid], except: %i[id created_at updated_at]),
                    slide_products: discount_setting(@slide_products).as_json(methods: [:hashid], except: %i[id created_at updated_at]) }
   end
 

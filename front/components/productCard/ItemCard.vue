@@ -72,6 +72,6 @@ export default {
 <style lang="scss" scoped>
 .p-absolute {
   position: absolute !important;
-  z-index: 999;
+  z-index: 3;
 }
 </style>
