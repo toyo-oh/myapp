@@ -5,9 +5,19 @@
         <img src="@/assets/images/logo.png" alt="" />
       </v-avatar>
     </router-link>
-    <v-btn text @click="toMain">Store</v-btn>
+    <!-- menu for product category-->
+    <v-menu offset-y>
+      <template #activator="{ attrs, on }">
+        <v-btn text v-bind="attrs" v-on="on"> Product Overview</v-btn>
+      </template>
+      <v-list>
+        <v-list-item v-for="item in productmenus" :key="item.index" link>
+          <v-list-item-title @click="item.action" v-text="item.text"></v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
     <v-spacer />
-    <v-col cols="6" md="4" sm="4" xs="4">
+    <v-col cols="4" md="4" sm="4" xs="4">
       <v-text-field
         v-model="searchText"
         color="brown lighten-1"
@@ -79,6 +89,36 @@ export default {
     return {
       clipped: false,
       title: "Store",
+
+      productmenus: [
+        {
+          index: 1,
+          text: "Coffee Beans",
+          action: this.toCoffeeBeans,
+        },
+        {
+          index: 2,
+          text: "Drip Bag",
+          action: this.toDripBag,
+        },
+        {
+          index: 3,
+          text: "Liquid Coffee",
+          action: this.toLiquidCoffee,
+        },
+        {
+          index: 4,
+          text: "Instant Coffee",
+          action: this.toInstantCoffee,
+        },
+        {
+          index: 5,
+          text: "Sugar&Milk",
+          action: this.toSugarMilk,
+        },
+        { index: 6, text: "Coffee Tools", action: this.toCoffeeTools },
+      ],
+
       actmenus: [
         {
           index: 1,
@@ -180,13 +220,30 @@ export default {
     help() {
       this.$router.push(`/footer/contact_us`)
     },
+    toCoffeeBeans() {
+      this.$router.push({ path: "/search", query: { value: "category_CoffeeBeans" } })
+    },
+    toDripBag() {
+      this.$router.push({ path: "/search", query: { value: "category_DripBag" } })
+    },
+    toLiquidCoffee() {
+      this.$router.push({ path: "/search", query: { value: "category_LiquidCoffee" } })
+    },
+    toInstantCoffee() {
+      this.$router.push({ path: "/search", query: { value: "category_InstantCoffee" } })
+    },
+    toSugarMilk() {
+      this.$router.push({ path: "/search", query: { value: "category_Sugar&Milk" } })
+    },
+    toCoffeeTools() {
+      this.$router.push({ path: "/search", query: { value: "category_CoffeeTools" } })
+    },
     loadCart() {
       if (this.$auth.loggedIn) {
         this.$axios.$get(`api/cart/find_cart/${this.$auth.user.hashid}`).then((res) => {
           this.$store.commit("load_products", res.productList)
         })
       } else {
-        // array→[],object→{}(等价于new Object())
         var localCart = []
         if (localStorage.getItem("Cart")) {
           localCart = JSON.parse(localStorage.getItem("Cart"))
