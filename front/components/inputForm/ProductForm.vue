@@ -179,7 +179,7 @@ export default {
       today: new Date().toISOString().slice(0, 10),
       titleRules: [
         (v) => !!v || "Title is required",
-        (v) => (v && v.length <= 10) || "Title must be less than 10 characters",
+        (v) => (v && v.length <= 30) || "Title must be less than 30 characters",
       ],
       subTitleRules: [
         (v) => !!v || "Sub Title is required",

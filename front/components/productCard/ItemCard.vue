@@ -11,11 +11,11 @@
         :to="{ name: 'products-id', params: { id: pHashId } }"
         color="brown lighten-1"
         class="text-decoration-none">
-        <h3 class="mb-0 brown--text text--darken-4">{{ pTitle }}</h3>
+        <h4 class="mb-0 brown--text text--darken-4">{{ pTitle.substring(0, 30) }}</h4>
       </router-link>
-      <div class="d-flex mb-1 grey--text">
+      <!-- <div class="d-flex mb-1 grey--text">
         {{ subTitle ? subTitle.substring(0, 25) : "" }}
-      </div>
+      </div> -->
       <div class="d-flex justify-space-between">
         <div class="d-flex">
           <h4 class="brown--text lighten-1 mr-2 mb-0">

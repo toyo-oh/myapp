@@ -16,7 +16,7 @@
       </v-col>
       <v-col cols="5" lg="5">
         <div class="d-flex mb-10"></div>
-        <h1 class="mb-4">{{ title }}</h1>
+        <h3 class="mb-4">{{ title }}</h3>
         <div class="d-flex">
           <p class="mt-2">{{ subTitle }}</p>
           <div>
