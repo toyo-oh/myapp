@@ -15,9 +15,9 @@ RSpec.describe Product, type: :model do
     end
 
     it 'title_length_error' do
-      @product.title = 'aaaaaaaaaaa'
+      @product.title = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       @product.valid?
-      expect(@product.errors.full_messages).to include('Title is too long (maximum is 10 characters)')
+      expect(@product.errors.full_messages).to include('Title is too long (maximum is 30 characters)')
     end
 
     it 'sub_title_blank_error' do
