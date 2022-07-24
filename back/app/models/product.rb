@@ -6,7 +6,7 @@ class Product < ApplicationRecord
   has_many :promotions
   has_many :favourites
 
-  validates :title, { presence: true, length: { maximum: 10 } }
+  validates :title, { presence: true, length: { maximum: 30 } }
   validates :sub_title, { presence: true, length: { maximum: 50 } }
   validates :category_id, { presence: true }
   validates :description, { presence: true, length: { maximum: 300 } }

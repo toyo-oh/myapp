@@ -93,7 +93,7 @@ class ProductsController < ApplicationController
                                         'SELECT * FROM products INNER JOIN (SELECT product_id, sum(discount) as all_discount FROM promotions where start_at <= ? AND end_at >= ? AND is_active = 1 group by product_id) active_promotion ON products.id = active_promotion.product_id where products.is_available = 1 AND products.quantity > 0 ORDER BY active_promotion.all_discount DESC', today, today
                                       ])
     when /^category_/
-      @products = Product.find_by_sql(['SELECT * FROM products INNER JOIN categories on products.category_id = categories.id where products.is_available = 1 AND products.quantity > 0 AND categories.category = ?', params[:value][9, params[:value].length]])
+      @products = Product.find_by_sql(['SELECT products.* FROM products INNER JOIN categories on products.category_id = categories.id where products.is_available = 1 AND products.quantity > 0 AND categories.category = ?', params[:value][9, params[:value].length]])
     else
       @products = Product.where(
         'is_available = 1 AND quantity > 0 AND (title LIKE :search OR description LIKE :search)', 
@@ -129,12 +129,12 @@ class ProductsController < ApplicationController
                                            where products.is_available = 1 AND products.quantity > 0 ORDER BY active_promotion.all_discount DESC limit ?', 
                                            today, today, limit_cnt1
                                          ])
-    @coffeeBeans = Product.find_by_sql(['SELECT * FROM products INNER JOIN categories on products.category_id = categories.id where products.is_available = 1 AND products.quantity > 0 AND categories.category = ? limit ?', 'CoffeeBeans',limit_cnt2])
-    @dripBag = Product.find_by_sql(['SELECT * FROM products INNER JOIN categories on products.category_id = categories.id where products.is_available = 1 AND products.quantity > 0 AND categories.category = ? limit ?', 'DripBag',limit_cnt2])
-    @liquidCoffee = Product.find_by_sql(['SELECT * FROM products INNER JOIN categories on products.category_id = categories.id where products.is_available = 1 AND products.quantity > 0 AND categories.category = ? limit ?', 'LiquidCoffee',limit_cnt2])
-    @instantCoffee = Product.find_by_sql(['SELECT * FROM products INNER JOIN categories on products.category_id = categories.id where products.is_available = 1 AND products.quantity > 0 AND categories.category = ? limit ?', 'InstantCoffee',limit_cnt2])
-    @sugarMilk = Product.find_by_sql(['SELECT * FROM products INNER JOIN categories on products.category_id = categories.id where products.is_available = 1 AND products.quantity > 0 AND categories.category = ? limit ?', 'Sugar&Milk',limit_cnt2])
-    @coffeeTools = Product.find_by_sql(['SELECT * FROM products INNER JOIN categories on products.category_id = categories.id where products.is_available = 1 AND products.quantity > 0 AND categories.category = ? limit ?', 'CoffeeTools',limit_cnt2])
+    @coffeeBeans = Product.find_by_sql(['SELECT products.* FROM products INNER JOIN categories on products.category_id = categories.id where products.is_available = 1 AND products.quantity > 0 AND categories.category = ? limit ?', 'CoffeeBeans',limit_cnt2])
+    @dripBag = Product.find_by_sql(['SELECT products.* FROM products INNER JOIN categories on products.category_id = categories.id where products.is_available = 1 AND products.quantity > 0 AND categories.category = ? limit ?', 'DripBag',limit_cnt2])
+    @liquidCoffee = Product.find_by_sql(['SELECT products.* FROM products INNER JOIN categories on products.category_id = categories.id where products.is_available = 1 AND products.quantity > 0 AND categories.category = ? limit ?', 'LiquidCoffee',limit_cnt2])
+    @instantCoffee = Product.find_by_sql(['SELECT products.* FROM products INNER JOIN categories on products.category_id = categories.id where products.is_available = 1 AND products.quantity > 0 AND categories.category = ? limit ?', 'InstantCoffee',limit_cnt2])
+    @sugarMilk = Product.find_by_sql(['SELECT products.* FROM products INNER JOIN categories on products.category_id = categories.id where products.is_available = 1 AND products.quantity > 0 AND categories.category = ? limit ?', 'Sugar&Milk',limit_cnt2])
+    @coffeeTools = Product.find_by_sql(['SELECT products.* FROM products INNER JOIN categories on products.category_id = categories.id where products.is_available = 1 AND products.quantity > 0 AND categories.category = ? limit ?', 'CoffeeTools',limit_cnt2])
     # slide products
     slide_config = Rails.application.config_for(:promotion, env: Rails.env)
     @slide_products = Product.find(slide_config['slide_products'])

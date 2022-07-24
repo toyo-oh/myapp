@@ -17,7 +17,7 @@
                   <v-row class="fill-height" align="center">
                     <v-col cols="7" lg="8" class="mb-14 mb-sm-0">
                       <v-col cols="12" xl="7" class="ms-3 ps-0">
-                        <h1 class="text-h3 font-weight-black mb-4">
+                        <h1 class="text-h4 font-weight-black mb-4">
                           {{ item.title }}
                         </h1>
                       </v-col>
