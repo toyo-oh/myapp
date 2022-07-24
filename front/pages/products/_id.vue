@@ -162,7 +162,7 @@
             md="2"
             lg="2"
             xl="2">
-            <item-card
+            <small-card
               :p-hash-id="item.hashid"
               :p-img="item.images[0].medium.url"
               :p-title="item.title"
@@ -174,7 +174,7 @@
                   price: parseFloat(Number(item.price) * (1 - Number(item.discount))).toFixed(0),
                 })
               ">
-            </item-card>
+            </small-card>
           </v-col>
         </v-row>
       </v-col>
@@ -183,30 +183,15 @@
 </template>
 <script>
 import { mapActions } from "vuex"
-import ItemCard from "@/components/productCard/ItemCard"
+import SmallCard from "@/components/productCard/SmallCard"
 import FavButton from "@/components/common/FavButton"
 export default {
   components: {
-    ItemCard,
+    SmallCard,
     FavButton,
   },
   asyncData({ $axios, params }) {
     return $axios.$get(`/api/products/${params.id}`).then((res) => {
-      // var tmp_images = []
-      // if (res && res.product.images) {
-      //   for (var i = 0; i < res.product.images.length; i++) {
-      //     tmp_images.push(
-      //       res.product.images[i] ? "http://localhost:3000" + res.product.images[i].medium.url : ""
-      //     )
-      //     // tmp_images.push(res.product.images[i] ? this.$axios.browserBaseURL + '/api' + res.roduct.images[i].medium.url : "");
-      //   }
-      // }
-      // if (res && res.related_products) {
-      //   for (var j = 0; j < res.related_products.length; j++) {
-      //     res.related_products[j].images[0] =
-      //       "http://localhost:3000" + res.related_products[j].images[0].medium.url
-      //   }
-      // }
       if (res)
         return {
           title: res.product.title,
