@@ -7,7 +7,7 @@
       <router-link
         :to="{ name: 'products-id', params: { id: pHashId } }"
         class="text-decoration-none">
-        <h5 class="grey--text text--darken-4">{{ pTitle }}</h5>
+        <h5 class="grey--text text--darken-4">{{ pTitle.substring(0, 24) }}</h5>
       </router-link>
       <div class="d-flex justify-space-between">
         <div class="d-flex">
