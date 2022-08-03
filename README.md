@@ -1,57 +1,61 @@
-# myapp
+# MonsterCoffee Shopping Site
 
 
-**1.准备好配置文件**
+通販サイト
+コーヒーの周り商品をネットで販売するサイト
 
-   1.1构建文件目录
-
-   1.2将需要的Dockfile相关配置文件，及docker-compose.yml准备好(如下目录结构)
+→截图
+https://monstercf.net/
 
 ```
-myapp    
-  ｜-front*1  
-    |--Dockerfile  
-  ｜-back*4  
-    |--Dockerfile  
-    |--Gemfile  
-    |--Gemfile.lock  
-    |--entrypoint.sh  
-  ｜- docker-compose.yml  
+◆テスト用user account:
+monstercf.test@gmail.com / 123456
+◆テスト用admin account:
+monstercf.admin@gmail.com / 123456
 ```
 
-
-**2.创建image**  
-  在myapp 目录下运行命令：
-  docker-compose build  
+**1.ポートフォリオ紹介**
 
 
-
-**3.构建Nuxt.js初始目录**  
-  docker-compose run --rm front npx create-nuxt-app  
-  ▲由于front文件夹非空，已有Dockerfile文件存在，所以直接执行以上命令会报错  
-
-  则改为在子目录app下执行命令，在将已创建好的目录内容移动到front下  
-  ①docker-compose run --rm front npx create-nuxt-app app  
-  ②mv front/app/{*,.*} front  
-  ③rmdir front/app  
-
-  然后选择各种Nuxt.js的配置项  
-
-  docker-compose up front  
-  确认Nuxt是否可以启动：http://localhost:8080  
-
-
-
-**4.构建Rails目录**  
-  docker-compose run --rm back rails new . -f -d mysql --api  
-
-  back/config/database.yml配置修改  
-
-  config/environments/development.rb配置修改  
-  这个不做，Nuxt.js无法通过http://back/xxx来访问Rails容器  
-  [development.rb]  
-  Rails.application.config.hosts << 'back'  
+**2.機能一覧**  
+＜ユーザー＞
+- ユーザー新規登録 / アカウントアクティベート / ログイン
+- ユーザー情報変更 / パスワードリセット
+- 住所登録 / 住所編集
+- 商品ホームページ / 商品詳細ページ
+- 商品検索
+- 商品レビュー
+- お気に入り商品
+- 商品購入（カートに入れる / カードで決済 ）
+- 注文履歴（キャンセル / 注文内容確認 / 発送状況確認）
+- メール通知機能（新規登録・パスワードリセット・注文・キャンセル・発送の場合）
+- 日次バッチ（注文ステータス自動更新）
+＜管理者＞
+- 商品登録 / 商品情報編集 / 期間限定セール
+- 注文履歴（キャンセル / 出荷）
 
 
+**3.使用技術**  
+- バックエンド
+    - Ruby / Rails / MySQL / carrierwave / stripe / jwt / dotenv-rails / hashid-rails / fog-aws / whenever/ rspec-rails / rubocop
+- フロントエンド
+    - node / Vue.js / Vue.js / Nuxt.js / Vuetify / nuxt-auth / nuxt-axios / nuxt-dotenv / nuxt-toast / vue-stripe / eslint / prettier / jest
+- インフラ
+    - AWS (ECS / ECR / EC2 / RDS / VPC / ALB / ACM / Route53 / S3 / IAM)
+- CI/CD
+    - CircleCI
+- IDE
+    - VSCode
+- バージョン管理
+    - Git / GitHub
+- 開発環境
+    - Docker / Docker Compose
 
-**5.git设定**
+**4.ER図**  
+
+
+**5.インフラ図**
+
+
+**6.画面キャプチャ**
+
