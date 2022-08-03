@@ -1,15 +1,8 @@
-# MonsterCoffee Shopping Site
-
-コーヒーの周り商品をネットで販売するサイトです
-https://monstercf.net/
-
-
-
 **1.ポートフォリオ紹介**
 
 
 **2.機能一覧**  
-＜ユーザー＞
+＜ユーザー＞  
 - ユーザー新規登録 / アカウントアクティベート / ログイン
 - ユーザー情報変更 / パスワードリセット
 - 住所登録 / 住所編集
@@ -20,7 +13,8 @@ https://monstercf.net/
 - 商品レビュー（ランクつけ[星1-5] / コメント）
 - お気に入り機能（商品をお気に入りに登録・削除）
 - メール通知機能（新規登録・パスワードリセット・注文・キャンセル・発送の場合）
-- 日次バッチ（注文ステータス自動更新）
+- 日次バッチ（注文ステータス自動更新）  
+
 ＜管理者＞
 - 商品登録 / 商品情報編集 / 期間限定セール設定
 - 注文履歴（キャンセル / 出荷）
@@ -43,10 +37,9 @@ https://monstercf.net/
     - Docker / Docker Compose
 
 **4.ER図**  
-![](https://ibb.co/xmfj2Mh)
+![er dragram.png](https://s2.loli.net/2022/08/03/PsdnzNhatOvMcGQ.png)
 
 **5.インフラ図**
-![](https://ibb.co/1Zd5mM5)
+![aws_infra_dragram.jpg](https://s2.loli.net/2022/08/03/5hFKWkIN14OYxTt.jpg)
 
 **6.画面キャプチャ**
-
