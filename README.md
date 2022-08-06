@@ -51,8 +51,8 @@ https://monstercf.net/
   ![1_setup.gif](https://s2.loli.net/2022/08/06/bHF4auAznDUoV3J.gif)
 
 -  #### 商品購入
-  商品を探す → 商品の詳細確認 → カートに入れる → 住所登録 → カード決済 → 注文完了
-  part1
+  商品を探す → 商品の詳細確認 → カートに入れる → 住所登録 → カード決済 → 注文完了  
+  part1  
   ![2_buy_all_1.gif](https://s2.loli.net/2022/08/06/XzJuPLhgGBOdx5R.gif)
   part2
  ![2_buy_all_2 copy.gif](https://s2.loli.net/2022/08/06/WCbUfvNLMJhYj8V.gif)
