@@ -50,7 +50,7 @@
                     <v-card>
                       <div class="pa-5">
                         <h4 class="mb-3 grey--text text--darken-4">Shipping Address</h4>
-                        <p class="text-14">
+                        <p class="text-14 mb-0">
                           {{ addressDetail }}
                         </p>
                       </div>
@@ -58,7 +58,7 @@
                     <v-card>
                       <div class="pa-5 mt-5">
                         <h4 class="mb-3 grey--text text--darken-4">Payment Informations</h4>
-                        <p class="text-14">
+                        <p class="text-14 mb-0">
                           {{ paymentDetail }}
                         </p>
                       </div>

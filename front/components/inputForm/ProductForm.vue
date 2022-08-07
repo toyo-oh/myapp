@@ -3,7 +3,7 @@
     <v-text-field v-if="false" :value="hashid"></v-text-field>
     <v-switch
       color="brown lighten-1"
-      :value="isAvailable"
+      :input-value="isAvailable"
       label="Available"
       @change="$emit('update:isAvailable', $event)"></v-switch>
     <v-text-field
