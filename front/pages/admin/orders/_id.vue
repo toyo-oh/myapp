@@ -3,9 +3,9 @@
     <div>
       <v-row>
         <v-col cols="12">
-          <div class="box-wrapper">
-            <div class="box-content">
-              <div class="box-container">
+          <div>
+            <div>
+              <div>
                 <div class="d-flex justify-space-between flex-wrap mb-5">
                   <div class="d-flex align-center">
                     <v-avatar tile size="25" class="me-3">
@@ -46,11 +46,11 @@
                       :products="products">
                     </detail-card>
                   </v-col>
-                  <v-col cols="12" lg="6">
+                  <v-col cols="6">
                     <v-card>
                       <div class="pa-5">
                         <h4 class="mb-3 grey--text text--darken-4">Shipping Address</h4>
-                        <p class="text-14 mb-0">
+                        <p class="text-14">
                           {{ addressDetail }}
                         </p>
                       </div>
@@ -58,32 +58,32 @@
                     <v-card>
                       <div class="pa-5 mt-5">
                         <h4 class="mb-3 grey--text text--darken-4">Payment Informations</h4>
-                        <p class="text-14 mb-0">
+                        <p class="text-14">
                           {{ paymentDetail }}
                         </p>
                       </div>
                     </v-card>
                   </v-col>
-                  <v-col cols="12" lg="6">
+                  <v-col cols="6">
                     <v-card>
                       <div class="pa-5">
                         <h4 class="mb-3 grey--text text--darken-4">Total Summary</h4>
                         <div class="d-flex justify-space-between mb-2">
-                          <p class="tex-14 mb-0 grey--text text--darken-2">Subtotal:</p>
-                          <p class="tex-14 mb-0 font-weight-bold">¥{{ totalPrice }}</p>
+                          <p class="text-14 mb-0 grey--text text--darken-2">Subtotal:</p>
+                          <p class="text-14 mb-0 font-weight-bold">¥{{ totalPrice }}</p>
                         </div>
                         <div class="d-flex justify-space-between mb-2">
-                          <p class="tex-14 mb-0 grey--text text--darken-2">Shipping fee:</p>
-                          <p class="tex-14 mb-0 font-weight-bold">¥{{ shippingFee }}</p>
+                          <p class="text-14 mb-0 grey--text text--darken-2">Shipping fee:</p>
+                          <p class="text-14 mb-0 font-weight-bold">¥{{ shippingFee }}</p>
                         </div>
                         <div class="d-flex justify-space-between mb-2">
-                          <p class="tex-14 mb-0 grey--text text--darken-2">Discount:</p>
-                          <p class="tex-14 mb-0 font-weight-bold">-</p>
+                          <p class="text-14 mb-0 grey--text text--darken-2">Discount:</p>
+                          <p class="text-14 mb-0 font-weight-bold">-</p>
                         </div>
                         <v-divider class="my-3"></v-divider>
                         <div class="d-flex justify-space-between mb-2">
-                          <p class="tex-14 mb-0 font-weight-bold">Total:</p>
-                          <p class="tex-14 mb-0 font-weight-bold">¥{{ totalPrice }}</p>
+                          <p class="text-14 mb-0 font-weight-bold">Total:</p>
+                          <p class="text-14 mb-0 font-weight-bold">¥{{ totalPrice }}</p>
                         </div>
                       </div>
                     </v-card>

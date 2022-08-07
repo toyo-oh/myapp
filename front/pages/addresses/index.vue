@@ -21,15 +21,8 @@
             hide-default-footer>
             <template #default="props">
               <v-row>
-                <v-col
-                  v-for="item in props.items"
-                  :key="item.name"
-                  cols="12"
-                  sm="6"
-                  md="4"
-                  lg="4"
-                  xl="3">
-                  <v-card class="vendor-card">
+                <v-col v-for="item in props.items" :key="item.name" cols="4">
+                  <v-card>
                     <div class="ma-4">
                       <div class="d-flex justify-space-between">
                         <h3 class="ma-4">{{ item.receiver }}</h3>

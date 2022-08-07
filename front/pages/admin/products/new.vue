@@ -20,7 +20,7 @@
         </v-col>
       </v-row>
       <v-row justify="center">
-        <v-col cols="6" md="6">
+        <v-col cols="6">
           <product-form
             :id="product.id"
             ref="productForm"

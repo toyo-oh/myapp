@@ -17,8 +17,8 @@
     <div v-for="item in products" :key="item.hashid">
       <div class="d-flex align-center justify-space-around flex-wrap pa-4">
         <v-row>
-          <v-col cols="2"> </v-col>
-          <v-col cols="3">
+          <v-col cols="1"> </v-col>
+          <v-col cols="5">
             <div class="d-flex align-center flex-wrap me-4">
               <router-link :to="{ name: 'products-id', params: { id: item.hashid } }">
                 <v-avatar tile size="64" class="me-4">
@@ -35,7 +35,7 @@
               </div>
             </div>
           </v-col>
-          <v-col cols="4">
+          <v-col cols="3">
             <div class="d-flex align-center flex-wrap me-4 mt-4">
               <p class="mb-0 grey--text text--darken-2">
                 {{ item.property }}

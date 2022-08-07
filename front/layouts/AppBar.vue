@@ -17,7 +17,7 @@
       </v-list>
     </v-menu>
     <v-spacer />
-    <v-col cols="4" md="4" sm="4" xs="4">
+    <v-col cols="4">
       <v-text-field
         v-model="searchText"
         color="brown lighten-1"
@@ -138,19 +138,20 @@ export default {
           icon: " mdi-map-marker",
           action: this.userAddress,
         },
+        // Remove payment of menu
+        // {
+        //   index: 4,
+        //   text: "My Payments",
+        //   icon: " mdi-credit-card",
+        //   action: this.userPayment,
+        // },
         {
           index: 4,
-          text: "My Payments",
-          icon: " mdi-credit-card",
-          action: this.userPayment,
-        },
-        {
-          index: 5,
           text: "My Favourites",
           icon: "mdi-heart",
           action: this.userFavourite,
         },
-        { index: 6, text: "Log Out", icon: "mdi-logout", action: this.logout },
+        { index: 5, text: "Log Out", icon: "mdi-logout", action: this.logout },
       ],
       adminmenus: [
         {

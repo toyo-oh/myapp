@@ -28,7 +28,7 @@
             @input="$emit('update:proDiscount', $event)"></v-text-field>
           <h5>Promotion Period <sup class="brown--text">*</sup></h5>
           <v-row>
-            <v-col cols="12" sm="6" md="4">
+            <v-col cols="4">
               <v-menu
                 ref="startMenu"
                 v-model="startMenu"
@@ -56,7 +56,7 @@
                 </v-date-picker>
               </v-menu>
             </v-col>
-            <v-col cols="12" sm="6" md="4">
+            <v-col cols="4">
               <v-menu
                 ref="endMenu"
                 v-model="endMenu"

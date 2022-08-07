@@ -1,5 +1,5 @@
 <template>
-  <button class="btn btn-sm btn-primary" text icon @click="togglefav">
+  <button text icon @click="togglefav">
     <v-icon v-if="favComp" class="ma-2" color="red lighten-2">mdi-heart</v-icon>
     <v-icon v-if="!favComp" class="ma-2">mdi-heart-outline</v-icon>
   </button>

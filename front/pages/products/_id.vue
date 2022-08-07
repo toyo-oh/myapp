@@ -14,7 +14,7 @@
           </v-carousel>
         </v-sheet>
       </v-col>
-      <v-col cols="5" lg="5">
+      <v-col cols="5">
         <div class="d-flex mb-10"></div>
         <h3 class="mb-4">{{ title }}</h3>
         <div class="d-flex">
@@ -110,13 +110,13 @@
                       {{ item.rate }}
                     </div>
                     <div class="grey--text text--darken-2">
-                      {{ new Date(item.created_at).toLocaleString("ja-jp").slice(0, 10) }}
+                      {{ new Date(item.created_at).toLocaleString("ja-jp") }}
                     </div>
                   </div>
                 </div>
               </div>
               <v-row>
-                <v-col cols="12" sm="7" md="6" lg="4">
+                <v-col cols="4">
                   {{ item.comment }}
                 </v-col>
               </v-row>
@@ -153,15 +153,7 @@
         </v-snackbar>
         <h3 class="mb-6">Related Products</h3>
         <v-row>
-          <v-col
-            v-for="(item, index) in relatedProducts"
-            :key="index"
-            cols="12"
-            xs="4"
-            sm="4"
-            md="2"
-            lg="2"
-            xl="2">
+          <v-col v-for="(item, index) in relatedProducts" :key="index" cols="2">
             <small-card
               :p-hash-id="item.hashid"
               :p-img="item.images[0].medium.url"

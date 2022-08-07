@@ -4,7 +4,7 @@
     <div class="white mb-60">
       <v-container>
         <v-row>
-          <v-col cols="12" xl="12" lg="12">
+          <v-col cols="12">
             <v-carousel
               cycle
               height="100%"
@@ -15,13 +15,13 @@
               <v-carousel-item v-for="(item, index) in slideProducts" :key="index">
                 <v-sheet height="100%" light>
                   <v-row class="fill-height" align="center">
-                    <v-col cols="7" lg="8" class="mb-14 mb-sm-0">
-                      <v-col cols="12" xl="7" class="ms-3 ps-0">
+                    <v-col cols="7" class="mb-14">
+                      <v-col cols="12" class="ms-3">
                         <h1 class="text-h4 font-weight-black mb-4">
                           {{ item.title }}
                         </h1>
                       </v-col>
-                      <v-col cols="12" xl="8">
+                      <v-col cols="8">
                         <p class="text--secondary mb-4">
                           {{ item.sub_title }}
                         </p>
@@ -34,7 +34,7 @@
                         >Shop Now</v-btn
                       >
                     </v-col>
-                    <v-col cols="5" lg="4">
+                    <v-col cols="4">
                       <v-img aspect-ratio="1" contain :src="item.images[0].medium.url"></v-img>
                     </v-col>
                   </v-row>
@@ -58,20 +58,12 @@
               class="text-decoration-none blue-grey--text darken-1"
               @click="viewAll('best_sellers')">
               View all
-              <v-icon class="m-0 p-0">mdi-menu-right</v-icon>
+              <v-icon>mdi-menu-right</v-icon>
             </a>
           </div>
           <div>
             <v-row>
-              <v-col
-                v-for="(item, index) in bestSellers"
-                :key="index"
-                cols="12"
-                xs="6"
-                sm="4"
-                md="4"
-                lg="3"
-                xl="3">
+              <v-col v-for="(item, index) in bestSellers" :key="index" cols="3">
                 <item-card
                   :p-id="item.id"
                   :p-hash-id="item.hashid"
@@ -107,20 +99,12 @@
               class="text-decoration-none blue-grey--text darken-1"
               @click="viewAll('new_arrivals')">
               View all
-              <v-icon class="m-0 p-0">mdi-menu-right</v-icon>
+              <v-icon>mdi-menu-right</v-icon>
             </a>
           </div>
           <div>
             <v-row>
-              <v-col
-                v-for="(item, index) in newArrivals"
-                :key="index"
-                cols="12"
-                xs="6"
-                sm="4"
-                md="4"
-                lg="3"
-                xl="3">
+              <v-col v-for="(item, index) in newArrivals" :key="index" cols="3">
                 <item-card
                   :p-id="item.id"
                   :p-hash-id="item.hashid"
@@ -156,20 +140,12 @@
               class="text-decoration-none blue-grey--text darken-1"
               @click="viewAll('big_discounts')">
               View all
-              <v-icon class="m-0 p-0">mdi-menu-right</v-icon>
+              <v-icon>mdi-menu-right</v-icon>
             </a>
           </div>
           <div>
             <v-row>
-              <v-col
-                v-for="(item, index) in bigDiscounts"
-                :key="index"
-                cols="12"
-                xs="6"
-                sm="4"
-                md="4"
-                lg="3"
-                xl="3">
+              <v-col v-for="(item, index) in bigDiscounts" :key="index" cols="3">
                 <item-card
                   :p-id="item.id"
                   :p-hash-id="item.hashid"
@@ -205,20 +181,12 @@
               class="text-decoration-none blue-grey--text darken-1"
               @click="viewAll('top_rankings')">
               View all
-              <v-icon class="m-0 p-0">mdi-menu-right</v-icon>
+              <v-icon>mdi-menu-right</v-icon>
             </a>
           </div>
           <div>
             <v-row>
-              <v-col
-                v-for="(item, index) in topRatings"
-                :key="index"
-                cols="12"
-                xs="6"
-                sm="4"
-                md="4"
-                lg="3"
-                xl="3">
+              <v-col v-for="(item, index) in topRatings" :key="index" cols="3">
                 <item-card
                   :p-id="item.id"
                   :p-hash-id="item.hashid"
@@ -252,20 +220,12 @@
               class="text-decoration-none blue-grey--text darken-1"
               @click="viewAll('category_CoffeeBeans')">
               View all
-              <v-icon class="m-0 p-0">mdi-menu-right</v-icon>
+              <v-icon>mdi-menu-right</v-icon>
             </a>
           </div>
           <div>
             <v-row>
-              <v-col
-                v-for="(item, index) in coffeeBeans"
-                :key="index"
-                cols="12"
-                xs="6"
-                sm="4"
-                md="4"
-                lg="3"
-                xl="3">
+              <v-col v-for="(item, index) in coffeeBeans" :key="index" cols="3">
                 <item-card
                   :p-id="item.id"
                   :p-hash-id="item.hashid"
@@ -299,19 +259,11 @@
               class="text-decoration-none blue-grey--text darken-1"
               @click="viewAll('category_DripBag')">
               View all
-              <v-icon class="m-0 p-0">mdi-menu-right</v-icon>
+              <v-icon>mdi-menu-right</v-icon>
             </a>
           </div>
           <v-row>
-            <v-col
-              v-for="(item, index) in dripBag"
-              :key="index"
-              cols="12"
-              xs="6"
-              sm="4"
-              md="4"
-              lg="3"
-              xl="3">
+            <v-col v-for="(item, index) in dripBag" :key="index" cols="3">
               <item-card
                 :p-id="item.id"
                 :p-hash-id="item.hashid"
@@ -342,19 +294,11 @@
               class="text-decoration-none blue-grey--text darken-1"
               @click="viewAll('category_LiquidCoffee')">
               View all
-              <v-icon class="m-0 p-0">mdi-menu-right</v-icon>
+              <v-icon>mdi-menu-right</v-icon>
             </a>
           </div>
           <v-row>
-            <v-col
-              v-for="(item, index) in liquidCoffee"
-              :key="index"
-              cols="12"
-              xs="6"
-              sm="4"
-              md="4"
-              lg="3"
-              xl="3">
+            <v-col v-for="(item, index) in liquidCoffee" :key="index" cols="3">
               <item-card
                 :p-id="item.id"
                 :p-hash-id="item.hashid"
@@ -385,19 +329,11 @@
               class="text-decoration-none blue-grey--text darken-1"
               @click="viewAll('category_InstantCoffee')">
               View all
-              <v-icon class="m-0 p-0">mdi-menu-right</v-icon>
+              <v-icon>mdi-menu-right</v-icon>
             </a>
           </div>
           <v-row>
-            <v-col
-              v-for="(item, index) in instantCoffee"
-              :key="index"
-              cols="12"
-              xs="6"
-              sm="4"
-              md="4"
-              lg="3"
-              xl="3">
+            <v-col v-for="(item, index) in instantCoffee" :key="index" cols="3">
               <item-card
                 :p-id="item.id"
                 :p-hash-id="item.hashid"
@@ -428,19 +364,11 @@
               class="text-decoration-none blue-grey--text darken-1"
               @click="viewAll('category_Sugar&Milk')">
               View all
-              <v-icon class="m-0 p-0">mdi-menu-right</v-icon>
+              <v-icon>mdi-menu-right</v-icon>
             </a>
           </div>
           <v-row>
-            <v-col
-              v-for="(item, index) in sugarMilk"
-              :key="index"
-              cols="12"
-              xs="6"
-              sm="4"
-              md="4"
-              lg="3"
-              xl="3">
+            <v-col v-for="(item, index) in sugarMilk" :key="index" cols="3">
               <item-card
                 :p-id="item.id"
                 :p-hash-id="item.hashid"
@@ -471,19 +399,11 @@
               class="text-decoration-none blue-grey--text darken-1"
               @click="viewAll('category_CoffeeTools')">
               View all
-              <v-icon class="m-0 p-0">mdi-menu-right</v-icon>
+              <v-icon>mdi-menu-right</v-icon>
             </a>
           </div>
           <v-row>
-            <v-col
-              v-for="(item, index) in coffeeTools"
-              :key="index"
-              cols="12"
-              xs="6"
-              sm="4"
-              md="4"
-              lg="3"
-              xl="3">
+            <v-col v-for="(item, index) in coffeeTools" :key="index" cols="3">
               <item-card
                 :p-id="item.id"
                 :p-hash-id="item.hashid"
@@ -560,13 +480,3 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-.router-link-active {
-  text-decoration: none;
-  color: brown;
-}
-a {
-  text-decoration: none;
-  color: white;
-}
-</style>

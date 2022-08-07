@@ -15,7 +15,7 @@
         </v-col>
       </v-row>
       <v-row justify="center">
-        <v-col cols="12" md="6">
+        <v-col cols="6">
           <v-form ref="form" v-model="valid">
             <v-text-field
               v-model="newPassword"

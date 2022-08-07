@@ -20,7 +20,7 @@
         </v-col>
       </v-row>
       <v-row justify="center">
-        <v-col cols="12" md="6">
+        <v-col cols="6">
           <address-form
             ref="addressForm"
             :receiver.sync="address.receiver"

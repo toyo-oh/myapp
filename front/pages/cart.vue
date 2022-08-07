@@ -14,7 +14,7 @@
       </v-col>
       <v-col cols="12">
         <v-row>
-          <v-col cols="12" md="6" lg="8" xl="8">
+          <v-col cols="8">
             <div v-for="item in products" :key="item.id">
               <v-card class="d-flex flex-wrap mb-6">
                 <router-link :to="{ name: 'products-id', params: { id: item.hashid } }">
@@ -75,7 +75,7 @@
               </v-card>
             </div>
           </v-col>
-          <v-col cols="12" md="6" lg="4" xl="4">
+          <v-col cols="4">
             <v-card v-if="products.length > 0">
               <div class="pa-5">
                 <div class="d-flex justify-space-between">

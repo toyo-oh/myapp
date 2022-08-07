@@ -1,14 +1,14 @@
 <template>
   <div>
     <v-row>
-      <v-col cols="12" md="6" lg="8" xl="8">
+      <v-col cols="8">
         <v-card class="mb-4">
           <div class="pa-4">
             <v-row>
               <v-col cols="12">
                 <div class="d-flex">
                   <v-avatar size="30" color="brown lighten-1" class="me-3">
-                    <p class="white--text mb-0">1</p>
+                    <p class="white--text mb-0"><v-icon color="white">mdi-lead-pencil</v-icon></p>
                   </v-avatar>
                   <h3 class="font-weight-light">Delivery Address</h3>
                   <v-btn
@@ -78,7 +78,7 @@
               <v-col cols="12">
                 <div class="d-flex">
                   <v-avatar size="30" color="brown lighten-1" class="me-3">
-                    <p class="white--text mb-0">2</p>
+                    <p class="white--text mb-0"><v-icon color="white">mdi-lead-pencil</v-icon></p>
                   </v-avatar>
                   <h3 class="font-weight-light">Payment Methods</h3>
                 </div>
@@ -92,17 +92,14 @@
                     @token="tokenCreated" />
                 </div>
               </v-col>
-              <!-- <v-col cols="12" class="py-0">
-                <v-btn id="custom-button" dark color="brown lighten-1" class="text-capitalize mb-4" block @click="submit">Place Order</v-btn>
-              </v-col> -->
             </v-row>
           </div>
         </v-card>
       </v-col>
-      <v-col cols="12" md="6" lg="4" xl="4">
+      <v-col cols="4">
         <v-card>
           <div class="pa-5">
-            <p class="font-weight-bold mb-6">You Order</p>
+            <p class="font-weight-bold mb-6">Your Order</p>
             <div
               v-for="item in products"
               :key="item.hashid"
@@ -185,7 +182,6 @@ export default {
       this.$refs.elementRef.submit()
     },
     tokenCreated(token) {
-      // send it to your server
       this.createOrder(token.id)
     },
     loadData() {
