@@ -12,7 +12,6 @@
               <v-divider></v-divider>
               <br />
             </div>
-            <!-- <h5 class="grey--text text--darken-3 text-sm mb-9 text-center">Please fill all forms to continued</h5> -->
             <v-text-field
               v-model="name"
               outlined
@@ -49,7 +48,6 @@
               label="Email"
               :rules="emailRules"
               required></v-text-field>
-            <!-- <v-switch v-model="is_admin" class="ma-4" label="Administrator"></v-switch> -->
             <v-checkbox
               v-model="agree"
               color="brown lighten-1"

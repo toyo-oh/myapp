@@ -13,11 +13,11 @@
         <v-col cols="3"> </v-col>
       </v-row>
       <v-row justify="center">
-        <v-col cols="12" md="6">
+        <v-col cols="6">
           <v-card class="mb-4">
             <div class="pa-4 d-flex align-center justify-space-between">
               <div class="flex-1 mr-3">
-                <h4 class="mb-0 brown--text ltext--ighten-1">Profile</h4>
+                <h4 class="mb-0 brown--text text--lighten-1">Profile</h4>
               </div>
               <div class="flex-1 mr-3">
                 <p class="mb-0">{{ name }}</p>

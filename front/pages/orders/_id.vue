@@ -2,9 +2,9 @@
   <div>
     <v-row>
       <v-col cols="12">
-        <div class="box-wrapper">
-          <div class="box-content">
-            <div class="box-container">
+        <div>
+          <div>
+            <div>
               <div class="d-flex justify-space-between flex-wrap mb-5">
                 <div class="d-flex align-center">
                   <v-avatar tile size="25" class="me-3">
@@ -112,7 +112,7 @@
                     @review-product="showReviewDialog">
                   </detail-card>
                 </v-col>
-                <v-col cols="12" lg="6">
+                <v-col cols="6">
                   <v-card>
                     <div class="pa-5">
                       <h4 class="mb-3 grey--text text--darken-4">Shipping Address</h4>
@@ -130,7 +130,7 @@
                     </div>
                   </v-card>
                 </v-col>
-                <v-col cols="12" lg="6">
+                <v-col cols="6">
                   <v-card>
                     <div class="pa-5">
                       <h4 class="mb-3 grey--text text--darken-4">Total Summary</h4>
@@ -323,26 +323,6 @@ export default {
         })
       }
     },
-    // payOrder () {
-    //   if (!this.$auth.loggedIn) {
-    //     this.$toast.error('Please login in before pay the order!');
-    //   } else {
-    //     this.$axios.post('/api/orders/pay_order', { order_no: this.orderNo }).then((res) => {
-    //       this.orderStatus = res.data.aasm_state;
-    //       this.$toast.show('Order paid successfully!');
-    //     });
-    //   }
-    // },
-    // receiveGoods () {
-    //   if (!this.$auth.loggedIn) {
-    //     this.$toast.error('Please login in before receive the order!');
-    //   } else {
-    //     this.$axios.post('api/orders/receive_good', { order_no: this.orderId }).then((res) => {
-    //       this.$toast.show('Receive order successfully!');
-    //       this.orderStatus = res.data.aasm_state;
-    //     });
-    //   }
-    // },
     rtnToList() {
       this.$router.push(`.`)
     },

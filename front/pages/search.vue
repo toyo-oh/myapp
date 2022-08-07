@@ -26,18 +26,9 @@
         </v-card>
       </v-col>
       <v-col cols="12">
-        <div class="box-wrapper">
-          <div
-            class="box-overlay"
-            :class="{ open: isSidebar }"
-            @click="isSidebar = !isSidebar"></div>
-          <div class="box-content">
-            <div class="d-flex justify-end pa-2 d-block d-md-none">
-              <v-btn icon @click="isSidebar = !isSidebar">
-                <v-icon dark> mdi-format-list-bulleted-square </v-icon>
-              </v-btn>
-            </div>
-            <div class="box-container">
+        <div>
+          <div>
+            <div>
               <v-row>
                 <v-col cols="12">
                   <v-data-iterator
@@ -47,14 +38,7 @@
                     hide-default-footer>
                     <template #default="props">
                       <v-row>
-                        <v-col
-                          v-for="(item, index) in props.items"
-                          :key="index"
-                          cols="12"
-                          sm="6"
-                          md="6"
-                          lg="3"
-                          xl="3">
+                        <v-col v-for="(item, index) in props.items" :key="index" cols="3">
                           <item-card
                             :p-hash-id="item.hashid"
                             :p-img="item.images[0].medium.url"
@@ -120,7 +104,6 @@ export default {
   },
   data() {
     return {
-      isSidebar: false,
       page: 1,
       itemsPerPage: 12,
       range: [0, 100, 500, 1000],
