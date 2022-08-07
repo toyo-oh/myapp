@@ -6,7 +6,7 @@
         <v-divider></v-divider>
         <v-card-text style="height: 300px">
           <v-switch
-            :value="proActive"
+            :input-value="proActive"
             color="brown lighten-1"
             label="Promotion Active"
             @change="$emit('update:proActive', $event)"></v-switch>
